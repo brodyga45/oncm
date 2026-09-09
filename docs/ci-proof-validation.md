@@ -28,6 +28,8 @@ Acceptance requires retrieving the real receipt, independently verifying its exa
 
 ## Prepared independent EVM check
 
+The corrected workflow was dispatched as [run 34415338599](https://github.com/brodyga45/oncm/actions/runs/34415338599), job `102678854175`, commit `861792a532c809de9fbc2266c5fda0bc138a483c`, with the same single `perf05 / true-registration` input. Its seven lightweight tests and tool installation passed; the real proving step is in progress. The run outcome and real cryptographic acceptance remain pending at this observation.
+
 `implementations/exchange/scripts/verify-ci-proof.mjs` accepts a downloaded `verified.json` with explicit `--profile perf05|v3` and `--case`. It rechecks pinned assets, image/profile/goal/outcome, the entire journal and canonical ABI certificate before calling the original verifier. It requires rejection of changed image and journal values. Optional `--record` submits one zero-value verification transaction on local chain 31372 and preserves its receipt/block; it does not register a profile or create a market.
 
 For perf05, this is a generic cryptographic verifier check only: the current application bridge pins v3. For a matching v3 artifact, the script additionally calls that bridge. On 2026-09-10, read-only RPC checks confirmed the underlying deployed verifier `0xD781C44726058d2971B58408c492192877FAAC17`, selector `0x73c457ba`, version `3.0.0`, and the expected v3 bridge image. The script passed syntax review; **no positive certificate call or transaction has yet run**, because the first CI attempt produced no receipt.
