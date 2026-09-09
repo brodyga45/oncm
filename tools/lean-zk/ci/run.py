@@ -95,8 +95,9 @@ def main():
     r0vm = work / 'bin/r0vm'
     require(not os.environ.get('RISC0_DEV_MODE'), 'Dev mode forbidden')
     ci_env = {'PATH': str(HERE) + ':/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-              'RAYON_NUM_THREADS': '2', 'TOKIO_WORKER_THREADS': '2', 'OMP_NUM_THREADS': '2',
-              'RISC0_DEV_MODE': '', 'RUST_LOG': 'info', 'ONCM_REAL_DOCKER': real_docker,
+              'RAYON_NUM_THREADS': str(pins['host']['workerThreads']), 'TOKIO_WORKER_THREADS': '2',
+              'OMP_NUM_THREADS': str(pins['host']['workerThreads']),
+              'RISC0_DEV_MODE': '', 'RUST_LOG': pins['host']['rustLog'], 'ONCM_REAL_DOCKER': real_docker,
               'ONCM_CI_RUN': run_id, 'HOME': os.environ['HOME']}
     image = None
     for case in CASES if args.case == 'all' else [args.case]:
@@ -118,7 +119,7 @@ def main():
         # Host and Docker are siblings below one kernel-enforced 13 GiB parent.
         command = ['sudo', 'systemd-run', '--quiet', '--scope', '--unit=' + scope,
                    '--property=MemoryMax=' + pins['host']['memoryMax'],
-                   '--property=MemorySwapMax=0', '--property=CPUQuota=200%', '--property=TasksMax=128',
+                   '--property=MemorySwapMax=0', '--property=CPUQuota=' + pins['host']['cpuQuota'], '--property=TasksMax=128',
                    'sudo', '-u', os.environ['USER'], 'env']
         command += [key + '=' + value for key, value in env.items()]
         command += original_cmd

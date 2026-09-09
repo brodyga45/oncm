@@ -35,7 +35,8 @@ cmd = [real, 'run', '--rm', '--pull=never', '--platform=linux/amd64',
        '--cpus=' + pins['docker']['cpus'], '--pids-limit=' + str(pins['docker']['pidsLimit']),
        '--security-opt=no-new-privileges', '--cap-drop=ALL',
        '--user', f'{os.getuid()}:{os.getgid()}',
-       '-e', 'GOMAXPROCS=2', '-e', 'GOMEMLIMIT=8GiB', '-e', 'OMP_NUM_THREADS=2',
+       '-e', 'GOMAXPROCS=' + str(pins['docker']['workerThreads']), '-e', 'GOMEMLIMIT=8GiB',
+       '-e', 'OMP_NUM_THREADS=' + str(pins['docker']['workerThreads']),
        '-v', f'{work}:/mnt', pins['docker']['pinnedImage']]
 (work / 'docker-command.json').write_text(json.dumps(cmd, indent=2) + '\n')
 os.execv(real, cmd)

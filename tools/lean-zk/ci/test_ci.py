@@ -22,9 +22,13 @@ class BundleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             for name, value in [('memory.max', str(13 * 1024 ** 3)), ('memory.swap.max', '0'),
-                                ('cpu.max', '200000 100000'), ('memory.peak', '0'), ('memory.events', 'oom 0')]:
+                                ('cpu.max', '400000 100000'), ('memory.peak', '0'), ('memory.events', 'oom 0')]:
                 (root / name).write_text(value)
             check_kernel_limits(root)
+            (root / 'cpu.max').write_text('200000 100000')
+            with self.assertRaises(RuntimeError):
+                check_kernel_limits(root)
+            (root / 'cpu.max').write_text('400000 100000')
             (root / 'memory.max').write_text('max')
             with self.assertRaises(RuntimeError):
                 check_kernel_limits(root)
@@ -49,6 +53,16 @@ class BundleTests(unittest.TestCase):
             self.assertEqual(report['lastSeen']['worker.scope']['memory.current'], 90)
             with self.assertRaises(RuntimeError):
                 Observer(group, artifacts, proc_cgroup='0::/oncmci123.slice/worker.scope\n')
+
+    def test_ci_budget_and_debug_policy(self):
+        pins = json.loads((Path(__file__).parent / 'pins.json').read_text())
+        self.assertEqual(pins['host']['caseTimeoutSeconds'], 1800)
+        self.assertEqual(pins['host']['workerThreads'], 4)
+        self.assertEqual(pins['sharedBudget']['memoryMaxBytes'], 13 * 1024 ** 3)
+        self.assertEqual(pins['sharedBudget']['cpuQuota'], '400%')
+        self.assertEqual(pins['docker']['cpus'], '4')
+        self.assertNotIn('=trace', pins['host']['rustLog'])
+        self.assertIn('risc0_groth16::prove::docker=debug', pins['host']['rustLog'])
 
     def test_cleanup_timeout_does_not_abort_later_cleanup(self):
         errors = []

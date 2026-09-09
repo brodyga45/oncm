@@ -20,7 +20,7 @@ def check_kernel_limits(group):
     require((group / 'memory.max').read_text().strip() == str(13 * GIB), 'Shared memory.max must be 13 GiB')
     require((group / 'memory.swap.max').read_text().strip() == '0', 'Shared swap must be disabled')
     quota, period = (group / 'cpu.max').read_text().split()
-    require(quota != 'max' and 0 < int(quota) <= 2 * int(period), 'Shared CPU quota must be <=2 CPUs')
+    require(quota != 'max' and int(quota) == 4 * int(period), 'Shared CPU quota must be 4 CPUs')
     require((group / 'memory.peak').is_file() and (group / 'memory.events').is_file(),
             'Require kernel cgroup peak and event counters')
 
@@ -30,7 +30,7 @@ def create_slice(directory, case_name):
     (directory / 'slice.txt').write_text(name)
     spec = ('[Unit]\nDescription=ONCM isolated CI proof budget\n'
             '[Slice]\nMemoryAccounting=yes\nMemoryMax=13G\nMemorySwapMax=0\n'
-            'CPUAccounting=yes\nCPUQuota=200%\nTasksAccounting=yes\nTasksMax=256\n')
+            'CPUAccounting=yes\nCPUQuota=400%\nTasksAccounting=yes\nTasksMax=256\n')
     (directory / 'slice-unit.txt').write_text(spec)
     destination = '/run/systemd/system/' + name
     subprocess.run(['sudo', 'tee', destination], input=spec, text=True, check=True, stdout=subprocess.DEVNULL)
@@ -76,6 +76,7 @@ class Observer:
         require(all('/' + group.name not in line.split(':', 2)[-1].splitlines()[0]
                     for line in self.proc_cgroup.splitlines()), 'Observer must remain outside shared slice')
         self.started = time.monotonic()
+        self.last_heartbeat = self.started
         self.last, self.maximum = {}, {}
         self.samples = 0
         self.sample()
@@ -110,6 +111,17 @@ class Observer:
         pending = self.directory / 'cgroup-summary.json.tmp'
         pending.write_text(json.dumps(summary, indent=2) + '\n')
         pending.replace(self.directory / 'cgroup-summary.json')
+        now = time.monotonic()
+        if now - self.last_heartbeat >= 30:
+            parent = self.last.get('.', {})
+            events = parent.get('memory.events', {})
+            cpu_seconds = parent.get('cpu.stat', {}).get('usage_usec', 0) / 1_000_000
+            print(f"Proof progress: elapsed={now - self.started:.0f}s "
+                  f"memory={parent.get('memory.current', 0) / GIB:.2f}GiB "
+                  f"peak={parent.get('memory.peak', 0) / GIB:.2f}GiB "
+                  f"cpu={cpu_seconds:.1f}s avgCPUs={cpu_seconds / max(now - self.started, 1):.2f} "
+                  f"oom={events.get('oom', 0)} oomKills={events.get('oom_kill', 0)}", flush=True)
+            self.last_heartbeat = now
 
     def execute(self, command, log, timeout):
         child = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)

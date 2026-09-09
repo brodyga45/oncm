@@ -24,6 +24,9 @@ def main():
                       if line.startswith('MemTotal:'))) * 1024
     if memory < 14 * 1024 ** 3:
         raise RuntimeError('Public 16 GB runner required; private 8 GB runner is insufficient')
+    cpu_count, affinity = os.cpu_count(), sorted(os.sched_getaffinity(0))
+    if len(affinity) < 4:
+        raise RuntimeError('Expected four available CPUs on the standard public runner')
     docker = shutil.which('docker')
     if not docker:
         raise RuntimeError('Official GitHub Ubuntu runner must provide Docker')
@@ -75,6 +78,7 @@ def main():
               'dockerBinary': docker, 'dockerImageId': image['Id'], 'dockerImageSize': image['Size'],
               'dockerCgroupDriver': info['CgroupDriver'], 'dockerCgroupVersion': info['CgroupVersion'],
               'systemdVersion': subprocess.check_output(['systemctl', '--version'], text=True).splitlines()[0],
+              'cpuCount': cpu_count, 'cpuAffinity': affinity,
               'pins': pins, 'freeDiskAfterPull': shutil.disk_usage(work).free, 'memoryTotal': memory}
     (work / 'environment.json').write_text(json.dumps(record, indent=2) + '\n')
     print(json.dumps(record, indent=2))

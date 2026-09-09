@@ -15,15 +15,18 @@
     "metadataCheckedOn": "2026-09-10",
     "memory": "9g",
     "memorySwap": "9g",
-    "cpus": "2",
-    "pidsLimit": 128
+    "cpus": "4",
+    "pidsLimit": 128,
+    "workerThreads": 4
   },
   "host": {
     "memoryMax": "12G",
     "memorySwapMax": 0,
-    "cpuQuota": "200%",
+    "cpuQuota": "400%",
     "tasksMax": 128,
-    "caseTimeoutSeconds": 600
+    "caseTimeoutSeconds": 1800,
+    "workerThreads": 4,
+    "rustLog": "info,risc0_zkvm::host::server::prove::prover_impl=debug,risc0_zkvm::host::recursion::prove=debug,risc0_zkp::prove::prover=debug,risc0_groth16::prove::docker=debug"
   },
   "scope": "GitHub public Linux x64 standard runner only; CI-specific limits exceed local 2GiB target",
   "ethereum": {
@@ -34,10 +37,10 @@
     "memoryMax": "13G",
     "memoryMaxBytes": 13958643712,
     "memorySwapMax": 0,
-    "cpuQuota": "200%",
+    "cpuQuota": "400%",
     "tasksMax": 256,
     "requiredDockerCgroupDriver": "systemd",
     "requiredCgroupVersion": 2,
-    "reason": "CI run34414002347 guest completed then host scope4G SIGKILL before Docker; redistribute existing13G total cap across sequential stages"
+    "reason": "CI1 host4G SIGKILL corrected with shared13G; CI2 fits at4.587GiB with zeroOOM but uses1195CPU-seconds and reaches600s timeout. Use existing public4CPU plus1800s, unchanged memory/crypto."
   }
 }
