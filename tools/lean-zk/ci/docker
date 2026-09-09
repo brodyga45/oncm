@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from resource_group import check_kernel_limits
 
 HERE = Path(__file__).resolve().parent
 pins = json.loads((HERE / 'pins.json').read_text())
@@ -21,7 +22,13 @@ expected = ['run', '--rm', '-v', f'{work}:/mnt', pins['docker']['requestedTag']]
 if args != expected:
     raise SystemExit('Refusing unexpected Docker command')
 case_name = os.environ['ONCM_CONTAINER_NAME']
+shared_slice = os.environ['ONCM_CGROUP_SLICE']
+from resource_group import slice_name
+if shared_slice != slice_name(case_name):
+    raise SystemExit('Unexpected shared cgroup parent')
+check_kernel_limits(Path('/sys/fs/cgroup') / shared_slice)
 cmd = [real, 'run', '--rm', '--pull=never', '--platform=linux/amd64',
+       '--cgroup-parent=' + shared_slice,
        '--name', case_name, '--label', 'oncm.ci-run=' + os.environ['ONCM_CI_RUN'],
        '--cidfile', str(work / 'container.cid'), '--network=none',
        '--memory=' + pins['docker']['memory'], '--memory-swap=' + pins['docker']['memorySwap'],

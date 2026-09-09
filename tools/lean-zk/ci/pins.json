@@ -19,7 +19,7 @@
     "pidsLimit": 128
   },
   "host": {
-    "memoryMax": "4G",
+    "memoryMax": "12G",
     "memorySwapMax": 0,
     "cpuQuota": "200%",
     "tasksMax": 128,
@@ -29,5 +29,15 @@
   "ethereum": {
     "selector": "0x73c457ba",
     "risc0EthereumCommit": "32aa0b6f23ddd02dd93fc71717667606e5c7db86"
+  },
+  "sharedBudget": {
+    "memoryMax": "13G",
+    "memoryMaxBytes": 13958643712,
+    "memorySwapMax": 0,
+    "cpuQuota": "200%",
+    "tasksMax": 256,
+    "requiredDockerCgroupDriver": "systemd",
+    "requiredCgroupVersion": 2,
+    "reason": "CI run34414002347 guest completed then host scope4G SIGKILL before Docker; redistribute existing13G total cap across sequential stages"
   }
 }

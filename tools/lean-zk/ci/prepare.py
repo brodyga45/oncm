@@ -24,6 +24,17 @@ def main():
                       if line.startswith('MemTotal:'))) * 1024
     if memory < 14 * 1024 ** 3:
         raise RuntimeError('Public 16 GB runner required; private 8 GB runner is insufficient')
+    docker = shutil.which('docker')
+    if not docker:
+        raise RuntimeError('Official GitHub Ubuntu runner must provide Docker')
+    info = json.loads(subprocess.check_output([docker, 'info', '--format', '{{json .}}']))
+    if info.get('CgroupDriver') != 'systemd' or str(info.get('CgroupVersion')) != '2':
+        raise RuntimeError('Shared CI budget requires Docker systemd driver and cgroup v2')
+    if any('rootless' in item for item in info.get('SecurityOptions', [])):
+        raise RuntimeError('Shared CI slice requires the system Docker daemon')
+    controllers = Path('/sys/fs/cgroup/cgroup.controllers').read_text().split()
+    if not {'cpu', 'memory'}.issubset(controllers):
+        raise RuntimeError('Require cgroup-v2 CPU and memory controllers')
     work.mkdir(parents=True, exist_ok=True)
     (HERE / 'docker').chmod(0o755)
     if shutil.disk_usage(work).free < 9 * 1024 ** 3:
@@ -51,9 +62,6 @@ def main():
             shutil.copyfileobj(source, out)
     (work / 'bin/r0vm').chmod(0o755)
     archive.unlink()
-    docker = shutil.which('docker')
-    if not docker:
-        raise RuntimeError('Official GitHub Ubuntu runner must provide Docker')
     subprocess.run([docker, 'pull', '--platform=linux/amd64', pins['docker']['pinnedImage']], check=True)
     image = json.loads(subprocess.check_output([docker, 'image', 'inspect', pins['docker']['pinnedImage']]))[0]
     if image['Architecture'] != 'amd64':
@@ -65,6 +73,8 @@ def main():
         raise RuntimeError('Require 2 GiB working disk after pulling image')
     record = {'r0vmVersion': version, 'r0vmSha256': hashlib.sha256((work / 'bin/r0vm').read_bytes()).hexdigest(),
               'dockerBinary': docker, 'dockerImageId': image['Id'], 'dockerImageSize': image['Size'],
+              'dockerCgroupDriver': info['CgroupDriver'], 'dockerCgroupVersion': info['CgroupVersion'],
+              'systemdVersion': subprocess.check_output(['systemctl', '--version'], text=True).splitlines()[0],
               'pins': pins, 'freeDiskAfterPull': shutil.disk_usage(work).free, 'memoryTotal': memory}
     (work / 'environment.json').write_text(json.dumps(record, indent=2) + '\n')
     print(json.dumps(record, indent=2))

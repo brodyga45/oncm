@@ -13,6 +13,7 @@ import sys
 import time
 
 from receipt import ReceiptReader, require, verify_original
+from resource_group import Observer, create_slice, cleanup_slice, cleanup_command
 
 HERE = Path(__file__).resolve().parent
 CASES = ['true-registration', 'true-proof', 'false-registration', 'false-refutation']
@@ -53,18 +54,20 @@ def inputs(profile_name, case):
 
 
 def clean_case(case_dir, real_docker):
+    errors = []
     scope_file = case_dir / 'scope.txt'
     if scope_file.exists():
         scope = scope_file.read_text().strip()
         if re.fullmatch(r'oncm-ci-[A-Za-z0-9-]+\.scope', scope):
-            subprocess.run(['sudo', 'systemctl', 'stop', scope], stdout=subprocess.DEVNULL,
-                           stderr=subprocess.DEVNULL, timeout=15)
+            cleanup_command(['sudo', 'systemctl', 'stop', scope], errors)
     name_file = case_dir / 'container-name.txt'
     if name_file.exists():
         name = name_file.read_text().strip()
         if re.fullmatch(r'oncm-ci-[A-Za-z0-9-]+', name):
-            subprocess.run([real_docker, 'rm', '-f', name], stdout=subprocess.DEVNULL,
-                           stderr=subprocess.DEVNULL, timeout=15)
+            cleanup_command([real_docker, 'rm', '-f', name], errors)
+    cleanup_slice(case_dir, errors)
+    if errors:
+        write_json(case_dir / 'cleanup-errors.json', errors)
 
 
 def main():
@@ -85,6 +88,8 @@ def main():
             if directory.is_dir():
                 clean_case(directory, real_docker)
         return
+    require(setup.get('dockerCgroupDriver') == 'systemd' and str(setup.get('dockerCgroupVersion')) == '2',
+            'Require verified cgroup-v2/systemd setup')
     run_id = os.environ.get('GITHUB_RUN_ID', 'manual') + '-' + os.environ.get('GITHUB_RUN_ATTEMPT', '1')
     require(re.fullmatch(r'[A-Za-z0-9-]+', run_id), 'Invalid run ID')
     r0vm = work / 'bin/r0vm'
@@ -110,7 +115,7 @@ def main():
         original_cmd = [str(r0vm), '--elf', str(root / 'lean-checker.bin'),
                         '--initial-input', str(directory / 'stdin.bin'), '--receipt-kind', 'groth16',
                         '--receipt', str(directory / 'receipt.bin')]
-        # cgroup contains the host and CLI descendants. Docker has its own explicit 9 GiB cgroup.
+        # Host and Docker are siblings below one kernel-enforced 13 GiB parent.
         command = ['sudo', 'systemd-run', '--quiet', '--scope', '--unit=' + scope,
                    '--property=MemoryMax=' + pins['host']['memoryMax'],
                    '--property=MemorySwapMax=0', '--property=CPUQuota=200%', '--property=TasksMax=128',
@@ -119,13 +124,19 @@ def main():
         command += original_cmd
         write_json(directory / 'original-command.json', original_cmd)
         started = time.monotonic()
+        observer = None
         try:
+            shared_slice, shared_group = create_slice(directory, name)
+            observer = Observer(shared_group, directory)
+            env['ONCM_CGROUP_SLICE'] = shared_slice
+            # Insert resource and environment arguments without changing original r0vm flags.
+            command.insert(command.index('--unit=' + scope) + 1, '--slice=' + shared_slice)
+            command.insert(command.index(original_cmd[0]), 'ONCM_CGROUP_SLICE=' + shared_slice)
             actual_image = subprocess.check_output([str(r0vm), '--elf', str(root / 'lean-checker.bin'), '--id'],
                                                   env=env, text=True, timeout=10).strip()
             require(actual_image == image, 'Original r0vm computed a different image ID')
             with (directory / 'prover.log').open('wb') as log:
-                subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, check=True,
-                               timeout=pins['host']['caseTimeoutSeconds'])
+                observer.execute(command, log, pins['host']['caseTimeoutSeconds'])
             receipt_path = directory / 'receipt.bin'
             require(receipt_path.stat().st_size <= 8 * 1024 ** 2, 'Unexpectedly large receipt')
             receipt = receipt_path.read_bytes()
@@ -159,7 +170,11 @@ def main():
             write_json(directory / 'failure.json', {'error': str(error), 'elapsedSeconds': time.monotonic() - started})
             raise
         finally:
-            clean_case(directory, real_docker)
+            try:
+                if observer is not None:
+                    observer.sample()  # Preserve peak/events before scope/container/slice cleanup.
+            finally:
+                clean_case(directory, real_docker)
 
 
 if __name__ == '__main__':
