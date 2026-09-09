@@ -1,0 +1,61 @@
+{
+  "tests": [
+    {
+      "test": "short-ipc-shutdown",
+      "wallSeconds": 0.456,
+      "peakTreeFootprintBytes": 24445792,
+      "memoryLimitBytes": 134217728,
+      "reason": "completed",
+      "exitCode": 0,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    },
+    {
+      "test": "zombie-is-finished",
+      "wallSeconds": 0.436,
+      "peakTreeFootprintBytes": 17105472,
+      "memoryLimitBytes": 134217728,
+      "reason": "completed",
+      "exitCode": 0,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    },
+    {
+      "test": "live-orphan-stopped",
+      "wallSeconds": 1.059,
+      "peakTreeFootprintBytes": 24576816,
+      "memoryLimitBytes": 134217728,
+      "reason": "orphaned-descendants",
+      "exitCode": 126,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    },
+    {
+      "test": "memory",
+      "wallSeconds": 0.411,
+      "peakTreeFootprintBytes": 84312664,
+      "memoryLimitBytes": 33554432,
+      "reason": "memory-limit",
+      "exitCode": 125,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    },
+    {
+      "test": "timeout",
+      "wallSeconds": 0.918,
+      "peakTreeFootprintBytes": 17203800,
+      "memoryLimitBytes": 134217728,
+      "reason": "timeout",
+      "exitCode": 124,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    }
+  ],
+  "allPassed": true,
+  "scope": "Synthetic lifecycle checks; no Lean or prover; allocation at most 64 MiB"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "splits-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "build:optimized": "turbo build:optimized",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "lint:sol": "turbo lint:sol",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo test",
+    "test:optimized": "turbo test:optimized",
+    "test:coverage": "turbo test:coverage"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0",
+    "turbo": "^1.12.2"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

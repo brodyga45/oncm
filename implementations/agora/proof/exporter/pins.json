@@ -1,0 +1,22 @@
+{
+  "format": "oncm-lean-exporter-build-v1",
+  "upstreamRepository": "https://github.com/leanprover/lean4export",
+  "upstreamCommit": "15f6055e299ad5b89345e533cc2192f4cc00f659",
+  "leanVersion": "4.33.1",
+  "leanCommit": "819816b2e0a3bf405af45ae5c7af2491d8f5bee6",
+  "change": "Restore historical Std empty-map initializer for visitedExprs only",
+  "precedent": "https://github.com/ammkrn/lean4export/blob/4dc170805dc7abee5c8bcad72d879e2c37701cf1/Export.lean",
+  "binaryRelativePath": ".lake/build/bin/lean4export",
+  "binarySha256": "ddd765975ec6bf53de8e511958218de2f38927ff594cf83c3253971296c7144e",
+  "originalBinarySha256": "e775ccfbe86c08fa9fea1ec1fe45c46ed168cf48236ff8ba429aa28b05c0623e",
+  "patchedExportSha256": "f8e3d7dc857aa1eb3efc03604513be87934697f019816650797f50777b595998",
+  "bundleSha256": {
+    "build.py": "e0e73f0de6f40097f4ba24b4e5b7ca8de1325cec365361d7fc5153a33765db7e",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "link.rsp.template": "012eefee4a6c8c6ee4c5496cf9fdf6a39b7249fdd7273516a8914f0c4d85f710",
+    "std-default-capacity.patch": "5c1f3330dbc9cdb00cfb65082910de15dd4cba1e3dcb55c4234892ef6af297f6",
+    "commands.template.json": "6061a1e738d46fba5c0784187ffd885fe676932af8854742fb03a5e2faec6729",
+    "upstream/Export.lean": "1c60d571dc24bfb99e7cbb218d8d489919bbc871238f6db9c76248521fbea998",
+    "upstream/Main.lean": "bd8e350903f1382b25fe767f9086dd9882000f01085f7046ea06545e7848842a"
+  }
+}

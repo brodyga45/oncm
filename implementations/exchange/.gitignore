@@ -1,0 +1,14 @@
+node_modules/
+dist/
+artifacts/
+web/generated/
+data/chain/
+data/*.log
+data/*-deployment.json
+data/deployment.json
+data/comments.json
+data/proof-jobs.json
+data/packages/
+.DS_Store
+data/profiles.json
+data/comment-votes.json

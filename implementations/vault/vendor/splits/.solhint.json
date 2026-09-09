@@ -1,0 +1,12 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "code-complexity": ["error", 8],
+    "func-name-mixedcase": "off",
+    "func-visibility": ["error", { "ignoreConstructors": true }],
+    "max-line-length": ["error", 120],
+    "named-parameters-mapping": "off",
+    "one-contract-per-file": "off",
+    "func-named-parameters": ["warn", 3]
+  }
+}

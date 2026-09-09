@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {devWallet,devAccounts,stringify} from '../sdk/chain.mjs';
+const base='http://127.0.0.1:4171/api';let token;
+const call=async(route,{method='GET',body,expected=200}={})=>{const response=await fetch(base+route,{method,headers:{...body!==undefined&&{'content-type':'application/json'},...token&&{authorization:`Bearer ${token}`}},body:body===undefined?undefined:stringify(body)});const value=await response.json();assert.equal(response.status,expected,`${route}: ${stringify(value)}`);return value;};
+assert.equal((await call('/health')).chainId,31371);
+const config=await call('/config');assert.equal(config.mock,false);assert.equal(config.proofStatus,'real');
+const address=devAccounts[5].address;const wallet=devWallet(5);
+const {message}=await call('/auth/challenge',{method:'POST',body:{address}});const signature=await wallet.signMessage({message});
+const auth=await call('/auth/verify',{method:'POST',body:{message,signature}});token=auth.token;
+await call('/auth/verify',{method:'POST',body:{message,signature},expected:400});
+await call('/profiles/me',{method:'PUT',body:{address:devAccounts[0].address,displayName:'Spoofed'},expected:400});
+await call('/profiles/me',{method:'PUT',body:{displayName:'Research guest',bio:'Exploring precise questions and reproducible proofs.'}});
+assert.equal((await call(`/profiles/${address}`)).displayName,'Research guest');
+await call('/auth/logout',{method:'POST'});await call('/jobs',{expected:401});
+const activity=await call('/activity');assert(activity.blocks.length>0);assert(activity.blocks.every(b=>typeof b.timestamp==='string'&&b.hash));
+console.log('API smoke passed: real deployment, SIWE nonce replay rejection, session revocation, profile spoof rejection/persistence, local block explorer.');

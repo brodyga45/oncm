@@ -1,0 +1,11 @@
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import solc from 'solc';import legacy from 'solc-legacy';
+import './prepare-legacy.mjs';
+export const root=path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const resolve=(name)=>{for(const base of [root,path.join(root,'node_modules'),path.join(root,'contracts/legacy')]){const p=path.join(base,name);if(fs.existsSync(p))return {contents:fs.readFileSync(p,'utf8')};}return {error:`Missing ${name}`};};
+fs.mkdirSync(path.join(root,'artifacts'),{recursive:true});
+function compile(compiler,entries){const sources=Object.fromEntries(entries.map(f=>[f,{content:fs.readFileSync(path.join(root,f),'utf8')}]));const output=JSON.parse(compiler.compile(JSON.stringify({language:'Solidity',sources,settings:{optimizer:{enabled:true,runs:200},evmVersion:compiler===legacy?'petersburg':'shanghai',outputSelection:{'*':{'*':['abi','evm.bytecode.object','evm.deployedBytecode.object']}}}}),{import:resolve}));for(const e of output.errors??[])if(e.severity==='error')throw new Error(e.formattedMessage);for(const [source,contracts] of Object.entries(output.contracts))for(const [name,c] of Object.entries(contracts))if(c.evm?.bytecode?.object)fs.writeFileSync(path.join(root,'artifacts',`${name}.json`),JSON.stringify({contractName:name,source,compiler:compiler.version(),abi:c.abi,bytecode:`0x${c.evm.bytecode.object}`,deployedBytecode:`0x${c.evm.deployedBytecode.object}`},null,2));}
+compile(legacy,['contracts/legacy/AgoraFPMMFactory.sol','node_modules/@gnosis.pm/conditional-tokens-contracts/contracts/ConditionalTokens.sol']);
+compile(solc,['contracts/Agora.sol','contracts/TestProofVerifier.sol']);
+const safeBase=path.join(root,'node_modules/@safe-global/safe-contracts/build/artifacts/contracts');
+for(const [name,file] of [['Safe','Safe.sol/Safe.json'],['SafeProxyFactory','proxies/SafeProxyFactory.sol/SafeProxyFactory.json']]){const v=JSON.parse(fs.readFileSync(path.join(safeBase,file)));fs.writeFileSync(path.join(root,'artifacts',`${name}.json`),JSON.stringify({contractName:name,source:`@safe-global/safe-contracts/${file}`,abi:v.abi,bytecode:v.bytecode},null,2));}
+console.log('Compiled original CTF, Agora Gnosis FPMM diff, OZ contracts and Safe artifacts.');

@@ -1,0 +1,40 @@
+[
+  {
+    "name": "valid published proof",
+    "passed": true,
+    "result": {
+      "status": "checked",
+      "diagnostics": "",
+      "goalHash": "0xd8fda4366c187890e6990f73eb3b4852e5c38574dce8af4395057bb421a6fc33",
+      "profileId": "0xbeced5cfc15717b50569fa5d5f99e079cd0223596ea7a2b383bd1fbbd9d31ba0",
+      "sourceHash": "0xbbfcc53fc0c8537983236c4b04426498ae1cf50a616539b7739285ac06d62e36",
+      "exportHash": "0xeda54547b6fdcb80173ac1917f7a9a1ff433b7fd7c66304a8f4d8809a0e41f0f",
+      "targetDeclaration": "Oncm.goal",
+      "jobId": "ad00c97c-a295-4a69-be00-74339ce7a947"
+    }
+  },
+  {
+    "name": "wrong claimed outcome",
+    "passed": true,
+    "result": {
+      "status": "failed",
+      "diagnostics": "check-native failed (101): \nthread 'main' (61576528) panicked at vendor/nanoda/src/tc.rs:955:71:\nassertion failed: self.def_eq(u, v)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+    }
+  },
+  {
+    "name": "sorry is not a proof",
+    "passed": true,
+    "result": {
+      "status": "failed",
+      "diagnostics": "check-native failed (101): \nthread 'main' (61576632) panicked at checker/src/lib.rs:33:81:\ncalled `Result::unwrap()` on an `Err` value: \"export file declares unpermitted axiom \\\"sorryAx\\\"\"\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+    }
+  },
+  {
+    "name": "invented axiom",
+    "passed": true,
+    "result": {
+      "status": "failed",
+      "diagnostics": "check-native failed (101): \nthread 'main' (61576735) panicked at checker/src/lib.rs:33:81:\ncalled `Result::unwrap()` on an `Err` value: \"export file declares unpermitted axiom \\\"Oncm.dishonest\\\"\"\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+    }
+  }
+]

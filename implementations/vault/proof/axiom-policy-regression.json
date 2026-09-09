@@ -1,0 +1,12 @@
+[
+  {
+    "case": "v2 alias rejected check",
+    "accepted": true,
+    "diagnostics": ""
+  },
+  {
+    "case": "v3 extra axiom rejected",
+    "accepted": false,
+    "diagnostics": "\nthread 'main' (61627612) panicked at checker/src/lib.rs:40:9:\nassertion `left == right` failed: additional axiom forbidden\n  left: 4\n right: 3\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  }
+]

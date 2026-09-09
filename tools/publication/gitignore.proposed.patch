@@ -1,0 +1,54 @@
+--- a/.gitignore
++++ b/.gitignore
+@@ -11,3 +11,51 @@
+ **/*.trace
+ **/*.log
+ .DS_Store
++
++# Publication boundary: source, docs and compact CI only.
++# Proposed additions to the repository .gitignore. No source/CI directories are
++# broadly excluded: .github/ and tools/lean-zk/ci/ remain publishable.
++**/.env
++**/.env.*
++!**/.env.example
++!**/.env.sample
++# This vendored example contains a credential-shaped value; unnecessary for build.
++/implementations/vault/vendor/1155-to-20/.env.example
++**/runtime.local.json
++**/runtime.before-*.json
++**/execution-policy.local.json
++**/.lake/
++**/.resource-reports/
++**/proof-resource-reports/
++**/setup-check-*.json
++**/exporter/native-validation.json
++**/.git
++**/.git/
++**/*.pem
++**/*.p12
++**/*.pfx
++**/*.key
++**/*.zkey
++**/*.ptau
++**/*.wtns
++**/*.r1cs
++**/*.receipt
++**/*.dmp
++**/stark_verify*.cs
++**/*.tar
++**/*.tar.gz
++**/*.tar.zst
++**/*.tgz
++**/*.zip
++/implementations/*/proof/bin/
++/implementations/*/proof/lean-checker.bin
++/tools/lean-zk/bin/
++/tools/lean-zk/lean-checker.bin
++/implementations/*/proof/deployment.json
++/tools/lean-zk/deployment.json
++/implementations/*/performance/
++/implementations/exchange/data/
++/tools/lean-zk/native-check-candidate/
++/tools/lean-zk/rapidsnark-candidate/
++/tools/lean-zk/exporter-capacity-research/
++/tools/publication/local-report/

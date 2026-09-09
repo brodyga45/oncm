@@ -1,0 +1,40 @@
+{
+  "name": "oncm-exchange",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "node scripts/compile.mjs",
+    "chain": "node scripts/chain.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "api": "node api/server.mjs",
+    "web": "vite --host 127.0.0.1 --port 5172",
+    "dev": "node scripts/start.mjs",
+    "build": "vite build",
+    "test": "node tests/integration.mjs",
+    "test:api": "node tests/api-smoke.mjs",
+    "test:social": "node tests/social-api.mjs"
+  },
+  "dependencies": {
+    "@gnosis.pm/conditional-tokens-contracts": "1.0.3",
+    "@openzeppelin/contracts": "5.2.0",
+    "@uniswap/v2-core": "1.0.1",
+    "@uniswap/v2-periphery": "1.1.0-beta.0",
+    "buffer": "6.0.3",
+    "ethers": "6.15.0",
+    "express": "5.1.0",
+    "ganache": "7.9.2",
+    "oz3": "npm:@openzeppelin/contracts@3.4.2",
+    "p-queue": "8.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "siwe": "3.0.0",
+    "solc": "0.8.30",
+    "solc05": "npm:solc@0.5.16",
+    "solc06": "npm:solc@0.6.12",
+    "vite": "6.1.0"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

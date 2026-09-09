@@ -1,0 +1,1 @@
+{"name":"oncm-lean-proof-runtime","version":"0.1.0","private":true,"type":"module","scripts":{"compile":"node compile.mjs"},"devDependencies":{"solc":"0.8.28","@openzeppelin/contracts":"5.0.2"}}

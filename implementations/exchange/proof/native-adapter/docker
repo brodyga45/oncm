@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Process-local compatibility adapter for RISC Zero's pinned prover command.
+This does not run Docker: it runs the same public circuit/key with native ARM
+witness generator and gnark prover. No global Docker executable is modified.
+"""
+import json, os, pathlib, resource, subprocess, sys
+if sys.argv[1:] == ['--version']:
+    print('ONCM native Groth16 adapter (not Docker)');sys.exit(0)
+args=sys.argv[1:]
+if len(args)!=5 or args[:3]!=['run','--rm','-v'] or args[4]!='risczero/risc0-groth16-prover:v2025-04-03.1' or not args[3].endswith(':/mnt'):
+    raise SystemExit('Unsupported command: this adapter only handles the pinned RISC Zero prover')
+cfg=json.loads(pathlib.Path(os.environ['ONCM_NATIVE_GROTH16_CONFIG']).read_text())['groth16']
+job=pathlib.Path(args[3][:-5]).resolve()
+if not (job/'input.json').is_file():raise SystemExit('Missing RISC Zero input.json')
+witness=job/'output.wtns'
+soft,hard=resource.getrlimit(resource.RLIMIT_STACK)
+resource.setrlimit(resource.RLIMIT_STACK,(min(16777216,hard) if hard!=-1 else 16777216,hard))
+subprocess.run([cfg['witness'],str(job/'input.json'),str(witness)],cwd=cfg['workingDirectory'],check=True)
+subprocess.run([cfg['prover'],cfg['constraintSystem'],cfg['provingKey'],str(witness),str(job/'proof.json')],cwd=cfg['workingDirectory'],check=True)
+witness.unlink()

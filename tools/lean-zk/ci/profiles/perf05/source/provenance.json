@@ -1,0 +1,26 @@
+{
+  "note": "Only checker Cargo.toml NanoDa relative path changed for repository layout. Kernel and guest source bytes unchanged.",
+  "originalFiles": {
+    "checker/src/lib.rs": "40ad62053b4d432d2261c692f1b6de1cf34d7d69f409d51fb29ffada81c798c6",
+    "checker/src/main.rs": "07bdd9e8a9c0ccfec17b1a8d1426280a86e375dcffb6a90289e3f1f0e97c4b96",
+    "guest/src/main.rs": "d72b13587b6dda09a825dd815c762d1e1d50c06107e5e8f7e7ee366ed32100ba",
+    "guest/Cargo.toml": "d64ab42721411e44781ba54818e374d5e2012b549008a61fa598ca2c7e0a0146",
+    "guest/Cargo.lock": "2863684a69aa569fddbb96c9f80f175ca827ba7d723ef314ac250013a9b77bf6",
+    "Cargo.lock": "0eab65ff789dfe8100b57a6d5d84de363c5448513e4ab2d5464f56d2d5bed5ae"
+  },
+  "rustHost": "stable-aarch64-apple-darwin 1.98.1",
+  "rustGuestToolchain": "risc0 1.97.0",
+  "target": "riscv32im-risc0-zkvm-elf",
+  "rustflags": "-C passes=lower-atomic -C link-arg=-Ttext=0x00200800 -C link-arg=--fatal-warnings -C panic=abort --cfg getrandom_backend=\"custom\"",
+  "nanoDaVendor": "tools/lean-zk/vendor/nanoda, upstream4c544ed4099c8227f07d5de77ad1e69fb0740a27 plus ONCM-PATCHES",
+  "originalBoundedBuild": {
+    "wallSeconds": 13.001,
+    "peakTreeFootprintBytes": 309430096,
+    "memoryLimitBytes": 1073741824,
+    "reason": "completed",
+    "exitCode": 0,
+    "accounting": "darwin-phys-footprint",
+    "sampleIntervalSeconds": 0.1,
+    "kernelHardLimit": false
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "tests": [
+    {
+      "test": "memory",
+      "wallSeconds": 0.398,
+      "peakTreeFootprintBytes": 90653536,
+      "memoryLimitBytes": 33554432,
+      "reason": "memory-limit",
+      "exitCode": 125,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    },
+    {
+      "test": "timeout-and-descendant",
+      "wallSeconds": 1.135,
+      "peakTreeFootprintBytes": 34309392,
+      "memoryLimitBytes": 134217728,
+      "reason": "timeout",
+      "exitCode": 124,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    },
+    {
+      "test": "lock-exclusion",
+      "wallSeconds": 0.016,
+      "peakTreeFootprintBytes": 0,
+      "memoryLimitBytes": 134217728,
+      "reason": "busy",
+      "exitCode": 75,
+      "accounting": "darwin-phys-footprint",
+      "sampleIntervalSeconds": 0.1,
+      "kernelHardLimit": false
+    }
+  ],
+  "allPassed": true,
+  "scope": "Small synthetic workers only, maximum allocation 64 MiB; no prover or Lean run"
+}

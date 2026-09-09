@@ -1,0 +1,17 @@
+{
+  "lean": "/private/tmp/oncm-toolchains/lean-4.33.1-darwin_aarch64/bin/lean",
+  "exporter": "/absolute/path/to/this-proof-runtime/exporter/.lake/build/bin/lean4export",
+  "r0vm": "/private/tmp/oncm-toolchains/cargo/bin/r0vm",
+  "env": {
+    "RISC0_HOME": "/private/tmp/oncm-toolchains/risc0",
+    "RUSTUP_HOME": "/private/tmp/oncm-toolchains/rustup",
+    "CARGO_HOME": "/private/tmp/oncm-toolchains/cargo"
+  },
+  "groth16": {
+    "witness": "/private/tmp/oncm-risc0-source/groth16_proof/groth16/stark_verify_cpp/stark_verify",
+    "prover": "/private/tmp/oncm-risc0-source/groth16_proof/circom-compat/prover",
+    "workingDirectory": "/private/tmp/oncm-risc0-source/groth16_proof/groth16/stark_verify_cpp",
+    "constraintSystem": "/private/tmp/oncm-risc0-source/groth16_proof/groth16/stark_verify.cs",
+    "provingKey": "/private/tmp/oncm-toolchains/stark_verify_final.pk.dmp"
+  }
+}

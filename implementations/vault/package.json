@@ -1,0 +1,55 @@
+{
+  "name": "oncm-vault",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "node scripts/compile.mjs",
+    "chain": "node scripts/chain.mjs",
+    "setup:anvil": "python3 scripts/install-anvil.py",
+    "archive:lost-chain": "node scripts/archive-lost-chain.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "api": "node server/index.mjs",
+    "web": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "dev": "node scripts/start.mjs",
+    "build": "vite build",
+    "test": "node --test test/*.test.mjs",
+    "test:economics": "node scripts/economics.mjs",
+    "test:governance": "node scripts/governance-test.mjs",
+    "test:api": "node scripts/api-test.mjs",
+    "proof": "node proof/runner.mjs",
+    "test:privacy": "node scripts/privacy-test.mjs",
+    "test:deployment": "node scripts/deployment-test.mjs"
+  },
+  "dependencies": {
+    "@balancer-labs/v3-interfaces": "1.0.0",
+    "@balancer-labs/v3-pool-utils": "1.0.0",
+    "@balancer-labs/v3-pool-weighted": "1.0.0",
+    "@balancer-labs/v3-solidity-utils": "1.0.0",
+    "@balancer-labs/v3-vault": "1.0.0",
+    "@gnosis.pm/conditional-tokens-contracts": "1.0.3",
+    "@openzeppelin/contracts": "5.2.0",
+    "cookie-parser": "1.4.7",
+    "ethers": "6.13.5",
+    "express": "4.21.2",
+    "fflate": "0.8.2",
+    "p-queue": "8.1.0",
+    "siwe": "3.0.0",
+    "svelte": "5.20.5"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "4.0.4",
+    "hardhat": "2.26.3",
+    "prettier": "3.5.3",
+    "prettier-plugin-svelte": "3.3.3",
+    "solady": "0.1.26",
+    "solc": "0.8.28",
+    "solc17": "npm:solc@0.8.17",
+    "solc5": "npm:solc@0.5.17",
+    "solmate": "6.8.0",
+    "vite": "5.4.14"
+  },
+  "engines": {
+    "node": ">=22 <24"
+  }
+}

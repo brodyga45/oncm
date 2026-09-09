@@ -1,0 +1,31 @@
+[
+  {
+    "id": "lean-nat-add-comm-4.33.1",
+    "title": "Natural-number addition is commutative",
+    "description": "For every two natural numbers a and b, a + b = b + a. Published Lean core theorem Nat.add_comm. The market commits to the exported proposition; source remains reproducible metadata.",
+    "source": "import Init\n\nnamespace Oncm\n\n-- Published theorem used for the small end-to-end fixture:\n-- Lean core Init/Data/Nat/Basic.lean, Nat.add_comm.\ndef goal : Prop := \u2200 a b : Nat, a + b = b + a\n\ntheorem solution : goal := Nat.add_comm\n\nend Oncm\n",
+    "repositoryUrl": "https://github.com/leanprover/lean4",
+    "version": "v4.33.1",
+    "targetDeclaration": "Oncm.goal",
+    "proofDeclaration": "Oncm.solution",
+    "upstreamDeclaration": "Nat.add_comm",
+    "goalHash": "0xd8fda4366c187890e6990f73eb3b4852e5c38574dce8af4395057bb421a6fc33",
+    "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+    "commit": "819816b2e0a3bf405af45ae5c7af2491d8f5bee6"
+  },
+  {
+    "id": "lean-zero-ne-one-4.33.1",
+    "title": "Zero equals one",
+    "description": "A deliberately false formal statement. Its Lean core refutation Nat.zero_ne_one demonstrates genuine NO settlement.",
+    "source": "import Init\nnamespace Oncm\n-- Lean core proves that zero differs from one.\ndef goal : Prop := (0 : Nat) = 1\ntheorem solution : \u00ac goal := Nat.zero_ne_one\nend Oncm\n",
+    "repositoryUrl": "https://github.com/leanprover/lean4",
+    "version": "v4.33.1",
+    "commit": "819816b2e0a3bf405af45ae5c7af2491d8f5bee6",
+    "targetDeclaration": "Oncm.goal",
+    "proofDeclaration": "Oncm.solution",
+    "upstreamDeclaration": "Nat.zero_ne_one",
+    "outcome": 2,
+    "goalHash": "0x29ae8f991459a6e86ff1bb2e1d01b311f4221520e49ee869f1e356eb0a1d0ded",
+    "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e"
+  }
+]

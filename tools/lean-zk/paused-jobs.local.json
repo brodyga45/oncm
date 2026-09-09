@@ -1,0 +1,18 @@
+{
+  "status": "terminated-to-release-memory",
+  "reason": "User reported 44 GB application memory and crash; pausing retained process state. All unfinished local proof computations and automatic completion watcher stopped.",
+  "terminatedProcessGroups": [
+    66668,
+    66941,
+    76471,
+    84327,
+    85011
+  ],
+  "terminatedRunnerPids": [
+    76407,
+    84276,
+    84815
+  ],
+  "preserved": "chain data, web services, existing verified artifacts",
+  "resume": "No SIGCONT: computations must restart under enforced resource limits."
+}

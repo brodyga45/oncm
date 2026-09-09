@@ -1,0 +1,20 @@
+[
+  {
+    "case": "genuine arithmetic v2",
+    "accepted": true,
+    "expected": true,
+    "diagnostics": ""
+  },
+  {
+    "case": "forged native mul v2",
+    "accepted": false,
+    "expected": false,
+    "diagnostics": "\nthread 'main' (61594468) panicked at vendor/nanoda/src/tc.rs:955:71:\nassertion failed: self.def_eq(u, v)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  {
+    "case": "reproduce v1 weakness",
+    "accepted": true,
+    "expected": true,
+    "diagnostics": ""
+  }
+]

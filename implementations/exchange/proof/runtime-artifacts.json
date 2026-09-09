@@ -1,0 +1,7 @@
+{
+  "lean-checker.bin": "20e864ef80dca02a8ffa3c6eb4f4e2f295c917ed5480289e5c08b7811af9ff3b",
+  "bin/check-native": "00de154c36d4a25de6e3c59d91be4c93e57e018facef77294b244f79d5f1f12d",
+  "bin/oncm-proof-host": "eb7724c93851f886c32fa41d280e044e153458b26e23107bcbd29d1cdda10dba",
+  "artifacts/LeanProofBridge.json": "8cd96a8eaa81417b8c696d1aa142fac60d6f1e53220457823d3770a221fa6916",
+  "exporter/.lake/build/bin/lean4export": "ddd765975ec6bf53de8e511958218de2f38927ff594cf83c3253971296c7144e"
+}

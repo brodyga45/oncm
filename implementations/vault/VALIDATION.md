@@ -1,0 +1,76 @@
+# Vault validation — observed, not assumed
+
+## Final v3 deployment, 2026-09-10
+
+Read-only `scripts/deployment-test.mjs` passed 6 checks; `.state/deployment-report.json` records their exact names. Profile `0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e`, image `0x3ba46e4e43724929a3b160c49e75ea89d1ea529f357d8ba07cf55054cb3f2deb`. Original Balancer Vault runtime is 24,242 bytes. Main registry and pool count were both zero. Invalid Groth16 seal was rejected via read-only calls. Timelock ownership and removal of bootstrap admin were confirmed. This establishes deployment integrity, not a successful real proof.
+
+## Manual UI QA — separate hidden IAB tab, 2026-09-10 00:40–00:46 Asia/Yerevan
+
+No existing user tab was selected or manipulated. No chain reset/restart, market, transaction, register/prove request or heavy prover was started during this QA.
+
+| Scenario | Exact observation | Limit |
+|---|---|---|
+| Wallet / SIWE | Selected `Account 3 · participant`, pressed `Подключить локальный`; header showed `0x90F79b…b906`, `Мой профиль`, success notice, and 1,000,000 T. | Public local devnet account only; injected wallet was not exercised. |
+| Profile save | Original displayName and bio were empty. Pressed Save with those unchanged values. UI displayed `Сохранение профиля — готово`. | A proposed temporary name/bio submission was rejected by automatic approval review; no workaround was used. Review said general QA did not authorize that exact persistent text and the call did not include restoration. A subsequent unchanged-field save was permitted. |
+| Profile reload | Reloaded own hidden tab at `#profile/0x90F79bf6EB2c4f870365E785982E1f101E93b906`. Public modal showed full same address, `Участник Vault`, `Описание пока не добавлено.`, 0 comments, 1,000,000 T. | Confirms unchanged-field save and public deep link survive reload; modified text persistence was not manually tested. Reload intentionally clears the in-memory wallet signer; reconnect worked. |
+| Published Lean input | Selected `Natural-number addition is commutative`; editor contained `Oncm.goal := ∀ a b : Nat, a + b = b + a` and `Oncm.solution := Nat.add_comm`; repository Lean4, commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`. | No fixture/proof source was modified. |
+| Native Lean check | Pressed only `Проверить Lean`. API job `0c18b45c-ca85-40c5-bb2c-6bebe0caced1` transitioned running→completed. Result `status: checked`, diagnostics empty, goalHash `0xd8fda4366c187890e6990f73eb3b4852e5c38574dce8af4395057bb421a6fc33`, v3 profile above, sourceHash `0xbbfcc53fc0c8537983236c4b04426498ae1cf50a616539b7739285ac06d62e36`, exportHash `0xeda54547b6fdcb80173ac1917f7a9a1ff433b7fd7c66304a8f4d8809a0e41f0f`. Native runner jobId `17e09762-41e6-42a0-aeb3-cbdb6cc3910d`. | No certificate field; native check is not a zk proof. No timing claim: browser instrumentation latency was not separated from execution. |
+| Governance preflight / Blocks / export | Not reached before root changed priority after resource incident. | Prior automated governance, API and SDK evidence checks remain separate; do not count them as this manual UI QA. Statement export and LP features require a market. |
+
+## Reproduced UI issue — historical finding, corrected below
+
+The background native check banner first says `Lean / check — готово` while job status remains running; once completed it says `Lean задача завершена. Сертификат доступен в Lean Lab.` although native check returns no certificate. Structured result correctly says checked and has no certificate. The intended UI-only correction is to distinguish queued/check-completed/certificate-ready notices. Work was interrupted before any source edit; kernel, runtime, deployed contracts and the site are unchanged by this finding.
+
+## Bounded queue and UI correction — 2026-09-10
+
+The later authorized change corrected those labels. `proofNotice` now distinguishes queued, running, cancelling, cancelled, native check completed, failed and certificate available; the last message requires `result.certificate`. UI has a cancel control, and community SDK exposes `cancelJob(id)`.
+
+Vault owns its independent p-queue 8.1.0 adapter: concurrency 1, deduplication by authenticated owner and complete normalized input, 16 global / 4 owner reserved slots. The outer resource guard has 2 GiB tree-footprint and 5/30/120-second action budgets with no lock; the frozen inner runner retains its lock and execution policy. Running cancellation acknowledges only after guard close and descendant cleanup. Source/history/result fields survive API startup; stale active jobs fail without replay.
+
+- Seven dedicated lightweight tests passed, including serial execution, owner isolation/deduplication, both queue bounds, queued and running cancellation, restart preservation, truthful UI labels, and the actual macOS outer guard running a tiny Node worker and cleaning its Node descendant. No Lean or cryptographic prover was invoked. The default tool sandbox first rejected `/bin/ps`; the same dummy-only test passed with authorized process-inventory access. No guard was disabled to make it pass.
+- Final `npm test` passed all 12 tests (including the seven queue/UI/guard tests); production Svelte build passed. This is compiled-UI and function-test evidence, not a new manual browser session.
+- API 4173 had no listener and stored history contained four jobs, with zero active jobs. Started only the updated API; no chain reset, deployment change or UI tab operation.
+- Live read checks passed: config retained chain 31373 and the same v3 profile; anonymous job history returned 401; the Account 3 SIWE session saw only its one historical job; cancellation of an unknown id returned 404. No new job was submitted.
+- SHA-256 of `.state/community.json`, `.state/deployment.json` and `proof/execution-policy.local.json` was identical before API startup and after those checks. All four historical jobs, two profiles and other stored data remained intact. `allowExpensiveProving` remains false.
+- At this step's finish, API config was available but RPC-dependent `/api/health` returned 400 and web 5173 refused connections. Those other services were already unavailable; coordinator was informed. No chain or web restart was attempted in this API-only scope.
+
+This establishes queue/resource-control wiring with harmless workers. It does not demonstrate a real proof fitting the cold latency or 2 GiB budgets. The macOS guard samples physical footprint every 0.1 seconds and is not a kernel hard limit.
+
+## Explicit new Anvil deployment and persistence recovery — 2026-09-10
+
+The former Hardhat process had no available RPC or saved state. The user explicitly authorized a new deployment after being told that addresses/reports cannot restore the old chain. Before creation, RPC 9547 returned ECONNREFUSED and had no listener. Eight old top-level deployment/report JSON files were copied into `.state/archive/2026-09-09T21-26-05-393Z-lost-volatile-hardhat/`; its archive manifest records file checksums. The social database was not copied over, cleared or rewritten.
+
+Only the official Anvil binary was installed: Foundry stable v1.7.1, commit `4072e48705af9d93e3c0f6e29e93b5e9a40caed8`, macOS ARM64. Official archive 88,161,744 bytes, published SHA-256 `eacdc67718fac857cad9e19c7f6729dd80de731d09df81856391d093cfcab547`; extracted binary 34,752,816 bytes, SHA-256 `5c9f9aad323062b1c0421a63595741430acaea150da3611e38c45071e4cf4e28`. The latest v1.8.1 bundle exceeded the authorized 100 MB limit and was not downloaded. No Cargo/toolchain build or other Foundry binary was installed.
+
+The new chain has instance `554c825d-6813-43bf-9bf0-6ede06acff4d`, chain ID 31373, Cancun and a new genesis. All contracts were deployed from existing artifacts, including real Balancer V3 and the unchanged v3 proof bridge: 30 deployment transactions across 30 mined blocks. Deterministic addresses happen to repeat; the new chain identity makes this distinct from the lost chain.
+
+- `scripts/persistence-test.mjs --capture` passed actual TSTORE/TLOAD via eth_call, snapshot/mining/time RPC compatibility, and reverted temporary test blocks. It recorded genuine deployment receipts, logs, balances, bytecode, genesis and head.
+- Sent SIGINT to this exact newly created Anvil binary, waited for graceful exit and a valid 13,220,852-byte state file containing 31 blocks and 30 transactions, then reloaded that same snapshot. This was a state-preserving restart, not an RPC reset.
+- `--verify` passed: identical genesis hash, head hash/number, first and last real deployment transaction receipts/block hashes, Vault code hash, complete log count and deployer balance. Results are in `.state/persistence-report.json`.
+- All six deployment/readiness checks then passed. The earlier readiness attempt had correctly failed only because web 5173 was not yet started; after `npm run dev`, web, API and RPC were available. No redeployment occurred on this second startup.
+- Anvil's 10-second periodic state dumps and the atomically replaced validated last-good copy were both present at 13,220,852 bytes. Current sampled physical footprint was 20,939,232 bytes for Anvil and 92,762,048 bytes for its Node launcher (108.43 MiB total); this is an observation, not a stress-test maximum or hard memory cap. EVM memory is separately limited to 64 MiB per execution and Anvil has two threads.
+- Community SHA-256 remains `bce3220066f904d51b7165c2263615ff348320e419007df5c1017511d6299dfe`; four historical Lean jobs and two profiles remain. No proof job, compiler or market with a mock certificate was started. `allowExpensiveProving` remains false.
+
+The launcher refuses an occupied RPC and a missing/invalid previous snapshot instead of silently starting a replacement. Regular `npm run dev` reuses healthy services and refuses a stale deployment on an empty chain; explicit recovery is separate. Runtime/installation instructions and retention limitations are documented in README.
+
+## Scenario gap closure — 2026-09-10
+
+Static mapping of all 20 workflows is in COVERAGE-AUDIT. Completed the bounded priority fixes without a contract/profile change: fixed displayed swap limits, public source publication, portable package ZIP, per-token LP preview/bounds, creator-revenue stages and wallet disconnect/identity changes. Publication is an explicit authenticated request by the actual statement author, in a separate publication store; it cannot read private jobs and is visibly labelled source metadata pending source-to-goal comparison.
+
+- `npm test`: all **21** lightweight tests passed, including the actual guard with a tiny Node descendant; no Lean/prover was invoked. New tests cover explicit publication consent/author/spoof rejection, revision persistence and chain separation, no private-source fallback, exact ZIP files/locks/toolchain, swap quote preservation during approvals, LP quote binding/rounding and upstream creator-fee rounding cases.
+- Existing deployed ABIs contain every new original Balancer view invoked by SDK, including WeightedPool.computeInvariant, minimum pool supply, aggregate fee amounts and Controller fee getters. The live `revenueSnapshot` read block 30 with 0 pools, epoch 1 Split T=0 and Warehouse/forwarded T=0. This is an unfunded read check; it does not claim the new LP/fee UI was exercised against a funded market.
+- Five stored jobs were terminal before the API-only restart (one further historical job had been added by other authorized work since the recovery report's four-job count). Exact API PID 20145 was terminated gracefully; updated API started separately on 4173. Chain and Vite were not restarted.
+- Live SIWE package API: unauthenticated preparation rejected; Account 3 prepared and downloaded a real 5092-byte ZIP with 10 expected files. Unzip verified exact Challenge text and check-only runner input. No source publication, DB package write or job occurred. Session logged out afterward.
+- Svelte components compiled with zero warnings, production build succeeded in 1.21 s; web `/`, transformed `/web/App.svelte` and API `/api/health` returned HTTP 200.
+- Final rebuild after the small account-change race/input fixes passed in 1.14 s. Final health still reported chain 31373, block 30, v3 profile, five jobs with zero active; `.state/publications.json` was absent because no public source had been posted during testing.
+- Before/after API update and checks: community SHA-256 `275f49c4b4471d9bc8f896c297c14da8ad0f40c04e9e52e83c803a8cbe31b722`, deployment `5a68e3b05d004e39289dd046bcfc9061662ab177d801744b2fdf83490d901445`, execution policy `2af0db8b638d747d096494af8633b92588d03e9301f9c1b82be07f6c50f1de6a` were unchanged. Block 30, zero markets; proving remains disabled. No source/profile/guest/deployment mutation.
+
+Manual browser review of the new workflows is coordinated by root and not counted as completed here. Arbitrary operator schema UI, broader Palomar selection/environment support and richer governance proposal review remain explicit gaps.
+
+## Earlier independent verification (before this gap-closure step)
+
+- 19 isolated economic assertions passed against real CTF/wrappers/Balancer/Permit2/Splits; mock verifier was explicitly test-only and EVM snapshot reverted.
+- 5 Governor integration assertions passed with actual OZ Governor/Timelock/member votes; snapshot reverted.
+- 5 unit assertions passed for social invariants and LP stress arithmetic.
+- 5 privacy API assertions passed for owner-only jobs/source; no zk prover involved.
+- Browser v3 form inspection confirmed current profile, source and exact goal hash. Real crypto end-to-end remains pending; no native test substitutes for it.

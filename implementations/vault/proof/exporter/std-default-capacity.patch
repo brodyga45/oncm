@@ -1,0 +1,11 @@
+--- a/Export.lean
++++ b/Export.lean
+@@ -35,7 +35,7 @@
+ structure State where
+   visitedNames : HashMap Name Nat := HashMap.emptyWithCapacity 200000 |>.insert .anonymous 0
+   visitedLevels : HashMap Level Nat := HashMap.emptyWithCapacity 1000 |>.insert .zero 0
+-  visitedExprs : HashMap Expr Nat := HashMap.emptyWithCapacity 10000000
++  visitedExprs : HashMap Expr Nat := {}
+   visitedConstants : NameHashSet := {}
+   noMDataExprs : HashMap Expr Expr := HashMap.emptyWithCapacity 100000
+   exportMData : Bool := false

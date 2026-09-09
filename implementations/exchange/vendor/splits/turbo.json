@@ -1,0 +1,30 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "build:optimized": {
+      "dependsOn": ["^build:optimized"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "lint:sol": {
+      "dependsOn": ["^lint:sol"]
+    },
+    "test": {
+      "dependsOn": ["^test"]
+    },
+    "test:optimized": {
+      "dependsOn": ["^test:optimized"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

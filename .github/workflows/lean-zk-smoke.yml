@@ -1,0 +1,64 @@
+name: Real Lean zk smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Immutable guest/profile to prove
+        type: choice
+        options: [perf05, v3]
+        default: perf05
+      case:
+        description: One proof first; all runs four cases sequentially
+        type: choice
+        options: [true-registration, true-proof, false-registration, false-refutation, all]
+        default: true-registration
+
+permissions:
+  contents: read
+
+concurrency:
+  group: real-lean-zk-smoke
+  cancel-in-progress: false
+
+jobs:
+  proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          sparse-checkout: tools/lean-zk/ci
+      - name: Validate small bundle and adapters
+        run: python3 tools/lean-zk/ci/test_ci.py
+      - name: Install pinned official binary and Docker image
+        timeout-minutes: 10
+        run: python3 tools/lean-zk/ci/prepare.py --work "$RUNNER_TEMP/oncm-proof"
+      - name: Prove and verify using original RISC Zero
+        env:
+          ONCM_PROFILE: ${{ inputs.profile }}
+          ONCM_CASE: ${{ inputs.case }}
+        run: python3 tools/lean-zk/ci/run.py prove --work "$RUNNER_TEMP/oncm-proof" --profile "$ONCM_PROFILE" --case "$ONCM_CASE"
+      - name: Clean up only this job's scope and prover container
+        if: always()
+        run: |
+          if test -f "$RUNNER_TEMP/oncm-proof/environment.json"; then
+            python3 tools/lean-zk/ci/run.py cleanup --work "$RUNNER_TEMP/oncm-proof"
+          fi
+      - name: Preserve small proof, bindings and diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: lean-zk-${{ inputs.profile }}-${{ inputs.case }}-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/oncm-proof/environment.json
+            ${{ runner.temp }}/oncm-proof/artifacts/**/*.json
+            ${{ runner.temp }}/oncm-proof/artifacts/**/*.log
+            ${{ runner.temp }}/oncm-proof/artifacts/**/receipt.bin
+            ${{ runner.temp }}/oncm-proof/artifacts/**/seal.bin
+            ${{ runner.temp }}/oncm-proof/artifacts/**/evm-seal.bin
+            ${{ runner.temp }}/oncm-proof/artifacts/**/certificate.bin
+            ${{ runner.temp }}/oncm-proof/artifacts/**/journal.bin
