@@ -1,6 +1,6 @@
 {
   "format": "oncm-experimental-kernel-profile-v1",
-  "status": "CI bundle prepared; full Groth16 proof and CI execution not yet measured",
+  "status": "Genuine true-registration Groth16 produced by CI34416918326 and accepted by original EVM verifier on local chain31372 block120; resolution cases pending",
   "parentOptimizationProfileId": "0x730ef03873b8f58642dfd9ee0a7f8f4b5bbf9e613addf824c6e2520033a4dfb7",
   "profileTag": "oncm.lean4.33.1.nanoda.4c544ed4.logic.perf05.zeroaxiom",
   "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",

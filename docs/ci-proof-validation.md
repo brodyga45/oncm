@@ -4,6 +4,27 @@ On 2026-09-10 the user authorized publishing to `brodyga45/oncm` and starting th
 
 Initial publication: commit `ec7f248c35b833f94d279cf408d63114087391fa`, 1,175 reviewed files / 25,492,856 source bytes. Local runtime state and configuration were excluded. Existing SSH authentication was used; no new credential was created.
 
+## Current result: first genuine certificate accepted on EVM
+
+[CI run 34416918326](https://github.com/brodyga45/oncm/actions/runs/34416918326), commit `d79a177f4c162eefe9e6e197fdafad09b9ab5a8d`, completed successfully on 2026-09-10 (local date). The original RISC Zero prover generated and verified a **perf05 / true-registration** Groth16 receipt. The downloaded ZIP is 349,895 bytes, SHA-256 `aec6a8c6a4e8d420667778107a145902affd5aac1363baa662e32d266b974e89`.
+
+Measured on four CPU cores, with unchanged cryptography:
+
+| Phase | Observed duration |
+|---|---:|
+| Guest execution | 13.103 ms |
+| Base segment proving, until lift begins | about 230.46 s |
+| Recursive lift | 38.89 s |
+| identity_p254 stage, until Groth16 preparation | about 162.35 s |
+| Groth16 container invocation, until parsing proof | about 32.95 s |
+| Full prove-and-verify operation | 465.694 s |
+
+Aggregate kernel memory peak was 7,829,020,672 bytes (7.291 GiB); OOM and swap counters stayed zero. Host peak was 4,917,469,184 bytes. These are phase-boundary measurements from debug logs, not isolated microbenchmarks.
+
+The coordinator downloaded the artifact, checked ZIP SHA-256 and exact image/profile/goal/journal bindings, and ran `verify-ci-proof.mjs --record`. The original generic RISC Zero EVM verifier accepted the proof and rejected changed image and journal values. Local chain **31372, block 120**, transaction `0x7b42337d460b66f1a9fc944bed4fb91a1f8657ba8310ed335793667a649b7676`, receipt status **1**, gas **251,802**. Compact proof and full evidence are preserved in [evidence/ci3-perf05-registration](evidence/ci3-perf05-registration/verified.json) and [the EVM report](evidence/ci3-perf05-registration/evm-verification.json).
+
+**Scope:** this proves registration validation for the small zero-axiom perf05 goal. It is not a theorem-resolution certificate, does not match the currently installed v3 application bridges, and does not complete market end-to-end scenarios. Subsequent sections preserve historical failures; their “not yet” statements describe those trials, not this current result. No local heavy proving was restarted.
+
 ## First real remote trial
 
 - [GitHub Actions run 34414002347](https://github.com/brodyga45/oncm/actions/runs/34414002347), manually dispatched by the coordinator through the user's authenticated GitHub UI.
@@ -37,3 +58,7 @@ Observed memory moved from approximately 3.1 GiB at 30–60 seconds, to 4.3 GiB 
 `implementations/exchange/scripts/verify-ci-proof.mjs` accepts a downloaded `verified.json` with explicit `--profile perf05|v3` and `--case`. It rechecks pinned assets, image/profile/goal/outcome, the entire journal and canonical ABI certificate before calling the original verifier. It requires rejection of changed image and journal values. Optional `--record` submits one zero-value verification transaction on local chain 31372 and preserves its receipt/block; it does not register a profile or create a market.
 
 For perf05, this is a generic cryptographic verifier check only: the current application bridge pins v3. For a matching v3 artifact, the script additionally calls that bridge. On 2026-09-10, read-only RPC checks confirmed the underlying deployed verifier `0xD781C44726058d2971B58408c492192877FAAC17`, selector `0x73c457ba`, version `3.0.0`, and the expected v3 bridge image. The script passed syntax review; **no positive certificate call or transaction has yet run**, because the first CI attempt produced no receipt.
+
+## Next resolution certificate trial
+
+After CI3 was authoritatively completed, the coordinator dispatched [run34418238753](https://github.com/brodyga45/oncm/actions/runs/34418238753), job102687803303, on the same published commit `d79a177`, with `perf05 / true-proof`. The GitHub UI confirmed In progress. It is the sole heavy computation; limits remain4CPU/13GiB aggregate, no swap,1800s per case. The user subsequently confirmed continuing GitHub for tests. Result pending; registration proof is never reused as a resolution proof.

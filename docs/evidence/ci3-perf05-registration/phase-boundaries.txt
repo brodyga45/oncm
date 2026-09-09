@@ -1,0 +1,11 @@
+2026-09-09T23:27:28.849611Z  INFO risc0_zkvm::host::server::exec::executor: execution time: 13.10299ms
+2026-09-09T23:27:28.979879Z DEBUG risc0_zkvm::host::server::prove::prover_impl: prove_segment_core
+2026-09-09T23:31:18.570375Z DEBUG risc0_zkp::prove::prover: FRI-proof, size = 524288
+2026-09-09T23:31:19.436185Z DEBUG risc0_zkvm::host::recursion::prove: Proving lift: claim = ReceiptClaim {
+2026-09-09T23:31:57.915488Z DEBUG risc0_zkp::prove::prover: FRI-proof, size = 262144
+2026-09-09T23:31:58.326573Z DEBUG risc0_zkvm::host::recursion::prove: Proving lift finished: decoded claim = ReceiptClaim {
+2026-09-09T23:31:58.342505Z DEBUG risc0_zkvm::host::recursion::prove: identity_p254
+2026-09-09T23:34:37.710521Z DEBUG risc0_zkp::prove::prover: FRI-proof, size = 262144
+2026-09-09T23:34:40.697470Z DEBUG risc0_groth16::prove::docker: seal-to-json
+2026-09-09T23:34:40.703115Z DEBUG risc0_groth16::prove::docker: risc0-groth16-prover
+2026-09-09T23:35:13.656851Z DEBUG risc0_groth16::prove::docker: Parsing proof

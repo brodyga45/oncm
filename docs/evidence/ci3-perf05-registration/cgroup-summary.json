@@ -1,0 +1,128 @@
+{
+  "sharedCgroup": "/sys/fs/cgroup/oncmci344169183261perf05trueregistration.slice",
+  "sampleIntervalSeconds": 0.5,
+  "samples": 931,
+  "lastSeen": {
+    ".": {
+      "memory.current": 2007040,
+      "memory.peak": 7829020672,
+      "memory.max": 13958643712,
+      "memory.swap.current": 0,
+      "memory.swap.max": 0,
+      "memory.events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory.events.local": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu.stat": {
+        "usage_usec": 1796238789,
+        "user_usec": 1794385746,
+        "system_usec": 1853042,
+        "nice_usec": 0,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 4652,
+        "nr_throttled": 773,
+        "throttled_usec": 935777,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    },
+    "oncm-ci-34416918326-1-perf05-true-registration.scope": {
+      "memory.current": 63668224,
+      "memory.peak": 4917469184,
+      "memory.max": 12884901888,
+      "memory.swap.current": 0,
+      "memory.swap.max": 0,
+      "memory.events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory.events.local": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu.stat": {
+        "usage_usec": 1702117259,
+        "user_usec": 1701184112,
+        "system_usec": 933147,
+        "nice_usec": 0,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 4323,
+        "nr_throttled": 911,
+        "throttled_usec": 954481,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    },
+    "docker-9843483cb61ebfcb22fcc22f48bb03e2ae913542126406639c69781209ee9249.scope": {
+      "memory.current": 399417344,
+      "memory.peak": 7765327872,
+      "memory.max": 9663676416,
+      "memory.swap.current": 0,
+      "memory.swap.max": 0,
+      "memory.events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "memory.events.local": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "cpu.stat": {
+        "usage_usec": 94111471,
+        "user_usec": 93199873,
+        "system_usec": 911597,
+        "nice_usec": 0,
+        "core_sched.force_idle_usec": 0,
+        "nr_periods": 327,
+        "nr_throttled": 29,
+        "throttled_usec": 34528,
+        "nr_bursts": 0,
+        "burst_usec": 0
+      }
+    }
+  },
+  "sampledMaxCurrentBytes": {
+    ".": 7829020672,
+    "oncm-ci-34416918326-1-perf05-true-registration.scope": 4917469184,
+    "docker-9843483cb61ebfcb22fcc22f48bb03e2ae913542126406639c69781209ee9249.scope": 7765323776
+  },
+  "kernelParentPeakBytes": 7829020672,
+  "parentMemoryEvents": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "observerOutsideSharedSlice": true,
+  "observerProcCgroup": "0::/system.slice/hosted-compute-agent.service\n"
+}

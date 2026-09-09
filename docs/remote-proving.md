@@ -115,3 +115,48 @@ Interface для runner: `remoteRequest = {imageId, profileId, goalHash, kind, p
 - Для «только бесплатно через proving service»: сейчас готового подтверждённого endpoint нет. Нужна внешняя информация о живом бесплатном prover/testnet, после чего read-only проверка повторяется. Не просить пользователя пополнять кошелёк или регистрироваться «на всякий случай».
 
 CLI/SDK source лицензированы Apache-2.0; контрактные/assessor части Boundless имеют BSL с будущей конверсией. Для нашего transport достаточно ABI и клиентского кода, без fork или deployment всего remote рынка. [Upstream licensing](https://github.com/boundless-xyz/boundless#license).
+
+## Дополнение 10 сентября 2026: живой рынок, оценка цены и бесплатные GPU
+
+Это ограниченная read-only проверка: просмотрены официальные docs/source и выполнены два публичных GET к mainnet indexer. Заказы, платежи, регистрации аккаунтов, загрузка program/input и proving не выполнялись. Старые недоступные testnet endpoints повторно не опрашивались.
+
+### Bonsai больше не является вариантом
+
+Официальная migration page прямо сообщает, что **Bonsai недоступен с декабря 2025 года**. Старые инструкции `BONSAI_API_URL` / `BONSAI_API_KEY`, приглашение зарегистрироваться и предположение о бесплатном trial не применимы. Его преемник — Boundless; это другой транспорт с кошельком и хранением program/input. [Migrating from Bonsai](https://docs.boundless.network/developers/tutorials/bonsai).
+
+### Новый факт: подтверждена текущая активность Base mainnet
+
+В pinned [deployments.rs](https://github.com/boundless-xyz/boundless/blob/545c61149521622c6662946582698f4e9bccfed4/crates/boundless-market/src/deployments.rs#L26) указан Base indexer `https://d2mdvlnmyov1e1.cloudfront.net/`. Два GET 2026-09-09 **23:33 UTC** (10 сентября по локальному времени) вернули HTTP200, `chain_id=8453`:
+
+| Наблюдение | Точное значение в ответе |
+|---|---|
+| Weekly bucket | `timestamp_iso=2026-09-07T00:00:00+00:00` |
+| Выполненные заказы в этом bucket | `total_fulfilled=1212` |
+| Активные eligible provers | `active_eligible_prover_count=11` |
+| Историческая lock price / cycle | `p50=24036`, `p99=242316` wei/cycle |
+| Часовой bucket provers | `period_start=1788994800`, `period_end=1788998400` |
+| Реальная активность в часовом ответе | 6 адресов с `orders_fulfilled>0` |
+| Их поле `best_effective_prove_mhz` | от `1.6050571228070176` до `17.33868473455056` |
+
+Источники ответов: [зафиксированный запрос недельного агрегата](https://d2mdvlnmyov1e1.cloudfront.net/v1/market/aggregates?aggregation=weekly&limit=1&sort=desc&before=1788996827&after=1788392027), [часовая статистика provers](https://d2mdvlnmyov1e1.cloudfront.net/v1/market/provers?period=1h). Второй URL динамический; приведённые числа относятся к указанному моменту. Это подтверждает работу рынка значительно сильнее одного health200. Однако число адресов — не количество GPU, best throughput — не SLA, а ответы не отфильтрованы по нашему `0x73c457ba`. Поле нулевого заработка у отдельного адреса также не означает наличие бесплатного публичного prover.
+
+### Оценка цены без локального исполнения действительно предусмотрена
+
+Готовый read-only источник цен — `IndexerClient::get_prices_percentiles(Weekly)`: он запрашивает `GET /v1/market/aggregates?aggregation=weekly&limit=1&sort=desc&before=<now>&after=<now-604800>`. Кошелёк и guest execution для этого GET не нужны. Это исторические процентили заключённых сделок; API не выдаёт обязывающую котировку именно нашего guest. [IndexerClient](https://github.com/boundless-xyz/boundless/blob/545c61149521622c6662946582698f4e9bccfed4/crates/boundless-market/src/indexer_client.rs#L305), [PriceProvider](https://github.com/boundless-xyz/boundless/blob/545c61149521622c6662946582698f4e9bccfed4/crates/boundless-market/src/price_provider.rs#L156).
+
+Для масштаба: умножение наблюдавшихся p50/p99 на **условные 100 млн cycles** даёт `0.0000024036 / 0.0000242316 ETH`. Это арифметическая иллюстрация, **не цена нашей регистрации**, не обещание бесплатности и не минимальный достаточный deposit. Тип proof, фиксированные расходы, срок и потребность проверов в прибыли меняют принимаемую цену. Точный cycle count берём только из уже имеющегося результата исполнения соответствующего image/input; не запускаем новый preflight ради калькулятора.
+
+Source v2 рассчитывает market component через `min(p99, 2*p50)`, cycle count и buffer; затем учитывает gas, включая отдельную оценку Groth16 verification. USD oracle конвертирует валюту, но не предсказывает наличие свободного prover. Если indexer не отвечает, SDK может перейти к fallback, поэтому автоматический результат надо показывать как estimate и отдельно фиксировать фактический `maxPrice`. [OfferLayer](https://github.com/boundless-xyz/boundless/blob/545c61149521622c6662946582698f4e9bccfed4/crates/boundless-market/src/request_builder/offer_layer.rs#L646).
+
+Практический платный путь остаётся прежним: review двух точных заданий → общий разрешённый бюджет proof+gas/storage → deposit → `submit-file --no-preflight` с явным raw selector → status/get-proof → наша локальная криптографическая проверка. Если цену никто не принимает, не увеличиваем её молча. Поддержка готового raw Groth16 подтверждена; **принятие именно нашего v3 и скорость cold proof до120с ещё не измерены**. [Proof types](https://docs.boundless.network/developers/tutorials/proof-types), [tracking](https://docs.boundless.network/developers/tutorials/tracking).
+
+### Что дают бесплатные GPU и путь без mainnet
+
+| Путь | Новое проверенное ограничение / применимость |
+|---|---|
+| GitHub Actions public standard CPU | Выбранный CI остаётся доступным бесплатным вычислением. GPU/larger runners — отдельная платная возможность для организаций Team/Enterprise; public repository не делает их бесплатными. Label `self-hosted,gpu` требует предоставленного нами GPU-хоста. [Larger runners](https://docs.github.com/en/actions/concepts/runners/larger-runners) |
+| Google Colab free | Есть бесплатные интерактивные GPU notebooks, но модель GPU/лимиты/доступность не гарантированы. Free tier запрещает превращать runtime в удалённый SSH/backend или distributed worker. Возможен отдельно согласованный интерактивный учебный эксперимент; совместимость RISC0 CUDA и время нашего proof не подтверждены. Это не готовый бесплатный proving API для сайта. [Colab FAQ](https://research.google.com/colaboratory/faq.html) |
+| Hugging Face ZeroGPU | Free account: 5 GPU-минут/сутки; личный аккаунт старше30дней с verified email и good standing может разместить2Spaces. Но ZeroGPU поддерживает Gradio/PyTorch со специальным выделением CUDA, а не обычный Docker GPU worker. Запуск нашего Rust/CUDA prover внутри этого режима не проверен; наличие48GBVRAM само по себе не устанавливает совместимость. [ZeroGPU](https://huggingface.co/docs/hub/spaces-zerogpu) |
+| Предоставленный/арендованный NVIDIA GPU + Bento без Broker | Официальный Bento можно запускать отдельно от рынка: отсутствуют market gas, ETH deposit и ZKC collateral. Предоставить вычислительный хост всё равно нужно. Upstream рекомендует полноценную UbuntuVM/bare metal,32GBRAM,200GBSSD и NVIDIAGPU≥8GB; текущий default compose использует prebuilt images. Один лишь пример `bento_cli` выполняет STARK workflow: для приложения требуется ещё полный совместимый Groth16 export, его нельзя подменять STARK receipt. [Quick start](https://docs.boundless.network/provers/quick-start), [pinned compose](https://github.com/boundless-xyz/boundless/blob/545c61149521622c6662946582698f4e9bccfed4/prover-compose.yml), [pinned client](https://github.com/boundless-xyz/boundless/blob/545c61149521622c6662946582698f4e9bccfed4/prover/crates/bento-client/src/bento_cli.rs#L93) |
+
+Практический выбор после этого исследования: продолжать бесплатный CPU CI; для более вероятного ускорения использовать живой Boundless raw-Groth16 market с согласованным потолком расходов; если доступен собственный/предоставленный GPU, отдельно проверить Bento без рынка. Последний путь сохраняет математический guest и криптографическую проверку, но требует GPU-хоста и измерения. **Готового немедленно доступного бесплатного raw-RISC0-v3 proving endpoint или подтверждённого trial здесь не найдено.** Signup в неизвестный сервис или пополнение кошелька до конкретного review bundle не требуется.
