@@ -179,22 +179,29 @@ readExecution(transactionReference) -> pending | included | failed | confirmed
 
 TxPlan содержит одну или несколько транзакций, необходимые approvals, snapshotBlock, суммы, лимиты и остаточные активы. Псевдокод описывает обязанности, а не новую обёртку над всеми будущими SDK. Чтение не требует приватного ключа. Подготовка не исполняет действие; кошелёк подтверждает конкретный запрос, а контракт проверяет полномочия и условия. Сайт не может объявить успешный резолв только по результату локального Lean-запуска. Статусы подтверждения зависят от выбранной сети.
 
-## C-011. Офчейн-сессия и комментарии — предложение
+## C-011. Сессия приложения и ончейн-социальный слой
+
+Обновлено по решению пользователя 2026-09-10. SIWE остаётся отдельным механизмом доступа к оставшимся частным офчейн-функциям. Профили, блоги, комментарии и голоса авторизуются контрактом по кошельку; старая схема social writes через session/API не является текущим контрактом.
 
 ```text
 requestSignInChallenge(address, applicationContext) -> message
-verifySignIn(message, walletSignature) -> session
-postComment(session, statementId, text, context?) -> commentId
-listComments(statementId, sort: top|new, cursor?) -> comments + nextCursor
-getProfile(address) -> profile + publicActivity
-updateMyProfile(session, {displayName, bio}) -> profile
-replyToComment(session, statementId, parentId, text) -> commentId
-setCommentVote(session, commentId, -1|0|1) -> {score, myVote}
+verifySignIn(message, walletSignature) -> offchainSession
+
+// Концептуальный SDK; точные методы различаются по реализации.
+publishProfile(signer, name, bio, previousVersion?) -> tx + version
+publishBlog(signer, title, fullText) -> tx + entryId
+publishComment(signer, statementId?, parentId?, fullText) -> tx + entryId
+reviseEntry(signer, entryId, previousVersion?, fullText) -> tx + revision
+setVote(signer, entryId, -1|0|1) -> tx + currentVote + score
+readProfile(address, block?) -> profile + versions
+readThread(contextId, top|new, cursor?, block?) -> entries + nextCursor
+readBlog(address, cursor?, block?) -> entries + nextCursor
+readRevision(entryId, version, block?) -> fullText + provenance
 ```
 
-Автор комментария определяется проверенной сессией, а не полем запроса с произвольным адресом. Рекомендованы SIWE с одноразовым nonce, domain/chain/expiry и проверкой EOA/ERC-1271, PostgreSQL для записей и курсорная пагинация. Сессия даёт права только на соответствующие офчейн-действия. Простая политика авторских редакций/модерации видимости предложена в [сборке](./integration-blueprint.md); комментарий не меняет цель или исход.
+Agora использует Solady SSTORE2 и state-readable индексы/версии. Exchange использует неизменённый ECP CommentManager и policy/history hook; голос меняется штатной атомарной заменой реакции. Vault использует оригинальный EAS.attest с неизменяемыми schema UID и resolver, причём attester остаётся кошельком пользователя. Все три сохраняют полные байты и историю, а не только URI/hash. SDK готовит вызовы, проверяет сеть/адрес/контекст и читает receipts; кэш восстанавливается из сети.
 
-Расширение C-011 от 2026-09-09: профили по кошельку, ответы и рейтинг обсуждений; инварианты и сценарии описаны в [Профилях и обсуждениях](./profiles-and-discussions.md). Это офчейн-данные и они не участвуют в резолве.
+Инварианты: автор правит только своё; родитель/контекст не меняются редакцией; один текущий голос адреса; самоголосование запрещено; социальная запись не разрешает математический рынок. Точные зависимости, лимиты и [приёмка](./onchain-social.md) зафиксированы отдельно; пользовательские шаги — US-016/021.
 
 ## C-012. Задание Lean/zk — предложение
 
