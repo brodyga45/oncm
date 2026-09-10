@@ -7,6 +7,7 @@ import {createProofJobs,registerProofRoutes} from "./proof-jobs.mjs";
 import {createProofWorker} from "./proof-worker.mjs";
 import {readProofCatalog, catalogWithChain} from "./proof-catalog.mjs";
 import {validatePublishedPackage} from './package-validation.mjs';
+import {localEndpoints} from '../sdk/local-endpoints.mjs';
 import {
   JsonRpcProvider,
   Interface,
@@ -20,11 +21,12 @@ import { ExchangeSDK } from "../sdk/index.mjs";
 const root = path.resolve(import.meta.dirname, "..");
 process.chdir(root);
 fs.mkdirSync("data/packages", { recursive: true });
+const endpoints=localEndpoints(process.env.EXCHANGE_PORT_OFFSET||'0');
 const app = express(),
-  provider = new JsonRpcProvider("http://127.0.0.1:9546"),
+  provider = new JsonRpcProvider(endpoints.rpc),
   nonces = new Map(),
   sessions = new Map();
-const allowed = ["http://127.0.0.1:5172", "http://localhost:5172"];
+const allowed = endpoints.browserOrigins;
 app.set("json replacer", (_, v) => (typeof v === "bigint" ? v.toString() : v));
 app.use((req, res, next) => {
   if (
@@ -590,8 +592,8 @@ app.use((err, req, res, next) => {
   console.error(err.shortMessage || err.message);
   res.status(err.statusCode ?? 400).json({ error: err.shortMessage || err.message });
 });
-const server = app.listen(4172, "127.0.0.1", () =>
-  console.log("Exchange API http://127.0.0.1:4172"),
+const server = app.listen(endpoints.apiPort, "127.0.0.1", () =>
+  console.log("Exchange API "+endpoints.api),
 );
 
 for (const signal of ["SIGTERM", "SIGINT"]) process.once(signal, async () => {

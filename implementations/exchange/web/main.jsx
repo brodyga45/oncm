@@ -21,14 +21,17 @@ import { ExchangeSDK, fixtureForCertificate } from "../sdk/index.mjs";
 import { createLocalProvider, rpcErrorMessage } from "../sdk/local-provider.mjs";
 import { externalInput, genericRegistrationDraft, EXTERNAL_BUNDLE_LIMITS,parseBoundedJSON } from "./external-import.mjs";
 import { ExternalBundleReview } from "./external-bundle-review.jsx";
+import { preparePortablePackage,retainPackageMetadata } from "./portable-package.mjs";
+import { localEndpoints } from "../sdk/local-endpoints.mjs";
 import { createProofImportGuard } from "./proof-import-state.mjs";
 import { publishedChoices, loadPublishedCertificate, assertWebJobAction } from "./published-certificates.mjs";
 import { assertCertificateClaim, certificateClaimMatches } from "../sdk/proof-import.mjs";
 import { createWalletLifecycle, authenticateWallet } from "./wallet-lifecycle.mjs";
 import abis from "./generated/abis.json";
 import "./style.css";
-const API = "http://127.0.0.1:4172",
-  RPC = "http://127.0.0.1:9546",
+const endpoints = localEndpoints(import.meta.env.VITE_EXCHANGE_PORT_OFFSET || '0');
+const API = endpoints.api,
+  RPC = endpoints.rpc,
   MNEMONIC = "test test test test test test test test test test test junk";
 const short = (a) => (a ? a.slice(0, 7) + "…" + a.slice(-5) : "—");
 const fmt = (n, d = 3) =>
@@ -1474,16 +1477,15 @@ function CreateMarket({
   }, [job]);
   useEffect(() => {
     if (initialDraft) {
-      setFixture(initialDraft.fixtureId || "");
-      setTitle(initialDraft.title || "");
-      setDescription(initialDraft.description || "");
-      setSource(initialDraft.source || "");
-      setTarget(initialDraft.targetDeclaration || "");
-      setGoal(initialDraft.goalHash || "");
-      setProfile(initialDraft.profileId || profile);
-      setCertificate(initialDraft.registrationCertificate || "");
+      run("Load imported package draft", async () => adoptPackage(initialDraft));
     }
   }, [initialDraft]);
+  function adoptPackage(input) {
+    const prepared=preparePortablePackage(input,{fallbackProfileId:profile}),p=prepared.draft;
+    setPackageDraft(p);setFixture(p.fixtureId||'');setSource(p.source);setTitle(p.title||p.metadata?.title||title);
+    setDescription(p.description||'');setGoal(p.goalHash||'');setProfile(p.profileId||profile);setTarget(p.targetDeclaration||'');
+    setCertificate('');setGenericReview(null);setExternalJSON(prepared.externalJSON);setImportStatus(prepared.status);
+  }
   async function upload(file) {
     if (!file) return;
     if (file.size > EXTERNAL_BUNDLE_LIMITS.wrapper) throw Error("Package exceeds2MiB");
@@ -1494,21 +1496,14 @@ function CreateMarket({
     if (file.name.endsWith(".json")) {
       const p = parseBoundedJSON(text);
       if (["oncm-real-groth16-ci-v1","oncm-external-certificate-bundle-v1"].includes(p.format)) return importCertificate(text, ticket);
-      setPackageDraft(p);
-      setFixture(p.fixtureId || "");
-      setSource(p.source || p.leanSource || "");
-      setTitle(p.title || p.metadata?.title || title);
-      setDescription(p.description || "");
-      setGoal(p.goalHash || "");
-      setProfile(p.profileId || profile);
-      setCertificate(p.registrationCertificate || "");
-      setTarget(p.targetDeclaration || "");
+      adoptPackage(p);
     } else {
       setSource(text);
       setCertificate("");
       setGoal("");
       setPackageDraft(null);
       setFixture("");
+      setExternalJSON('');setGenericReview(null);
       if (!title) setTitle(file.name.replace(".lean", ""));
     }
   }
@@ -1523,7 +1518,7 @@ function CreateMarket({
     if (!registrationGuard.current.current(ticket)) throw Error("Registration form or wallet changed during verification; import again");
     setKind(0); setSource(f.source); setTitle(f.title); setDescription(f.description);
     setGoal(f.goalHash); setProfile(f.profileId); setFixture(f.id||''); setTarget(f.targetDeclaration);
-    setPackageDraft({ ...f, fixtureId: f.id||'', externalCertificate: input.artifact });
+    setPackageDraft({ ...retainPackageMetadata(packageDraft,f), fixtureId: f.id||'', externalCertificate: input.artifact });
     setCertificate(result.certificate);
     if(input.generic)setGenericReview(result);
     setImportStatus(`Exact ${candidate?.label||profile} goal imported. Original onchain verifier accepted registration at block ${result.verifiedAtBlock}. ${result.available ? "Ready to create the market." : "Governance must enable this profile before market creation."}`);
@@ -1637,6 +1632,7 @@ function CreateMarket({
                 }
               />
             </label>
+            <p className="note">A portable package restores an unverified draft. Its saved certificate must pass the explicit verification above before registration; source and file hashes establish byte identity only.</p>
             <textarea
               className="code-editor"
               value={source}
@@ -1820,7 +1816,6 @@ function CreateMarket({
                     registrationCertificate: certificate,
                     targetDeclaration: target,
                     fixtureId: fixture,
-                    registrationResult: job?.result,
                   });
                   packageId = p.id;
                 }
@@ -2770,7 +2765,7 @@ function Research({ run, onImport }) {
       <section className="panel">
         <div className="section-head">
           <h3>Import a published result</h3>
-          <Button onClick={onImport}>Upload Lean package →</Button>
+          <Button onClick={() => onImport(null)}>Upload Lean package →</Button>
         </div>
         <p>
           Pin the repository commit, toolchain and dependencies, select the

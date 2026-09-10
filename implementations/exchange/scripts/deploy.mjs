@@ -1,5 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
+import {ensureProofBootstrap} from './proof-bootstrap.mjs';
+import {localEndpoints} from '../sdk/local-endpoints.mjs';
+const endpoints=localEndpoints(process.env.EXCHANGE_PORT_OFFSET||'0');
 import {
   JsonRpcProvider,
   ContractFactory,
@@ -24,6 +27,7 @@ export async function deploy(
 ) {
   if (Number((await provider.getNetwork()).chainId) !== 31372)
     throw Error("Exchange deploy only on local chain 31372");
+  if(!test)ensureProofBootstrap(root);
   const wallets = [0, 1, 2].map((i) =>
     HDNodeWallet.fromPhrase(MNEMONIC, undefined, `m/44'/60'/0'/0/${i}`).connect(
       provider,
@@ -142,7 +146,7 @@ export async function deploy(
     throw Error("V2 INIT_CODE_HASH mismatch: " + pairInitHash);
   const result = {
     chainId: 31372,
-    rpc: "http://127.0.0.1:9546",
+    rpc: endpoints.rpc,
     testHarness: test,
     proofReady: !test && !!proofConfig.verifier,
     profile,
@@ -175,4 +179,4 @@ export async function deploy(
   return result;
 }
 if (process.argv[1] === new URL(import.meta.url).pathname)
-  await deploy(new JsonRpcProvider("http://127.0.0.1:9546"));
+  await deploy(new JsonRpcProvider(endpoints.rpc,undefined,{cacheTimeout:-1}));

@@ -1,0 +1,10 @@
+{
+  "artifact": "bootstrap/LeanProofBridge.json",
+  "args": [
+    "0x3ba46e4e43724929a3b160c49e75ea89d1ea529f357d8ba07cf55054cb3f2deb",
+    "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e"
+  ],
+  "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+  "manifest": "0xa2e961f6916f7efcd4718b3a1888dde150c6652b5cf54029f384b1e7609e8465",
+  "artifactSha256": "8cd96a8eaa81417b8c696d1aa142fac60d6f1e53220457823d3770a221fa6916"
+}

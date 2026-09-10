@@ -1,6 +1,9 @@
 import { defineConfig } from "vite";
 import { fileURLToPath } from "node:url";
+import {localEndpoints} from './sdk/local-endpoints.mjs';
+const endpoints=localEndpoints(process.env.EXCHANGE_PORT_OFFSET||'0');
 export default defineConfig({
+  cacheDir: '.cache/vite',
   resolve: {
     alias: {
       buffer: fileURLToPath(
@@ -8,7 +11,7 @@ export default defineConfig({
       ),
     },
   },
-  server: { host: "127.0.0.1", port: 5172, strictPort: true },
+  server: { host: "127.0.0.1", port: endpoints.webPort, strictPort: true },
   build: {
     rollupOptions: {
       output: {

@@ -3,6 +3,7 @@ import path from 'node:path';
 import {ContractFactory,Contract,JsonRpcProvider,ZeroAddress} from 'ethers';
 import {financialSnapshot} from './social-preservation.mjs';
 import {pathToFileURL} from 'node:url';
+import {localEndpoints} from '../sdk/local-endpoints.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 export function socialArtifact(name){return JSON.parse(fs.readFileSync(path.join(root,'artifacts/social',name+'.json')));}
 export async function deploySocial(provider,signer,registry){
@@ -34,7 +35,7 @@ export async function deploySocial(provider,signer,registry){
  return{format:'oncm-exchange-social-v1',status:'ready',chainId:31372,registry,comments:comments.target,channels:channels.target,hook:hook.target,channelId:String(channelId),deploymentBlock:receipts[0].blockNumber,configuredAtBlock:receipts.at(-1).blockNumber,libraries:Object.fromEntries(await Promise.all(Object.entries(libraries).map(async([k,c])=>[k,c.target]))),owners:{comments:ZeroAddress,channels:ZeroAddress,channelToken:hook.target},fees:{channelCreation:'0',commentCreation:'0',hookBps:0},receipts};
 }
 async function main(){
- const provider=new JsonRpcProvider('http://127.0.0.1:9546',undefined,{cacheTimeout:-1});
+ const provider=new JsonRpcProvider(localEndpoints(process.env.EXCHANGE_PORT_OFFSET||'0').rpc,undefined,{cacheTimeout:-1});
  const original=JSON.parse(fs.readFileSync(path.join(root,'data/deployment.json'))), protocol=original.contracts.protocol, originalAbis=JSON.parse(fs.readFileSync(path.join(root,'web/generated/abis.json')));
  const output=path.join(root,'data/social-deployment.json');
  if(fs.existsSync(output)){const old=JSON.parse(fs.readFileSync(output));if(old.registry!==protocol||await provider.getCode(old.hook)==='0x')throw Error('Saved social deployment differs or is absent; inspect before any new deployment');console.log('Existing social deployment preserved');return;}

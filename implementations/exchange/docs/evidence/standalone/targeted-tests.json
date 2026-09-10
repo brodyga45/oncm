@@ -1,0 +1,8 @@
+{
+  "scope": "Sequential tiny tests; actual package serializer in temporary filesystem, startup VM doubles; separate actual fresh-start evidence provided",
+  "passed": 35,
+  "failed": 0,
+  "durationMs": 889.439333,
+  "command": "node --experimental-vm-modules --test --test-concurrency=1 tests/portable-package.test.mjs tests/proof-bootstrap.test.mjs tests/standalone-start.test.mjs tests/local-endpoints.test.mjs tests/external-bundle.test.mjs tests/external-bundle-verifier.test.mjs tests/external-import.test.mjs tests/proof-import-state.test.mjs",
+  "browserPass": false
+}

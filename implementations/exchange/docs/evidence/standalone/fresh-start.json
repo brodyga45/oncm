@@ -1,0 +1,187 @@
+{
+  "scope": "Actual fresh intended-public source copy; existing locked node_modules symlink reused, no fresh npm installation, no native prover, no active-chain connection",
+  "endpoints": {
+    "chainId": 31372,
+    "offset": 10000,
+    "rpcPort": 19546,
+    "apiPort": 14172,
+    "webPort": 15172,
+    "rpc": "http://127.0.0.1:19546",
+    "api": "http://127.0.0.1:14172",
+    "web": "http://127.0.0.1:15172",
+    "browserOrigins": [
+      "http://127.0.0.1:15172",
+      "http://localhost:15172"
+    ]
+  },
+  "checks": [
+    "real original bridge and ECP deployed from fresh source",
+    "Shanghai node with persisted database",
+    "correct offset API/web/RPC",
+    "original ECP zero fees/renounced managers/locked channel",
+    "empty market/social index; onchain profile read",
+    "Vite transforms application entry with generated social ABI",
+    "no native binaries or proof execution"
+  ],
+  "startupSeconds": 67.346,
+  "deployment": {
+    "chainId": 31372,
+    "rpc": "http://127.0.0.1:19546",
+    "testHarness": false,
+    "proofReady": true,
+    "profile": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+    "verifier": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+    "deployedAt": "2026-09-10T03:30:07.791Z",
+    "deploymentBlock": 24,
+    "accounts": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    ],
+    "contracts": {
+      "ctf": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "wrapper": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "token": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "factory": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "weth": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "v2router": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "router": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "warehouse": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "splitFactory": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "allocation": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      "protocol": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      "timelock": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+      "governor": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+      "operatorSample": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      "arbitrage": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82"
+    },
+    "pairInitHash": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f"
+  },
+  "social": {
+    "format": "oncm-exchange-social-v1",
+    "status": "ready",
+    "chainId": 31372,
+    "registry": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+    "comments": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
+    "channels": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
+    "hook": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+    "channelId": "64371678188534753658982947782113008813383948777619937306508064998293717148862",
+    "deploymentBlock": 25,
+    "configuredAtBlock": 38,
+    "libraries": {
+      "ecp/src/libraries/Approvals.sol:Approvals": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+      "ecp/src/libraries/Batching.sol:Batching": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+      "ecp/src/libraries/MetadataOps.sol:MetadataOps": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
+      "ecp/src/libraries/CommentOps.sol:CommentOps": "0xc5a5C42992dECbae36851359345FE25997F5C42d"
+    },
+    "owners": {
+      "comments": "0x0000000000000000000000000000000000000000",
+      "channels": "0x0000000000000000000000000000000000000000",
+      "channelToken": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9"
+    },
+    "fees": {
+      "channelCreation": "0",
+      "commentCreation": "0",
+      "hookBps": 0
+    },
+    "receipts": [
+      {
+        "operation": "deploy ChannelManager",
+        "hash": "0xe7626f86a26ab29eb2cc556af2ec3f839569b1cbeba76752a319e2d20176458e",
+        "blockNumber": 25,
+        "address": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f"
+      },
+      {
+        "operation": "deploy Approvals",
+        "hash": "0xcdd3e8b14312ffc65cb9f7aec3e8d61e7ad8b5dcab59c64995bf42348bfa1196",
+        "blockNumber": 26,
+        "address": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319"
+      },
+      {
+        "operation": "deploy Batching",
+        "hash": "0x66d610d5de05e46a22072f209b57f0f45deed59f13af04eadcab7f9623f99443",
+        "blockNumber": 27,
+        "address": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F"
+      },
+      {
+        "operation": "deploy MetadataOps",
+        "hash": "0xb36c3a266233497ce21a39941b6acebbd2c6acfb6b20b1a643fb2a59691bf728",
+        "blockNumber": 28,
+        "address": "0x09635F643e140090A9A8Dcd712eD6285858ceBef"
+      },
+      {
+        "operation": "deploy CommentOps",
+        "hash": "0x966ca524320445e5a0ccfddfe6012ef0ca245b5e08894ed5d6f17b34f967f753",
+        "blockNumber": 29,
+        "address": "0xc5a5C42992dECbae36851359345FE25997F5C42d"
+      },
+      {
+        "operation": "deploy CommentManager",
+        "hash": "0xef4e263454734026ece1b2ba0b24747bb52340f8a86f57a6755a15703c7a8957",
+        "blockNumber": 30,
+        "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933"
+      },
+      {
+        "operation": "zero channel creation fee",
+        "hash": "0xfed2f3df96c075d68aeca6ab6c36978ab77a12d19bdae8c1fe31ec023ec6fd8b",
+        "blockNumber": 31
+      },
+      {
+        "operation": "zero comment creation fee",
+        "hash": "0xb115da0abbe49061583393c43e8da0105ceb556752fef83bf02b466f2bf53b64",
+        "blockNumber": 32
+      },
+      {
+        "operation": "zero hook transaction fee",
+        "hash": "0xedababec29ce4c946d03e1a762f6498729ed70eac80f1c39b12a0419eb2fd02b",
+        "blockNumber": 33
+      },
+      {
+        "operation": "bind original channel manager",
+        "hash": "0x0bb40fd2318223be09b4130f218e09cf2f01829943aaacfd6270926b332aa696",
+        "blockNumber": 34
+      },
+      {
+        "operation": "deploy ExchangeSocialHook",
+        "hash": "0xcb98411c0c3cd18f3b8c8f820752ee89aa053ce84e273bf5a9ed3de3394c8b41",
+        "blockNumber": 35,
+        "address": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9"
+      },
+      {
+        "operation": "initialize locked app channel",
+        "hash": "0xa209c8970b561cbead6ae17513c9af73472ccaa2cca540e468794f6822303624",
+        "blockNumber": 36
+      },
+      {
+        "operation": "freeze comment manager",
+        "hash": "0xe344fe929f4b7696a946f419115498e7c4bc1e7ac5748d0553d6c9525f213a34",
+        "blockNumber": 37
+      },
+      {
+        "operation": "freeze channel fee configuration",
+        "hash": "0x8c9ef356baf0359582ac9e8ee0e1ae360cab896ed0aa1ec8b72936db6d87ba8f",
+        "blockNumber": 38
+      }
+    ]
+  },
+  "block": 38,
+  "originalVerifier": "0x8e80FFe6Dc044F4A766Afd6e5a8732Fe0977A493",
+  "status": "passed",
+  "supervisorExit": {
+    "code": 0,
+    "signal": null
+  },
+  "elapsedSeconds": 67.718,
+  "portsClosed": [
+    19546,
+    14172,
+    15172
+  ],
+  "dependencyEvidence": {
+    "mode": "Existing installed node_modules symlink; npm ci was not executed",
+    "packageLockSha256": "e2e421652f77c89b703994182b88b975bfdf86b7768b34f85e7ed4692311b241"
+  },
+  "sourceManifest": "source-manifest.json",
+  "sourceFiles": 499,
+  "sourceBytes": 5952574
+}
