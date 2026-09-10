@@ -1,0 +1,529 @@
+{
+  "scope": "Actual isolated browser tab102825318 on existing network; only189/190 registerDerived transactions. Remaining rejected actions not retried. Collector has no signer.",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "base": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+  "parent": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+  "child": "0x3c68f27129c8ccde312815a490ca534c86e222f289f2c248697f973d0773662e",
+  "blocks": [
+    {
+      "number": 189,
+      "hash": "0xe382690c7951a0515c82643179eff291218886ab36e8ba22c55315115db92b89",
+      "timestamp": 1789032946,
+      "transactions": [
+        {
+          "hash": "0x0ca072ca61d7bb735bb278ee2c124d76cb8cb7941319f1a4f9a8b94f2c26d1c5",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+          "value": "0",
+          "nonce": 103,
+          "data": "0xb1d971b8390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd0800000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000002e446561646c696e6520514120e2809420706172656e742054727565206f662070726f766564206964656e74697479000000000000000000000000000000000000",
+          "method": "registerDerived",
+          "args": {
+            "dependency": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+            "kind": "2",
+            "expected": "1",
+            "deadline": "0",
+            "title": "Deadline QA — parent True of proved identity"
+          },
+          "status": 1,
+          "gasUsed": "754748",
+          "gasPrice": "1000000008",
+          "logs": [
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 0,
+              "topics": [
+                "0xab3760c3bd2bb38b5bcf54dc79802ed67338b4cf29f3054ded67ed24661e4177",
+                "0x79c39f89ebadc6a24f9fc7b45a199746da792c10cee42052376c540a6aad943a",
+                "0x000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad788",
+                "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000002",
+              "decoded": {
+                "event": "ConditionPreparation",
+                "args": {
+                  "conditionId": "0x79c39f89ebadc6a24f9fc7b45a199746da792c10cee42052376c540a6aad943a",
+                  "oracle": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+                  "questionId": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+                  "outcomeSlotCount": "2"
+                }
+              }
+            },
+            {
+              "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+              "index": 1,
+              "topics": [
+                "0x5cf3a4006b0dcb221517555192a3e5df5e19783c22ea769c1ef46dd421ae2d32",
+                "0x0000000000000000000000002279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+                "0x6b94cfb7a3a6990d7eb20a6a1cd3aef7330c4edfe78887b2a04ee5c710d36671",
+                "0x0000000000000000000000009b0dfbff1d41b76853302c8fc1ba752eb918cbc9"
+              ],
+              "data": "0x",
+              "decoded": {
+                "event": "Wrapped1155Creation",
+                "args": {
+                  "multiToken": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                  "tokenId": "48660401776395168099328404176842008294991931296090510220267888626825973425777",
+                  "wrappedToken": "0x9B0dFbff1D41b76853302C8fC1ba752Eb918Cbc9"
+                }
+              }
+            },
+            {
+              "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+              "index": 2,
+              "topics": [
+                "0x5cf3a4006b0dcb221517555192a3e5df5e19783c22ea769c1ef46dd421ae2d32",
+                "0x0000000000000000000000002279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+                "0xadc4fa06f7d42bc16f28d7ec9f0d7eb52761baa818eee7754004fd5a9792c488",
+                "0x00000000000000000000000050069bd253ea42d948a336792ea73121f46fbce6"
+              ],
+              "data": "0x",
+              "decoded": {
+                "event": "Wrapped1155Creation",
+                "args": {
+                  "multiToken": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                  "tokenId": "78598150454047444257247914687149367883390237538365254139517629816824531174536",
+                  "wrappedToken": "0x50069bd253eA42D948a336792eA73121f46fbCe6"
+                }
+              }
+            },
+            {
+              "address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+              "index": 3,
+              "topics": [
+                "0xa508c9a2f2a5f84705ed9a667968484d8ccd7b892f630a72786fcb6a52248f22",
+                "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+                "0x79c39f89ebadc6a24f9fc7b45a199746da792c10cee42052376c540a6aad943a",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd0800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001a00000000000000000000000009b0dfbff1d41b76853302c8fc1ba752eb918cbc900000000000000000000000050069bd253ea42d948a336792ea73121f46fbce6000000000000000000000000000000000000000000000000000000000000002e446561646c696e6520514120e2809420706172656e742054727565206f662070726f766564206964656e746974790000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "event": "StatementCreated",
+                "args": {
+                  "statementId": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+                  "conditionId": "0x79c39f89ebadc6a24f9fc7b45a199746da792c10cee42052376c540a6aad943a",
+                  "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                  "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "kind": "2",
+                  "dependency": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                  "deadline": "0",
+                  "expected": "1",
+                  "title": "Deadline QA — parent True of proved identity",
+                  "manifest": "",
+                  "yes": "0x9B0dFbff1D41b76853302C8fC1ba752Eb918Cbc9",
+                  "no": "0x50069bd253eA42D948a336792eA73121f46fbCe6"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 190,
+      "hash": "0x05a284645959960dcbbfb76585c701e5e6e079e61e01842666424126fbf9e019",
+      "timestamp": 1789032978,
+      "transactions": [
+        {
+          "hash": "0xc215ede0e021f1cc01a0967bd387d0480e2c852ba2730871b3720deabbd97526",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+          "value": "0",
+          "nonce": 104,
+          "data": "0xb1d971b8161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000070dba04000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000033446561646c696e6520514120e28094205265736f6c766564427920323033302070656e64696e67207468656e2074696d656c7900000000000000000000000000",
+          "method": "registerDerived",
+          "args": {
+            "dependency": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+            "kind": "1",
+            "expected": "0",
+            "deadline": "1893441600",
+            "title": "Deadline QA — ResolvedBy 2030 pending then timely"
+          },
+          "status": 1,
+          "gasUsed": "747472",
+          "gasPrice": "1000000008",
+          "logs": [
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 0,
+              "topics": [
+                "0xab3760c3bd2bb38b5bcf54dc79802ed67338b4cf29f3054ded67ed24661e4177",
+                "0xd240cfd1bb4aecbb6ae8e5e8ae58f6531fd3d5da510cdbe2fe9f01965966a56a",
+                "0x000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad788",
+                "0x3c68f27129c8ccde312815a490ca534c86e222f289f2c248697f973d0773662e"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000002",
+              "decoded": {
+                "event": "ConditionPreparation",
+                "args": {
+                  "conditionId": "0xd240cfd1bb4aecbb6ae8e5e8ae58f6531fd3d5da510cdbe2fe9f01965966a56a",
+                  "oracle": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+                  "questionId": "0x3c68f27129c8ccde312815a490ca534c86e222f289f2c248697f973d0773662e",
+                  "outcomeSlotCount": "2"
+                }
+              }
+            },
+            {
+              "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+              "index": 1,
+              "topics": [
+                "0x5cf3a4006b0dcb221517555192a3e5df5e19783c22ea769c1ef46dd421ae2d32",
+                "0x0000000000000000000000002279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+                "0xdecd9f19573a991db461cf75ed0cb18be3204e3c5ce1ec0d038aff45ffeb7088",
+                "0x0000000000000000000000006adb5cc614aa393f8488c9b08aa3e95de65550be"
+              ],
+              "data": "0x",
+              "decoded": {
+                "event": "Wrapped1155Creation",
+                "args": {
+                  "multiToken": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                  "tokenId": "100776754094618788624076046756941368401156649808507359029354636218788643303560",
+                  "wrappedToken": "0x6adb5cc614Aa393f8488C9b08aa3E95DE65550Be"
+                }
+              }
+            },
+            {
+              "address": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+              "index": 2,
+              "topics": [
+                "0x5cf3a4006b0dcb221517555192a3e5df5e19783c22ea769c1ef46dd421ae2d32",
+                "0x0000000000000000000000002279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+                "0x6844194ab548cd3acd1b1d632b712efa895b5bd2342eb39dae1ca92d670c0d68",
+                "0x0000000000000000000000007575cec457bdfd0b515fa932916c6bd8c56020ea"
+              ],
+              "data": "0x",
+              "decoded": {
+                "event": "Wrapped1155Creation",
+                "args": {
+                  "multiToken": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                  "tokenId": "47160856410850831323920196265991732213308972199400188467056654307752596475240",
+                  "wrappedToken": "0x7575cEc457BDfd0B515fA932916C6bd8c56020ea"
+                }
+              }
+            },
+            {
+              "address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+              "index": 3,
+              "topics": [
+                "0xa508c9a2f2a5f84705ed9a667968484d8ccd7b892f630a72786fcb6a52248f22",
+                "0x3c68f27129c8ccde312815a490ca534c86e222f289f2c248697f973d0773662e",
+                "0xd240cfd1bb4aecbb6ae8e5e8ae58f6531fd3d5da510cdbe2fe9f01965966a56a",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e56546840000000000000000000000000000000000000000000000000000000070dba0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001a00000000000000000000000006adb5cc614aa393f8488c9b08aa3e95de65550be0000000000000000000000007575cec457bdfd0b515fa932916c6bd8c56020ea0000000000000000000000000000000000000000000000000000000000000033446561646c696e6520514120e28094205265736f6c766564427920323033302070656e64696e67207468656e2074696d656c79000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "event": "StatementCreated",
+                "args": {
+                  "statementId": "0x3c68f27129c8ccde312815a490ca534c86e222f289f2c248697f973d0773662e",
+                  "conditionId": "0xd240cfd1bb4aecbb6ae8e5e8ae58f6531fd3d5da510cdbe2fe9f01965966a56a",
+                  "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                  "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                  "kind": "1",
+                  "dependency": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+                  "deadline": "1893441600",
+                  "expected": "0",
+                  "title": "Deadline QA — ResolvedBy 2030 pending then timely",
+                  "manifest": "",
+                  "yes": "0x6adb5cc614Aa393f8488C9b08aa3E95DE65550Be",
+                  "no": "0x7575cEc457BDfd0B515fA932916C6bd8c56020ea"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "states": {
+    "base188": {
+      "author": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "kind": "0",
+      "expected": "0",
+      "deadline": "0",
+      "outcome": "1",
+      "resolvedAt": "1788998482",
+      "title": "Для любого P: Prop, P → P",
+      "conditionId": "0xa13491f5cdbf1228fddece676926d0453555a17884ce968d6553c682743b318e",
+      "yes": "0x5F26A38c54b9bE46aF03C25ccEc790332F7D6CbF",
+      "no": "0xD7A0a3E9f2D6409a1861f4195Ad90B37E35d8324",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    },
+    "base190": {
+      "author": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "kind": "0",
+      "expected": "0",
+      "deadline": "0",
+      "outcome": "1",
+      "resolvedAt": "1788998482",
+      "title": "Для любого P: Prop, P → P",
+      "conditionId": "0xa13491f5cdbf1228fddece676926d0453555a17884ce968d6553c682743b318e",
+      "yes": "0x5F26A38c54b9bE46aF03C25ccEc790332F7D6CbF",
+      "no": "0xD7A0a3E9f2D6409a1861f4195Ad90B37E35d8324",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    },
+    "parent189": {
+      "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "dependency": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+      "kind": "2",
+      "expected": "1",
+      "deadline": "0",
+      "outcome": "0",
+      "resolvedAt": "0",
+      "title": "Deadline QA — parent True of proved identity",
+      "conditionId": "0x79c39f89ebadc6a24f9fc7b45a199746da792c10cee42052376c540a6aad943a",
+      "yes": "0x9B0dFbff1D41b76853302C8fC1ba752Eb918Cbc9",
+      "no": "0x50069bd253eA42D948a336792eA73121f46fbCe6",
+      "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "parent190": {
+      "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "dependency": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+      "kind": "2",
+      "expected": "1",
+      "deadline": "0",
+      "outcome": "0",
+      "resolvedAt": "0",
+      "title": "Deadline QA — parent True of proved identity",
+      "conditionId": "0x79c39f89ebadc6a24f9fc7b45a199746da792c10cee42052376c540a6aad943a",
+      "yes": "0x9B0dFbff1D41b76853302C8fC1ba752Eb918Cbc9",
+      "no": "0x50069bd253eA42D948a336792eA73121f46fbCe6",
+      "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "child190": {
+      "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "dependency": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+      "kind": "1",
+      "expected": "0",
+      "deadline": "1893441600",
+      "outcome": "0",
+      "resolvedAt": "0",
+      "title": "Deadline QA — ResolvedBy 2030 pending then timely",
+      "conditionId": "0xd240cfd1bb4aecbb6ae8e5e8ae58f6531fd3d5da510cdbe2fe9f01965966a56a",
+      "yes": "0x6adb5cc614Aa393f8488C9b08aa3E95DE65550Be",
+      "no": "0x7575cEc457BDfd0B515fA932916C6bd8c56020ea",
+      "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "balances": {
+    "T": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "totalSupply": "4000000000000000000000000",
+      "wallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "999995373717461117683591",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000004611282538876618488"
+      }
+    },
+    "parentYES": {
+      "address": "0x9B0dFbff1D41b76853302C8fC1ba752Eb918Cbc9",
+      "totalSupply": "0",
+      "wallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0"
+      }
+    },
+    "parentNO": {
+      "address": "0x50069bd253eA42D948a336792eA73121f46fbCe6",
+      "totalSupply": "0",
+      "wallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0"
+      }
+    },
+    "childYES": {
+      "address": "0x6adb5cc614Aa393f8488C9b08aa3E95DE65550Be",
+      "totalSupply": "0",
+      "wallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0"
+      }
+    },
+    "childNO": {
+      "address": "0x7575cEc457BDfd0B515fA932916C6bd8c56020ea",
+      "totalSupply": "0",
+      "wallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0"
+      }
+    }
+  },
+  "payouts": {
+    "parent": {
+      "denominator": "0",
+      "numerators": [
+        "0",
+        "0"
+      ]
+    },
+    "child": {
+      "denominator": "0",
+      "numerators": [
+        "0",
+        "0"
+      ]
+    }
+  },
+  "protectedState": {
+    "188": {
+      "pools": [
+        {
+          "address": "0x3f7120b7dA72da042B8c88411380def6DBf6fb97",
+          "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+          "tokens": [
+            "0x5F26A38c54b9bE46aF03C25ccEc790332F7D6CbF",
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+          ],
+          "rawBalances": [
+            "1237602",
+            "809603"
+          ],
+          "BPTsupply": "1000000"
+        },
+        {
+          "address": "0x367f316D4acbC190fc872584D9A8f3f86191Da7d",
+          "statementId": "0x7b048ad58d17d794cfe9da3c2740bb9047f88817e9ec00f174fd1ac79950a7a3",
+          "tokens": [
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "0x873b5750e54339F2429C9581959874EDF887280f"
+          ],
+          "rawBalances": [
+            "353749",
+            "1296963"
+          ],
+          "BPTsupply": "1000000"
+        },
+        {
+          "address": "0xa87B6d7768D0961a4929441e523686c43493A6FA",
+          "statementId": "0x9b92e4faac37cd50a98f2462be17c75b9f55fcd32030ad8ee6139f669758743a",
+          "tokens": [
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "0xD0b304418541DcF3650b61cb81CE3404aA130A99"
+          ],
+          "rawBalances": [
+            "1000001",
+            "1000001"
+          ],
+          "BPTsupply": "1000000"
+        }
+      ],
+      "TtotalSupply": "4000000000000000000000000",
+      "Tcollateral": "11000000003534566",
+      "Twallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "999995373717461117683591",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000004611282538876618488"
+      }
+    },
+    "190": {
+      "pools": [
+        {
+          "address": "0x3f7120b7dA72da042B8c88411380def6DBf6fb97",
+          "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+          "tokens": [
+            "0x5F26A38c54b9bE46aF03C25ccEc790332F7D6CbF",
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+          ],
+          "rawBalances": [
+            "1237602",
+            "809603"
+          ],
+          "BPTsupply": "1000000"
+        },
+        {
+          "address": "0x367f316D4acbC190fc872584D9A8f3f86191Da7d",
+          "statementId": "0x7b048ad58d17d794cfe9da3c2740bb9047f88817e9ec00f174fd1ac79950a7a3",
+          "tokens": [
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "0x873b5750e54339F2429C9581959874EDF887280f"
+          ],
+          "rawBalances": [
+            "353749",
+            "1296963"
+          ],
+          "BPTsupply": "1000000"
+        },
+        {
+          "address": "0xa87B6d7768D0961a4929441e523686c43493A6FA",
+          "statementId": "0x9b92e4faac37cd50a98f2462be17c75b9f55fcd32030ad8ee6139f669758743a",
+          "tokens": [
+            "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "0xD0b304418541DcF3650b61cb81CE3404aA130A99"
+          ],
+          "rawBalances": [
+            "1000001",
+            "1000001"
+          ],
+          "BPTsupply": "1000000"
+        }
+      ],
+      "TtotalSupply": "4000000000000000000000000",
+      "Tcollateral": "11000000003534566",
+      "Twallets": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "999995373717461117683591",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000004611282538876618488"
+      }
+    }
+  },
+  "protectedEconomicStateUnchanged": true,
+  "pendingAt190": {
+    "statementId": "0x3c68f27129c8ccde312815a490ca534c86e222f289f2c248697f973d0773662e",
+    "blockNumber": 190,
+    "blockHash": "0x05a284645959960dcbbfb76585c701e5e6e079e61e01842666424126fbf9e019",
+    "timestamp": 1789032978,
+    "kind": 1,
+    "dependency": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+    "ready": false,
+    "status": "pending",
+    "reason": "Производное пока не разрешимо: ожидается исход зависимости или наступление срока. Транзакция не отправлена.",
+    "contractError": "NotResolvableYet",
+    "parentOutcome": 0,
+    "parentResolvedAt": 0,
+    "deadline": 1893441600
+  },
+  "governanceEOAPreflight": {
+    "target": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "data": "0x",
+    "value": "0",
+    "from": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "blockNumber": 190,
+    "decoded": null,
+    "ok": false,
+    "error": "Target has no contract bytecode",
+    "revertData": null
+  },
+  "reviewed2030": {
+    "local": "2030-01-01 00:00:00 UTC+04:00 (Asia/Yerevan)",
+    "utc": "2029-12-31T20:00:00.000Z",
+    "unix": 1893441600,
+    "source": "Actual visible UI review before190"
+  },
+  "refusedExpired": {
+    "id": "0x8e329d5e5abb88786d029c3ae4c77586870471e6768dccab94e232ed893e1d54",
+    "authorAt190": "0x0000000000000000000000000000000000000000",
+    "title": "Deadline QA — ResolvedBy 2020 expired remains False",
+    "parent": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+    "kind": 1,
+    "expected": 0,
+    "deadline": 1577822400,
+    "local": "2020-01-01 00:00:00 UTC+04:00 (Asia/Yerevan)",
+    "utc": "2019-12-31T20:00:00.000Z",
+    "created": false,
+    "reason": "Automatic approval review rejected adding persistent expired test state to the shared current devnet; no workaround/retry"
+  },
+  "refusedParentResolution": {
+    "parent": "0x161806b1b25836962733c2e0c99f9979479784352a7a8b12110bf055e5654684",
+    "executed": false,
+    "reason": "Automatic approval review rejected irreversible resolution on shared current devnet without specific user authorization; no workaround/retry"
+  },
+  "finalBlock": 190,
+  "finalBlockHash": "0x05a284645959960dcbbfb76585c701e5e6e079e61e01842666424126fbf9e019",
+  "headUnchangedDuringReadChecks": true
+}

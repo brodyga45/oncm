@@ -1,0 +1,71 @@
+{
+  "format": "vault-generic-browser-import-v1",
+  "scope": "Actual normal textarea paste and Verify button; no curated-loader shortcut, file upload, jobs, signing or chain transaction",
+  "tabId": "102825332",
+  "url": "http://127.0.0.1:5173",
+  "actor": {
+    "wallet": "disconnected",
+    "visibleControl": "Подключить кошелёк ⌄",
+    "selectedStatement": "Для любого P: Prop, P → P",
+    "selectedStatementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+    "selectedOutcome": 1
+  },
+  "blockNumber": 190,
+  "chainId": 31373,
+  "input": {
+    "file": "external-proofs/generic-examples/true-proof.json",
+    "bytes": 8173,
+    "sha256": "d4b290043efd34358b01a59ec16d109b818230d7ed07280cc8242d3676d0c8e8",
+    "firstPasteAddedOneNewline": true,
+    "firstPasteSha256": "907d8fa97e8f67e44e1997868c4b5037a5fae91195295e2fb865cdec4dc8bd73",
+    "restoredExactFileSha256": "d4b290043efd34358b01a59ec16d109b818230d7ed07280cc8242d3676d0c8e8",
+    "format": "oncm-external-certificate-bundle-v1"
+  },
+  "success": {
+    "originalVerifierAccepted": true,
+    "exactBridgeVerified": true,
+    "profileEnabled": true,
+    "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+    "outcome": 1,
+    "sourceGoalRelation": "not-verified",
+    "sourceSha256": "adb0142ac2d8cef01d92fc0dce76e19e0d5b8a9184c0004cdf29ca05a1b1a0b9",
+    "originalVerifier": "0xDC17C27Ae8bE831AF07CC38C02930007060020F4",
+    "bridgeVerifier": "0x330981485Dbd4EAcD7f14AD4e6A1324B48B09995",
+    "verifierRuntimeCodeHash": "0x6e9c231ed0e55de83b56e8e30d220b22e26ebae66628b450df2494e01f3c2559",
+    "uiMessage": "Оригинальный Groth16 verifier принял сертификат · блок 190"
+  },
+  "negative": {
+    "mutation": "Only artifact.goalHash changed to0x1111111111111111111111111111111111111111111111111111111111111111; original goalExport/journal/seal unchanged",
+    "inputSha256": "f62be168fe4a28144f67eec5932ebf134f395fbe3eea1dceeb0159d46256e1ce",
+    "priorSuccessClearedImmediately": true,
+    "applyButtonClearedImmediately": true,
+    "uiError": "Goal bytes differ from claim",
+    "stage": "binding validation before pairing; not claimed as a cryptographically self-consistent invalid-proof test"
+  },
+  "restoration": {
+    "exactOriginalBytes": true,
+    "verificationSucceededAgain": true,
+    "bundleShaMatchesSourceFile": true
+  },
+  "writes": {
+    "marketRegistration": false,
+    "resolution": false,
+    "certificateGeneration": false,
+    "profileChange": false,
+    "packagePublication": false
+  },
+  "limitation": "Known real CI4 theorem wrapped generically exercises arbitrary-goal input route; no newly proved theorem/new generic market is claimed. Existing exact target was already resolved; no Apply/Resolve was clicked.",
+  "finalRPC": {
+    "number": 190,
+    "hash": "0x05a284645959960dcbbfb76585c701e5e6e079e61e01842666424126fbf9e019",
+    "unchangedFromDeadlineEvidence": true
+  },
+  "cleanup": {
+    "ownedQATabClosed": true,
+    "auxiliaryTab": "102825338",
+    "auxiliaryTabClosed": true,
+    "note": "Direct navigation to public JSON was blocked by Chrome ERR_BLOCKED_BY_CLIENT; no retry. Known local public bundle content was pasted through the ordinary app textarea. No user tab touched."
+  }
+}

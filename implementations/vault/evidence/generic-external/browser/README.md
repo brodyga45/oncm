@@ -1,0 +1,13 @@
+# Generic bundle browser import —2026-09-10
+
+Read-only own Chrome tab102825332 on live Vault chain31373 at190. Visible wallet disconnected; selected target was the existing genuine identity theorem `Для любого P: Prop, P → P`, statement0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08, outcome1. No wallet/session authority is needed for this public cryptographic read.
+
+Pasted the public `external-proofs/generic-examples/true-proof.json` wrapper into **Точный JSON сертификата / пакета**, then clicked **Проверить original EVM и профиль**. No curated-loader shortcut or API verification script substituted for the form. The UI showed original Groth16 accepted at190, exact bridge verified, governance profile enabled, exact goal/profile/image/outcome and `sourceGoalRelation:not-verified`. The content is an existing real CI4 certificate packaged through the generic route; this does not claim a new theorem was proved.
+
+The first paste added one trailing newline: observed bundle digest907d8fa97e8f67e44e1997868c4b5037a5fae91195295e2fb865cdec4dc8bd73. Restoring exact file bytes without that newline and verifying again produced **d4b290043efd34358b01a59ec16d109b818230d7ed07280cc8242d3676d0c8e8**, matching the actual8173-byte file. Whitespace remains part of the transport digest.
+
+Negative: changed only `artifact.goalHash` to32bytes0x11, leaving goalExport/journal/seal unchanged. Editing immediately removed the prior success and Apply control. Clicking Verify displayed **Goal bytes differ from claim** and no success state. This is a precise binding/preflight rejection, not a claim that a self-consistent forged journal reached pairing. Its reproducible input digest is f62be168fe4a28144f67eec5932ebf134f395fbe3eea1dceeb0159d46256e1ce. Restoring the valid exact file successfully verified again.
+
+Observed original verifier0xDC17C27Ae8bE831AF07CC38C02930007060020F4; verifier referenced by the installed perf05 bridge0x330981485Dbd4EAcD7f14AD4e6A1324B48B09995; identical runtime hash0x6e9c231ed0e55de83b56e8e30d220b22e26ebae66628b450df2494e01f3c2559. This is the approved perf05 path, not v3. Goal2baf8be8…13f4b, profile93cf1745…37e10, image296fb3bb…39feb, outcome1 are exact in observations.json.
+
+No Apply/Resolve/Create market action was clicked, no source package published, no new native/ZK/remote job, no source or runtime edit/restart. Final RPC head190/hash0x05a284645959960dcbbfb76585c701e5e6e079e61e01842666424126fbf9e019 unchanged. Own QA and auxiliary failed-document tabs were closed; other tabs untouched. Direct JSON document navigation had been blocked by Chrome, recorded separately; the ordinary textarea flow itself worked and required no code fix.
