@@ -19,7 +19,8 @@ export function readRuntimeDeployment(files) {
   for (const key of ['StatementRegistry', 'TrueToken', 'PoolCoordinator', 'Vault']) {
     if (!/^0x[0-9a-f]{40}$/i.test(config.addresses?.[key] ?? '')) throw Error('Missing deployment identity: ' + key);
   }
-  if (files.version === '2' && !config.monetaryPolicy) throw Error('V2 deployment lacks monetary policy metadata');
+  if (files.version === '2' && (!config.monetaryPolicy || config.monetaryPolicy.version !== 'vault-monetary-v1'
+      || config.monetaryPolicy.status !== 'deployed')) throw Error('V2 deployment lacks deployed monetary policy metadata');
   return config;
 }
 

@@ -8,7 +8,7 @@ import {runtimeFiles,readRuntimeDeployment,assertSameRuntime} from '../server/ru
 const address=n=>'0x'+n.toString(16).padStart(40,'0');
 function config(version='legacy') {
   return {chainId:31373,chainInstance:{id:'same-persistent-chain'},rpcUrl:'http://127.0.0.1:9547',
-    ...(version==='2'?{protocolVersion:'2',monetaryPolicy:{format:'test-metadata'}}:{}),
+    ...(version==='2'?{protocolVersion:'2',monetaryPolicy:{version:'vault-monetary-v1',status:'deployed'}}:{}),
     addresses:{StatementRegistry:address(1),TrueToken:address(2),PoolCoordinator:address(3),Vault:address(4)}};
 }
 function temporary(t){
@@ -31,7 +31,9 @@ test('V2 config and all persisted public/private stores are distinct from legacy
   fs.writeFileSync(v2.deployment,JSON.stringify(config()));
   assert.throws(()=>readRuntimeDeployment(v2),/version does not match/);
   const next=config('2');delete next.monetaryPolicy;fs.writeFileSync(v2.deployment,JSON.stringify(next));
-  assert.throws(()=>readRuntimeDeployment(v2),/lacks monetary policy/);
+  assert.throws(()=>readRuntimeDeployment(v2),/lacks deployed monetary policy/);
+  next.monetaryPolicy={version:'vault-monetary-v1',status:'planned'};fs.writeFileSync(v2.deployment,JSON.stringify(next));
+  assert.throws(()=>readRuntimeDeployment(v2),/lacks deployed monetary policy/);
   fs.writeFileSync(v2.deployment,JSON.stringify(config('2')));
   assert.equal(readRuntimeDeployment(v2).protocolVersion,'2');
 });

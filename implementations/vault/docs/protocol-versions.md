@@ -2,6 +2,8 @@
 
 US-023 adds governed T issuance, rewards and fee policy. Existing T and registry collateral are immutable; source changes cannot turn the existing token into a mintable token. The selected approach is an additive V2 protocol graph on the same chain31373, reusing membership governance where specified by the deployment. Existing markets and collateral remain at their original addresses.
 
+The V2 plan starts T at zero supply. Membership voting already exists independently of T, so ordinary governance can make the first explicitly reviewed issuance to participants before they trade or supply liquidity. Reward-program issuance is a separate option; earning rewards from nonexistent prior trading is not the bootstrap mechanism. The new allocation starts with the current legacy recipient proportions captured at one block; it does not transfer old funds or claims.
+
 ## Explicit runtime selection
 
 | Selection | Deployment / ABI | Social descriptor | Local app records |
@@ -19,7 +21,7 @@ VAULT_PROTOCOL_VERSION=2 npm run dev
 
 This command is **not** a deployment recipe: V2 deployment tooling is being implemented separately. If the selected descriptor is missing or carries the wrong version, startup fails and never falls back to legacy or silently deploys V2. An existing API must match the selected token, registry, coordinator, Vault, protocol version, chain instance and RPC—not merely chainId or the shared Governor. Stop/switch only the app processes using those ports when changing the running version; do not restart or reset the chain as a workaround.
 
-The runtime selection is process configuration, not an unrestricted API path parameter. The server and social deployment/verification use the same versioned paths. A V2 config must contain `protocolVersion: "2"` and monetary-policy metadata; the typed SDK separately verifies concrete contract capabilities and authority.
+The runtime selection is process configuration, not an unrestricted API path parameter. The server and social deployment/verification use the same versioned paths. A V2 config must contain `protocolVersion: "2"` and monetary-policy metadata with `version: "vault-monetary-v1"`, `status: "deployed"`; a merely planned descriptor is rejected. The typed SDK separately verifies concrete contract capabilities and authority.
 
 ## Verification so far
 
