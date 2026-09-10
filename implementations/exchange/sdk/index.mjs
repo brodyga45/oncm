@@ -10,6 +10,7 @@ import {
 import { verifyExternalCertificate } from "./proof-import.mjs";
 import { verifyExternalBundle } from "./external-registration.mjs";
 import { readGovernance } from "./governance.mjs";
+import { readDerivedReadiness } from "./derived-readiness.mjs";
 export { decodeExternalCertificate, fixtureForCertificate } from "./proof-import.mjs";
 export { parseEther, formatEther };
 export class ExchangeSDK {
@@ -297,10 +298,17 @@ export class ExchangeSDK {
       this.contract("protocol").resolveProof(m.id, outcome, certificate),
     );
   }
-  async resolveDerived(m) {
-    return this.tx("Resolve chain-state predicate", async () =>
-      this.contract("protocol").resolveDerived(m.id),
-    );
+  derivedReadiness(m) {
+    return readDerivedReadiness({provider:this.provider,registry:this.contract("protocol")},m.id);
+  }
+  async resolveDerived(m, {isCurrent=()=>true}={}) {
+    const state=await this.derivedReadiness(m);
+    if(!isCurrent())throw Error('The statement or wallet changed; review the predicate again.');
+    if(!state.ready)throw Error(state.reason);
+    return this.tx("Resolve chain-state predicate", async () => {
+      if(!isCurrent())throw Error('The statement or wallet changed; review the predicate again.');
+      return this.contract("protocol").resolveDerived(m.id);
+    });
   }
   async quoteArbitrage(m, amount) {
     const yesT = await this.quote(m, 0, false, amount),

@@ -1,0 +1,96 @@
+{
+  "format": "oncm-derived-historical-assertions-v1",
+  "input": "docs/evidence/derived/through-219-228.json",
+  "status": "passed",
+  "rows": [
+    {
+      "case": "parent",
+      "id": "0xb911b784614efa736228a7337e0779b6536d17cfa479d71e96777ce5b0977ad3",
+      "kind": "2",
+      "targetOutcome": "1",
+      "deadline": "0",
+      "block": 225,
+      "tx": "0xc89cfc524a4329da2e34e57e0d0200ec08a5a2a6967a8560dc440b3f5cc2caeb",
+      "outcome": "1",
+      "payout": [
+        "1",
+        "0"
+      ],
+      "resolvedAt": "1789013499"
+    },
+    {
+      "case": "timely",
+      "id": "0xa3ef52ce17dcbaa1cd990fd4861784a209b6b1bdd0bdc6162cbae4abade3507a",
+      "kind": "1",
+      "targetOutcome": "0",
+      "deadline": "1893441600",
+      "block": 226,
+      "tx": "0x6cc0d2345e6bcde918de279de0d1408f0bac6dd40df74539a0f867b86e64205a",
+      "outcome": "1",
+      "payout": [
+        "1",
+        "0"
+      ],
+      "resolvedAt": "1789033387"
+    },
+    {
+      "case": "expired",
+      "id": "0xf3db65cf693cec86f2ed2de18c2ac6d650ab60c45322d2e20b24d39fe09f89af",
+      "kind": "1",
+      "targetOutcome": "0",
+      "deadline": "1577822400",
+      "block": 222,
+      "tx": "0x81c037392e9f7ecfc0c3e72b13fd32eb4e4f23681138c7aed77cf985c2ca184c",
+      "outcome": "2",
+      "payout": [
+        "0",
+        "1"
+      ],
+      "resolvedAt": "1789013369"
+    },
+    {
+      "case": "wrongOutcome",
+      "id": "0x0de8e07251916260e7b1bf15d174776daac056882231eb6091d36bdc570510c3",
+      "kind": "3",
+      "targetOutcome": "2",
+      "deadline": "1893441600",
+      "block": 227,
+      "tx": "0x71c1c4907759fa334fd389886f8747796f318e4a6c2b7449434ebbf515f8a5a5",
+      "outcome": "2",
+      "payout": [
+        "0",
+        "1"
+      ],
+      "resolvedAt": "1789033413"
+    },
+    {
+      "case": "matchingOutcome",
+      "id": "0xe2537943a1b15f85b3ad8bfd80e9bbb9d6ea3c20ee73cbe013aa0ffe707f13bc",
+      "kind": "3",
+      "targetOutcome": "1",
+      "deadline": "1893441600",
+      "block": 228,
+      "tx": "0x9f60884fa219af5a8acae472f53ab8b7348dfe348157562bdfa838d1ee9638fe",
+      "outcome": "1",
+      "payout": [
+        "1",
+        "0"
+      ],
+      "resolvedAt": "1789033444"
+    }
+  ],
+  "checks": [
+    "All10successful receipt hashes and blocks match raw transactions.",
+    "All5created IDs match exact ABI-encoded kind/dependency/deadline/target; metadata matches events.",
+    "Future child is pending while dependency recorded outcome is0, even if parent view is already resolvable.",
+    "All5stored outcomes, original CTF denominators/payouts and resolvedAt match resolution events.",
+    "Dependency and child resolutions precede the2030deadline for timely and outcome-specific branches.",
+    "Expired child entire statement/CTF/view remains identical from222to228 after parent resolves later than its2020deadline.",
+    "Alice T balance and aggregate CTF collateral are unchanged throughout218–228."
+  ],
+  "limitations": [
+    "No exact equality timestamp==deadline transaction was performed.",
+    "No LP/trade/redemption was performed on these derived markets.",
+    "Rejected browser preflight is coordinator observation, not a mined receipt."
+  ]
+}

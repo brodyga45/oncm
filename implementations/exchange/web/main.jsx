@@ -25,6 +25,7 @@ import { preparePortablePackage,retainPackageMetadata } from "./portable-package
 import { localEndpoints } from "../sdk/local-endpoints.mjs";
 import {derivedReview,reviewedDerivedArguments,parseLocalDeadline} from './derived-review.mjs';
 import {DerivedReviewCard} from './derived-review-card.mjs';
+import {DerivedResolution} from './derived-resolution.jsx';
 import {DeadlineInput,PortablePackagePaste} from './review-inputs.mjs';
 import { createProofImportGuard } from "./proof-import-state.mjs";
 import { publishedChoices, loadPublishedCertificate, assertWebJobAction } from "./published-certificates.mjs";
@@ -1237,24 +1238,7 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
       setCertificate(job.result.certificate);
   }, [job]);
   if (m.kind)
-    return (
-      <div className="panel">
-        <h3>Resolve from blockchain history</h3>
-        <p>
-          This predicate reads the accepted outcome and recorded timestamp of{" "}
-          {short(m.dependency)}. A deadline passing alone does not submit a
-          transaction.
-        </p>
-        <Button
-          disabled={busy || m.outcome > 0}
-          onClick={() =>
-            run("Resolve derived statement", () => sdk.resolveDerived(m))
-          }
-        >
-          Resolve when ready
-        </Button>
-      </div>
-    );
+    return <DerivedResolution m={m} sdk={sdk} address={address} run={run} busy={busy}/>;
   return (
     <div className="panel proof-panel">
       <div className="section-head">

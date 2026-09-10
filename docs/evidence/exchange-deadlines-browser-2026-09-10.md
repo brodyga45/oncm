@@ -1,6 +1,18 @@
 # Exchange: deadline predicates, browser evidence
 
-Actual local chain31372, own Chrome tab102825303, Alice. This records observed UI actions through block224. The subsequent parent-resolution click was sent, but its result is **unconfirmed in this record**: the next browser observation was rejected by automatic approval review because the Codex usage limit was reached. Do not repeat that transaction before checking its receipt after the tool becomes available.
+Actual local chain31372, initial own Chrome tab102825303, Alice. The initial record below covers observed UI actions through block224; the continuation section confirms completion through228. The subsequent parent-resolution click was sent, but its result is **unconfirmed in this record**: the next browser observation was rejected by automatic approval review because the Codex usage limit was reached. Do not repeat that transaction before checking its receipt after the tool becomes available.
+
+## Continuation confirmed after access returned
+
+The usage-limit status was checked again and browser access was available. A new own tab102825321 showed block225 and parent True **without resubmission**. Coordinator connected Alice and completed the three existing future children through normal Proof lab controls:
+
+- 226: ResolvedBy2030 → True, tx `0x6cc0d…4205a`.
+- 227: ResolvedAsBy(False,2030) → False, tx `0x71c1c…8a5a5`.
+- 228: ResolvedAsBy(True,2030) → True, tx `0x9f608…638fe`.
+
+At228, reopened expired2020 child: still False, repeated resolution disabled. The [full historical RPC capture and assertions](../../implementations/exchange/docs/evidence/derived/README.md) contain all10 receipts219–228, exact IDs/calldata, dependency records and original CTF payouts. They verify the five final outcomes, timely resolution timestamps and unchanged expired payout after parent resolution. No new certificates or liquidity were needed.
+
+The pending UX was subsequently changed to read the actual registry `derivedOutcome` with all explanatory reads at one explicit block. SDK refuses pending submissions; UI shows the full predicate/required outcome/deadline and snapshot block. After ordinary reload, the actual expired child panel showed “This statement has already been resolved. Observed at block #228.” with disabled Resolve and available Refresh.5 focused SDK/readiness tests and production build passed; this observed resolved-state view does not itself prove the new pending UI path.
 
 ## Parameters and confirmed actions
 
