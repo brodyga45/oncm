@@ -1,5 +1,7 @@
 <script>
   import {derivedReview,derivedArguments} from './derived-review.mjs';
+  import {createSnapshotImport} from './snapshot-draft.mjs';
+  import nativeManifest from '../proof/manifest.json';
   import { proofNotice } from './proof-status.mjs';
   import { bindOutcomeCertificate, bindProofJob, proofBindingMatches } from './proof-binding.mjs';
   import PackageEditor from './PackageEditor.svelte';
@@ -85,7 +87,12 @@
     certificate = '';
   let certificateBinding = null, proofEpoch = 0;
   const scenarioReader=createSettlementScenario({publish:value=>{stress=value;}});
-  let registrationImport = null;
+  let registrationImport = null, snapshotInfo=null, sourceImportEpoch=0;
+  function applySnapshotFields(fields){
+    ({source,goalHash,profileId,registrationCertificate,registrationImport,fixtureId,declaration,title,manifest,latestJob}=fields);
+    if(fields.snapshotInfo){snapshotInfo=fields.snapshotInfo;repository=snapshotInfo.repository;commit=snapshotInfo.commit;challengePath=snapshotInfo.challengePath;}
+  }
+  const snapshotImporter=createSnapshotImport({reset:fields=>{clearProofCertificate();snapshotInfo=null;sourceImportEpoch++;applySnapshotFields(fields);},accept:applySnapshotFields});
   $: if(registrationImport&&(registrationImport.goalHash!==goalHash||registrationImport.profileId!==profileId||registrationImport.certificate!==registrationCertificate))registrationImport=null;
   let splitAmount = '100',
     mergeAmount = '10',
@@ -126,6 +133,7 @@
     ['revenue', '↗', 'Доход'],
     ['activity', '▤', 'Блоки'],
   ];
+  $: snapshotImporter.setContext({account,client:sdk,chainId:config?.chainId,chainInstance:config?.chainInstance?.id,registry:config?.addresses.StatementRegistry,statementId:sid});
   $: proofBusy = ['queued', 'running', 'cancelling'].includes(latestJob?.status);
   $: statement = data.statements.find((s) => s.id === sid);
   $: derivedPreview=derivedReview({statement,kind:derivedKind,expected:derivedExpected,deadlineInput:deadline});
@@ -248,7 +256,7 @@
     await api('/auth/verify', { method: 'POST', body: JSON.stringify({ message, signature }) });
   }
   function clearWalletState() {
-    profileEpoch++;
+    profileEpoch++;snapshotImporter.invalidate();snapshotInfo=null;sourceImportEpoch++;
     signer = undefined;
     account = '';
     walletKind = '';
@@ -418,6 +426,7 @@
   }
   function restoreJobInput() {
     if (!latestJob?.input) return;
+    snapshotImporter.invalidate();snapshotInfo=null;
     clearProofCertificate();
     const input = latestJob.input;
     source = input.source || '';
@@ -430,6 +439,7 @@
     notice = 'Источник загружен в редактор. Запуск выполняется отдельной кнопкой.';
   }
   function pickFixture() {
+    snapshotImporter.invalidate();snapshotInfo=null;
     const f = fixtures.find((f) => (f.id || f.fixtureId) === fixtureId);
     if (!f) return;
     source = f.source || source;
@@ -468,6 +478,7 @@
     });
   }
   async function useExternalCertificate(review, descriptor) {
+    snapshotImporter.invalidate();snapshotInfo=null;
     if (review.outcome === 0) {
       clearProofCertificate();
       goalHash = review.goalHash; profileId = review.profileId;
@@ -593,18 +604,8 @@
     if (receipt) liquidityQuote = null;
   }
   async function importPackage() {
-    await tx('Импорт GitHub snapshot', async () => {
-      const p = await api('/import', {
-        method: 'POST',
-        body: JSON.stringify({ repository, commit, challengePath }),
-      });
-      source = p.source;
-      manifest = JSON.stringify({
-        repository: p.repository,
-        commit: p.commit,
-        challengePath: p.challengePath,
-      });
-    });
+    const request={repository,commit,challengePath};
+    await tx('Импорт GitHub snapshot',()=>snapshotImporter.load(()=>api('/import',{method:'POST',body:JSON.stringify(request)}),nativeManifest.lean));
   }
   async function browsePalomar() {
     await task('Чтение опубликованного Palomar registry', async () => {
@@ -613,24 +614,8 @@
     });
   }
   async function importPalomar(e) {
-    await tx('Импорт Palomar ' + e.id, async () => {
-      const p = await api('/palomar/import', {
-        method: 'POST',
-        body: JSON.stringify({ id: e.id, version: e.version }),
-      });
-      source = p.source;
-      title = p.title;
-      declaration = p.targetDeclaration;
-      repository = p.repository;
-      commit = p.commit;
-      challengePath = p.challengePath;
-      manifest = JSON.stringify({
-        externalRef: p.externalRef,
-        repository: p.repository,
-        commit: p.commit,
-        challengePath: p.challengePath,
-      });
-    });
+    const request={id:e.id,version:e.version};
+    await tx('Импорт Palomar '+e.id,()=>snapshotImporter.load(()=>api('/palomar/import',{method:'POST',body:JSON.stringify(request)}),nativeManifest.lean));
   }
   async function loadClaims() {
     if (!account || !sdk) return;
@@ -1547,7 +1532,7 @@
           </div>
           <span class="pill">Native Lean check · внешний сертификат</span>
         </section>
-        <ExternalCertificate {sdk} onuse={useExternalCertificate} onproposal={proposeExternalProfile} />
+        {#key sourceImportEpoch}<ExternalCertificate {sdk} onuse={useExternalCertificate} onproposal={proposeExternalProfile} />{/key}
         <div class="two-columns lab-layout">
           <article class="panel">
             <div class="panel-heading">
@@ -1566,6 +1551,7 @@
               bind:value={source}
               spellcheck="false"
               aria-label="Lean source"
+              oninput={()=>{snapshotImporter.invalidate();if(snapshotInfo)snapshotInfo={...snapshotInfo,edited:true};}}
             ></textarea><label
               >Исходная декларация<input
                 readonly
@@ -1573,13 +1559,22 @@
                 placeholder="Oncm.goal"
               /></label
             >
+            {#if snapshotInfo}<div class="callout" aria-label="Происхождение импортированного snapshot">
+              <strong>Импортирован исходник · сертификат не проверен</strong>
+              <dl><dt>Repository</dt><dd>{snapshotInfo.repository}</dd><dt>Exact commit</dt><dd>{snapshotInfo.commit}</dd><dt>Challenge path</dt><dd>{snapshotInfo.challengePath}</dd><dt>Imported source SHA256</dt><dd>{snapshotInfo.sourceSha256}</dd><dt>Toolchain из snapshot</dt><dd>{snapshotInfo.toolchain||'Не указан в этом импорте'}</dd><dt>Source → goal</dt><dd>not-verified</dd></dl>
+              {#if snapshotInfo.edited}<p>Редактор изменён после импорта. Хэш выше относится к исходному snapshot.</p>{/if}
+              {#if snapshotInfo.compatibility==='incompatible'}<p role="alert">Версия snapshot {snapshotInfo.version} несовместима с локальным runner {snapshotInfo.localLean}. Автоматический запуск этого профиля отключён; нужен подходящий immutable profile или явная адаптация исходника.</p>
+              {:else}<p>{snapshotInfo.compatibility==='unknown'?'Совместимость неизвестна: версия Lean не получена.':'Совпала только версия Lean.'} Зависимости, foundation и декларации Oncm.goal/Oncm.solution не проверялись. Импорт не выбирает proof profile автоматически.</p>
+              <button class="secondary" disabled={busy} onclick={()=>{profileId=config.proof.profileId;}}>Выбрать v3 для отдельной native-проверки</button>{/if}
+              <p class="footnote">Импорт сохраняется локальным API как запись публичного источника с автором импорта. Публикация вашего изменённого Lean-пакета — отдельное явное действие.</p>
+            </div>{/if}
             <div class="button-row">
               <button class="secondary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={checkLean}
                 >Проверить Lean</button
               >
             </div>
-            {#if profileId !== config.proof.profileId}<p class="footnote">Выбран отдельный профиль {profileId}.
-              Локальный runner настроен на v3; используйте импорт соответствующего внешнего сертификата выше.</p>{/if}
+            {#if profileId !== config.proof.profileId}<p class="footnote">{profileId?'Выбран отдельный профиль '+profileId+'.':'Proof profile не выбран.'}
+              Локальный runner настроен на v3; используйте явный выбор для native-проверки или импорт соответствующего внешнего сертификата выше.</p>{/if}
             <p class="footnote">
               Проверка Lean выполняется в фоне и не создаёт ZK-сертификат. Источник и результаты очереди видны только вашему кошельку;
               опубликованный on-chain сертификат публичен. Профиль проверяет цель Oncm.goal и
@@ -1671,11 +1666,12 @@
               <label
                 >GitHub repository<input
                   bind:value={repository}
+                  oninput={()=>snapshotImporter.invalidate()}
                   placeholder="https://github.com/owner/repository"
                 /></label
               ><label
-                >Точный commit<input bind:value={commit} placeholder="40 hex characters" /></label
-              ><label>Challenge path<input bind:value={challengePath} /></label><button
+                >Точный commit<input bind:value={commit} oninput={()=>snapshotImporter.invalidate()} placeholder="40 hex characters" /></label
+              ><label>Challenge path<input bind:value={challengePath} oninput={()=>snapshotImporter.invalidate()} /></label><button
                 class="secondary"
                 disabled={busy}
                 onclick={importPackage}>Импортировать Lean source</button
@@ -2002,11 +1998,12 @@
           >{/if}
       {/if}
       {#if page === 'lab' || (page === 'detail' && statement?.kind === 0)}
-        {#key account + ':' + (statement?.id || '')}
+        {#key account + ':' + (statement?.id || '') + ':' + sourceImportEpoch}
           <PackageEditor {api} {account} statement={statement?.kind === 0 ? statement : null}
             client={sdk} chainId={config?.chainId} chainInstance={config?.chainInstance?.id}
             registry={config?.addresses.StatementRegistry} selectedProfileId={profileId || config?.proof.profileId}
             currentSource={source} onUseSource={(text, packageContext) => {
+              snapshotImporter.invalidate();snapshotInfo=null;sourceImportEpoch++;
               clearProofCertificate(); registrationCertificate = ''; registrationImport = null;
               source = text; profileId = packageContext.profileId; fixtureId = ''; declaration = ''; go('lab');
             }} />

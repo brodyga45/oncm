@@ -1,12 +1,14 @@
 # Remaining manual package / deadline checks
 
-This audit distinguishes implemented behavior, bounded automated evidence, and the next manual steps. It performs no import, proving or transaction. Current browser chain is188; the subsequent coordinator owns publication and deadline transactions.
+This audit distinguishes implemented behavior, bounded automated evidence, and the next manual steps. It performs no import, proving or transaction. Initial audit was at188. Later actual browser evidence is linked below; shared-chain mutations remain separately authorized.
 
 ## US012: exact external publication import
 
 `server/palomar.mjs` reads the public registry index, then an exact entry/version with a pinned GitHub commit. It retains Challenge, Solution, toolchain, metadata, comparator/Lake configuration and available lockfile, with file hashes. Safe relative paths and exact commit validation precede downloads. Required missing files fail explicitly; only an absent optional dependency lock is tolerated. No downloaded Lake/config/source is executed by import. `server/index.mjs` exposes the catalog/import; the separate GitHub importer requires a40-hex commit and a `.lean` path. These are provenance packages, not trusted settlement or Palomar peer review.
 
-Next manual pass: Research → Palomar → inspect/select a concrete entry/version → import with SIWE → compare displayed commit/paths/hashes with the public source → reload the imported record. Check that loading source does not restore an earlier certificate. Native compatibility is constrained by the exact installed local profile; no general Mathlib build or successful new certificate is promised. Repository/commit input must be selected by the tester, not invented in the UI.
+Actual subsequent browser pass now exists: [US012 evidence](evidence/snapshot-import/README.md). Normal Ix pinned-file import→draft, stale-certificate revocation, mutablecommit refusal, live Palomar catalogue and exact package import were exercised at190. Palomar's actual4.34.0-rc1 toolchain mismatch with4.33.1 was visible and native check stayed disabled. No native/dependency/proof execution or new market is implied. Full source compatibility remains a separate native/kernel/certificate check.
+
+GET/api/packages exposes public imported sources plus importer metadata; this is not per-wallet private storage. Draft persistence/reopen is not claimed. The import transition now clears old goal/profile/certificate/fixture/job readiness and rejects late/context ABA responses instead of attaching a new source to an old proof.
 
 ## US013: private ZIP, explicit source publication, evidence export
 

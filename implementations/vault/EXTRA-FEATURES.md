@@ -22,4 +22,6 @@ The coordinator's NO-pool browser run at154 showed Account0's20T+80NO inventory 
 
 **Validation.** `scripts/governance-test.mjs` confirms a real module installation call succeeds from Timelock and an EOA target is rejected, then executes the separate real proposal lifecycle.
 
+**Browser check2026-09-10.** In the dedicated governance page, a custom-call preflight to local Account0 with calldata0x displayed `ok:false`, `Target has no contract bytecode`, actual Timelock origin and block190. The proposal button remained disabled; head stayed190. See evidence/deadline-browser/browser-rpc.json. A successful preflight browser action is not inferred from the earlier automated test.
+
 **Tradeoff.** It simulates the inner target call under current state, not the future Governor transaction. Voting, quorum, delay, later state changes and changing permissions still determine execution. Preflight does not grant authority.

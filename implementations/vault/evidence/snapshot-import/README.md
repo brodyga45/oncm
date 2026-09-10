@@ -1,0 +1,29 @@
+# US012: external snapshot → Vault draft,2026-09-10
+
+Actual own Chrome tab102825348; Account0 /0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 authenticated for source tools, existing chain31373 remained190. No package publication, market registration, resolution, native Lean, dependency build or prover was launched. Only public source import records were saved by the existing local API.
+
+## Actual browser path
+
+1. Loaded and genuinely verified the existing true-proof certificate in Lean Lab to establish old certificate reviewA. It was accepted at190.
+2. Pasted `https://github.com/argumentcomputer/ix`, exact commit `4c91254346284dcd984f1940f2c527114b1c5190`, path `Tests/MinimalDefs.lean`, then clicked **Импортировать Lean source**. DraftB contains the exact public file with `myConst`, `myId` and `myReflEq`. Source SHA **139560f6e82857e05e09e18509867ce87ace200d0c969dbf079430945ac8ed37** matches the independently pinned original file. The prior certificate review/Apply disappeared, fixture shortcut cleared, no profile was inherited.
+3. The raw one-file import does not retrieve lean-toolchain. The UI correctly said **Совместимость неизвестна**, displayed exact repository/commit/path/SHA and `source → goal:not-verified`, and disabled native check until an explicit profile choice. The original file defines neither Oncm.goal nor Oncm.solution; no goalHash/certificate is invented from its source SHA. Shared repository research previously checked a generated adapter in another bounded pipeline; this Vault import itself did not run that adapter.
+4. Replaced commit with `main`. Import was refused with **GitHub repository, exact40-character commit and safe .lean path required**. Restored the exact commit and imported it again; this created a second public-source import record, not a chain transaction.
+5. Opened the live Palomar catalogue, then imported the visible **Three Sharp Bounds for Hansen Polytopes of Cographs / PALOMAR-2026-08-24-000004 v2**. It pinned repository `jeremypparker/mahler-hansen-cograph`, commit `c7639c5060f40d69b613bcbd637b1750f27b7e3f`. Seven files/27,528bytes were downloaded as text: Challenge, Solution, YAML, Comparator config, Lake config, lean-toolchain and lockfile. Every retained file SHA was independently recomputed. No downloaded script/module was executed.
+6. The actual snapshot declared **Lean4.34.0-rc1**, while the immutable local runner is4.33.1. UI displayed this mismatch, kept profile unselected, disabled native check and omitted the v3 candidate shortcut. Source/metadata remained readable. This proves a pinned-environment mismatch, not that the mathematical source can never be adapted to another environment.
+7. Opened **Продолжить регистрацию** only to inspect its draft: source title/provenance retained, but goalHash, immutable profile and registration certificate were empty; **Зарегистрировать в CTF** disabled. No register/resolve/publish button was clicked.
+
+[Ix original file](https://github.com/argumentcomputer/ix/blob/4c91254346284dcd984f1940f2c527114b1c5190/Tests/MinimalDefs.lean), [Palomar exact entry](https://data.palomar-registry.org/entries/PALOMAR-2026-08-24-000004-v2.json), [Palomar source snapshot](https://github.com/jeremypparker/mahler-hansen-cograph/tree/c7639c5060f40d69b613bcbd637b1750f27b7e3f), [actual toolchain file](https://github.com/jeremypparker/mahler-hansen-cograph/blob/c7639c5060f40d69b613bcbd637b1750f27b7e3f/lean-toolchain).
+
+## Narrow correction made for this pass
+
+Previously importPackage/importPalomar replaced source/metadata while retaining old certificate/profile/fixture fields. `web/snapshot-draft.mjs` now revokes that readiness immediately, even before a failed download. It uses the existing editor's generation/context pattern: wallet/client/chain/registry/statement or newer/manual source choices invalidate late completions, including A→B and context ABA. A late failure cannot overwrite a newer result. ExternalCertificate and PackageEditor review/consent views reset through their component keys. The original SDK register/prove canonical binding and onchain verifier are unchanged.
+
+Successful import displays source provenance with SHA, toolchain if present and three honest compatibility states: unknown, version matches only, or different pinned version. Equal version alone does not verify dependencies, foundation or declaration mapping. Source edits mark the retained original snapshot hash as provenance. An explicit v3 choice is only a candidate for a separate native check, never certificate readiness.
+
+18 targeted tests passed:5 import reset/race/compatibility tests plus13 existing certificate-selection/registration binding checks. Vite build passed1.35s; whole1.913s/316,946,048B under1GiB30s, cleanup[]; current579.38kB bundle advisory remains. No API restart was needed. Exact source records/file hashes, browser observations and resource report are in this directory. Own tab was closed.
+
+## Remaining boundaries
+
+Palomar is discovery/provenance, not settlement authority. Raw GitHub import fetches one safe `.lean` path; it is not a general dependency resolver and does not infer arbitrary theorem names or environments. Palomar importer retains declared dependency/config files but does not build them. Ix's generated minimal adapters/native evidence are not silently promoted to Vault market certificates. No generic Mathlib proving requirement or success is added.
+
+Existing GET`/api/packages` exposes stored public-snapshot sources **and importer metadata**. Accordingly this UI/docs do not call this import store private. The separately author-consented edited Lean-package publication remains distinct and its earlier approval rejection remains untouched. Per-wallet private import storage/reopen UI is not claimed by this pass; the in-memory draft is not a promised reload-persistent editor. Only no-job matching-source and unchanged chain190 were checked; no new verifier/profile was installed.

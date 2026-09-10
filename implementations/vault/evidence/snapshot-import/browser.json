@@ -1,0 +1,117 @@
+{
+  "scope": "Actual browser import to draft; public source records persist in local API, no publication/native/ZK/registration/resolution",
+  "tabId": "102825348",
+  "chainId": 31373,
+  "actor": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "startBlock": 190,
+  "ix": {
+    "sourceUrl": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/Tests/MinimalDefs.lean",
+    "repository": "https://github.com/argumentcomputer/ix",
+    "commit": "4c91254346284dcd984f1940f2c527114b1c5190",
+    "challengePath": "Tests/MinimalDefs.lean",
+    "sourceSha256": "139560f6e82857e05e09e18509867ce87ace200d0c969dbf079430945ac8ed37",
+    "sourceBytes": 98,
+    "exactKnownPinnedUpstreamBytes": true,
+    "imports": [
+      {
+        "id": "85e8fa86-e214-47f9-a4d4-d8fa74ca3f29",
+        "at": "2026-09-10T10:10:10.751Z",
+        "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      },
+      {
+        "id": "42d76c04-0ff9-459f-8f48-b8f66627350f",
+        "at": "2026-09-10T10:10:56.567Z",
+        "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      }
+    ],
+    "visibleCompatibility": "unknown; toolchain not fetched by raw one-file importer",
+    "nativeButtonDisabledUntilExplicitProfileChoice": true,
+    "oldCertificateReviewCleared": true,
+    "oldApplyCleared": true,
+    "fixtureShortcutCleared": true,
+    "goalAndProfileAndRegistrationCertificateEmpty": true
+  },
+  "mutableRefNegative": {
+    "commit": "main",
+    "error": "GitHub repository, exact 40-character commit and safe .lean path required",
+    "pinnedReferenceRestoredAndImportedAgain": true
+  },
+  "palomar": {
+    "id": "6c441f0e-3be1-4bc7-afcd-a2cbf7cefb9c",
+    "externalRef": {
+      "registry": "Palomar",
+      "id": "PALOMAR-2026-08-24-000004",
+      "version": 2
+    },
+    "title": "Three Sharp Bounds for Hansen Polytopes of Cographs",
+    "repository": "https://github.com/jeremypparker/mahler-hansen-cograph",
+    "commit": "c7639c5060f40d69b613bcbd637b1750f27b7e3f",
+    "challengePath": "Challenge.lean",
+    "targetDeclaration": "hansen_cograph_mahler",
+    "sourceSha256": "6ab3ac417db8f24b2f08b0a5bb79e50fc45f684d2d664b0d889bb17053d4b404",
+    "importedAt": "2026-09-10T10:11:58.235Z",
+    "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "files": [
+      {
+        "path": "Challenge.lean",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/Challenge.lean",
+        "sha256": "6ab3ac417db8f24b2f08b0a5bb79e50fc45f684d2d664b0d889bb17053d4b404",
+        "bytes": 8266
+      },
+      {
+        "path": "Solution.lean",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/Solution.lean",
+        "sha256": "10eadcfece68539e176c7ea230c779d56cd2b5c4dfda1ab1f0b265b014bd5db7",
+        "bytes": 2598
+      },
+      {
+        "path": "formalization.yaml",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/formalization.yaml",
+        "sha256": "87d2655d056ed85fb08aa2bb6bbd91126369f8100a387caab0017c6bcaa17bd3",
+        "bytes": 12305
+      },
+      {
+        "path": "comparator.json",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/comparator.json",
+        "sha256": "2ce8fc9604e4e0b88883075e212b6f2253bf2800de3cb27b4155dfdf3dc073dd",
+        "bytes": 478
+      },
+      {
+        "path": "lakefile.toml",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/lakefile.toml",
+        "sha256": "a0dd1de9eabe8a5f89b18d4bd0b989381e969ddb76c3b03d3e4d9cdf10a658ac",
+        "bytes": 697
+      },
+      {
+        "path": "lean-toolchain",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/lean-toolchain",
+        "sha256": "cdbc6c372a2b37ad94430a6cec69cedfa4d36f255bfd968773fd91bf7a1746bf",
+        "bytes": 29
+      },
+      {
+        "path": "lake-manifest.json",
+        "sourceUrl": "https://raw.githubusercontent.com/jeremypparker/mahler-hansen-cograph/c7639c5060f40d69b613bcbd637b1750f27b7e3f/lake-manifest.json",
+        "sha256": "181ca0a58ee1a0b39ea730644095fb49479a90b22b1361117db7ef0420d2aed6",
+        "bytes": 3155
+      }
+    ],
+    "toolchain": "leanprover/lean4:v4.34.0-rc1",
+    "localPinnedLean": "4.33.1",
+    "visibleCompatibility": "incompatible pinned toolchain:4.34.0-rc1 vs4.33.1",
+    "nativeButtonDisabled": true,
+    "candidateV3ButtonAbsent": true,
+    "sourceGoalRelation": "not-verified"
+  },
+  "registrationDraftRead": {
+    "openedOnly": true,
+    "goalHashEmpty": true,
+    "profileIdEmpty": true,
+    "certificateEmpty": true,
+    "registerButtonDisabled": true
+  },
+  "noMatchingNativeJobs": true,
+  "backendDisclosure": "GET/api/packages currently exposes imported public snapshot sources plus author/import metadata; not described as private source storage. No user-edited package publication was performed.",
+  "finalBlock": 190,
+  "ownedTabClosed": true,
+  "sourceChanges": "UI-only snapshot transition/controller/provenance; no API restart or contract/runtime change"
+}
