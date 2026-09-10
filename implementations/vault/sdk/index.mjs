@@ -4,6 +4,7 @@ import { executeBoundedSwap } from './swap-limits.mjs';
 import { liquidityLimits, validateLiquidityQuote } from './liquidity.mjs';
 import { creatorFromAggregate } from './revenue.mjs';
 import { readGovernance, decodeGovernanceCall } from './governance.mjs';
+import { createTreasury } from './treasury.mjs';
 import { verifyExternalCertificate, verifyExternalBundle } from './external-certificates.mjs';
 import { supportedExternalProfiles, selectExternalBundleProfile } from './external-profile-catalog.mjs';
 import { createOnchainSocial } from './social.mjs';
@@ -197,6 +198,7 @@ export function createSDK(config, abis, runner) {
     statements,
     pools,
     balances,
+    treasury: createTreasury({ provider, config, abis, write, send }),
     governanceSnapshot: (account = '') => readGovernance({ provider, config, abis,
       governor: new Contract(config.addresses.Governor, abis.VaultGovernor, provider),
       membership: new Contract(config.addresses.Membership, abis.Membership, provider),

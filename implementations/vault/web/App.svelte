@@ -6,6 +6,7 @@
   import { bindOutcomeCertificate, bindProofJob, proofBindingMatches } from './proof-binding.mjs';
   import PackageEditor from './PackageEditor.svelte';
   import RevenuePreview from './RevenuePreview.svelte';
+  import TreasuryPanel from './TreasuryPanel.svelte';
   import GovernanceProposal from './GovernanceProposal.svelte';
   import ExternalCertificate from './ExternalCertificate.svelte';
   import SocialPanel from './SocialPanel.svelte';
@@ -58,6 +59,7 @@
     latestJob,
     claimables = {};
   let votingPower = '0';
+  let treasuryDraft = null;
   let liquidityQuote = null;
   let palomarEntries = [],
     palomarQuery = '';
@@ -281,6 +283,7 @@
     replyTo = null;
     votingPower = '0';
     gov = { proposals: [] };
+    treasuryDraft = null;
     data = { ...data, balances: {} };
   }
   async function disconnectWallet(reason = 'Кошелёк отключён. Приватные данные очищены с экрана.') {
@@ -631,7 +634,10 @@
   }
   function govCall() {
     let t, d;
-    if (govAction === 'operator') {
+    if (govAction === 'treasury') {
+      if (!treasuryDraft) throw Error('Подготовьте действие казны заново');
+      t = treasuryDraft.target; d = treasuryDraft.data;
+    } else if (govAction === 'operator') {
       t = config.addresses.StatementRegistry;
       d = sdk.registry.interface.encodeFunctionData('setOperator', [
         newOperator,
@@ -657,11 +663,36 @@
     return [t, d];
   }
   async function proposeGov() {
+    const owner=account,client=sdk,plan=treasuryDraft,reason=description,action=govAction;
     await tx('Предложение Governor', async () => {
+      if(action==='treasury')return client.treasury.propose(plan,reason,{isCurrent:()=>owner===account&&client===sdk&&plan===treasuryDraft&&reason===description&&govAction===action});
       const [t, d] = govCall();
       return sdk.send(sdk.c('Governor', 'VaultGovernor').propose([t], [0], [d], description));
     });
     await refreshGovernance();
+  }
+  async function reviewTreasuryPlan(plan) {
+    treasuryDraft=plan;govAction='treasury';preflight=null;
+    description=plan.input.kind==='consent'
+      ? `DAO ${plan.input.approved?'approves':'revokes consent for'} allocation #${plan.input.proposalId}; treasury share ${Number(plan.detail.oldBps)/100}% → ${Number(plan.detail.newBps)/100}%; base epoch ${plan.detail.baseEpoch}.`
+      : `Treasury transfer ${plan.input.amount} raw units of ${plan.input.token} to ${plan.input.recipient}.`;
+    await go('governance');
+  }
+  async function prepareTreasuryConsent(p,approved) {
+    const owner=account,client=sdk;
+    await task('Проверка согласия казны',async()=>{
+      const plan=await client.treasury.prepare({kind:'consent',proposalId:String(p.id),approved});
+      if(owner===account&&client===sdk)await reviewTreasuryPlan(plan);
+    });
+  }
+  function treasuryAllocationDraft() {
+    const draft=sdk.treasury.allocation20(activeAllocation);
+    allocationText=draft.recipients.map((r,i)=>r+' '+(Number(draft.weights[i])/100).toFixed(2)).join('\n');
+    notice=`Новый черновик DAO20 из эпохи ${draft.baseEpoch}. Проверьте получателей и создайте отдельное предложение; существующие предложения не изменены.`;
+  }
+  async function claimTreasury(token) {
+    const owner=account,client=sdk;
+    await tx('Получение Warehouse → Timelock казны',()=>client.treasury.claim(token,{isCurrent:()=>owner===account&&client===sdk}));
   }
   async function vote(p, support) {
     await tx('Голосование membership', () =>
@@ -1712,11 +1743,16 @@
               >Действие<select bind:value={govAction}
                 ><option value="profile">Добавить / выключить proof profile</option><option
                   value="operator">Добавить / выключить оператор</option
-                ><option value="membership">Изменить membership</option><option value="call"
+                ><option value="membership">Изменить membership</option><option value="treasury">Подготовленное действие казны</option><option value="call"
                   >Произвольный protocol call</option
                 ></select
               ></label
-            >{#if govAction === 'operator'}<label
+            >{#if govAction === 'treasury'}
+              {#if treasuryDraft}<div class="callout"><strong>Казна: {treasuryDraft.method}</strong>
+                <p>Caller при исполнении: Timelock {treasuryDraft.treasury}. Проверено на блоке {treasuryDraft.blockNumber}; перед созданием proposal проверка выполняется заново.</p>
+                <pre>{JSON.stringify(treasuryDraft,null,2)}</pre></div>
+              {:else}<p>Подготовьте согласие на уменьшение доли DAO или перевод в разделе «Доход».</p>{/if}
+            {:else if govAction === 'operator'}<label
                 >Operator ID<input bind:value={newOperator} placeholder="0x…" /></label
               ><label
                 >Implementation address<input bind:value={operatorImpl} placeholder="0x…" /></label
@@ -1729,12 +1765,12 @@
                 >Адрес участника<input bind:value={newMember} placeholder="0x…" /></label
               >{:else}<label>Target address<input bind:value={target} placeholder="0x…" /></label
               ><label>Calldata<textarea class="code-input" bind:value={calldata}></textarea></label
-              >{/if}{#if govAction !== 'call'}<label class="checkbox"
+              >{/if}{#if !['call','treasury'].includes(govAction)}<label class="checkbox"
                 ><input type="checkbox" bind:checked={enabled} />Активировать</label
               >{/if}<label
               >Обоснование<textarea bind:value={description} placeholder="Что изменится и почему"
               ></textarea></label
-            ><button class="primary" disabled={busy || !description || !account || gov.account !== account || !gov.canPropose} onclick={proposeGov}
+            ><button class="primary" disabled={busy || !description || !account || gov.account !== account || !gov.canPropose || (govAction==='treasury'&&!treasuryDraft)} onclick={proposeGov}
               >Создать proposal ↗</button
             ><button
               class="secondary"
@@ -1787,6 +1823,7 @@
         {#if !gov.proposals.length}<article class="panel"><p>В этой цепи пока нет предложений Governor.</p></article>{/if}
       {:else if page === 'revenue'}
         {#key account}<RevenuePreview {sdk} {account} statements={data.statements} token={config.addresses.TrueToken} />{/key}
+        {#key sdk}{#key account}<TreasuryPanel {sdk} {account} {config} {busy} statements={data.statements} onPrepared={reviewTreasuryPlan} onClaim={claimTreasury} onAllocationDraft={treasuryAllocationDraft} />{/key}{/key}
         <section class="page-heading compact">
           <div>
             <div class="eyebrow">SHARED PROTOCOL REVENUE</div>
@@ -1799,7 +1836,7 @@
           <article class="panel">
             <h2>Активное распределение</h2>
             {#each activeAllocation?.recipients || [] as r, i}<div class="allocation-row">
-                <span>{short(r, 12)}</span><strong
+                <span title={r}>{r.toLowerCase()===config.addresses.Timelock.toLowerCase()?'DAO · Timelock '+short(r,12):short(r, 12)}</span><strong
                   >{Number(activeAllocation.weights[i]) / 100}%</strong
                 >
                 <div style={'width:' + Number(activeAllocation.weights[i]) / 100 + '%'}></div>
@@ -1860,7 +1897,7 @@
                 >{p.applied
                   ? 'Применено'
                   : p.baseEpoch === activeAllocation?.epoch
-                    ? 'Ожидает согласий'
+                    ? (p.consents.some((c) => !c) ? 'Ожидает согласий' : 'Готово к применению')
                     : 'Устарело'}</span
               >
             </div>
@@ -1881,7 +1918,7 @@
                       tx('Изменение согласия', () =>
                         sdk.send(sdk.allocation.setConsent(p.id, !p.consents[i])),
                       )}>{p.consents[i] ? 'Отозвать' : 'Согласиться'}</button
-                  >{/if}
+                  >{:else if r.toLowerCase()===config.addresses.Timelock.toLowerCase()&&!p.applied&&p.baseEpoch===activeAllocation?.epoch}<button class="secondary" disabled={busy} onclick={()=>prepareTreasuryConsent(p,!p.consents[i])}>{p.consents[i]?'Подготовить отзыв DAO через Governor':'Подготовить согласие DAO через Governor'}</button>{/if}
               </div>{/each}<button
               class="primary"
               disabled={busy ||
