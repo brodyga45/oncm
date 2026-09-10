@@ -1,5 +1,23 @@
 # Public Vault browser transport and wallet onboarding
 
+## Multiple installed wallets (10 September 2026)
+
+The public menu discovers named providers using [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963).
+Previously the generic button used `window.ethereum`, which selected Uniswap in the user's
+Chrome even with MetaMask installed. Each named button now captures its own provider for
+account consent, network selection, SIWE, final account/chain checks and transaction signing.
+Account/chain/disconnect listeners attach only to the connected provider and are removed
+on disconnect. A legacy unnamed fallback appears only if no providers announce themselves.
+Late announcements remain supported; opening the menu also requests discovery again.
+Names are rendered as text, without wallet-provided SVG icons or HTML.
+
+Validation: 12 discovery/transport tests passed and Vite build passed. The rebuilt public
+site was reloaded in the user's actual Chrome; the wallet menu displayed both
+«Подключить MetaMask» and «Подключить Uniswap Extension». This verifies real discovery
+and UI delivery, not completion of the MetaMask approval flow. The user must select
+MetaMask and approve the account/network prompts in the extension. Chain history and
+deployment were not modified or restarted for this fix.
+
 The explicit server projection uses `publicMode: true`, `publicOrigin`, `publicWriteEnabled`, `capabilities.walletTransactions`, and optional `publicOwnerAddress`. Browser RPC is always the validated HTTPS origin plus `/rpc`; API requests retain `/api` on the same origin. A local nginx preview receiving a public deployment descriptor shows a link to the configured public site instead of silently trusting another origin or exposing the internal RPC. Server-side SDKs retain their separate loopback configuration.
 
 The normal **Подключить кошелёк · Vault 31373** action shows the exact public RPC, chain 31373, test ETH for native gas, and the separate protocol T token. It requests a network switch through EIP-1193. Only an unknown-chain error (`4902`) prompts adding the configured network, followed by another switch and a chain-ID check. Rejection is propagated; no alternate request follows a user rejection. Adding a chain does not imply selection. The implementation reuses ethers BrowserProvider and follows [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085) and [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326).
