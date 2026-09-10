@@ -1,0 +1,28 @@
+{
+  "actualPreviouslyDownloadedFile": true,
+  "browserPasteBytes": 8443,
+  "browserPasteSHA256": "175e7d254d66c254c6727b1c6425b6823fdb37b386532e42a0f2fff17d35e5bc",
+  "exactDownloadBytesMatch": true,
+  "statementId": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+  "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "sourceHash": "0x0f1b485ed6a4bcd95643b348ee38baca303ec5266b19535d17b327c8191412dd",
+  "descriptorHash": "b2688e6decdefc2b98bfbe0db987d7c16d3c61dd10fe7b4a226deedde11e35d0",
+  "publicArtifacts": 0,
+  "browser": {
+    "tab": 102825310,
+    "chainId": 31371,
+    "blockBefore": 82,
+    "blockAfter": 82,
+    "titleSourceDescriptionRestored": true,
+    "profileGoalStatementContextDisplayed": true,
+    "registrationDisabled": true,
+    "tamperedFileRejected": "Package file hash mismatch: Statement.lean",
+    "validReimportRestored": true,
+    "walletSwitchClearsPaste": true
+  },
+  "sourceGoalRelation": "not-verified",
+  "certificateAcceptedByPackage": false,
+  "newProving": false,
+  "newTransaction": false
+}

@@ -1,0 +1,117 @@
+TAP version 13
+# Subtest: file integrity is checked separately from the semantic goal and certificate admission
+ok 1 - file integrity is checked separately from the semantic goal and certificate admission
+  ---
+  duration_ms: 4.666625
+  ...
+# Subtest: tampered files, hashes, sources, paths, type and resource limits fail before draft use
+ok 2 - tampered files, hashes, sources, paths, type and resource limits fail before draft use
+  ---
+  duration_ms: 70.478916
+  ...
+# Subtest: trusted server normalizes its actual static and Ix catalogs, without trusting caller ids
+ok 3 - trusted server normalizes its actual static and Ix catalogs, without trusting caller ids
+  ---
+  duration_ms: 16.800916
+  ...
+# Subtest: maximum externally accepted source/title survives source-package duplication and UTF-8 boundaries
+ok 4 - maximum externally accepted source/title survives source-package duplication and UTF-8 boundaries
+  ---
+  duration_ms: 471.994375
+  ...
+# Subtest: actual injected account/network handlers clear private drafts, jobs and SIWE; local switch removes listeners
+ok 5 - actual injected account/network handlers clear private drafts, jobs and SIWE; local switch removes listeners
+  ---
+  duration_ms: 15.373292
+  ...
+# Subtest: actual sign-in cannot finish verification after account context was invalidated
+ok 6 - actual sign-in cannot finish verification after account context was invalidated
+  ---
+  duration_ms: 2.961834
+  ...
+# Subtest: actual job poll handles disappearance without TypeError or automatic retry
+ok 7 - actual job poll handles disappearance without TypeError or automatic retry
+  ---
+  duration_ms: 1.504583
+  ...
+# Subtest: actual package application never enables registration from imported artifact or caller catalog id
+ok 8 - actual package application never enables registration from imported artifact or caller catalog id
+  ---
+  duration_ms: 1.851541
+  ...
+# Subtest: website rejects certificate generation before sign-in or any job request; native checks remain usable
+ok 9 - website rejects certificate generation before sign-in or any job request; native checks remain usable
+  ---
+  duration_ms: 1.304042
+  ...
+# Error: Source, artifact or view changed during verification; import the current bundle again.
+#     at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:137:45)
+#     at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:152)
+#     at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:135:317)
+#     at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:60:187)
+#     at async Test.run (node:internal/test_runner/test:857:9)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:565:7)
+# Subtest: generic registration import rejects source edits while verification is pending
+ok 10 - generic registration import rejects source edits while verification is pending
+  ---
+  duration_ms: 3.288625
+  ...
+# Error: Selected market changed while verifying; import again.
+#     at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:138:58)
+#     at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:152)
+#     at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:135:317)
+#     at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:66:96)
+#     at async Test.run (node:internal/test_runner/test:857:9)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:565:7)
+# Error: Source, artifact or view changed during verification; import the current bundle again.
+#     at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:137:45)
+#     at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:152)
+#     at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:135:317)
+#     at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:66:96)
+#     at async Test.run (node:internal/test_runner/test:857:9)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:565:7)
+# Error: Package file hash mismatch: Statement.lean
+#     at validateSourcePackage (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/sdk/source-package.mjs:39:87)
+#     at sourceDraft (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/src/import-draft.mjs:5:6)
+#     at applyPackage (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:148:40)
+#     at applyPackageJSON (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:149:161)
+#     at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:151:88)
+#     at act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:158)
+#     at Object.importPastedPackage (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:151:44)
+#     at TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:91:162)
+#     at async Test.run (node:internal/test_runner/test:857:9)
+#     at async Test.processPendingSubtests (node:internal/test_runner/test:565:7)
+# Subtest: generic settlement import rejects A → B → A selection and changed JSON during read-only verification
+ok 11 - generic settlement import rejects A → B → A selection and changed JSON during read-only verification
+  ---
+  duration_ms: 2.583417
+  ...
+# Subtest: generic import keeps supplied labels separate from semantic status and never submits a transaction or job
+ok 12 - generic import keeps supplied labels separate from semantic status and never submits a transaction or job
+  ---
+  duration_ms: 1.365209
+  ...
+# Subtest: oversized external file fails before file read and clears previous import
+ok 13 - oversized external file fails before file read and clears previous import
+  ---
+  duration_ms: 1.321625
+  ...
+# Subtest: actual file and paste imports preserve the exact JSON bytes through the API envelope
+ok 14 - actual file and paste imports preserve the exact JSON bytes through the API envelope
+  ---
+  duration_ms: 2.297584
+  ...
+# Subtest: actual pasted and file package handlers use identical strict validation and never trust certificates
+ok 15 - actual pasted and file package handlers use identical strict validation and never trust certificates
+  ---
+  duration_ms: 3.097084
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 954.961583

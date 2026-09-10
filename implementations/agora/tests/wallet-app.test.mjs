@@ -18,7 +18,7 @@ function setup(extra={}){
   createWalletScope:()=>scopes.createWalletScope({setTimer:fn=>{timers.push(fn);return fn;},clearTimer:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);}}),
  };
  const names=Object.keys(bindings).filter(k=>/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(k)&&k!=='default');
- const app=Function(...names,script+'\nreturn {connect,signin,clearPrivateContext,switchRole,startJob,applyPackage,wallet,account,role,sessionAddress,sessionToken,form,registration,proofSource,proofCertificate,jobs,shelf,notebook,profileDraft,error,notice,config,importedPackage,published,socialContextEpoch,importExternalCertificate,externalArtifactText,selectedId,list,page,proofOutcome,proofBinding,importExternalFile,importExternalText};')(...names.map(k=>bindings[k]));
+ const app=Function(...names,script+'\nreturn {connect,signin,clearPrivateContext,switchRole,startJob,applyPackage,wallet,account,role,sessionAddress,sessionToken,form,registration,proofSource,proofCertificate,jobs,shelf,notebook,profileDraft,error,notice,config,importedPackage,published,socialContextEpoch,importExternalCertificate,externalArtifactText,selectedId,list,page,proofOutcome,proofBinding,importExternalFile,importExternalText,packageJSON,importPackage,importPastedPackage};')(...names.map(k=>bindings[k]));
  app.config.value={profileId:'0x'+'11'.repeat(32)};
  return {app,provider,timers,requests,setAccounts:a=>{addresses=a;provider.emit('accountsChanged',a);},setChain:c=>{chainId=c;provider.emit('chainChanged',c);}};
 }
@@ -82,4 +82,12 @@ test('actual file and paste imports preserve the exact JSON bytes through the AP
   if(mode==='file')await a.importExternalFile({target:{files:[{size:raw.length,text:async()=>raw}],value:'file'}});else{a.externalArtifactText.value=raw;await a.importExternalText();}
   const request=h.requests.find(r=>r.url==='/api/certificates/import-bundle');assert.equal(JSON.parse(request.options.body).bundle,raw);
  }
+});
+
+test('actual pasted and file package handlers use identical strict validation and never trust certificates',async()=>{
+ const p=packages.withFileHashes({source:'theorem',files:{'Statement.lean':'theorem'},profileId:'0x'+'22'.repeat(32),goalHash:'0x'+'33'.repeat(32),registrationCertificate:'0x1234'}),raw=JSON.stringify(p);
+ const pasted=setup().app,file=setup().app;pasted.packageJSON.value=raw;await pasted.importPastedPackage();await file.importPackage({target:{files:[{size:raw.length,text:async()=>raw}],value:'selected'}});
+ assert.deepEqual(pasted.importedPackage.value,file.importedPackage.value);assert.equal(pasted.registration.value,null);assert.equal(file.registration.value,null);assert.equal(pasted.importedPackage.value.profileId,p.profileId);
+ pasted.registration.value={registrationCertificate:'previous'};pasted.packageJSON.value=JSON.stringify({...p,files:{'Statement.lean':'tampered'}});await pasted.importPastedPackage();assert.match(pasted.error.value,/file hash mismatch/);assert.equal(pasted.registration.value,null);assert.equal(pasted.form.value.source,'theorem');
+ pasted.clearPrivateContext();assert.equal(pasted.packageJSON.value,'');
 });
