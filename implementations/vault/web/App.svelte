@@ -8,6 +8,7 @@
   import RevenuePreview from './RevenuePreview.svelte';
   import TreasuryPanel from './TreasuryPanel.svelte';
   import MonetaryPolicyPanel from './MonetaryPolicyPanel.svelte';
+  import {protocolIdentity} from './protocol-identity.mjs';
   import OperatorReview from './OperatorReview.svelte';
   import GovernanceProposal from './GovernanceProposal.svelte';
   import ExternalCertificate from './ExternalCertificate.svelte';
@@ -151,6 +152,7 @@
   $: liquidityKey = [poolAddress, account, String(bpt), String(slippage), String(initialT), String(initialOutcome)].join('|');
   $: liquidityCurrent = liquidityQuote?.key === liquidityKey;
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  $: selectedProtocolIdentity=protocolIdentity(config);
   $: activeAllocation = data.allocations.at(-1);
   $: visible = data.statements.filter(
     (s) =>
@@ -837,7 +839,7 @@
   <main>
     <header class="topbar">
       <div class="breadcrumb">
-        Vault workspace <span>/</span>
+        Vault workspace <span class="block-chip">{selectedProtocolIdentity.label}</span><span>/</span>
         {nav.find((n) => n[0] === page)?.[2] || 'Утверждение'}
       </div>
       <div class="top-actions">
@@ -849,6 +851,7 @@
         >
       </div>
     </header>
+    {#if config}<section class="panel" aria-label="Выбранная версия протокола"><p><strong>{selectedProtocolIdentity.label}</strong> · {selectedProtocolIdentity.notice}</p><details><summary>Адреса выбранной версии</summary><p>T: <code>{config.addresses.TrueToken}</code><br />Реестр: <code>{config.addresses.StatementRegistry}</code></p><a href="/api/config" target="_blank">Deployment и ABI ↗</a></details></section>{/if}
     {#if walletOpen}<div class="wallet-panel">
         <h3>Ваш кошелёк</h3>
         <p>Профиль, блог и обсуждения записываются в блокчейн транзакциями кошелька. Подпись SIWE используется для личных инструментов.</p>
@@ -1251,7 +1254,7 @@
             <h1>Ваш капитал</h1>
             <p>Самостоятельные Balancer WeightedPool с каноническими активами T и YES либо NO.</p>
           </div>
-          <span class="pill">20% swap fee → creator revenue</span>
+          <span class="pill">Комиссии по политике выбранного пула</span>
         </section>
         <div class="panel">
           <div class="panel-heading">

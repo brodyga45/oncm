@@ -1,0 +1,35 @@
+{
+  "scope": "One combined Vite build covering selected-runtime certificate catalogue and truthful Capital fee wording",
+  "capitalText": "Комиссии по политике выбранного пула",
+  "viteSeconds": 1.59,
+  "resources": "capital-catalog-build-resources.json",
+  "catalogTests": {
+    "owner": "markets_research",
+    "passed": 5,
+    "durationMs": 148,
+    "repeatedInThisBuild": false
+  },
+  "transactionsByBuildAgent": 0,
+  "files": [
+    {
+      "path": "web/App.svelte",
+      "sha256": "cda36bdae1c46c0aa4f365d896ed980a54b3da6fe8300ed4c747a0109c0b6179"
+    },
+    {
+      "path": "web/ExternalCertificate.svelte",
+      "sha256": "74bca7e274d1bcfb2568d71fcc9e89fc828b8f000532feccd373ca7682052da8"
+    },
+    {
+      "path": "server/external-proofs.mjs",
+      "sha256": "beec5e3eb21636ee1d2fd0d20b07a29f8574b7dc778f56df61a0bb82d3c8481b"
+    },
+    {
+      "path": "server/index.mjs",
+      "sha256": "bcb30d1923720e25da41a8976f1b1faf0c0ec8ad23dd1fffe12950a85585bcde"
+    },
+    {
+      "path": "test/external-proofs.test.mjs",
+      "sha256": "248d0dc304ebeeb2b2ab472a01377ad956484718da5a6aa4c0b03e1e54be23b6"
+    }
+  ]
+}

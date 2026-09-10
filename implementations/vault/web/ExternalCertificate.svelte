@@ -42,7 +42,9 @@
   {#if entry}
     <p class="footnote">{entry.descriptor.description}</p>
     <dl><dt>Image</dt><dd>{entry.descriptor.imageId}</dd><dt>Profile</dt><dd>{entry.descriptor.profileId}</dd>
-      <dt>Отдельный bridge</dt><dd>{entry.deployment?.bridge || 'Ещё не развёрнут'}</dd></dl>
+      <dt>Отдельный bridge</dt><dd>{entry.deployment?.bridge || 'Адрес ещё не подтверждён для выбранного registry'}</dd>
+      {#if entry.deployment?.registryObservation}<dt>Выбранный registry · блок {entry.deployment.registryObservation.blockNumber}</dt>
+        <dd>{entry.deployment.registryObservation.registry} · {entry.deployment.registryObservation.registered ? (entry.deployment.registryObservation.enabled ? 'Профиль включён' : 'Новые регистрации выключены') : 'Профиль ещё не допущен'}</dd>{/if}</dl>
     <div class="button-row">{#each entry.examples as example}<button class="secondary" disabled={loading}
       onclick={() => importer.setInput(JSON.stringify(example.record, null, 2))}>Загрузить {example.key} из CI</button>{/each}</div>
     {#if entry.examples.length}<p class="footnote">Два отдельных примера: «∀ P : Prop, P → P» и опровержимое «∀ P : Prop, P».

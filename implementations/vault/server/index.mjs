@@ -254,7 +254,8 @@ app.get(
   }),
 );
 app.get('/api/external-proofs', route(async (_, res) => {
-  res.json(externalProofCatalog(root, ctx().config));
+  const {config,sdk}=ctx();
+  res.json(await externalProofCatalog(root,config,{provider:sdk.provider,registry:sdk.registry}));
 }));
 app.get(
   '/api/palomar',

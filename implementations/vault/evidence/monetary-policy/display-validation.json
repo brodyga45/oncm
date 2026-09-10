@@ -1,0 +1,50 @@
+{
+  "scope": "display-only monetary program times and explicit protocol graph identity",
+  "tests": {
+    "passed": 4,
+    "durationMs": 222.992834
+  },
+  "build": {
+    "viteSeconds": 1.69,
+    "resourceReport": "display-build-resources.json"
+  },
+  "browser": {
+    "tabId": "102825411",
+    "url": "http://127.0.0.1:5173/",
+    "block": 335,
+    "badge": "Vault V2",
+    "notice": "Отдельные T и реестр утверждений. Рынки Legacy сохранены в прежних контрактах и не входят в этот вид.",
+    "detailsClicked": "Адреса выбранной версии",
+    "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+    "registry": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+    "deploymentLinkVisible": true,
+    "noTransaction": true,
+    "programTimeBrowserLimit": "No programs exist yet; date formatting tested with exact onchain seconds in unit tests, not a populated-program browser claim."
+  },
+  "files": [
+    {
+      "path": "web/App.svelte",
+      "sha256": "e1ae93823cc0754e254b8c2a34bccfccb5d64ec11ec1f829295fe214969954aa"
+    },
+    {
+      "path": "web/MonetaryPolicyPanel.svelte",
+      "sha256": "c4da1756f8172cd38f2b25267b5c94971d4c27708193e0e7ba628eb66c2b3644"
+    },
+    {
+      "path": "web/monetary-window.mjs",
+      "sha256": "28d66eed1912795b1159f56684bd95f1da08149ae415783ab9735718a3d9b530"
+    },
+    {
+      "path": "web/protocol-identity.mjs",
+      "sha256": "2723829b74eb07dacbeb30ae06c2b74e5de0cd62bbd733c3a25d571334576b34"
+    },
+    {
+      "path": "test/monetary-window.test.mjs",
+      "sha256": "a0f9d70570dce326b416c19705f63faa21fa15f36e75607cce2e4bea0e4ae9d1"
+    },
+    {
+      "path": "test/protocol-identity.test.mjs",
+      "sha256": "7023801faad6a5520f5eab0449773340e6f86ff821959a516ab6014192cbed1b"
+    }
+  ]
+}

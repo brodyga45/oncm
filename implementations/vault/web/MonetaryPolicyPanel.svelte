@@ -1,7 +1,7 @@
 <script>
   import {onMount,onDestroy} from 'svelte';
   import {formatMonetaryAmount} from '../sdk/monetary-policy.mjs';
-  import {monetaryWindow} from './monetary-window.mjs';
+  import {monetaryWindow,monetaryTimestamp} from './monetary-window.mjs';
   export let sdk, config, account='', busy=false, onPrepared=async()=>{}, onClaim=async()=>{}, onStake=async()=>{}, onWithdraw=async()=>{}, onClose=async()=>{}, onSyncFees=async()=>{};
   let closePlan=null,feeSyncPlan=null,feeSyncResult=null,feeSyncPool='',feeSyncEpoch=0;
   let snapshot=null,discoveredMeter=null,programOffset='0',stakeAmounts={}, stakeEpoch=0, error='', loading=false, preparing=false, alive=true, readEpoch=0, formEpoch=0;
@@ -133,7 +133,7 @@
     <h3>Начисления участника</h3><p>Всего программ: {snapshot.programCount}; страница с {programOffset}. В контракте наград {units(snapshot.balance)} T, зарезервировано {units(snapshot.reserved)} T, свободно {units(snapshot.unreserved)} T.</p><div class="button-row"><button disabled={busy||loading||programOffset==='0'} onclick={()=>programPage('0')}>К первым программам</button><button disabled={busy||loading||snapshot.nextOffset===null} onclick={()=>programPage(snapshot.nextOffset)}>Следующие программы</button></div>
     {#each snapshot.programs??[] as p}<section class="program">
       <strong>Программа {p.id} · {p.name||p.kind}</strong>
-      <dl><dt>Формула</dt><dd>{p.formula}</dd><dt>Период Unix</dt><dd>{p.start} → {p.end}; claim до {p.claimDeadline}</dd><dt>Бюджет / уже выплачено</dt><dd>{units(p.budget)} / {units(p.paid)} T</dd><dt>Ваш вес / общий вес</dt><dd>{p.accountWeight??'—'} / {p.totalWeight??'—'}</dd><dt>Доступно claim</dt><dd>{units(p.claimable)} T</dd></dl>
+      <dl><dt>Формула</dt><dd>{p.formula}</dd><dt>Период программы</dt><dd>{#each [['Начало',p.start],['Конец начислений',p.end],['Получить награду до',p.claimDeadline]] as time}{@const date=monetaryTimestamp(time[1])}<p><strong>{time[0]}</strong>: {#if date.valid}{date.local}<br />UTC {date.utc}{:else}Unix {date.raw} — вне диапазона календаря браузера{/if}</p>{/each}<details><summary>Точные Unix seconds</summary><p>start {p.start} · end {p.end} · claimDeadline {p.claimDeadline}</p></details></dd><dt>Бюджет / уже выплачено</dt><dd>{units(p.budget)} / {units(p.paid)} T</dd><dt>Ваш вес / общий вес</dt><dd>{p.accountWeight??'—'} / {p.totalWeight??'—'}</dd><dt>Доступно claim</dt><dd>{units(p.claimable)} T</dd></dl>
       {#if p.kind==='lp'}<p>Пул BPT {p.pool} · заблокировано {units(p.deposit)} BPT. Досрочного выхода нет; LP fee остаётся в цене BPT.</p><label>Внести BPT в программу<input bind:value={stakeAmounts[p.id]} oninput={()=>stakeEpoch++} inputmode="decimal" /></label><button class="secondary" disabled={busy||!account||!p.canStake||!stakeAmounts[p.id]} onclick={()=>stake(p.id)}>Заблокировать BPT программы {p.id}</button><button class="secondary" disabled={busy||!account||!p.canWithdraw} onclick={()=>withdraw(p.id)}>Вернуть BPT программы {p.id}</button>{/if}
       {#if p.meterValidationError}<p class="callout">Счётчик этой программы не подтверждён каталогом: {p.meterValidationError}</p>{/if}
       <button class="secondary" disabled={busy||!account||BigInt(p.claimable??'0')===0n} onclick={()=>claim(p.id)}>Получить награду программы {p.id}</button>

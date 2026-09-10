@@ -37,3 +37,10 @@ UI controls: **Проверить закрытие программы N** → ex
 ## Read-only browser negative checks
 
 [Own-tab browser observations](evidence/monetary-policy/browser-negative-drafts.json) record actual UI preparation at monetary block 307 with 1000 T supply and zero programs. Empty-program close/claim controls were absent; an empty fee pool could not prepare. A connected Account 3 received clear rejection for a negative mint amount, malformed fee pool, impossible February 30 date and equal start/end. A valid second-precise date displayed matching local time, UTC and Unix. No proposal or transaction was submitted. The ordinary root-link reload discarded private drafts and disconnected the wallet. Another agent held the chain mutation slot during this check, so later displayed blocks 310/311 are not evidence of an unchanged chain. Real close/claim/fee-sync execution is not covered by these negative checks.
+
+
+## Explicit graph identity and readable existing-program dates
+
+The header now identifies the selected protocol as Vault V2 or Vault Legacy, with an explicit separate-collateral/registry notice and expandable exact T/registry addresses. An unknown descriptor version does not pretend to be Legacy or V2. Program rows show local time with UTC offset/timezone plus exact UTC, retaining raw contract seconds in details; uint64 timestamps outside the browser Date range retain their exact raw value without unsafe coercion.
+
+[Display validation](evidence/monetary-policy/display-validation.json): four targeted tests passed, followed by one Vite build in 1.69 s (whole guard 2.645 s, peak 365,853,560 bytes, clean exit). Own-tab browser inspection at block 335 confirmed the V2 label, separate-graph notice and exact token/registry details. There were no program rows yet, so populated-program date display remains a later browser acceptance step.

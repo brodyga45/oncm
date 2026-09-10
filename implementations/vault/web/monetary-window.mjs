@@ -15,3 +15,17 @@ export function monetaryWindow({start,end,claimDeadline}, now) {
   if(now!=null&&BigInt(values.start)<=BigInt(now))return{valid:false,error:'Начало программы должно быть позже времени последнего прочитанного блока.'};
   return Object.freeze({valid:true,rows:Object.freeze(rows),values:Object.freeze(values)});
 }
+
+
+/** Display exact chain time. Never round uint64 into an unsafe Number or let
+ * browser Date normalization redefine a contract timestamp. */
+export function monetaryTimestamp(value){
+  const raw=String(value);
+  if(!/^(0|[1-9][0-9]*)$/.test(raw))return{valid:false,raw};
+  const unix=BigInt(raw);
+  if(unix>8640000000000n)return{valid:false,raw};
+  const date=new Date(Number(unix)*1000);
+  if(!Number.isFinite(date.getTime()))return{valid:false,raw};
+  const timeZone=Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return{valid:true,raw,utc:date.toISOString(),local:date.toLocaleString(undefined,{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZoneName:'shortOffset'})+' ('+timeZone+')'};
+}
