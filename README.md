@@ -1,5 +1,7 @@
 # ONCM — onchain markets for Lean statements
 
+**Active implementation: [Vault](implementations/vault/README.md).** On 2026-09-10 the user consolidated development after comparing three prototypes. Agora and Exchange are preserved as frozen experiments. All agents now focus on Vault, including governed T issuance, incentives and fee policies. See the [selection and current plan](docs/vault-focus.md).
+
 Three independent experimental implementations of mathematical prediction markets. Each has its own web app, SDK, API, local blockchain and deployment. The protocol uses collateralized YES/NO positions: a full set is backed by one T; after a verified resolution the winning position redeems for T.
 
 | Implementation | Market infrastructure | Governance | Onchain social | Web |
@@ -12,7 +14,7 @@ Three independent experimental implementations of mathematical prediction market
 
 The local applications, native Lean/export/NanoDa checks and component tests run. The local deployment uses real cryptographic verifier contracts. Tests that substitute a verifier are confined to isolated economic tests; they do not establish Lean proof acceptance.
 
-**Real Lean/Groth16 TRUE market lifecycles have passed browser testing in all three implementations; FALSE lifecycles have passed in Exchange and Vault.** Four real perf05 certificates were generated in CI and independently verified. Agora's final FALSE settlement is awaiting a previously requested approval; the full scenario acceptance remains open. See the [current21-scenario matrix](docs/remaining-scenarios.md) for evidence and remaining work.
+**Real Lean/Groth16 TRUE market lifecycles have passed browser testing in all three implementations; FALSE lifecycles have passed in Exchange and Vault.** Four real perf05 certificates were generated in CI and independently verified. Agora's final FALSE settlement is awaiting a previously requested approval; the full scenario acceptance remains open. See the [scenario matrix](docs/remaining-scenarios.md) for evidence and remaining work.
 
 Profiles, comments, replies, votes and blogs now store their full public content onchain in each implementation. Websites import externally prepared certificates and require explicit verification. Generating or ordering new certificates from the website was deferred by the user. Local expensive proving remains disabled by default; a native Lean check is not a ZK certificate.
 

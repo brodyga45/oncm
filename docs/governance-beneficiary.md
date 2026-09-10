@@ -24,7 +24,7 @@
 
 | Реализация | Внутренний механизм | Согласие внешнему распределителю | Активы казны |
 | --- | --- | --- | --- |
-|Agora|Safe threshold → Timelock; точный адрес подтверждается интеграцией|`AllocationController.setApproval(proposalId, approved)` от выбранного executor|T из OpenZeppelin PaymentSplitter|
+|Agora|Safe2/2 → Timelock `0xa513E6E4b8f2a923D98304ec87F64353C4D5C853` в текущем devnet|`AllocationController.setApproval(proposalId, approved)` от Timelock|T из OpenZeppelin PaymentSplitter|
 |Exchange|OZ Governor с T voting power → существующий Timelock|`AllocationController.setConsent(proposalId, approved)` от Timelock|Protocol LP через Splits Warehouse; T и другие ERC20 учитываются отдельно|
 |Vault|OZ Governor с membership votes → существующий Timelock|`AllocationController.setConsent(proposalId, approved)` от Timelock|T/outcome ERC20 из Splits Warehouse, без автоматической конвертации|
 
@@ -49,4 +49,4 @@
 - Внутреннее решение переводит выбранную сумму из казны выбранному тестовому получателю, не меняя внешние доли и старые начисления.
 - Сохранить транзакции, события, точные адреса и балансы; не выдавать UI preset или read-only preflight за завершённый процесс.
 
-Статус при принятии требования: базовые AllocationController уже идентифицируют согласующего по `msg.sender`, а распределители поддерживают адреса контрактов. Полный treasury UI/SDK и новые browser-проходы ещё реализуются. Ранее пройденные EOA-согласия не закрывают этот новый сценарий.
+Текущий срез: treasury UI/SDK реализованы во всех трёх. Agora получила0.0008T в Timelock и изменила DAO20→15 после Safe2/2 решения (блок110); Vault получила T/NO и применила DAO20→15 после membership Governor/Timelock (блок231). Exchange проходит отдельный полный цикл LP-дохода. Внутренние выплаты пока подготовлены или готовятся: конкретная отправка Vault была отклонена автоматической проверкой разрешений и не повторялась. [Текущая матрица и ссылки на evidence](remaining-scenarios.md). EOA-согласия, read-only preflight и наличие кнопки не считаются полным DAO-проходом.
