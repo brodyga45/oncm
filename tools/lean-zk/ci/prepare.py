@@ -17,7 +17,9 @@ HERE = Path(__file__).resolve().parent
 def main():
     args = argparse.ArgumentParser()
     args.add_argument('--work', type=Path, required=True)
-    work = args.parse_args().work.resolve()
+    args.add_argument('--verifier-only', action='store_true', help='Install original r0vm without pulling the prover image')
+    options = args.parse_args()
+    work = options.work.resolve()
     if platform.system() != 'Linux' or platform.machine() != 'x86_64':
         raise RuntimeError('This prepared CI recipe requires Linux x86_64')
     memory = int(next(line.split()[1] for line in Path('/proc/meminfo').read_text().splitlines()
@@ -65,13 +67,20 @@ def main():
             shutil.copyfileobj(source, out)
     (work / 'bin/r0vm').chmod(0o755)
     archive.unlink()
+    version = subprocess.check_output([str(work / 'bin/r0vm'), '--version'], text=True).strip()
+    if version != 'risc0-r0vm 3.0.6' and version != 'r0vm 3.0.6':
+        raise RuntimeError('Unexpected original r0vm version: ' + version)
+    if options.verifier_only:
+        record = {'r0vmVersion': version,
+                  'r0vmSha256': hashlib.sha256((work / 'bin/r0vm').read_bytes()).hexdigest(),
+                  'pins': pins, 'verifierOnly': True}
+        (work / 'verifier-environment.json').write_text(json.dumps(record, indent=2) + '\n')
+        print(json.dumps(record, indent=2))
+        return
     subprocess.run([docker, 'pull', '--platform=linux/amd64', pins['docker']['pinnedImage']], check=True)
     image = json.loads(subprocess.check_output([docker, 'image', 'inspect', pins['docker']['pinnedImage']]))[0]
     if image['Architecture'] != 'amd64':
         raise RuntimeError('Wrong Docker image architecture')
-    version = subprocess.check_output([str(work / 'bin/r0vm'), '--version'], text=True).strip()
-    if version != 'risc0-r0vm 3.0.6' and version != 'r0vm 3.0.6':
-        raise RuntimeError('Unexpected original r0vm version: ' + version)
     if shutil.disk_usage(work).free < 2 * 1024 ** 3:
         raise RuntimeError('Require 2 GiB working disk after pulling image')
     record = {'r0vmVersion': version, 'r0vmSha256': hashlib.sha256((work / 'bin/r0vm').read_bytes()).hexdigest(),

@@ -1,0 +1,22 @@
+[
+  "/usr/bin/python3",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/tools/lean-zk/resource-guard.py",
+  "--memory-mib",
+  "512",
+  "--timeout",
+  "5",
+  "--report",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/performance/ix-tn-add-zero-perf05/export-resources.json",
+  "--lock-file",
+  "/private/tmp/oncm-worker-501.lock",
+  "--",
+  "/usr/bin/sandbox-exec",
+  "-p",
+  "(version 1) (deny default)\n(allow process-exec) (allow process-fork) (allow sysctl-read)\n(allow file-read-metadata)\n(allow file-read* (subpath \"/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/performance/ix-tn-add-zero-perf05\") (subpath \"/private/tmp/oncm-toolchains/lean-4.33.1-darwin_aarch64\") (subpath \"/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/proof/exporter/.lake/build/bin\") (subpath \"/System\") (subpath \"/usr/lib\") (subpath \"/usr/bin\") (subpath \"/bin\") (subpath \"/Library/Apple\") (subpath \"/private/var/db/dyld\") (literal \"/\") (literal \"/dev/null\") (literal \"/dev/random\") (literal \"/dev/urandom\"))\n(allow file-write* (subpath \"/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/performance/ix-tn-add-zero-perf05\") (literal \"/dev/null\"))\n(allow mach-lookup (global-name \"com.apple.system.logger\") (global-name \"com.apple.logd\") (global-name \"com.apple.notifyd\"))",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/proof/exporter/.lake/build/bin/lean4export",
+  "OncmInput",
+  "--",
+  "False",
+  "Oncm.goal",
+  "Oncm.solution"
+]

@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/argumentcomputer/ix",
+  "commit": "4c91254346284dcd984f1940f2c527114b1c5190",
+  "path": "Tests/Ix/Kernel/TutorialDefs.lean",
+  "lines": [
+    135,
+    140
+  ],
+  "upstreamSha256": "76039425d894c4fe05760bb9a84bf2dc3d5ff333a5403cf049841389ecb6c794",
+  "excerptSha256": "1bde5ce03f8147ec6abf9d3a0a6db38493895c5bfc7be52519a86b30cf78c77a",
+  "sourceSha256": "f7f985ae7bd0da26eb8ebdad3e5ab4484e5f411784ae7ba1a0cd157ce83bcfe5",
+  "changes": [
+    "Selected exact upstream TN, TN.add, tnAddZero with original namespace; excluded unrelated kernel test harness and axioms as documented in starter package",
+    "Existing Oncm.goal/solution wrapper preserved byte for byte",
+    "Made previously implicit Init import explicit using prelude then import Init; standard False is an explicit exporter root, not a fabricated axiom"
+  ],
+  "sourceIdentityAssertion": "exact 135-140 excerpt bytes included in standalone source",
+  "certificateGenerated": false
+}

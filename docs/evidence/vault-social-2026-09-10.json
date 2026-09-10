@@ -1,0 +1,81 @@
+{
+  "date": "2026-09-10",
+  "application": "Vault",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "browserTab": "102825234",
+  "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+  "source": "read-only extract of persisted public community data after actual browser actions",
+  "profiles": {
+    "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266": {
+      "displayName": "Vault LP · проверка",
+      "bio": "Тестовый участник локальной сети: ликвидность и проверка формальных утверждений.",
+      "updatedAt": "2026-09-10T01:23:38.064Z"
+    }
+  },
+  "comments": [
+    {
+      "id": "e7692db1-4db2-405a-bd67-061d1ff374e2",
+      "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+      "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "text": "Проверка обсуждения: сертификат относится к ∀ P : Prop, P → P. Проверены также goal hash и неизменяемый профиль perf05.",
+      "parentId": null,
+      "createdAt": "2026-09-10T01:24:08.256Z",
+      "history": [
+        {
+          "text": "Проверка обсуждения: сертификат относится к ∀ P : Prop, P → P. Полезно показывать точный профиль рядом с доказательством.",
+          "editedAt": "2026-09-10T01:24:19.298Z"
+        }
+      ]
+    },
+    {
+      "id": "75c7b998-fd61-4e51-897d-bd85ea937353",
+      "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+      "author": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "text": "Согласен: текст комментария помогает обсуждению, а исход рынка определяется проверкой сертификата и его привязкой к goal hash.",
+      "parentId": "e7692db1-4db2-405a-bd67-061d1ff374e2",
+      "createdAt": "2026-09-10T01:25:02.804Z",
+      "history": []
+    }
+  ],
+  "votes": {
+    "e7692db1-4db2-405a-bd67-061d1ff374e2": {
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8": 1
+    },
+    "75c7b998-fd61-4e51-897d-bd85ea937353": {}
+  },
+  "browserObserved": {
+    "blockBefore": 125,
+    "blockAfter": 125,
+    "profileSaved": true,
+    "ownCommentCreatedAndEdited": true,
+    "editHistoryVisibleToOtherWallet": true,
+    "otherWalletVoteSequence": [
+      1,
+      0,
+      -1,
+      1
+    ],
+    "replyCreated": true,
+    "ownVoteControlsDisabled": true,
+    "otherAuthorEditControlsAbsent": true,
+    "publicProfileOpenedFromComment": true,
+    "logoutClearedUnpublishedDraft": true,
+    "topAndNewOrderChanged": true,
+    "replyThreadingDefect": "New sorting placed reply above parent; correction assigned, not yet browser-verified",
+    "apiRestartPersistence": "not tested in this pass",
+    "injectedWalletEvents": "not tested in this pass"
+  },
+  "followUp": {
+    "browserTab": "102825247",
+    "apiRestarted": true,
+    "apiSession": 96205,
+    "chainBlock": 125,
+    "savedProfileCommentEditHistoryAndVotePersisted": true,
+    "newSortKeepsReplyAfterParent": true,
+    "observedParentFirst": "e7692db1-4db2-405a-bd67-061d1ff374e2",
+    "observedReplySecond": "75c7b998-fd61-4e51-897d-bd85ea937353",
+    "newRootReorderingAfterFix": "unit-tested; this browser follow-up has one root",
+    "chainOrProvingActions": false
+  }
+}

@@ -1,5 +1,9 @@
 # Real Lean → zk smoke on GitHub Actions
 
+The separate [generic request adapter](REQUESTS.md) accepts inline goal/proof data
+under these same pinned profiles and publishes compact results to public request
+branches. It is offline-tested; its first remote run is still pending.
+
 This directory is a self-contained input bundle and orchestration recipe for **official RISC Zero 3.0.6** on a standard **public** GitHub Ubuntu x64 runner. It contains no host or guest compilation step. It does not use Bonsai, a paid service, a development-mode receipt or a substitute verifier.
 
 Status: first run `34414002347` received SIGKILL under its former 4GiB host cap. Second run `34415338599` confirmed the shared cap works: peak 4,925,534,208 bytes (4.587 GiB), zero OOM/max events, but proving exhausted 600 seconds at almost two CPUs before Docker. Guest execution took 16.02 ms; no receipt was created. The next reviewed recipe keeps the shared 13 GiB memory limit and uses the standard public runner's four CPUs, a bounded 1,800-second case deadline and targeted phase logs. **That next configuration is not yet measured.** Retry remains `perf05 / true-registration`, one case. Success still requires original verification for the pinned image and exact journal matching.

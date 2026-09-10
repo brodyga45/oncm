@@ -50,6 +50,7 @@
     "fixtures/true-goal.ndjson": "d8fda4366c187890e6990f73eb3b4852e5c38574dce8af4395057bb421a6fc33",
     "fixtures/OncmFalse.lean": "2c745c3e3d5977767c09c5b2aa31f4777a1acf19df6c46bdd9379ab9fba77d3f",
     "fixtures/false-goal.ndjson": "29ae8f991459a6e86ff1bb2e1d01b311f4221520e49ee869f1e356eb0a1d0ded",
-    "fixtures/OncmTrue.lean": "bbfcc53fc0c8537983236c4b04426498ae1cf50a616539b7739285ac06d62e36"
+    "fixtures/OncmTrue.lean": "bbfcc53fc0c8537983236c4b04426498ae1cf50a616539b7739285ac06d62e36",
+    "fixtures/foundation.ndjson": "7338abad487aca7db9ebd2b30955a777214926d51b61d1dde4369600a147ac87"
   }
 }

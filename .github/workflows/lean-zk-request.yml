@@ -1,0 +1,79 @@
+name: Real Lean proof request
+
+on:
+  push:
+    branches: ['codex/proof-requests/**']
+    paths: ['oncm-request.json']
+
+permissions:
+  contents: read
+
+# Same group as the manual smoke. The server must submit at most one remote run:
+# GitHub keeps only one pending entry; this is not a durable request queue.
+concurrency:
+  group: real-lean-zk-smoke
+  cancel-in-progress: false
+
+jobs:
+  proof:
+    if: github.repository == 'brodyga45/oncm'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/lean-zk/ci/
+            /oncm-request.json
+      - name: Test trusted transport adapters without proving
+        run: |
+          python3 tools/lean-zk/ci/test_ci.py
+          python3 tools/lean-zk/ci/test_request.py
+      - name: Validate data, prove and verify through original RISC Zero
+        run: python3 tools/lean-zk/ci/request_job.py --request oncm-request.json --work "$RUNNER_TEMP/oncm-request-work" --public "$RUNNER_TEMP/oncm-request-public"
+      - name: Clean up only this request's resources
+        if: always()
+        run: |
+          if test -f "$RUNNER_TEMP/oncm-request-work/environment.json"; then
+            python3 tools/lean-zk/ci/run.py cleanup --work "$RUNNER_TEMP/oncm-request-work"
+          fi
+      - name: Transfer compact terminal data to publisher
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: proof-request-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/oncm-request-public/
+          retention-days: 7
+          if-no-files-found: warn
+
+  publish:
+    needs: proof
+    if: always() && github.repository == 'brodyga45/oncm'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/lean-zk/ci/
+            /oncm-request.json
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        continue-on-error: true # Missing output is published as terminal failure.
+        with:
+          name: proof-request-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/oncm-request-public
+      - name: Reverify and publish public result data
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 tools/lean-zk/ci/publish_request.py --request oncm-request.json --public "$RUNNER_TEMP/oncm-request-public" --work "$RUNNER_TEMP/oncm-request-verifier"

@@ -1,0 +1,17 @@
+[
+  "/usr/bin/python3",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/tools/lean-zk/resource-guard.py",
+  "--memory-mib",
+  "512",
+  "--timeout",
+  "5",
+  "--report",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/performance/ix-tn-add-zero-perf05/native-resources.json",
+  "--lock-file",
+  "/private/tmp/oncm-worker-501.lock",
+  "--",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/performance/perf05/bin/check-native",
+  "/Users/ignatignat/Documents/ChatGPT/oncm/implementations/exchange/performance/ix-tn-add-zero-perf05/proof.ndjson",
+  "8517",
+  "1"
+]

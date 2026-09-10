@@ -1,0 +1,3 @@
+# Actual imported Ix arithmetic test data
+
+Exact source and Lean-generated exports from the bounded native/executor experiment at `implementations/exchange/performance/ix-tn-add-zero-perf05`. Upstream pin and wrapper changes are in source-provenance.json; source license is MIT OR Apache-2.0, both preserved. These test only generic transport locally/CI: no prover is started by test_request.py. The actual unchanged perf05 executor accepted this input in **five segments**, not one; no certificate exists for it. Existing CI resources apply if it is separately submitted for proving. Do not treat test inclusion as proof-generation authorization.

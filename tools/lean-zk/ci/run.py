@@ -76,6 +76,7 @@ def main():
     parser.add_argument('--work', required=True, type=Path)
     parser.add_argument('--profile', choices=['perf05', 'v3'], default='perf05')
     parser.add_argument('--case', choices=['all'] + CASES, default='true-registration')
+    parser.add_argument('--request', type=Path, help='Strict inline generic request; no source execution')
     args = parser.parse_args()
     work = args.work.resolve()
     setup = json.loads((work / 'environment.json').read_text())
@@ -100,8 +101,21 @@ def main():
               'RISC0_DEV_MODE': '', 'RUST_LOG': pins['host']['rustLog'], 'ONCM_REAL_DOCKER': real_docker,
               'ONCM_CI_RUN': run_id, 'HOME': os.environ['HOME']}
     image = None
-    for case in CASES if args.case == 'all' else [args.case]:
-        root, profile, goal_hash, outcome, wire, expected_journal = inputs(args.profile, case)
+    request = None
+    if args.request:
+        from request import validate_request
+        request = validate_request(args.request.read_bytes())
+        args.profile = request['body']['profile']
+        cases = ['generic-' + {0: 'registration', 1: 'proof', 2: 'refutation'}[request['body']['outcome']]]
+    else:
+        cases = CASES if args.case == 'all' else [args.case]
+    for case in cases:
+        if request is None:
+            root, profile, goal_hash, outcome, wire, expected_journal = inputs(args.profile, case)
+        else:
+            root, profile = request['root'], request['profile']
+            goal_hash, outcome = request['body']['goalHash'][2:], request['body']['outcome']
+            wire, expected_journal = request['wire'], request['journal']
         image = profile['imageId'][2:]
         directory = artifacts / (args.profile + '-' + case)
         directory.mkdir()  # Refuse accidentally overwriting proof results.
@@ -155,7 +169,7 @@ def main():
             (directory / 'evm-seal.bin').write_bytes(evm_seal)
             (directory / 'certificate.bin').write_bytes(certificate)
             (directory / 'journal.bin').write_bytes(journal)
-            write_json(directory / 'verified.json', {
+            verified = {
                 'format': 'oncm-real-groth16-ci-v1', 'profile': args.profile, 'case': case,
                 'imageId': '0x' + image, 'profileId': profile['profileId'], 'goalHash': '0x' + goal_hash,
                 'outcome': outcome, 'journal': '0x' + journal.hex(), 'rawSeal': '0x' + seal.hex(),
@@ -165,7 +179,14 @@ def main():
                 'receiptKind': 'Groth16', 'verifiedBy': 'official r0vm 3.0.6 VerifyRequest / Receipt::verify',
                 'elapsedSeconds': time.monotonic() - started, 'evmVerified': False,
                 'pins': pins, 'sourceCommit': os.environ.get('GITHUB_SHA'),
-                'runId': os.environ.get('GITHUB_RUN_ID')})
+                'runId': os.environ.get('GITHUB_RUN_ID'),
+                'runAttempt': os.environ.get('GITHUB_RUN_ATTEMPT')}
+            if request is not None:
+                verified.update(requestDigest=request['digest'], requestNonce=request['body']['requestNonce'],
+                                sourceSha256=request['body']['source']['sha256'],
+                                goalExportSha256=request['body']['goal']['sha256'],
+                                exportSha256=request['body']['export']['sha256'])
+            write_json(directory / 'verified.json', verified)
             print('Verified real Groth16:', args.profile, case, flush=True)
         except BaseException as error:
             write_json(directory / 'failure.json', {'error': str(error), 'elapsedSeconds': time.monotonic() - started})
