@@ -1,0 +1,24 @@
+{
+  "csvSha256": "d1b420d84c6237f2d4d302aff40347b8d489738af03b8523cc461e040b327691",
+  "rows": [
+    {
+      "block": 211,
+      "tx": "0x6cb2a397da0281e718bd49a03894ba4eec46ea3417d162408e39513519180828",
+      "direction": "Sell",
+      "amountIn": "1000000000000000000",
+      "amountOut": "586932657647886630",
+      "nominalFeeInput": "3000000000000000",
+      "matchesOriginalSwap": true
+    },
+    {
+      "block": 209,
+      "tx": "0xc0f702fb1faffc191802b20c8ae88a1bf68cb0baed3a10345835f5aacec26ed2",
+      "direction": "Buy",
+      "amountIn": "2000000000000000000",
+      "amountOut": "3626443575520596526",
+      "nominalFeeInput": "6000000000000000",
+      "matchesOriginalSwap": true
+    }
+  ],
+  "source": "implementations/exchange/docs/evidence/perf05-false/through-218.json"
+}
