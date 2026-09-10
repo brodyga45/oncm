@@ -1,0 +1,68 @@
+{
+  "mode": "actual scoped Chrome UI; read-only preparations; no governance proposal or transaction was submitted by this agent",
+  "tabId": "102825411",
+  "url": "http://127.0.0.1:5173/",
+  "initial": {
+    "uiBlock": 307,
+    "monetaryBlock": 307,
+    "supplyT": "1000.0",
+    "programCount": 0,
+    "rewardBalanceT": "0.0",
+    "reservedT": "0.0",
+    "closeButtonsPresent": false,
+    "claimButtonsPresent": false,
+    "emptyFeePoolPrepareDisabled": true
+  },
+  "actor": {
+    "label": "Account 3 · participant",
+    "addressShort": "0x90F79b…b906",
+    "connection": "ordinary local wallet and SIWE; no chain transaction"
+  },
+  "checks": [
+    {
+      "action": "Fill mint recipient visible Timelock and T amount -1; click only Проверить эмиссию и подготовить Governor",
+      "result": "T amount must be an exact decimal string with at most 18 decimal places",
+      "proposalDisabled": true
+    },
+    {
+      "action": "Fill fee synchronization pool not-a-pool; click only Проверить обновление ставки пула",
+      "result": "Balancer pool: invalid EVM address",
+      "feeSyncSendButtonPresent": false,
+      "proposalDisabled": true
+    },
+    {
+      "action": "Enter program start2030-02-30 12:00, end2030-03-08 12:00, deadline2030-04-01 12:00",
+      "result": "Начало: This local date/time does not exist in the selected calendar or timezone.",
+      "prepareFundingDisabled": true
+    },
+    {
+      "action": "Change start to2030-03-01 12:00:37",
+      "visibleReview": {
+        "local": "2030-03-01 12:00:37 UTC+04:00 (Asia/Yerevan)",
+        "utc": "2030-03-01T08:00:37.000Z",
+        "unix": "1898582437"
+      }
+    },
+    {
+      "action": "Set end equal to start2030-03-01 12:00:37",
+      "result": "Начало должно предшествовать концу начислений, а получение наград — заканчиваться позже начислений.",
+      "prepareFundingDisabled": true
+    }
+  ],
+  "cleanup": {
+    "method": "Clicked observed ordinary root link ▱ VAULT and reopened Управление",
+    "walletDisconnected": true,
+    "draftsAbsent": true,
+    "mintPrepareDisabled": true,
+    "feeSyncPrepareDisabled": true,
+    "fundingPrepareDisabled": true,
+    "proposalDisabled": true,
+    "monetaryBlock": 310,
+    "headerBlock": 311
+  },
+  "limitations": [
+    "Root-assigned other agent held sole chain mutation slot concurrently; observed head growth307→311 is not attributed to this read-only task.",
+    "Empty-string fill calls did not reliably clear controlled inputs through the automation surface; actual root-link reload was used to discard drafts. No app defect or source fix inferred.",
+    "No nonempty program close/claim or real fee sync browser transaction tested here. Those remain separate stateful acceptance steps."
+  ]
+}
