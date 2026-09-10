@@ -9,7 +9,9 @@ Svelte-интерфейс управления капиталом: просто�
 
 ## Текущая граница веба
 
-Веб выполняет native-проверку Lean и работает с сертификатами, подготовленными пользователем вне сайта: загрузка, original EVM verification, применение, регистрация и resolution. Вызовы создания/заказа ZK-сертификатов из интерфейса убраны; это будущая функция. CLI/API, исходные proof assets и история задач сохранены. Ни комментарии, ни экономические/управляющие контракты этим решением не меняются.
+Веб выполняет native-проверку Lean и работает с сертификатами, подготовленными пользователем вне сайта: загрузка, original EVM verification, применение, регистрация и resolution. Вызовы создания/заказа ZK-сертификатов из интерфейса убраны; это будущая функция. CLI/API, исходные proof assets и история задач сохранены. Экономические/управляющие контракты этим решением не меняются. Социальные функции отдельно переведены на EAS, см. ONCHAIN-SOCIAL.md.
+
+Generic external bundles принимают новые canonical goals под pinned perf05/v3 без fixture allowlist. Browser/SDK сверяет точные goal/foundation bytes и связывает full journal с original EVM/registry bridge; source SHA остаётся только provenance, `sourceGoalRelation:not-verified`. Четыре curated примера используют прежний путь. Generic JSON не поступает в API и ничего не запускает; лимиты и исходники в [EXTERNAL-CERTIFICATES.md](EXTERNAL-CERTIFICATES.md).
 
 ## Реализованная сборка
 
@@ -19,7 +21,7 @@ Svelte-интерфейс управления капиталом: просто�
 - FinalityHook блокирует swap и addLiquidity в canonical pools, proportional remove callbacks не включает. Отдельный hook на утверждение с immutable statementId также включает beforeInitialize; callback Balancer не содержит pool address, поэтому общий hook здесь был бы недостаточен. Даже прямой Router.initialization пустого пула после payout отвергается. Informed pre-proof swap не устранён.
 - Profile/operator registry: immutable implementation+manifest/spec; admission toggle не переписывает старые критерии. Governance устанавливает новый символ как static-call module. Пример ResolvedWithinWindow развёрнут отдельно для последующей governance installation.
 - Timelock owner у registry/membership/collector; настоящий Governor на непередаваемом membership, bootstrap admin отозван. Factory/Vault API и roles фиксируются deployment; произвольная замена глобального fee controller потребовала бы совместимой миграции collector, а не одного необдуманного administrative call.
-- Off-chain persistence — собственный atomic JSON store под `.state/` в однопроцессном Express API. Это осознанный local MVP выбор: без внешнего Postgres/Redis runtime. Session только в памяти, перезапуск отзывает вход; профили/обсуждения/jobs/packages сохраняются.
+- Social persistence — original EAS + SchemaRegistry + immutable VaultSocialResolver: полный текст профилей, блогов, комментариев, ответов, всех редакций и голосов хранится ончейн. RPC/index cache восстанавливается из EAS; SIWE не даёт право публикации. Отдельный atomic JSON store под `.state/` остаётся для jobs/packages и явно помеченного legacy social архива. Session только в памяти, перезапуск отзывает SIWE-вход. См. [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md).
 - SDK/API reads имеют реальные EVM block references. Прогноз LP показывает условное погашение текущего inventory; governance preflight — read-only inner-call simulation от Timelock. Эти две дополнительные функции описаны в EXTRA-FEATURES.md.
 
 Большинство воспроизводимого Lean окружения — установленный системный toolchain плюс собственная копия checker/host/bridge. Никаких runtime imports либо HTTP-вызовов сервисов Agora/Exchange нет. Pin текущего accepted profile читается из proof/manifest.json и .state/deployment.json; обновление проходит обычный Governor/Timelock через scripts/install-profile.mjs.

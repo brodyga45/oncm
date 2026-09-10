@@ -1,0 +1,97 @@
+{
+  "scope": "read-only actual original EVM + governed bridge; no proving or transactions",
+  "chainId": 31373,
+  "results": [
+    {
+      "case": "true-registration",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "outcome": 0,
+      "blockNumber": 147,
+      "blockHash": "0x87d5d06de8a50ebca3b4a85fd52886da88fb118f4c0569a971e0eedc8cfa5af9",
+      "bundleSha256": "248948c67c5f2d51b2688305992c8f41498cf7e5f554707da0a048f4a755e077",
+      "originalVerifier": "0xDC17C27Ae8bE831AF07CC38C02930007060020F4",
+      "bridge": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "bridgeVerifier": "0x330981485Dbd4EAcD7f14AD4e6A1324B48B09995",
+      "verifierCodeHash": "0x6e9c231ed0e55de83b56e8e30d220b22e26ebae66628b450df2494e01f3c2559",
+      "cryptographicStatus": "original-and-bridge-verified",
+      "sourceGoalRelation": "not-verified",
+      "readyForRegistration": true,
+      "readyForResolution": false
+    },
+    {
+      "case": "true-proof",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "outcome": 1,
+      "blockNumber": 147,
+      "blockHash": "0x87d5d06de8a50ebca3b4a85fd52886da88fb118f4c0569a971e0eedc8cfa5af9",
+      "bundleSha256": "d4b290043efd34358b01a59ec16d109b818230d7ed07280cc8242d3676d0c8e8",
+      "originalVerifier": "0xDC17C27Ae8bE831AF07CC38C02930007060020F4",
+      "bridge": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "bridgeVerifier": "0x330981485Dbd4EAcD7f14AD4e6A1324B48B09995",
+      "verifierCodeHash": "0x6e9c231ed0e55de83b56e8e30d220b22e26ebae66628b450df2494e01f3c2559",
+      "cryptographicStatus": "original-and-bridge-verified",
+      "sourceGoalRelation": "not-verified",
+      "readyForRegistration": false,
+      "readyForResolution": true
+    },
+    {
+      "case": "false-registration",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "outcome": 0,
+      "blockNumber": 147,
+      "blockHash": "0x87d5d06de8a50ebca3b4a85fd52886da88fb118f4c0569a971e0eedc8cfa5af9",
+      "bundleSha256": "5844baf6334596a04ea828e51714b1dcddbd69771b2aa55bd8ea8b3b0bcc21f9",
+      "originalVerifier": "0xDC17C27Ae8bE831AF07CC38C02930007060020F4",
+      "bridge": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "bridgeVerifier": "0x330981485Dbd4EAcD7f14AD4e6A1324B48B09995",
+      "verifierCodeHash": "0x6e9c231ed0e55de83b56e8e30d220b22e26ebae66628b450df2494e01f3c2559",
+      "cryptographicStatus": "original-and-bridge-verified",
+      "sourceGoalRelation": "not-verified",
+      "readyForRegistration": true,
+      "readyForResolution": false
+    },
+    {
+      "case": "false-refutation",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "outcome": 2,
+      "blockNumber": 147,
+      "blockHash": "0x87d5d06de8a50ebca3b4a85fd52886da88fb118f4c0569a971e0eedc8cfa5af9",
+      "bundleSha256": "c87d323f6d49fdfe546dae0c2c416559c425466d6f1eb67fdbdeda59f1e38f5f",
+      "originalVerifier": "0xDC17C27Ae8bE831AF07CC38C02930007060020F4",
+      "bridge": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "bridgeVerifier": "0x330981485Dbd4EAcD7f14AD4e6A1324B48B09995",
+      "verifierCodeHash": "0x6e9c231ed0e55de83b56e8e30d220b22e26ebae66628b450df2494e01f3c2559",
+      "cryptographicStatus": "original-and-bridge-verified",
+      "sourceGoalRelation": "not-verified",
+      "readyForRegistration": false,
+      "readyForResolution": true
+    }
+  ],
+  "negative": [
+    {
+      "label": "altered seal, canonical ABI and forged evmVerified flag rejected by real verifier",
+      "rejected": true
+    },
+    {
+      "label": "new self-consistent goal hash with old seal rejected by real verifier",
+      "rejected": true
+    }
+  ],
+  "startBlock": 147,
+  "v3": {
+    "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+    "imageId": "0x3ba46e4e43724929a3b160c49e75ea89d1ea529f357d8ba07cf55054cb3f2deb",
+    "manifestMatches": true,
+    "enabled": true,
+    "certificateTested": false
+  },
+  "endBlock": 147
+}

@@ -1,9 +1,14 @@
-/** Browser and Node client for the independent Vault social, package and proof API. */
+import {createOnchainSocial} from './social.mjs';
+/** Public reads + private tooling API. Social writes use a wallet's original EAS transaction. */
 export function createCommunitySDK({
   baseUrl = '/api',
   origin = 'http://127.0.0.1:5173',
   fetcher = fetch,
+  config,
+  signer,
 } = {}) {
+  const onchain = config && signer ? createOnchainSocial(config, signer) : null;
+  function social() {if(!onchain)throw Error('Pass deployment config and wallet signer for direct onchain EAS writes');return onchain;}
   let cookie = '';
   async function request(path, method = 'GET', body, binary = false) {
     const headers = { 'Content-Type': 'application/json' };
@@ -34,7 +39,7 @@ export function createCommunitySDK({
         domain +
         ' wants you to sign in with your Ethereum account:\n' +
         address +
-        '\n\nSign in to Vault comments and Lean jobs. This does not authorize token transfers.\n\nURI: ' +
+        '\n\nSign in to private Vault Lean jobs and source tools. Social posts require separate onchain transactions.\n\nURI: ' +
         origin +
         '\nVersion: 1\nChain ID: 31373\nNonce: ' +
         nonce +
@@ -51,7 +56,7 @@ export function createCommunitySDK({
       return r;
     },
     profile: (address) => request('/profiles/' + encodeURIComponent(address)),
-    updateProfile: (displayName, bio) => request('/profile', 'PUT', { displayName, bio }),
+    updateProfile: (displayName, bio, options) => social().updateProfile(displayName, bio, options),
     comments: (statementId, sort = 'top') =>
       request(
         '/comments?statementId=' +
@@ -59,11 +64,11 @@ export function createCommunitySDK({
           '&sort=' +
           encodeURIComponent(sort),
       ),
-    reply: (statementId, text, parentId = null) =>
-      request('/comments', 'POST', { statementId, text, parentId }),
-    editComment: (id, text) => request('/comments/' + encodeURIComponent(id), 'PATCH', { text }),
-    vote: (id, value) =>
-      request('/comments/' + encodeURIComponent(id) + '/vote', 'POST', { value }),
+    reply: (statementId, text, parentId = null, options) => social().createEntry({statementId,text,parentId},options),
+    editComment: (id, text, options) => social().editEntry(id,{text},options),
+    vote: (id, value, options) => social().vote(id,value,options),
+    blog: (address) => request('/blog/' + encodeURIComponent(address)),
+    publishBlog: (title,text,options) => social().createEntry({kind:1,title,text},options),
     palomar: () => request('/palomar'),
     importPalomar: (id, version) => request('/palomar/import', 'POST', { id, version }),
     importSnapshot: (repository, commit, challengePath) =>

@@ -72,8 +72,8 @@ test('initial public catalog survives input/client changes without replacing the
 
 test('unmounted component and oversized files cannot publish a late result', async () => {
   const pending = defer(), h = harness(() => pending.promise);
-  await h.importer.readFile({ size: 65537, text: () => assert.fail('oversized file must not be read') });
-  assert.match(h.importer.state.error, /64 KiB/);
+  await h.importer.readFile({ size: 2*1024*1024+1, text: () => assert.fail('oversized file must not be read') });
+  assert.match(h.importer.state.error, /2 MiB/);
   const work = h.importer.verify(); await Promise.resolve();
   h.importer.dispose(); const before = h.states.length;
   pending.resolve({ outcome: 1 }); await work;
@@ -117,4 +117,23 @@ test('late local job cannot bind to another statement/outcome or replace a regis
   assert.equal(bindProofJob(job, statement, 2), null);
   assert.equal(bindProofJob({ ...job, input: { ...job.input, action: 'register' } }, statement, 1), null);
   assert.equal(bindProofJob({ ...job, result: { ...proof, profileId: 'other' } }, statement, 1), null);
+});
+
+test('generic file uses bounded raw JSON route and late wallet result cannot replace input',async()=>{
+  const pending=defer(),h=harness(),calls=[];
+  h.sdk.verifyExternalBundle=(...args)=>{calls.push(args);return pending.promise;};
+  const raw=JSON.stringify({format:'oncm-external-certificate-bundle-v1',artifact:{profileId:'test'},padding:'x'.repeat(70000)});
+  await h.importer.readFile({size:raw.length,text:async()=>raw});
+  assert.equal(h.importer.state.input,raw);
+  const work=h.importer.verify();await Promise.resolve();
+  assert.equal(calls.length,1);assert.equal(calls[0][0],raw);
+  h.importer.setClient({});pending.resolve({genericBundle:true});await work;
+  assert.equal(h.importer.state.review,null);
+});
+
+test('oversized curated records and duplicate JSON fields never reach verifier',async()=>{
+  const h=harness();h.importer.setInput(JSON.stringify({padding:'x'.repeat(65536)}));await h.importer.verify();
+  assert.match(h.importer.state.error,/64 KiB/);assert.equal(h.calls.length,0);
+  h.importer.setInput('{"format":"one","format":"two"}');await h.importer.verify();
+  assert.match(h.importer.state.error,/Duplicate/);assert.equal(h.calls.length,0);
 });

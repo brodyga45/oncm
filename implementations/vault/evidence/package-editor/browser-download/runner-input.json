@@ -1,0 +1,8 @@
+{
+  "action": "check",
+  "source": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P\n\nend Oncm\n\n\nnamespace Oncm\n\ntheorem solution : goal → False := fun h => h False\n\nend Oncm\n",
+  "statementId": "0x7b048ad58d17d794cfe9da3c2740bb9047f88817e9ec00f174fd1ac79950a7a3",
+  "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "outcome": 2
+}

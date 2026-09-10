@@ -1,0 +1,34 @@
+{
+  "format": "vault-actual-fresh-start-v1",
+  "root": "/private/tmp/oncm-vault-fresh-u8xa1q8c",
+  "endpoints": {
+    "offset": 10000,
+    "chainId": 31373,
+    "rpcPort": 19547,
+    "apiPort": 14173,
+    "webPort": 15173,
+    "rpcUrl": "http://127.0.0.1:19547",
+    "apiUrl": "http://127.0.0.1:14173",
+    "webUrl": "http://127.0.0.1:15173"
+  },
+  "liveBefore": {
+    "number": 188,
+    "hash": "0x569b6a07ff01c1217bc1e79b7f862e1327e70e6ac4edbd5f7a1210c1f80e18d0"
+  },
+  "success": false,
+  "error": "TypeError: fetch failed\n    at node:internal/deps/undici/undici:13178:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/vault/scripts/fresh-start-smoke.mjs:32:12",
+  "shutdown": {
+    "code": 1,
+    "signal": null
+  },
+  "portsClosed": {
+    "14173": true,
+    "15173": true,
+    "19547": true
+  },
+  "liveAfter": {
+    "number": 188,
+    "hash": "0x569b6a07ff01c1217bc1e79b7f862e1327e70e6ac4edbd5f7a1210c1f80e18d0"
+  },
+  "originalChainUnchanged": true
+}

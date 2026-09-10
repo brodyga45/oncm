@@ -1,0 +1,446 @@
+{
+  "format": "vault-actual-fresh-start-v1",
+  "root": "/private/tmp/oncm-vault-fresh-dga1z6u_",
+  "endpoints": {
+    "offset": 10000,
+    "chainId": 31373,
+    "rpcPort": 19547,
+    "apiPort": 14173,
+    "webPort": 15173,
+    "rpcUrl": "http://127.0.0.1:19547",
+    "apiUrl": "http://127.0.0.1:14173",
+    "webUrl": "http://127.0.0.1:15173"
+  },
+  "liveBefore": {
+    "number": 188,
+    "hash": "0x569b6a07ff01c1217bc1e79b7f862e1327e70e6ac4edbd5f7a1210c1f80e18d0"
+  },
+  "configuration": {
+    "name": "Vault",
+    "chainInstance": {
+      "id": "bcc3a899-61ea-40dc-90da-61f136b07f79",
+      "kind": "anvil-persistent",
+      "chainId": 31373,
+      "createdAt": "2026-09-10T04:01:35.076Z",
+      "genesisTimestamp": 1789012895,
+      "hasStarted": true
+    },
+    "chainId": 31373,
+    "rpcUrl": "http://127.0.0.1:19547",
+    "localPortOffset": 10000,
+    "webUrl": "http://127.0.0.1:15173",
+    "apiUrl": "http://127.0.0.1:14173",
+    "deploymentBlock": 1,
+    "addresses": {
+      "TrueToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "Membership": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "Timelock": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "Governor": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "Authorizer": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "ConditionalTokens": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "Wrapped1155Factory": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      "StatementRegistry": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      "PositionRouter": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      "ResolvedWithinWindowOperator": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      "VaultFactory": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "Vault": "0xEeF679B6039be59316710F14B6424Cf4809D2C4B",
+      "ProtocolFeeController": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+      "VaultAdmin": "0x5F5121201Ee55167FE6cC7E1ACCf9be2A25453f2",
+      "VaultExtension": "0x3A3198788fFE1850D9e912C6071E05fEb3c20e1B",
+      "WeightedPoolFactory": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+      "Permit2": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+      "WETH": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+      "Router": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
+      "SplitsWarehouse": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "PullSplitFactory": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+      "AllocationController": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+      "PoolCoordinator": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+      "LeanProofBridge": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F"
+    },
+    "accounts": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+    ],
+    "proof": {
+      "status": "configured",
+      "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+      "manifest": "0xa2e961f6916f7efcd4718b3a1888dde150c6652b5cf54029f384b1e7609e8465",
+      "verifier": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+      "fixtureId": "lean-nat-add-comm-4.33.1"
+    },
+    "exampleOperator": {
+      "id": "0xd071a697d013e4780588b5bb51903dc7ea03506c89bc543039b16be6b588cec6",
+      "implementation": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      "specification": "0xe8a1c08559ce5792298458b87b496ecf6eafcaf4a0f8bccc29684b7ac55f04f1"
+    },
+    "createdAt": "2026-09-10T04:01:45.342Z",
+    "social": {
+      "format": "oncm-vault-eas-social-v1",
+      "chainId": 31373,
+      "chainInstance": "bcc3a899-61ea-40dc-90da-61f136b07f79",
+      "statementRegistry": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      "schemaRegistry": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+      "eas": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
+      "resolver": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+      "schemas": {
+        "profile": "0xa8282a78b9937ff39915781fdd18fff657dbbe9878775d5681ae1d73a267e31c",
+        "entry": "0xf7ed4f2f97fdbd7af529de4b537991e31ea6911273a21996d1b82727b8cd6a3c",
+        "vote": "0x0de8e89411e5bdc464fc6fd08fc7ba4f7bdd614ffe9e036f92bb09aaf590bc24"
+      },
+      "deploymentBlock": 31,
+      "easPackage": "1.9.0",
+      "contractVersion": "1.4.0",
+      "releaseCommit": "3683c3ec9383091eebd6f183e67b485e09a53dd7",
+      "codeHashes": {
+        "schemaRegistry": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322",
+        "eas": "0x9c01b374b99d75c4791c5eaa9eae08ea5c559e74dc40b8eb3d12f5d7c125b1b1",
+        "resolver": "0xfb420594e55b39df24a955d3342909c32e3bc06e26e3a363cb1ced76957daa4d"
+      },
+      "receipts": [
+        {
+          "contract": "SchemaRegistry",
+          "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+          "hash": "0xbc1345cc61f15ac93af2dbeee64c992af16447b5d5723072fca03545b8e0756b",
+          "blockNumber": 31,
+          "blockHash": "0xe1ea8fa79c3507855837e3cfeffba1310be8002f8d086fd2c5ed73f4e10f59aa",
+          "status": 1,
+          "gasUsed": "500945"
+        },
+        {
+          "contract": "EAS",
+          "address": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
+          "hash": "0xdd495e3261dbd4dbfc7cc366c98c4dbf495815d18ed44264461c1b40a3c530db",
+          "blockNumber": 32,
+          "blockHash": "0x0468de0830af208df8b5817e3b6a01b5b30606afb10d47d9460fc96d711e82f9",
+          "status": 1,
+          "gasUsed": "3279744"
+        },
+        {
+          "contract": "VaultSocialResolver",
+          "address": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+          "hash": "0x0c064cc432f844680952abaaa3a77b26da938f5f8314ad85f9031c0053a062eb",
+          "blockNumber": 33,
+          "blockHash": "0x14fbb991000d16bad90454ec42156d13b33456770eeb9e02b2c49b575cfe7570",
+          "status": 1,
+          "gasUsed": "1833823"
+        }
+      ],
+      "protectedState": {
+        "unchanged": true,
+        "digest": "0xc1083a6786057d41d76c4624f87dafd4a19f5a43ae0cc4813df74055be696e6b",
+        "statementCount": 0,
+        "poolCount": 0,
+        "codeHashes": {
+          "TrueToken": "0xb6262bd7155294ab42bb84647d86a3c92039cb1af77e94863d4563e7666906ab",
+          "Membership": "0x933a20e2107f813614be7776ba2c1759cb8272a9db7c8cc83ceb6ec1cad8da09",
+          "Timelock": "0x0210923f3de61dcb815ffd5e1a0542b15e0d900fc2ebe215efe6f897fb9cebad",
+          "Governor": "0x1d1ae4e8244c5f4bab8ebacb4c2c49ff61c0deb78967df00717362574a1a2b0f",
+          "Authorizer": "0xc85aab1475a6589101e6238ca1fe4e2c38029ca927a090e460f540f60a5c5c9a",
+          "ConditionalTokens": "0xadf1ee4719c637975ba08765e3a1187f2fb865c9b17386005960a81ff29cfcc7",
+          "Wrapped1155Factory": "0x5a569ed726741390192f1d546da3ea1785b60648c9c23b298c6b7e47205ecf56",
+          "StatementRegistry": "0xf086cfac96bba8240db232a5965e9acaf032ceea41289021b760b003e53132be",
+          "PositionRouter": "0x7d0fef6368f7cd15ba35283b68a9f5b87c8c7040b90fa1a15412f884127914a6",
+          "ResolvedWithinWindowOperator": "0x093ec21ed5b620d42cffe8da37a4e40b5404d1fb0908becbdaa1c5f3d35c8404",
+          "VaultFactory": "0xe52cfbfc7942eae80868bcc50dce0c7c431f7997b2505c0e968c69a2eb0ab4b7",
+          "Vault": "0x9b8eab46d5de78827df43d8d4a9c4819dc6f17b38dd90414e43dcaae37c2a87c",
+          "ProtocolFeeController": "0xfdbeff857c1d9a4230363d04b8244e4cb826f1d42a53fbdd9ab69773e0fedb5a",
+          "VaultAdmin": "0xeb0edd0f6f77c9108afea8e2e1a92a4af30c96d63a10fc9d9bae6de449859960",
+          "VaultExtension": "0xe204953be16b575108a34500e022122b0d31def1d5925eab98538ecdb6c58121",
+          "WeightedPoolFactory": "0x58d0bd7bffb7401825605c9dd1b230260426909f7f4204af6f93aea5d576dd50",
+          "Permit2": "0x753c6a637b2083a8044fdfc9355aafa44c2e77388f51583f9cd4c90bce07afbd",
+          "WETH": "0x3c723cc28e181b8ad41817710a95007a42b4de39038e063439e52ee93b630487",
+          "Router": "0xb340fb569f227c49bfa85ec5521f54031ebadbc6bf88b5eb3da2b21859f27654",
+          "SplitsWarehouse": "0xbda3d90c36e16af19ba6ebf244eb87c1c4759c88dbe2e7e59c65f6352bf54b0b",
+          "PullSplitFactory": "0x451974dc08aa710005c4c0e0913734854e903bca4ea5d4ccc35b3d58111fa9b7",
+          "AllocationController": "0xf76a8aa6f9f60a455f382970aaefb4f853d8dd55f66174a2edc83ff3760c40ec",
+          "PoolCoordinator": "0xaad5ee1406d4ec49bf7865eed61d38ede0d7a5e3db3e6d39bcb964367d54ea75",
+          "LeanProofBridge": "0x5398490967ae2ca84d1c4fe984628392b5f18bdd1ad4adb7134edb9aec71b730"
+        }
+      },
+      "createdAt": "2026-09-10T04:01:46.522Z"
+    }
+  },
+  "profile": {
+    "verifier": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+    "enabled": true,
+    "manifest": "0xa2e961f6916f7efcd4718b3a1888dde150c6652b5cf54029f384b1e7609e8465"
+  },
+  "originalVerifier": {
+    "address": "0xDC17C27Ae8bE831AF07CC38C02930007060020F4",
+    "realPublishedClaimAccepted": true,
+    "changedJournalRejected": true,
+    "scope": "original generic RISC Zero verifier only; perf05 is not silently installed into v3 bridge"
+  },
+  "webStatus": 200,
+  "proxyStatus": 200,
+  "statementCount": 0,
+  "poolCount": 0,
+  "socialSnapshot": {
+    "block": {
+      "number": 33,
+      "hash": "0x14fbb991000d16bad90454ec42156d13b33456770eeb9e02b2c49b575cfe7570",
+      "timestamp": 1789012906
+    },
+    "profiles": {},
+    "entries": [],
+    "events": 0
+  },
+  "deployment": [
+    {
+      "label": "Deploy TrueToken",
+      "hash": "0x64cd9d7f8b2364e197ae1a12c91e4a6a604681c571a9b447be58e93d01d6140a",
+      "blockNumber": 1
+    },
+    {
+      "label": "Deploy Membership",
+      "hash": "0x2d6f8bceb61377d398d6ca0d2c8d82065de09922a410b89d2cbf7b8b4577ea68",
+      "blockNumber": 2
+    },
+    {
+      "label": "Deploy Timelock",
+      "hash": "0xe2b987b63036ebdb8d10f638e6886db14307f8210aeed73ce9202687f93b9b57",
+      "blockNumber": 3
+    },
+    {
+      "label": "Deploy Governor",
+      "hash": "0x9593ffffe28566ac920207d57f8a87c39048da69ca1e9c34a90d3085a1164da0",
+      "blockNumber": 4
+    },
+    {
+      "label": "Grant governor proposer",
+      "hash": "0x9528e1e244fcf0b188058e1b633227400097f604b18c1402023c6d5956636342",
+      "blockNumber": 5
+    },
+    {
+      "label": "Grant governor canceller",
+      "hash": "0x37346d032df6c38c3c893d1bdc50dd9e5ef161559019c51766f91194400467f5",
+      "blockNumber": 6
+    },
+    {
+      "label": "Membership ownership",
+      "hash": "0x8ba46f3b7c5066fb785ef3df425084f7be9d180834683c398bf427bedf9a0b75",
+      "blockNumber": 7
+    },
+    {
+      "label": "Deploy Authorizer",
+      "hash": "0xb2555767a28f422c13a663ab6df542057af1ced865159f88911c456ebb309e8e",
+      "blockNumber": 8
+    },
+    {
+      "label": "Deploy ConditionalTokens",
+      "hash": "0x838c40f69cd4b3779e90555c9fef54aa32277080536e416292659b390ea35889",
+      "blockNumber": 9
+    },
+    {
+      "label": "Deploy Wrapped1155Factory",
+      "hash": "0xc27f4b14a43888dc912e9aa87ecd5052564ed2a2134a3f6e04a743e589ec51d8",
+      "blockNumber": 10
+    },
+    {
+      "label": "Deploy StatementRegistry",
+      "hash": "0xf42f3b28eaef0f44b55c1287e89db43720382874977b176dcfc20cbf44698dd0",
+      "blockNumber": 11
+    },
+    {
+      "label": "Deploy PositionRouter",
+      "hash": "0x52346354b2d98b5a88a1f3ca2e685e9fa08fff247ef6870f00b812311c8ac657",
+      "blockNumber": 12
+    },
+    {
+      "label": "Deploy ResolvedWithinWindowOperator",
+      "hash": "0xb71d094d759fde63d81577f9e01275c699039dcb49bb044debffaa59e10db335",
+      "blockNumber": 13
+    },
+    {
+      "label": "Deploy VaultFactory",
+      "hash": "0x31ab21be9ec9609c49c4e0f26c32d5a39526ab88816754f3d2925bd7843ee6c6",
+      "blockNumber": 14
+    },
+    {
+      "label": "Deploy ProtocolFeeController",
+      "hash": "0xa756a5fef438f02d4b9f8fac4b1d060a425a99e31e47ef72df4c8f18ac285d10",
+      "blockNumber": 15
+    },
+    {
+      "label": "Create canonical Balancer Vault",
+      "hash": "0x0ca27478a6a8d65430885959e88a8b07db1089f8971d108993cf7aa682dc8131",
+      "blockNumber": 16
+    },
+    {
+      "label": "Deploy WeightedPoolFactory",
+      "hash": "0x30bc9fe177f3770136decc0e66978fb039085a1d820b66230b1ac82a00865a96",
+      "blockNumber": 17
+    },
+    {
+      "label": "Deploy Permit2",
+      "hash": "0x7b44f7f6d8f85c677db4e50d04692c3ee2ac27d9445bceb1512daa3ceb5d0c1c",
+      "blockNumber": 18
+    },
+    {
+      "label": "Deploy WETH",
+      "hash": "0x3ccbcd81ebe83fd228161adc8f59f6913e64cfb589d4628ec6ebd92d7873ac66",
+      "blockNumber": 19
+    },
+    {
+      "label": "Deploy Router",
+      "hash": "0xce39073c309cd3adfcbf49d4b2abead9892b18916624dab62134c8796e396f39",
+      "blockNumber": 20
+    },
+    {
+      "label": "Deploy SplitsWarehouse",
+      "hash": "0xa216475d2f8f58b6f108145279ec1a41af9b2b3658700adb0494b3d8dbc699e5",
+      "blockNumber": 21
+    },
+    {
+      "label": "Deploy PullSplitFactory",
+      "hash": "0x9a7e7fa3452f78db23b30882dd8cebc1558b0a4c37e7db5e584cc4573c3059b5",
+      "blockNumber": 22
+    },
+    {
+      "label": "Deploy AllocationController",
+      "hash": "0xdbb0533e9b9bb73f8dc30f818d3d8b09a5a01fa4b6dd9180a32de6d07aee06dc",
+      "blockNumber": 23
+    },
+    {
+      "label": "Deploy PoolCoordinator",
+      "hash": "0x28e8813f2762fd7d847b989bd2260b8d267ebfc86c796bb6062b2f1787490f32",
+      "blockNumber": 24
+    },
+    {
+      "label": "Bind official pool coordinator",
+      "hash": "0x9a918ef484f2e169251f24a38e7cbfdbae3f61ce677bb0ab756bc269fda4e785",
+      "blockNumber": 25
+    },
+    {
+      "label": "Allocation owner to governance",
+      "hash": "0xd58e964be4c30b8444ca7c011683fe7b03dd80895a2101d1e9615fe14c97455a",
+      "blockNumber": 26
+    },
+    {
+      "label": "Deploy LeanProofBridge",
+      "hash": "0xa624d540d291a8eebd254803388da95951df326b6e2078f8c183fb66165d5809",
+      "blockNumber": 27
+    },
+    {
+      "label": "Register immutable Lean proof profile",
+      "hash": "0x11e6cd1a457b10dae01a702c903f359c7444675bac4d3e8bc3ea68f6b6e996d2",
+      "blockNumber": 28
+    },
+    {
+      "label": "Registry ownership to governance",
+      "hash": "0x9f7ccf3c880c188c5b19ad7a4f0653b9d4ad6bc7a872b21246d163934b2e353d",
+      "blockNumber": 29
+    },
+    {
+      "label": "Drop bootstrap admin",
+      "hash": "0x376acf689efa4b2d830d8b1e463d7616d7aa301c0b3d16a545aa2f922fa16e7c",
+      "blockNumber": 30
+    }
+  ],
+  "socialDeployment": {
+    "format": "oncm-vault-eas-social-v1",
+    "chainId": 31373,
+    "chainInstance": "bcc3a899-61ea-40dc-90da-61f136b07f79",
+    "statementRegistry": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+    "schemaRegistry": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+    "eas": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
+    "resolver": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+    "schemas": {
+      "profile": "0xa8282a78b9937ff39915781fdd18fff657dbbe9878775d5681ae1d73a267e31c",
+      "entry": "0xf7ed4f2f97fdbd7af529de4b537991e31ea6911273a21996d1b82727b8cd6a3c",
+      "vote": "0x0de8e89411e5bdc464fc6fd08fc7ba4f7bdd614ffe9e036f92bb09aaf590bc24"
+    },
+    "deploymentBlock": 31,
+    "easPackage": "1.9.0",
+    "contractVersion": "1.4.0",
+    "releaseCommit": "3683c3ec9383091eebd6f183e67b485e09a53dd7",
+    "codeHashes": {
+      "schemaRegistry": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322",
+      "eas": "0x9c01b374b99d75c4791c5eaa9eae08ea5c559e74dc40b8eb3d12f5d7c125b1b1",
+      "resolver": "0xfb420594e55b39df24a955d3342909c32e3bc06e26e3a363cb1ced76957daa4d"
+    },
+    "receipts": [
+      {
+        "contract": "SchemaRegistry",
+        "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+        "hash": "0xbc1345cc61f15ac93af2dbeee64c992af16447b5d5723072fca03545b8e0756b",
+        "blockNumber": 31,
+        "blockHash": "0xe1ea8fa79c3507855837e3cfeffba1310be8002f8d086fd2c5ed73f4e10f59aa",
+        "status": 1,
+        "gasUsed": "500945"
+      },
+      {
+        "contract": "EAS",
+        "address": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
+        "hash": "0xdd495e3261dbd4dbfc7cc366c98c4dbf495815d18ed44264461c1b40a3c530db",
+        "blockNumber": 32,
+        "blockHash": "0x0468de0830af208df8b5817e3b6a01b5b30606afb10d47d9460fc96d711e82f9",
+        "status": 1,
+        "gasUsed": "3279744"
+      },
+      {
+        "contract": "VaultSocialResolver",
+        "address": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+        "hash": "0x0c064cc432f844680952abaaa3a77b26da938f5f8314ad85f9031c0053a062eb",
+        "blockNumber": 33,
+        "blockHash": "0x14fbb991000d16bad90454ec42156d13b33456770eeb9e02b2c49b575cfe7570",
+        "status": 1,
+        "gasUsed": "1833823"
+      }
+    ],
+    "protectedState": {
+      "unchanged": true,
+      "digest": "0xc1083a6786057d41d76c4624f87dafd4a19f5a43ae0cc4813df74055be696e6b",
+      "statementCount": 0,
+      "poolCount": 0,
+      "codeHashes": {
+        "TrueToken": "0xb6262bd7155294ab42bb84647d86a3c92039cb1af77e94863d4563e7666906ab",
+        "Membership": "0x933a20e2107f813614be7776ba2c1759cb8272a9db7c8cc83ceb6ec1cad8da09",
+        "Timelock": "0x0210923f3de61dcb815ffd5e1a0542b15e0d900fc2ebe215efe6f897fb9cebad",
+        "Governor": "0x1d1ae4e8244c5f4bab8ebacb4c2c49ff61c0deb78967df00717362574a1a2b0f",
+        "Authorizer": "0xc85aab1475a6589101e6238ca1fe4e2c38029ca927a090e460f540f60a5c5c9a",
+        "ConditionalTokens": "0xadf1ee4719c637975ba08765e3a1187f2fb865c9b17386005960a81ff29cfcc7",
+        "Wrapped1155Factory": "0x5a569ed726741390192f1d546da3ea1785b60648c9c23b298c6b7e47205ecf56",
+        "StatementRegistry": "0xf086cfac96bba8240db232a5965e9acaf032ceea41289021b760b003e53132be",
+        "PositionRouter": "0x7d0fef6368f7cd15ba35283b68a9f5b87c8c7040b90fa1a15412f884127914a6",
+        "ResolvedWithinWindowOperator": "0x093ec21ed5b620d42cffe8da37a4e40b5404d1fb0908becbdaa1c5f3d35c8404",
+        "VaultFactory": "0xe52cfbfc7942eae80868bcc50dce0c7c431f7997b2505c0e968c69a2eb0ab4b7",
+        "Vault": "0x9b8eab46d5de78827df43d8d4a9c4819dc6f17b38dd90414e43dcaae37c2a87c",
+        "ProtocolFeeController": "0xfdbeff857c1d9a4230363d04b8244e4cb826f1d42a53fbdd9ab69773e0fedb5a",
+        "VaultAdmin": "0xeb0edd0f6f77c9108afea8e2e1a92a4af30c96d63a10fc9d9bae6de449859960",
+        "VaultExtension": "0xe204953be16b575108a34500e022122b0d31def1d5925eab98538ecdb6c58121",
+        "WeightedPoolFactory": "0x58d0bd7bffb7401825605c9dd1b230260426909f7f4204af6f93aea5d576dd50",
+        "Permit2": "0x753c6a637b2083a8044fdfc9355aafa44c2e77388f51583f9cd4c90bce07afbd",
+        "WETH": "0x3c723cc28e181b8ad41817710a95007a42b4de39038e063439e52ee93b630487",
+        "Router": "0xb340fb569f227c49bfa85ec5521f54031ebadbc6bf88b5eb3da2b21859f27654",
+        "SplitsWarehouse": "0xbda3d90c36e16af19ba6ebf244eb87c1c4759c88dbe2e7e59c65f6352bf54b0b",
+        "PullSplitFactory": "0x451974dc08aa710005c4c0e0913734854e903bca4ea5d4ccc35b3d58111fa9b7",
+        "AllocationController": "0xf76a8aa6f9f60a455f382970aaefb4f853d8dd55f66174a2edc83ff3760c40ec",
+        "PoolCoordinator": "0xaad5ee1406d4ec49bf7865eed61d38ede0d7a5e3db3e6d39bcb964367d54ea75",
+        "LeanProofBridge": "0x5398490967ae2ca84d1c4fe984628392b5f18bdd1ad4adb7134edb9aec71b730"
+      }
+    },
+    "createdAt": "2026-09-10T04:01:46.522Z"
+  },
+  "error": "Error: Browser QA handoff timed out\n    at file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/vault/scripts/fresh-start-smoke.mjs:57:42",
+  "shutdown": {
+    "code": 0,
+    "signal": null
+  },
+  "portsClosed": {
+    "14173": true,
+    "15173": true,
+    "19547": true
+  },
+  "liveAfter": {
+    "number": 188,
+    "hash": "0x569b6a07ff01c1217bc1e79b7f862e1327e70e6ac4edbd5f7a1210c1f80e18d0"
+  },
+  "originalChainUnchanged": true,
+  "runtimeChecksPassed": true,
+  "success": false,
+  "overallSuccess": false,
+  "reportClarification": "Previous success field meant runtime checks passed before the manual QA acknowledgment. Renamed without changing timeout/error/resources; independent browser observations are in browser-observations.json."
+}

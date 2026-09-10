@@ -1,0 +1,14 @@
+{
+  "title": "Для любого P: Prop утверждается P",
+  "description": "Утверждение «любое предложение истинно» опровергается подстановкой False. Минимальный пример без аксиом профиля perf05.",
+  "theorem_names": [
+    "Oncm.goal"
+  ],
+  "challenge_path": "Challenge.lean",
+  "solution_path": "Solution.lean",
+  "disclosures": {
+    "source_origin": "Explicitly supplied by the package author",
+    "verification": "Not yet compared with the on-chain semantic commitment",
+    "external_registry": "Not submitted to Palomar; review its current schema before submission"
+  }
+}

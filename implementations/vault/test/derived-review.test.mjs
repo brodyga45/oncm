@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {parseLocalDeadline,derivedReview,derivedArguments} from '../web/derived-review.mjs';
+process.env.TZ='Asia/Yerevan';const statement={id:'0x'+'ab'.repeat(32),title:'Parent'},review=(extra={})=>derivedReview({statement,kind:1,expected:1,deadlineInput:'2030-01-01 00:00',...extra});
+test('Reviewed local/UTC/Unix equals exact immutable Vault ABI arguments',()=>{const r=review();assert.equal(r.deadline.utc,'2029-12-31T20:00:00.000Z');assert.equal(r.deadline.unix,1893441600);assert.deepEqual(derivedArguments(r),[statement.id,1,0,1893441600]);assert(Object.isFrozen(r.args));});
+test('Past deadline remains valid, invalid calendar/empty cannot produce arguments',()=>{assert(review({deadlineInput:'2020-01-01 00:00'}).valid);for(const deadlineInput of ['', '2030-02-30 00:00','2030-01-01 24:00','bad']){const r=review({deadlineInput});assert(!r.valid);assert.throws(()=>derivedArguments(r));}});
+test('ResolvedAs ignores date and keeps exact outcome; changed/missing dependency cannot reuse old review',()=>{assert.deepEqual(review({kind:2,expected:2,deadlineInput:''}).args,[statement.id,2,2,0]);assert.equal(review({statement:null}).args,null);assert(!review({kind:3,expected:0}).valid);});
+test('Nonexistent DST calendar hour is rejected without Date normalization',()=>{process.env.TZ='America/New_York';try{assert(!parseLocalDeadline('2030-03-10 02:30').valid);assert.equal(parseLocalDeadline('2030-03-10 03:30').utc,'2030-03-10T07:30:00.000Z');}finally{process.env.TZ='Asia/Yerevan';}});

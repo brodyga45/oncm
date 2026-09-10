@@ -1,0 +1,40 @@
+{
+  "at": "2026-09-10T02:16:28.558Z",
+  "scope": "HTTP reads and disabled 410 routes only; no wallet transaction",
+  "results": [
+    {
+      "path": "/health",
+      "status": 200,
+      "block": 135
+    },
+    {
+      "path": "/config",
+      "status": 200
+    },
+    {
+      "path": "/social/snapshot",
+      "status": 200,
+      "block": 135
+    },
+    {
+      "method": "PUT",
+      "path": "/profile",
+      "status": 410
+    },
+    {
+      "method": "POST",
+      "path": "/comments",
+      "status": 410
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments/disabled",
+      "status": 410
+    },
+    {
+      "method": "POST",
+      "path": "/comments/disabled/vote",
+      "status": 410
+    }
+  ]
+}

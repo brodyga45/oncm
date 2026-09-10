@@ -28,13 +28,16 @@ export function preparePackage(input, context = {}) {
       statementId: context.statement.id,
       goalHash: context.statement.goalHash,
       profileId: context.statement.profileId,
-    } : { profileId: context.descriptor?.profileId }),
+    } : { profileId: context.profileId || context.descriptor?.profileId }),
     outcome: input.outcome === 2 ? 2 : 1,
   };
   const defaultLake = 'import Lake\nopen Lake DSL\npackage vaultSubmission\nlean_lib Challenge\nlean_lib Solution\n';
   const files = [
     file('Challenge.lean', challenge),
-    file('Solution.lean', 'import Challenge\n\n' + solution),
+    // Import exactly Challenge's environment. A default Challenge already
+    // imports Init transitively; a prelude Challenge must not gain a second,
+    // implicit Init with conflicting declarations (e.g. its pinned False).
+    file('Solution.lean', 'prelude\nimport Challenge\n\n' + solution),
     file('Runner.lean', runnerInput.source),
     file('lean-toolchain', 'leanprover/lean4:v' + leanVersion + '\n'),
     file('lakefile.lean', source(input.lakefile || defaultLake, 'Lake configuration', true)),
@@ -56,7 +59,7 @@ export function preparePackage(input, context = {}) {
     file('oncm-context.json', json(context)),
     file('README.md', '# Vault Lean package\n\n'
       + 'Challenge.lean contains the supplied claim/environment; Solution.lean imports it and adds the supplied solution body. Runner.lean combines both for the ONCM runner. Files are not executed during export.\n\n'
-      + 'Use the exact lean-toolchain. Inspect lakefile.lean and any dependency lock before running `lake build Challenge Solution`; Lake configuration is executable author-provided code. The default Lake project has no external dependencies. If your imports require Mathlib or other libraries, include their pinned Lake configuration and lake-manifest.json before export; dependencies themselves are not vendored.\n\n'
+      + 'Solution starts with prelude and imports only Challenge, so it inherits that module\'s exact imports instead of introducing implicit Init. An ordinary Challenge already imports Init; an explicit prelude Challenge may deliberately omit it. Use the exact lean-toolchain. Inspect lakefile.lean and any dependency lock before running `lake build Challenge Solution`; Lake configuration is executable author-provided code. The default Lake project has no external dependencies. If your imports require Mathlib or other libraries, include their pinned Lake configuration and lake-manifest.json before export; dependencies themselves are not vendored.\n\n'
       + 'From an independently trusted ONCM installation, submit runner-input.json to `node proof/runner.mjs` only when local resource policy permits. Compare the resulting goalHash/profileId with oncm-context.json. A file hash or successful Lean check is not an on-chain proof certificate. Source text is author-supplied metadata; the chain commitment identifies the checked elaborated goal/environment.\n\n'
       + 'formalization.yaml is a metadata/disclosure starting point. Export does not guarantee Palomar acceptance or publish anything there. A Challenge with sorry is not a solution; no axiom or missing proof is silently accepted.\n'),
   ];

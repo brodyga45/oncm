@@ -1,0 +1,19 @@
+{
+  "format": "vault-package-prelude-native-v1",
+  "scope": "two trusted small exported files; no Lake/dependency execution, no ZK",
+  "leanVersion": "4.33.1",
+  "files": {
+    "Challenge.lean": {
+      "text": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P\n\nend Oncm\n",
+      "sha256": "6f79850f241bee3d9019768a8ee4ecd0ebcee74224282ca35e48c6b8a1a235be"
+    },
+    "Solution.lean": {
+      "text": "prelude\nimport Challenge\n\nnamespace Oncm\n\ntheorem solution : goal → False := fun h => h False\n\nend Oncm\n",
+      "sha256": "a58e7c84b5bcbfddab916c0cc16e9623821ebc97d705364f79439da7dcb32484"
+    }
+  },
+  "beforeError": "Solution.lean:1:0: error: import Challenge failed, environment already contains 'False' from Init.Prelude",
+  "after": "Challenge and Solution compiled with existing Lean -j2; Solution imports only Challenge through explicit prelude",
+  "canonicalGoalHashCompared": false,
+  "certificateGenerated": false
+}

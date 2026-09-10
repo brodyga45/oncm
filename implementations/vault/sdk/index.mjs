@@ -1,9 +1,13 @@
+import {assertLocalConfig} from './local-endpoints.mjs';
 import { settlementInventory } from './capital.mjs';
 import { executeBoundedSwap } from './swap-limits.mjs';
 import { liquidityLimits, validateLiquidityQuote } from './liquidity.mjs';
 import { creatorFromAggregate } from './revenue.mjs';
 import { readGovernance, decodeGovernanceCall } from './governance.mjs';
-import { verifyExternalCertificate } from './external-certificates.mjs';
+import { verifyExternalCertificate, verifyExternalBundle } from './external-certificates.mjs';
+import { supportedExternalProfiles, selectExternalBundleProfile } from './external-profile-catalog.mjs';
+import { createOnchainSocial } from './social.mjs';
+import { readDerivedReadiness } from './derived-readiness.mjs';
 import {
   Interface,
   Contract,
@@ -164,6 +168,7 @@ export function createSDK(config, abis, runner) {
     return { kind, pool, account, tokens, bpt, amounts, limits: liquidityLimits(amounts, slippageBps, kind), blockNumber: block.number, blockHash: block.hash };
   }
   return {
+    social: createOnchainSocial(config, write),
     config,
     abis,
     provider,
@@ -179,6 +184,12 @@ export function createSDK(config, abis, runner) {
     verifyExternalCertificate: (record, descriptor, candidateBridge) => verifyExternalCertificate({
       provider, registry, defaultBridge: config.addresses.LeanProofBridge, record, descriptor, candidateBridge,
     }),
+    supportedExternalProfiles,
+    verifyExternalBundle: (input, expectedDescriptor, candidateBridge) => {
+      const selected=selectExternalBundleProfile(input,expectedDescriptor.profileId);
+      return verifyExternalBundle({provider,registry,defaultBridge:config.addresses.LeanProofBridge,
+        ...selected,candidateBridge});
+    },
     send,
     approve,
     permit,
@@ -362,16 +373,17 @@ export function createSDK(config, abis, runner) {
         };
       }
     },
-    async register({ goalHash, profileId, title, manifest, registrationCertificate, certificate }) {
-      return send(() =>
-        registry.register(
+    async register({ goalHash, profileId, title, manifest, registrationCertificate, certificate },options={}) {
+      return send(() => {
+        if(options.isCurrent&&!options.isCurrent())throw Error('Registration selection or wallet changed');
+        return registry.register(
           goalHash,
           profileId,
           title,
           manifest || '',
           registrationCertificate || certificate,
-        ),
-      );
+        );
+      });
     },
     async createPool(id, side, weight, fee) {
       return send(() =>
@@ -471,8 +483,14 @@ export function createSDK(config, abis, runner) {
     async derived(id, kind, expected, deadline, title) {
       return send(() => registry.registerDerived(id, kind, expected, deadline, title));
     },
-    async resolveDerived(id) {
-      return send(() => registry.resolveDerived(id));
+    derivedReadiness: id => readDerivedReadiness({provider,registry},id),
+    async resolveDerived(id,options={}) {
+      const preflight=await readDerivedReadiness({provider,registry},id);
+      if(!preflight.ready)throw Error(preflight.reason);
+      return send(() => {
+        if(options.isCurrent&&!options.isCurrent())throw Error('Derived statement selection or wallet changed');
+        return registry.resolveDerived(id);
+      });
     },
     async collect(pool) {
       return send(() => allocation.collect(pool));
@@ -492,9 +510,9 @@ export function createSDK(config, abis, runner) {
   };
 }
 export async function localWallet(config, index = 0) {
+  assertLocalConfig(config);
   if (
     config.chainId !== CHAIN_ID ||
-    !['http://127.0.0.1:9547', 'http://localhost:9547'].includes(config.rpcUrl) ||
     !Number.isInteger(index) ||
     index < 0 ||
     index > 3
@@ -514,7 +532,7 @@ export async function injectedWallet(ethereum) {
   const provider = new BrowserProvider(ethereum, undefined, { cacheTimeout: -1 });
   await provider.send('eth_requestAccounts', []);
   if ((await provider.getNetwork()).chainId !== 31373n)
-    throw Error('Switch to chain 31373, RPC http://127.0.0.1:9547');
+    throw Error('Switch to chain31373 using the RPC of this Vault instance');
   return provider.getSigner();
 }
 export { parseEther, formatEther, keccak256, toUtf8Bytes, AbiCoder };

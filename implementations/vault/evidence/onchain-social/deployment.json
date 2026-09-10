@@ -1,0 +1,85 @@
+{
+  "format": "oncm-vault-eas-social-v1",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "statementRegistry": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+  "schemaRegistry": "0xc351628EB244ec633d5f21fBD6621e1a683B1181",
+  "eas": "0xFD471836031dc5108809D173A067e8486B9047A3",
+  "resolver": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+  "schemas": {
+    "profile": "0x535fad5a64f24d7dd6c396cf68fe26735135c2d8148ca94f848f77392a5de5a8",
+    "entry": "0x5ee69f8ded17736cbb9f1991f078bb1770666f39ca2a14a7bb863c6659557b93",
+    "vote": "0x3fdad9924b8de04ee2d9651cb8191d0f9c82551fdb5cd03621da3de4beed4909"
+  },
+  "deploymentBlock": 126,
+  "easPackage": "1.9.0",
+  "contractVersion": "1.4.0",
+  "releaseCommit": "3683c3ec9383091eebd6f183e67b485e09a53dd7",
+  "codeHashes": {
+    "schemaRegistry": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322",
+    "eas": "0x8b0fa4389c82aea0ee722fdb6007433e11353bc5e4fa9369491a1c52b37734a6",
+    "resolver": "0x742a66bda2cec45d56f02d00bbbf08d488d34e1778aa5c8ae50497a6b4284edb"
+  },
+  "receipts": [
+    {
+      "contract": "SchemaRegistry",
+      "address": "0xc351628EB244ec633d5f21fBD6621e1a683B1181",
+      "hash": "0xb5f4c5a21a7e9c042a0a2f3f80e89052e7cf642cc1141a229be85b253662cc6f",
+      "blockNumber": 126,
+      "blockHash": "0xbd2fe8e4716b473723b071814d64748e694436061b6827e363a06669a321e6fc",
+      "status": 1,
+      "gasUsed": "500945"
+    },
+    {
+      "contract": "EAS",
+      "address": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "hash": "0x4a0bfe6fcddb329ad7558472483474836028ffc58001b1fababb06afa109e890",
+      "blockNumber": 127,
+      "blockHash": "0x1dcef6fda1e7a347cdf3be0577041086b04b610a777763fe5e74a2a0c3fdce09",
+      "status": 1,
+      "gasUsed": "3279744"
+    },
+    {
+      "contract": "VaultSocialResolver",
+      "address": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+      "hash": "0xae81a4973815ff0f281945a550d27f41d92c33251858c090937300a482a73e01",
+      "blockNumber": 128,
+      "blockHash": "0xc0cb1c7c92943985ba7c00350aa0a92ecdf68316cc164832d3ef33a4d4270825",
+      "status": 1,
+      "gasUsed": "1833823"
+    }
+  ],
+  "protectedState": {
+    "unchanged": true,
+    "digest": "0x57fb7d1b3b024798c4f8b9ee690fef2dd4539333fedd354ce3cd1d80a325b9ee",
+    "statementCount": 2,
+    "poolCount": 1,
+    "codeHashes": {
+      "TrueToken": "0xb6262bd7155294ab42bb84647d86a3c92039cb1af77e94863d4563e7666906ab",
+      "Membership": "0x933a20e2107f813614be7776ba2c1759cb8272a9db7c8cc83ceb6ec1cad8da09",
+      "Timelock": "0x0210923f3de61dcb815ffd5e1a0542b15e0d900fc2ebe215efe6f897fb9cebad",
+      "Governor": "0x1d1ae4e8244c5f4bab8ebacb4c2c49ff61c0deb78967df00717362574a1a2b0f",
+      "Authorizer": "0xc85aab1475a6589101e6238ca1fe4e2c38029ca927a090e460f540f60a5c5c9a",
+      "ConditionalTokens": "0xadf1ee4719c637975ba08765e3a1187f2fb865c9b17386005960a81ff29cfcc7",
+      "Wrapped1155Factory": "0x5a569ed726741390192f1d546da3ea1785b60648c9c23b298c6b7e47205ecf56",
+      "StatementRegistry": "0xf086cfac96bba8240db232a5965e9acaf032ceea41289021b760b003e53132be",
+      "PositionRouter": "0x7d0fef6368f7cd15ba35283b68a9f5b87c8c7040b90fa1a15412f884127914a6",
+      "ResolvedWithinWindowOperator": "0x093ec21ed5b620d42cffe8da37a4e40b5404d1fb0908becbdaa1c5f3d35c8404",
+      "VaultFactory": "0xe52cfbfc7942eae80868bcc50dce0c7c431f7997b2505c0e968c69a2eb0ab4b7",
+      "Vault": "0xc4ef480d7e808555770f99b9d1d2c02b7fbf136c8f56d68a42bebf891b0f02f1",
+      "ProtocolFeeController": "0xfdbeff857c1d9a4230363d04b8244e4cb826f1d42a53fbdd9ab69773e0fedb5a",
+      "VaultAdmin": "0xbf6f75b4ff84280f748dfe6c037d13261b6408726c9df67e1a98853ea1160962",
+      "VaultExtension": "0x7356f387bd329874ec1a4e9263204cecf4075ea6cda415eb868e278aa073d394",
+      "WeightedPoolFactory": "0x1d541bb58c3fda97e83855d8536fe362e28b67506ca6885b0086fec3db5b724e",
+      "Permit2": "0x753c6a637b2083a8044fdfc9355aafa44c2e77388f51583f9cd4c90bce07afbd",
+      "WETH": "0x3c723cc28e181b8ad41817710a95007a42b4de39038e063439e52ee93b630487",
+      "Router": "0xb340fb569f227c49bfa85ec5521f54031ebadbc6bf88b5eb3da2b21859f27654",
+      "SplitsWarehouse": "0xbda3d90c36e16af19ba6ebf244eb87c1c4759c88dbe2e7e59c65f6352bf54b0b",
+      "PullSplitFactory": "0x451974dc08aa710005c4c0e0913734854e903bca4ea5d4ccc35b3d58111fa9b7",
+      "AllocationController": "0xf76a8aa6f9f60a455f382970aaefb4f853d8dd55f66174a2edc83ff3760c40ec",
+      "PoolCoordinator": "0xaad5ee1406d4ec49bf7865eed61d38ede0d7a5e3db3e6d39bcb964367d54ea75",
+      "LeanProofBridge": "0x5398490967ae2ca84d1c4fe984628392b5f18bdd1ad4adb7134edb9aec71b730"
+    }
+  },
+  "createdAt": "2026-09-10T02:10:49.007Z"
+}

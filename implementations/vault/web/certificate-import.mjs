@@ -1,5 +1,7 @@
 // Async ownership lives here so the web can discard obsolete file/API results.
 // This controller does not send transactions or treat imported JSON as authority.
+import {parseBoundedJSON,EXTERNAL_BUNDLE_LIMITS} from '../sdk/external-bundle.mjs';
+const byteLength=text=>new TextEncoder().encode(text).length;
 export function createCertificateImporter({ publish, loadCatalog }) {
   let state = { catalog: [], selected: 'perf05', input: '', review: null,
     verifiedEntry: null, loading: false, error: '' };
@@ -30,9 +32,9 @@ export function createCertificateImporter({ publish, loadCatalog }) {
       if (!file) return;
       const ticket = begin(), capturedClient = client;
       try {
-        if (file.size > 65536) throw Error('verified.json must be at most 64 KiB');
+        if (file.size > EXTERNAL_BUNDLE_LIMITS.wrapper) throw Error('External bundle must be at most 2 MiB');
         const input = await file.text();
-        if (input.length > 65536) throw Error('verified.json must be at most 64 KiB');
+        if (byteLength(input) > EXTERNAL_BUNDLE_LIMITS.wrapper) throw Error('External bundle must be at most 2 MiB');
         if (current(ticket, capturedClient)) update({ input });
       } catch (error) { failure(error, ticket, capturedClient); }
       finally { if (current(ticket, capturedClient)) update({ loading: false }); }
@@ -42,15 +44,17 @@ export function createCertificateImporter({ publish, loadCatalog }) {
       const submitted = state.input, selected = state.selected;
       try {
         if (!capturedClient) throw Error('SDK is not ready');
-        if (submitted.length > 65536) throw Error('verified.json must be at most 64 KiB');
+        const parsed=parseBoundedJSON(submitted),generic=parsed?.format==='oncm-external-certificate-bundle-v1';
+        if(!generic&&byteLength(submitted)>65536)throw Error('Curated verified.json must be at most 64 KiB');
         const catalogTicket = ++catalogEpoch;
         const catalog = await loadCatalog();
         if (!disposed && catalogTicket === catalogEpoch) update({ catalog });
         if (!current(ticket, capturedClient)) return;
         const entry = catalog.find(item => item.descriptor.tag === selected);
         if (!entry) throw Error('Selected proof profile is not in the public catalog');
-        const review = await capturedClient.verifyExternalCertificate(
-          JSON.parse(submitted), entry.descriptor, entry.deployment?.bridge);
+        const method=generic?'verifyExternalBundle':'verifyExternalCertificate';
+        const review = await capturedClient[method](
+          generic?submitted:parsed, entry.descriptor, entry.deployment?.bridge);
         if (current(ticket, capturedClient)) update({ review, verifiedEntry: entry });
       } catch (error) { failure(error, ticket, capturedClient); }
       finally { if (current(ticket, capturedClient)) update({ loading: false }); }

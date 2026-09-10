@@ -1,6 +1,10 @@
+import {localEndpoints} from '../sdk/local-endpoints.mjs';
+const endpoints=localEndpoints(process.env.VAULT_PORT_OFFSET??0);
 import { palomarRecent, palomarSnapshot } from './palomar.mjs';
 import { community } from './community.mjs';
+import { EAS_ABI, SOCIAL_ABI } from '../sdk/social.mjs';
 import { publications, preparePackage, packageZip } from './publications.mjs';
+import { packageProfileDescriptor, assertPackageContext } from './package-profile.mjs';
 import { externalProofCatalog } from './external-proofs.mjs';
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -15,8 +19,8 @@ import { createSDK } from '../sdk/index.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 process.chdir(root);
 const app = express();
-const PORT = 4173;
-const ALLOWED = new Set(['http://127.0.0.1:5173', 'http://localhost:5173']);
+const PORT=endpoints.apiPort;
+const ALLOWED=new Set([endpoints.webUrl,`http://localhost:${endpoints.webPort}`]);
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (origin && !ALLOWED.has(origin)) return res.status(403).json({ error: 'Origin denied' });
@@ -56,21 +60,27 @@ const json = (x) =>
 function ctx() {
   const config = JSON.parse(fs.readFileSync('.state/deployment.json'));
   const abis = JSON.parse(fs.readFileSync('.state/abis.json'));
+  if (fs.existsSync('.state/social-deployment.json')) {
+    const social = JSON.parse(fs.readFileSync('.state/social-deployment.json'));
+    if (social.chainInstance !== config.chainInstance.id || social.statementRegistry.toLowerCase() !== config.addresses.StatementRegistry.toLowerCase())
+      throw Error('Social deployment belongs to another chain instance');
+    config.social = social;
+    abis.EAS = EAS_ABI; abis.VaultSocialResolver = SOCIAL_ABI;
+  }
   return { config, abis, sdk: createSDK(config, abis) };
 }
-async function packageContext(statementId) {
+async function packageContext(statementId, requestedProfileId) {
   const { sdk, config } = ctx();
-  const descriptor = JSON.parse(fs.readFileSync('proof/manifest.json'));
   const statement = statementId ? await sdk.statement(statementId) : null;
   if (statement && statement.author === ZeroAddress) throw Error('Unknown statement');
-  const profile = statement?.kind === 0 ? await sdk.registry.profiles(statement.profileId) : null;
+  const selectedProfileId = statement?.kind === 0 ? statement.profileId : (requestedProfileId || config.proof.profileId);
+  const profile = !statement || statement.kind === 0 ? await sdk.registry.profiles(selectedProfileId) : null;
   return {
-    chainId: config.chainId,
-    chainInstance: config.chainInstance.id,
-    registry: config.addresses.StatementRegistry,
-    statement,
+    chainId: config.chainId, chainInstance: config.chainInstance.id, registry: config.addresses.StatementRegistry,
+    statement, profileId: selectedProfileId,
     profile: profile ? { verifier: profile.verifier, manifest: profile.manifest, enabled: profile.enabled } : null,
-    descriptor: !statement || statement.profileId === descriptor.profileId ? descriptor : null,
+    descriptor: profile ? packageProfileDescriptor(selectedProfileId, profile) : null,
+    sourceGoalRelation: 'not-verified',
   };
 }
 const route = (fn) => (req, res, next) => Promise.resolve(fn(req, res)).catch(next);
@@ -176,7 +186,7 @@ app.post(
       !expiry ||
       expiry < Date.now() ||
       siwe.chainId !== 31373 ||
-      !['127.0.0.1:5173', 'localhost:5173'].includes(siwe.domain) ||
+      ![`127.0.0.1:${endpoints.webPort}`,`localhost:${endpoints.webPort}`].includes(siwe.domain) ||
       !ALLOWED.has(new URL(siwe.uri).origin)
     )
       return res.status(400).json({ error: 'SIWE nonce, domain or chain mismatch' });
@@ -201,45 +211,23 @@ app.post('/api/auth/logout', (req, res) => {
   sessions.delete(req.cookies.vault_session);
   res.clearCookie('vault_session').json({ ok: true });
 });
-app.get(
-  '/api/profiles/:address',
-  route(async (req, res) => res.json(social.profile(req.params.address))),
-);
-app.put(
-  '/api/profile',
-  auth,
-  route(async (req, res) => res.json(social.updateProfile(req.session.address, req.body))),
-);
-app.get(
-  '/api/comments',
-  route(async (req, res) =>
-    res.json(social.list(req.query.statementId, req.query.sort === 'new' ? 'new' : 'top')),
-  ),
-);
-app.post(
-  '/api/comments',
-  auth,
-  route(async (req, res) => {
-    const { sdk } = ctx();
-    if ((await sdk.statement(req.body.statementId)).author === ZeroAddress)
-      return res.status(404).json({ error: 'Unknown statement' });
-    res.status(201).json(social.create(req.session.address, req.body));
-  }),
-);
-app.patch(
-  '/api/comments/:id',
-  auth,
-  route(async (req, res) =>
-    res.json(social.edit(req.session.address, req.params.id, req.body.text)),
-  ),
-);
-app.post(
-  '/api/comments/:id/vote',
-  auth,
-  route(async (req, res) =>
-    res.json(social.vote(req.session.address, req.params.id, req.body.value)),
-  ),
-);
+function chainSocial() {
+  const client = ctx().sdk.social;
+  if (!client) throw Error('Onchain social deployment is not configured');
+  return client;
+}
+app.get('/api/profiles/:address', route(async (req,res) => res.json(await chainSocial().profile(req.params.address))));
+app.get('/api/comments', route(async (req,res) => res.json(await chainSocial().comments(req.query.statementId,req.query.sort==='new'?'new':'top'))));
+app.get('/api/blog/:address', route(async (req,res) => res.json(await chainSocial().blog(req.params.address))));
+app.get('/api/social/snapshot', route(async (req,res) => res.json(await chainSocial().snapshot({rebuild:req.query.rebuild==='true'}))));
+// Historical local records are retained, explicitly separate from chain-authoritative social data.
+app.get('/api/legacy/comments', (req,res) => res.json({authority:'legacy-offchain',records:social.list(req.query.statementId,req.query.sort)}));
+app.get('/api/legacy/profiles/:address', route(async (req,res) => res.json({authority:'legacy-offchain',record:social.profile(req.params.address)})));
+const chainWriteRequired = (_,res) => res.status(410).json({error:'Social writes require a direct wallet transaction to EAS. Use SDK.social; SIWE is not posting authority.'});
+app.put('/api/profile', chainWriteRequired);
+app.post('/api/comments', chainWriteRequired);
+app.patch('/api/comments/:id', chainWriteRequired);
+app.post('/api/comments/:id/vote', chainWriteRequired);
 app.get('/api/jobs', auth, (req, res) =>
   res.json(proofJobs.list(req.session.address).map(({ input, ...job }) => ({
     ...job,
@@ -328,11 +316,13 @@ app.post(
   }),
 );
 app.post('/api/packages/prepare', auth, route(async (req, res) => {
-  const context = await packageContext(req.body.statementId);
+  const context = await packageContext(req.body.statementId, req.body.profileId);
+  assertPackageContext(req.body, context, req.session.address);
   res.json(preparePackage(req.body, context));
 }));
 app.post('/api/packages/download', auth, route(async (req, res) => {
-  const context = await packageContext(req.body.statementId);
+  const context = await packageContext(req.body.statementId, req.body.profileId);
+  assertPackageContext(req.body, context, req.session.address);
   const pkg = preparePackage(req.body, context);
   res.attachment('vault-lean-package.zip').type('application/zip').send(packageZip(pkg));
 }));
@@ -342,6 +332,7 @@ app.get('/api/statements/:id/publications', route(async (req, res) => {
 }));
 app.post('/api/statements/:id/publications', auth, route(async (req, res) => {
   const context = await packageContext(req.params.id);
+  assertPackageContext(req.body, context, req.session.address);
   res.status(201).json(publicSources.publish(req.session.address, req.body, context));
 }));
 app.get('/api/statements/:id/publications/:publicationId/package.zip', route(async (req, res) => {

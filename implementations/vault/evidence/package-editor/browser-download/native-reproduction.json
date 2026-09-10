@@ -1,0 +1,68 @@
+{
+  "scope": "actual browser ZIP built by real Lake/Lean and exported; no ZK",
+  "lean": "4.33.1",
+  "exporterSha256": "ddd765975ec6bf53de8e511958218de2f38927ff594cf83c3253971296c7144e",
+  "lakeCommand": [
+    "lake",
+    "build",
+    "Challenge",
+    "Solution"
+  ],
+  "exportRoots": [
+    "False",
+    "Oncm.goal",
+    "Oncm.solution"
+  ],
+  "goalBytes": 1358,
+  "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+  "exactExistingCanonicalGoal": true,
+  "foundationBytes": 1073,
+  "foundationSha256": "94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124",
+  "exactFoundationPrefix": true,
+  "fullExportBytes": 1910,
+  "fullExportSha256": "a4cd1fd73777b953c60a35d7cc5f589bc8ce38a7bb100eb6791adbabdfaa6525",
+  "axioms": 0,
+  "certificateGenerated": false,
+  "lakeResources": {
+    "wallSeconds": 4.166,
+    "peakTreeFootprintBytes": 163668720,
+    "memoryLimitBytes": 536870912,
+    "reason": "completed",
+    "exitCode": 0,
+    "accounting": "darwin-phys-footprint",
+    "sampleIntervalSeconds": 0.1,
+    "kernelHardLimit": false,
+    "inventory": "darwin-libproc-in-process",
+    "failure": null,
+    "identity": "darwin-bsd-start-time",
+    "cleanupErrors": []
+  },
+  "firstExportResources": {
+    "wallSeconds": 5.22,
+    "peakTreeFootprintBytes": 43648440,
+    "memoryLimitBytes": 536870912,
+    "reason": "timeout",
+    "exitCode": 124,
+    "accounting": "darwin-phys-footprint",
+    "sampleIntervalSeconds": 0.1,
+    "kernelHardLimit": false,
+    "inventory": "darwin-libproc-in-process",
+    "failure": null,
+    "identity": "darwin-bsd-start-time",
+    "cleanupErrors": []
+  },
+  "exportResources": {
+    "wallSeconds": 0.771,
+    "peakTreeFootprintBytes": 28067376,
+    "memoryLimitBytes": 536870912,
+    "reason": "completed",
+    "exitCode": 0,
+    "accounting": "darwin-phys-footprint",
+    "sampleIntervalSeconds": 0.1,
+    "kernelHardLimit": false,
+    "inventory": "darwin-libproc-in-process",
+    "failure": null,
+    "identity": "darwin-bsd-start-time",
+    "cleanupErrors": []
+  }
+}

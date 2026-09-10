@@ -1,10 +1,15 @@
 <script>
+  import {derivedReview,derivedArguments} from './derived-review.mjs';
   import { proofNotice } from './proof-status.mjs';
   import { bindOutcomeCertificate, bindProofJob, proofBindingMatches } from './proof-binding.mjs';
   import PackageEditor from './PackageEditor.svelte';
   import RevenuePreview from './RevenuePreview.svelte';
   import GovernanceProposal from './GovernanceProposal.svelte';
   import ExternalCertificate from './ExternalCertificate.svelte';
+  import SocialPanel from './SocialPanel.svelte';
+  import {createSettlementScenario,scenarioMatches} from './settlement-scenario.mjs';
+  import {genericRegistrationFields} from './generic-registration.mjs';
+  let profileEpoch = 0;
   import { quotedSwapLimits } from '../sdk/swap-limits.mjs';
   import { onMount } from 'svelte';
   import {
@@ -79,6 +84,9 @@
     declaration = '',
     certificate = '';
   let certificateBinding = null, proofEpoch = 0;
+  const scenarioReader=createSettlementScenario({publish:value=>{stress=value;}});
+  let registrationImport = null;
+  $: if(registrationImport&&(registrationImport.goalHash!==goalHash||registrationImport.profileId!==profileId||registrationImport.certificate!==registrationCertificate))registrationImport=null;
   let splitAmount = '100',
     mergeAmount = '10',
     side = '0',
@@ -120,9 +128,12 @@
   ];
   $: proofBusy = ['queued', 'running', 'cancelling'].includes(latestJob?.status);
   $: statement = data.statements.find((s) => s.id === sid);
+  $: derivedPreview=derivedReview({statement,kind:derivedKind,expected:derivedExpected,deadlineInput:deadline});
   $: proofReady = proofBindingMatches(certificateBinding, statement, outcome, certificate);
   $: if (certificateBinding && !proofReady) clearProofCertificate();
   $: pool = data.pools.find((p) => p.address === poolAddress);
+  $: scenarioContext={client:sdk,account,pool:poolAddress,chainId:config?.chainId};
+  $: scenarioReader.setContext(scenarioContext);
   $: tradeKey = JSON.stringify([poolAddress, direction, String(tradeAmount), String(slippage), account]);
   $: quoteCurrent = tradeQuote?.key === tradeKey;
   $: liquidityKey = [poolAddress, account, String(bpt), String(slippage), String(initialT), String(initialOutcome)].join('|');
@@ -162,7 +173,8 @@
     data = snapshot;
     if (
       data.config.proof.profileId !== config.proof.profileId ||
-      data.config.addresses.PoolCoordinator !== config.addresses.PoolCoordinator
+      data.config.addresses.PoolCoordinator !== config.addresses.PoolCoordinator ||
+      data.config.social?.resolver !== config.social?.resolver
     ) {
       const current = await api('/config');
       config = current.config;
@@ -194,8 +206,6 @@
         fixtures = await api('/fixtures');
         jobs = account ? await api('/jobs') : [];
       }
-      if (next === 'detail')
-        comments = await api('/comments?statementId=' + sid + '&sort=' + commentSort);
       if (next === 'revenue') await loadClaims();
     } catch (e) {
       error = e.message;
@@ -228,7 +238,7 @@
       location.host +
       ' wants you to sign in with your Ethereum account:\n' +
       connectedAccount +
-      '\n\nSign in to Vault comments and Lean jobs. This does not authorize token transfers.\n\nURI: ' +
+      '\n\nSign in to private Vault Lean jobs and source tools. Social posts are separate onchain transactions. This does not authorize token transfers.\n\nURI: ' +
       location.origin +
       '\nVersion: 1\nChain ID: 31373\nNonce: ' +
       nonce +
@@ -238,6 +248,7 @@
     await api('/auth/verify', { method: 'POST', body: JSON.stringify({ message, signature }) });
   }
   function clearWalletState() {
+    profileEpoch++;
     signer = undefined;
     account = '';
     walletKind = '';
@@ -246,6 +257,7 @@
     jobs = [];
     tradeQuote = null;
     liquidityQuote = null;
+    scenarioReader.clear();
     claimables = {};
     profileView = null;
     profileBalances = {};
@@ -278,7 +290,8 @@
         ? await localWallet(config, Number(devIndex))
         : await injectedWallet(window.ethereum);
       const connectedAccount = await connectedSigner.getAddress();
-      await login(connectedSigner, connectedAccount);
+      try { await login(connectedSigner, connectedAccount); }
+      catch { notice = 'Кошелёк подключается для ончейн действий. SIWE для приватных инструментов недоступен.'; }
       if (!local) {
         const currentAccounts = await window.ethereum.request({ method: 'eth_accounts' });
         const currentChain = await window.ethereum.request({ method: 'eth_chainId' });
@@ -312,6 +325,14 @@
     const p = data.pools.find((p) => p.statementId === sid);
     if (p) poolAddress = p.address;
     await go('detail');
+  }
+  async function createDerived() {
+    const args=derivedArguments(derivedPreview), client=sdk, owner=account, parent=sid, name=derivedTitle;
+    const fingerprint=JSON.stringify(args);
+    return tx('Регистрация производного',()=>{
+      if(client!==sdk||owner!==account||parent!==sid||name!==derivedTitle||fingerprint!==JSON.stringify(derivedPreview?.args))throw Error('Параметры или кошелёк изменились. Проверьте условие заново.');
+      return client.derived(...args,name);
+    });
   }
   async function checkLean() {
     const action = 'check';
@@ -428,24 +449,21 @@
     challengePath = f.challengePath || challengePath;
   }
   async function register() {
+    const client=sdk,owner=account,payload={goalHash,profileId,title,manifest,registrationCertificate};
+    const isCurrent=()=>client===sdk&&owner===account&&JSON.stringify(payload)===JSON.stringify({goalHash,profileId,title,manifest,registrationCertificate});
     await tx('Регистрация проверенного утверждения', async () => {
-      const r = await sdk.register({
-        goalHash,
-        profileId,
-        title,
-        manifest,
-        registrationCertificate,
-      });
+      if(!isCurrent())throw Error('Кошелёк или поля регистрации изменились. Проверьте форму ещё раз.');
+      const r = await client.register(payload,{isCurrent});
       const l = r.logs
         .map((l) => {
           try {
-            return sdk.registry.interface.parseLog(l);
+            return client.registry.interface.parseLog(l);
           } catch {
             return null;
           }
         })
         .find((l) => l?.name === 'StatementCreated');
-      if (l) { clearProofCertificate(); sid = l.args.statementId; }
+      if (l&&isCurrent()) { clearProofCertificate(); sid = l.args.statementId; }
       return r;
     });
   }
@@ -453,11 +471,18 @@
     if (review.outcome === 0) {
       clearProofCertificate();
       goalHash = review.goalHash; profileId = review.profileId;
-      registrationCertificate = review.certificate; title = review.goal.title;
-      source = review.goal.source; fixtureId = ''; declaration = 'Oncm.goal';
-      manifest = JSON.stringify({ sourceUrl: review.goal.sourceUrl, sourceSha256: review.goal.sourceSha256,
-        goalExportSha256: review.goal.goalExportSha256, profile: descriptor.tag, imageId: review.imageId,
-        sourceCommit: review.sourceCommit, runId: review.runId });
+      registrationCertificate = review.certificate;
+      if(review.genericBundle){
+        const fields=genericRegistrationFields(review);
+        title=fields.title;source=fields.source;manifest=fields.manifest;
+        registrationImport=review;
+      }else{
+        title=review.goal.title;source=review.goal.source;registrationImport=null;
+        manifest = JSON.stringify({ sourceUrl: review.goal.sourceUrl, sourceSha256: review.goal.sourceSha256,
+          goalExportSha256: review.goal.goalExportSha256, profile: descriptor.tag, imageId: review.imageId,
+          sourceCommit: review.sourceCommit, runId: review.runId });
+      }
+      fixtureId = ''; declaration = 'Oncm.goal';
       await go('create');
     } else {
       if (!statement || statement.kind !== 0 || statement.goalHash.toLowerCase() !== review.goalHash.toLowerCase()
@@ -487,6 +512,14 @@
         || !proofBindingMatches(binding, data.statements.find(s => s.id === sid), outcome, certificate))
         throw Error('Выбор или сертификат изменился. Снова примените сертификат к утверждению.');
       return client.prove(binding.statementId, binding.outcome, binding.certificate);
+    });
+  }
+  async function resolveSelectedDerived(){
+    const id=sid,client=sdk,owner=account;
+    const isCurrent=()=>id===sid&&client===sdk&&owner===account;
+    await tx('Вычисление производного',()=>{
+      if(!isCurrent())throw Error('Кошелёк или производное утверждение изменилось.');
+      return client.resolveDerived(id,{isCurrent});
     });
   }
   async function proposeExternalProfile(descriptor, deployment) {
@@ -558,18 +591,6 @@
           : sdk.exit(q.pool, q.bpt, Number(slippage), q);
     });
     if (receipt) liquidityQuote = null;
-  }
-  async function addComment() {
-    await tx('Сохранение комментария', async () => {
-      await api('/comments' + (editing ? '/' + editing : ''), {
-        method: editing ? 'PATCH' : 'POST',
-        body: JSON.stringify({ statementId: sid, text: comment, parentId: replyTo }),
-      });
-      comment = '';
-      editing = null;
-      replyTo = null;
-      comments = await api('/comments?statementId=' + sid + '&sort=' + commentSort);
-    });
   }
   async function importPackage() {
     await tx('Импорт GitHub snapshot', async () => {
@@ -707,32 +728,25 @@
     if (page === 'governance') await refreshGovernance();
   }
   async function openProfile(a) {
-    profileView = await api('/profiles/' + a);
-    displayName = profileView.displayName;
-    bio = profileView.bio;
-    profileBalances = (await api('/snapshot?account=' + a)).balances;
+    const ticket = ++profileEpoch, client = sdk;
+    if (!client.social) { error = 'Социальные контракты пока не подключены'; return; }
+    const [view, balances] = await Promise.all([client.social.profile(a), api('/snapshot?account=' + a)]);
+    if (ticket !== profileEpoch || client !== sdk) return;
+    profileView = view;
+    displayName = view.displayName;
+    bio = view.bio;
+    profileBalances = balances.balances;
     location.hash = 'profile/' + a;
   }
   async function saveProfile() {
-    await tx(
-      'Сохранение профиля',
-      async () =>
-        (profileView = await api('/profile', {
-          method: 'PUT',
-          body: JSON.stringify({ displayName, bio }),
-        })),
-    );
-  }
-  async function voteComment(c, value) {
-    await tx('Голос за комментарий', async () => {
-      await api('/comments/' + c.id + '/vote', {
-        method: 'POST',
-        body: JSON.stringify({
-          value: (c.votes?.[account.toLowerCase()] || 0) === value ? 0 : value,
-        }),
-      });
-      comments = await api('/comments?statementId=' + sid + '&sort=' + commentSort);
+    const ticket = profileEpoch, client = sdk, owner = account, viewed = profileView?.address;
+    const name = displayName, biography = bio, previousUID = profileView?.uid;
+    const isCurrent = () => ticket === profileEpoch && client === sdk && owner === account && viewed === profileView?.address;
+    const receipt = await tx('Профиль в EAS', async () => {
+      if (!isCurrent() || owner.toLowerCase() !== viewed?.toLowerCase()) throw Error('Профиль или кошелёк изменился');
+      return client.social.updateProfile(name, biography, { previousUID, isCurrent });
     });
+    if (receipt && isCurrent()) await openProfile(viewed);
   }
 
   onMount(() => {
@@ -762,6 +776,7 @@
       }
     })();
     return () => {
+      scenarioReader.dispose();
       clearInterval(timer);
       window.ethereum?.removeListener?.('accountsChanged', injectedChanged);
       window.ethereum?.removeListener?.('chainChanged', injectedChanged);
@@ -804,7 +819,7 @@
     </header>
     {#if walletOpen}<div class="wallet-panel">
         <h3>Ваш кошелёк</h3>
-        <p>Транзакции подписываются кошельком. Вход в обсуждения — подпись SIWE.</p>
+        <p>Профиль, блог и обсуждения записываются в блокчейн транзакциями кошелька. Подпись SIWE используется для личных инструментов.</p>
         <button class="primary full" onclick={() => connect(false)} disabled={busy}
           >Browser wallet ↗</button
         >
@@ -820,7 +835,7 @@
           ></label
         ><button class="secondary full" onclick={() => connect(true)} disabled={busy}
           >Подключить локальный</button
-        ><small>Только localhost:9547 / chain 31373. Тестовые T без стоимости.</small>
+        ><small>Только {config?.rpcUrl || "локальный RPC"} / chain 31373. Тестовые T без стоимости.</small>
       </div>{/if}
     <div class="content">
       {#if error}<div class="banner error" role="alert">
@@ -1053,7 +1068,7 @@
               <button
                 class="primary"
                 disabled={busy || statement.outcome !== 0}
-                onclick={() => tx('Вычисление производного', () => sdk.resolveDerived(sid))}
+                onclick={resolveSelectedDerived}
                 >Разрешить по состоянию chain</button
               >{:else}<button class="secondary" onclick={() => go('lab')}
                 >Открыть доказательство в Lean Lab ↗</button
@@ -1153,9 +1168,17 @@
                 >Ожидаемый исход<select bind:value={derivedExpected}
                   ><option value="1">True</option><option value="2">False</option></select
                 ></label
-              ><label>Дедлайн<input type="datetime-local" bind:value={deadline} /></label>
+              ><label>Дедлайн<input type="text" bind:value={deadline} placeholder="2030-01-01 00:00" disabled={derivedKind==='2'} /></label>
             </div>
-            <p class="footnote">Часовой пояс: {localTimeZone}. Ончейн сохраняется Unix timestamp.</p>
+            <div class="callout" aria-label="Проверка производного перед транзакцией">
+              {#if derivedPreview.valid}<strong>Точные параметры транзакции</strong><dl>
+                <dt>Родитель</dt><dd>{derivedPreview.parentTitle}</dd><dt>Dependency ID</dt><dd><code>{derivedPreview.parentId}</code></dd>
+                <dt>Ожидаемый исход</dt><dd>{derivedPreview.expectedLabel}</dd>
+                {#if derivedPreview.deadline}<dt>Срок · местное время</dt><dd>{derivedPreview.deadline.local}</dd><dt>Срок · UTC</dt><dd>{derivedPreview.deadline.utc}</dd><dt>Срок · Unix seconds</dt><dd>{derivedPreview.deadline.unix}</dd>
+                {:else}<dt>Срок</dt><dd>Отсутствует · аргумент 0</dd>{/if}</dl>
+                <p class="footnote">Эти значения отправятся в registry. Граница включительна: resolvedAt ≤ deadline. Прошедшая дата допустима; создание не разрешает условие.</p>
+              {:else}<p role="alert">{derivedPreview.error}</p>{/if}
+            </div>
             <label
               >Название<input
                 bind:value={derivedTitle}
@@ -1163,17 +1186,8 @@
               /></label
             ><button
               class="secondary"
-              disabled={busy}
-              onclick={() =>
-                tx('Регистрация производного', () =>
-                  sdk.derived(
-                    sid,
-                    Number(derivedKind),
-                    Number(derivedExpected),
-                    derivedKind === '2' ? 0 : Math.floor(new Date(deadline).getTime() / 1000),
-                    derivedTitle,
-                  ),
-                )}>Создать условие</button
+              disabled={busy || !account || !derivedPreview.valid || !derivedTitle.trim()}
+              onclick={createDerived}>Создать условие</button
             >
             <details class="epoch">
               <summary>Governance operator module</summary><label
@@ -1195,73 +1209,8 @@
           </article>
         </div>
         <article class="panel">
-          <div class="panel-heading">
-            <h2>Обсуждение <span class="muted">{comments.length}</span></h2>
-            <select
-              aria-label="Сортировка комментариев"
-              bind:value={commentSort}
-              onchange={async () =>
-                (comments = await api('/comments?statementId=' + sid + '&sort=' + commentSort))}
-              ><option value="top">Лучшие</option><option value="new">Новые</option></select
-            >
-          </div>
-          <p>Комментарии находятся вне блокчейна и не меняют критерий разрешения.</p>
-          {#each comments as c (c.id)}<div class="comment" class:reply={(c.depth ?? 0) > 0}
-              style={`--comment-depth: ${Math.min(c.depth ?? 0, 6)}`}>
-              <div>
-                <button class="profile-link" onclick={() => openProfile(c.author)}
-                  >{c.profile?.displayName || short(c.author)}</button
-                ><small>{short(c.author)}</small><small
-                  >{new Date(c.createdAt).toLocaleString()}</small
-                >{#if account.toLowerCase() === c.author.toLowerCase()}<button
-                    class="text-button"
-                    onclick={() => {
-                      editing = c.id;
-                      comment = c.text;
-                    }}>Изменить</button
-                  >{/if}
-              </div>
-              <p>
-                {#if c.parentId}<span class="reply-label">↳ Ответ: {short(c.parentId, 8)}
-                    {#if c.threadFallback === 'missing-parent'} · исходный комментарий недоступен
-                    {:else if c.threadFallback === 'cycle'} · цикл старой ветки; показано с начала
-                    {/if}</span
-                  >{/if}{c.text}
-              </p>
-              <div class="comment-actions">
-                <button
-                  class:chosen={c.votes?.[account.toLowerCase()] === 1}
-                  disabled={busy || !account || account.toLowerCase() === c.author.toLowerCase()}
-                  onclick={() => voteComment(c, 1)}>↑</button
-                ><strong>{c.score || 0}</strong><button
-                  class:chosen={c.votes?.[account.toLowerCase()] === -1}
-                  disabled={busy || !account || account.toLowerCase() === c.author.toLowerCase()}
-                  onclick={() => voteComment(c, -1)}>↓</button
-                ><button
-                  class="text-button"
-                  onclick={() => {
-                    replyTo = c.id;
-                    editing = null;
-                  }}>Ответить</button
-                >
-              </div>
-              {#if c.history.length}<details>
-                  <summary>История изменений ({c.history.length})</summary>{#each c.history as h}<p>
-                      {h.editedAt}: {h.text}
-                    </p>{/each}
-                </details>{/if}
-            </div>{/each}{#if replyTo}<p>
-              Ответ на {short(replyTo, 10)}
-              <button class="text-button" onclick={() => (replyTo = null)}>Отменить</button>
-            </p>{/if}<textarea
-            bind:value={comment}
-            placeholder="Вопрос о формализации, подход к доказательству…"
-            maxlength="4000"
-          ></textarea><button
-            class="primary"
-            disabled={busy || !comment.trim()}
-            onclick={addComment}>{editing ? 'Сохранить изменение' : 'Добавить комментарий'}</button
-          >
+          <SocialPanel client={sdk?.social} {account} statementId={sid} onProfile={openProfile}
+            onReceipt={(r)=>{lastTx=r.hash;notice='Социальная запись подтверждена в блоке '+r.blockNumber;}} />
         </article>
       {:else if page === 'capital'}
         <section class="page-heading compact">
@@ -1490,9 +1439,9 @@
                 onclick={() =>
                   task(
                     'Сценарии погашения LP',
-                    async () => (stress = await sdk.settlementStress(pool.address, account)),
+                    () => scenarioReader.load(),
                   )}>Сценарии True / False</button
-              >{#if stress && stress.pool === pool.address}<div class="stress-results">
+              >{#if scenarioMatches(stress,scenarioContext)}<div class="stress-results">
                   <div>
                     <span>Ваш текущий inventory</span><strong
                       >{amount(stress.baseInventory)} T + {amount(stress.outcomeInventory)} outcome</strong
@@ -1501,7 +1450,7 @@
                   <div><span>Если True</span><strong>{amount(stress.truePayout)} T</strong></div>
                   <div><span>Если False</span><strong>{amount(stress.falsePayout)} T</strong></div>
                   <p>
-                    Срез блока {stress.blockNumber}; пропорциональный выход сейчас и затем
+                    Кошелёк {stress.account} · срез блока {stress.blockNumber}; пропорциональный выход сейчас и затем
                     redemption. Будущие swap, gas и движения ликвидности не моделируются.
                   </p>
                 </div>{/if}
@@ -1521,6 +1470,7 @@
         <div class="two-columns">
           <article class="panel">
             <h2>01 / Регистрация утверждения</h2>
+            {#if registrationImport}<p class="footnote">Внешний пакет: original EVM и immutable bridge проверили точный goal export. Название и исходник — сведения автора; source → goal: not-verified. Исходник не подменяет математическую цель.</p>{/if}
             <label
               >Название<input
                 bind:value={title}
@@ -1990,7 +1940,7 @@
         </section>
         <div class="explorer-summary">
           <i class="network-dot"></i>VAULT CHAIN 31373
-          <span>Блоки {activity.from}–{activity.to}</span><code>RPC :9547</code>
+          <span>Блоки {activity.from}–{activity.to}</span><code>{config?.rpcUrl || "Локальный RPC"}</code>
           {#if config?.chainInstance}<code title={config.chainInstance.id}>Сеть {short(config.chainInstance.id, 8)}</code>{/if}
         </div>
         {#each activity.blocks as block}<article class="block">
@@ -2054,7 +2004,12 @@
       {#if page === 'lab' || (page === 'detail' && statement?.kind === 0)}
         {#key account + ':' + (statement?.id || '')}
           <PackageEditor {api} {account} statement={statement?.kind === 0 ? statement : null}
-            currentSource={source} onUseSource={(text) => { source = text; fixtureId = ''; declaration = ''; go('lab'); }} />
+            client={sdk} chainId={config?.chainId} chainInstance={config?.chainInstance?.id}
+            registry={config?.addresses.StatementRegistry} selectedProfileId={profileId || config?.proof.profileId}
+            currentSource={source} onUseSource={(text, packageContext) => {
+              clearProofCertificate(); registrationCertificate = ''; registrationImport = null;
+              source = text; profileId = packageContext.profileId; fixtureId = ''; declaration = ''; go('lab');
+            }} />
         {/key}
       {/if}
       <footer class="page-footer">
@@ -2077,7 +2032,7 @@
         <button
           class="secondary"
           onclick={() => {
-            profileView = null;
+            profileEpoch++; profileView = null;
             history.replaceState(null, '', location.pathname);
           }}>Закрыть ×</button
         >
@@ -2117,8 +2072,14 @@
           >О себе<textarea bind:value={bio} maxlength="1000"></textarea></label
         ><button class="primary" disabled={busy} onclick={saveProfile}>Сохранить профиль</button
         >{/if}
+      <details><summary>История профиля в EAS ({profileView.history?.length || 0})</summary>
+        {#each profileView.history || [] as h}<p class="footnote">Блок {h.blockNumber} · {h.uid}<br/>{h.displayName}<br/>{h.bio}<br/>{h.transactionHash}</p>{/each}
+      </details>
+      {#if profileView.uid}<p class="footnote">Текущий EAS UID: {profileView.uid}</p>{/if}
+      <SocialPanel client={sdk?.social} {account} blogOwner={profileView.address} onProfile={openProfile}
+        onReceipt={(r)=>{lastTx=r.hash;notice='Запись блога подтверждена в блоке '+r.blockNumber;}} />
       <p class="footnote">
-        Имя и репутация относятся к обсуждениям. Адрес остаётся идентификатором; голоса за
+        Полный текст имени, описания и истории профиля хранится в EAS. Имя и репутация относятся к обсуждениям. Адрес остаётся идентификатором; голоса за
         комментарии не влияют на settlement или Governor.
       </p>
     </section>

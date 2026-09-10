@@ -3,3 +3,6 @@ dist/
 .state/
 logs/
 .toolchain/
+
+# Isolated Vite optimizer cache (never shared through dependency symlinks).
+.cache/

@@ -27,7 +27,7 @@ test('portable ZIP preserves separate exact source files, pinned toolchain, depe
   const pkg = preparePackage({ ...input, lakeManifest: '{"version":"1.1.0","packages":[]}' }, context);
   const files = unzipSync(packageZip(pkg));
   assert.equal(strFromU8(files['Challenge.lean']), input.challengeSource);
-  assert.equal(strFromU8(files['Solution.lean']), 'import Challenge\n\n' + input.solutionSource);
+  assert.equal(strFromU8(files['Solution.lean']), 'prelude\nimport Challenge\n\n' + input.solutionSource);
   assert.equal(strFromU8(files['lean-toolchain']), 'leanprover/lean4:v4.33.1\n');
   assert.equal(JSON.parse(strFromU8(files['runner-input.json'])).action, 'check');
   assert.equal(JSON.parse(strFromU8(files['runner-input.json'])).goalHash, context.statement.goalHash);

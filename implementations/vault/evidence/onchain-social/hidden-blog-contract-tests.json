@@ -1,0 +1,125 @@
+{
+  "scope": "isolated temporary Anvil 19547; no existing chain or markets touched",
+  "passed": 26,
+  "results": [
+    {
+      "name": "real EAS stores full Unicode profile and direct wallet author",
+      "passed": true
+    },
+    {
+      "name": "profile revisions retain exact original storage",
+      "passed": true
+    },
+    {
+      "name": "stale profile revision rejected",
+      "passed": true
+    },
+    {
+      "name": "constructor registers exact immutable schemas in original SchemaRegistry",
+      "passed": true
+    },
+    {
+      "name": "recipient cannot spoof another profile author",
+      "passed": true
+    },
+    {
+      "name": "noncanonical ABI cannot bypass schema policy",
+      "passed": true
+    },
+    {
+      "name": "byte limit is enforced onchain, not only SDK",
+      "passed": true
+    },
+    {
+      "name": "comment revisions preserve root and full history",
+      "passed": true
+    },
+    {
+      "name": "foreign author cannot edit",
+      "passed": true
+    },
+    {
+      "name": "stale entry edit rejected",
+      "passed": true
+    },
+    {
+      "name": "context cannot move on revision",
+      "passed": true
+    },
+    {
+      "name": "reply cannot cross statement context",
+      "passed": true
+    },
+    {
+      "name": "unknown statement rejected",
+      "passed": true
+    },
+    {
+      "name": "threaded replies rebuild from chain after parent edit",
+      "passed": true
+    },
+    {
+      "name": "self-vote rejected by resolver",
+      "passed": true
+    },
+    {
+      "name": "stale vote fork rejected",
+      "passed": true
+    },
+    {
+      "name": "one current vote with +1 to -1 to 0 and immutable history",
+      "passed": true
+    },
+    {
+      "name": "direct invalid vote value rejected",
+      "passed": true
+    },
+    {
+      "name": "personal blog and its separate reply context stored onchain",
+      "passed": true
+    },
+    {
+      "name": "hidden blog remains selectable and its existing reply is readable after fresh RPC rebuild",
+      "passed": true
+    },
+    {
+      "name": "hidden blog cannot receive a new direct reply",
+      "passed": true
+    },
+    {
+      "name": "cannot reply to tombstone",
+      "passed": true
+    },
+    {
+      "name": "fresh RPC-only index rebuild retains tombstones, all text, profiles and votes",
+      "passed": true
+    },
+    {
+      "name": "wallet fence cancels before sending",
+      "passed": true
+    },
+    {
+      "name": "multiAttest create then revision and reply is atomic and preserves originals",
+      "passed": true
+    },
+    {
+      "name": "conflicting edits in one batch revert together",
+      "passed": true
+    }
+  ],
+  "config": {
+    "chainId": 31373,
+    "social": {
+      "eas": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "schemaRegistry": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "resolver": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "deploymentBlock": 1,
+      "schemas": {
+        "profile": "0xa8d105a1b81a1186c14df66c624b49c9a12023b73ba90d30c702b51124eec49c",
+        "entry": "0x75e037e0eb89df36331d8335137a4a33982c5c5ecc9beec1ce06c83de5a3139d",
+        "vote": "0x3b40aaa5289ad019732b901cf4de367625f4c5a90ba963bad25977a0a7d268c5"
+      }
+    }
+  },
+  "block": 22
+}

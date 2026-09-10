@@ -1,0 +1,14 @@
+{
+  "wallSeconds": 3.292,
+  "peakTreeFootprintBytes": 68493064,
+  "memoryLimitBytes": 536870912,
+  "reason": "completed",
+  "exitCode": 0,
+  "accounting": "darwin-phys-footprint",
+  "sampleIntervalSeconds": 0.1,
+  "kernelHardLimit": false,
+  "inventory": "darwin-libproc-in-process",
+  "failure": null,
+  "identity": "darwin-bsd-start-time",
+  "cleanupErrors": []
+}

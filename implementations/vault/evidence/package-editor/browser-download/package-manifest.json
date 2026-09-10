@@ -1,0 +1,80 @@
+{
+  "format": "oncm-vault-lean-package-v1",
+  "verification": "author-supplied; source-to-goal comparison required",
+  "context": {
+    "chainId": 31373,
+    "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+    "registry": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+    "statement": {
+      "id": "0x7b048ad58d17d794cfe9da3c2740bb9047f88817e9ec00f174fd1ac79950a7a3",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "conditionId": "0x5a245b59f8b62260913d9bde2fd2a8478677d69c72b87f8527465a9bbf5d89dd",
+      "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "deadline": 0,
+      "resolvedAt": 1789008459,
+      "kind": 0,
+      "expected": 0,
+      "outcome": 2,
+      "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "yes": "0x90Df82d500598Bf41a6290554B21Ce71C07cC154",
+      "no": "0x873b5750e54339F2429C9581959874EDF887280f",
+      "title": "Для любого P: Prop утверждается P",
+      "manifest": "{\"sourceUrl\":\"https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/fixtures/OncmFalse.lean\",\"sourceSha256\":\"b855742a179058525366cc931d7da745f91ebb6ff85358e41205b44dfa1f89ad\",\"goalExportSha256\":\"f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4\",\"profile\":\"perf05\",\"imageId\":\"0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb\",\"sourceCommit\":\"ed830fe68cc94aeac6eb01049a92464182bba737\",\"runId\":\"34419882266\"}"
+    },
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "profile": {
+      "verifier": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "manifest": "{\"format\":\"oncm-vault-external-profile-v1\",\"profileTag\":\"oncm.lean4.33.1.nanoda.4c544ed4.logic.perf05.zeroaxiom\",\"profileId\":\"0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10\",\"imageId\":\"0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb\",\"foundationSha256\":\"94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124\",\"permittedAxioms\":[],\"natExtension\":false,\"stringExtension\":false,\"lean\":\"4.33.1\",\"goalCommitment\":\"SHA256 exact goal export prefix including this distinct foundation\",\"sourceCommit\":\"d79a177f4c162eefe9e6e197fdafad09b9ab5a8d\",\"profileUrl\":\"https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/profile.json\"}",
+      "enabled": true
+    },
+    "descriptor": {
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+      "lean": "4.33.1",
+      "foundationSha256": "94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124",
+      "sourceGoalRelation": "not-verified",
+      "manifest": "{\"format\":\"oncm-vault-external-profile-v1\",\"profileTag\":\"oncm.lean4.33.1.nanoda.4c544ed4.logic.perf05.zeroaxiom\",\"profileId\":\"0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10\",\"imageId\":\"0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb\",\"foundationSha256\":\"94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124\",\"permittedAxioms\":[],\"natExtension\":false,\"stringExtension\":false,\"lean\":\"4.33.1\",\"goalCommitment\":\"SHA256 exact goal export prefix including this distinct foundation\",\"sourceCommit\":\"d79a177f4c162eefe9e6e197fdafad09b9ab5a8d\",\"profileUrl\":\"https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/profile.json\"}"
+    },
+    "sourceGoalRelation": "not-verified"
+  },
+  "files": [
+    {
+      "path": "Challenge.lean",
+      "sha256": "6f79850f241bee3d9019768a8ee4ecd0ebcee74224282ca35e48c6b8a1a235be"
+    },
+    {
+      "path": "Solution.lean",
+      "sha256": "a58e7c84b5bcbfddab916c0cc16e9623821ebc97d705364f79439da7dcb32484"
+    },
+    {
+      "path": "Runner.lean",
+      "sha256": "9cd5710048bae379afe1cea430c99197e18ef1e160b5278ca3abba26980a62ce"
+    },
+    {
+      "path": "lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+    },
+    {
+      "path": "lakefile.lean",
+      "sha256": "9253b980328858631a86f38da738767bc3a7d26df097980a18c6e976ec623f27"
+    },
+    {
+      "path": "runner-input.json",
+      "sha256": "65c6a82d4ad135c084ff269f6dc3fd28496c0b7a1aa3b13547fd1400ee2c768c"
+    },
+    {
+      "path": "formalization.yaml",
+      "sha256": "134310201f3fec79b416e0597d777241f61cedb66aa81c94915f33ac3d4239c6"
+    },
+    {
+      "path": "oncm-context.json",
+      "sha256": "398433b332487103407aa7d42f663c60aba77a89c22a00f7dc9078156c84fd8c"
+    },
+    {
+      "path": "README.md",
+      "sha256": "89f75af8edb89cea68f481bd50b5194578f8c3bf23f4ddf807dbedb889f87ed8"
+    }
+  ],
+  "packageHash": "95271478df906a39cef9c5b15830b2b3f55e13ad36b69539f38288d2e3031f5a"
+}

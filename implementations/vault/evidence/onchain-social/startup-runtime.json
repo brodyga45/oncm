@@ -1,0 +1,21 @@
+{
+  "format": "vault-social-startup-readonly-v1",
+  "blockBefore": 188,
+  "blockAfter": 188,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "mode": "verified-existing",
+  "addresses": {
+    "eas": "0xFD471836031dc5108809D173A067e8486B9047A3",
+    "schemaRegistry": "0xc351628EB244ec633d5f21fBD6621e1a683B1181",
+    "resolver": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc"
+  },
+  "verified": [
+    "chain",
+    "runtime hashes",
+    "immutable EAS registry",
+    "immutable statement registry",
+    "three canonical nonrevocable schemas"
+  ],
+  "transactionsSent": 0,
+  "freshFullStartupExecuted": false
+}

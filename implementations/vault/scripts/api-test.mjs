@@ -40,7 +40,7 @@ await check('real configured profile and on-chain snapshot are visible', async (
   assert.equal(r.data.config.proof.status, 'configured');
   assert(r.data.block.number > 0);
 });
-await check('anonymous writes and foreign origins are rejected', async () => {
+await check('HTTP social writes are retired and foreign origins are rejected', async () => {
   assert.equal(
     (
       await request('/profile', {
@@ -49,7 +49,7 @@ await check('anonymous writes and foreign origins are rejected', async () => {
         cookie: '',
       })
     ).status,
-    401,
+    410,
   );
   assert.equal((await request('/auth/nonce', { origin: 'https://evil.invalid' })).status, 403);
 });
@@ -74,33 +74,10 @@ await check('SIWE signature and one-use nonce', async () => {
     400,
   );
 });
-await check('profile identity comes from signed session, persisted data is public', async () => {
-  const previous = (await request('/profiles/' + wallet.address)).data;
-  const other = '0x' + '11'.repeat(20);
-  const result = await request('/profile', {
-    method: 'PUT',
-    body: { address: other, displayName: 'Vault API test', bio: 'Researcher' },
-  });
-  assert.equal(result.data.address, wallet.address);
-  assert.equal(
-    (await request('/profiles/' + wallet.address, { cookie: '' })).data.displayName,
-    'Vault API test',
-  );
-  assert.notEqual(
-    (await request('/profiles/' + other, { cookie: '' })).data.displayName,
-    'Vault API test',
-  );
-  await request('/profile', {
-    method: 'PUT',
-    body: { displayName: previous.displayName, bio: previous.bio },
-  });
-});
-await check('unknown statement cannot receive authenticated comments', async () => {
-  const r = await request('/comments', {
-    method: 'POST',
-    body: { statementId: '0x' + '99'.repeat(32), text: 'Unknown', author: '0x' + '11'.repeat(20) },
-  });
-  assert.equal(r.status, 404);
+await check('SIWE never authorizes an offchain replacement social write', async () => {
+  assert.equal((await request('/profile', {method:'PUT',body:{displayName:'not-published',bio:''}})).status,410);
+  assert.equal((await request('/comments', {method:'POST',body:{text:'not-published'}})).status,410);
+  const snapshot=await request('/social/snapshot');assert.equal(snapshot.status,200);assert(snapshot.data.block.hash);
 });
 await check('actual blocks, receipts and ERC20 deltas are decoded', async () => {
   const r = await request('/activity');

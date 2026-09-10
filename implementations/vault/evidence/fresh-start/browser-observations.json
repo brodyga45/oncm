@@ -1,0 +1,26 @@
+{
+  "tabId": "102825306",
+  "url": "http://127.0.0.1:15173",
+  "scope": "Own isolated tab, read-only Playwright locator navigation; no wallet connection or transactions",
+  "overview": {
+    "block": 33,
+    "chainId": 31373,
+    "chainInstance": "bcc3a899-61ea-40dc-90da-61f136b07f79",
+    "statements": 0,
+    "pools": 0,
+    "epoch": 1,
+    "unexpectedErrors": false
+  },
+  "leanLab": {
+    "opened": true,
+    "fourPublishedCertificateLoaders": true,
+    "genericBundleImport": true,
+    "nativeCheckButton": true,
+    "noCertificateGenerationControls": true,
+    "perf05BridgeExplicitlyNotDeployed": true,
+    "v3ProfileOption": true
+  },
+  "acknowledgment": "Written about50s after ready; the QA harness40s acknowledgment deadline had elapsed. These independent actual browser observations do not turn its raw exit1 into PASS.",
+  "ownedTabClosed": true,
+  "originalVerifierBoundary": "Fresh original generic RISCZero verifier accepted CI3 perf05 and rejected a changed journal. The installed immutable v3 bridge was not passed a perf05 certificate and is not claimed compatible."
+}

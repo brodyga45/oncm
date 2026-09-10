@@ -2,7 +2,7 @@
 
 | US | Web workflow | Contract / SDK / off-chain mechanism |
 |---|---|---|
-| 001 | Lean Lab → load externally prepared registration → original EVM verify/apply → New market → create WeightedPool | verifyGoal → StatementRegistry.register → CTF.prepareCondition → canonical wrappers; PoolCoordinator.create → real WeightedPoolFactory |
+| 001 | Lean Lab → curated certificate or new generic goal bundle → original EVM verify/apply → New market → create WeightedPool | Exact goal/foundation/full journal; no generic theorem allowlist; verifyGoal → StatementRegistry.register → CTF.prepareCondition → canonical wrappers; PoolCoordinator.create → real WeightedPoolFactory |
 | 002 | Capital → preview exact assets/BPT/limits → confirm initialize or join | quoteInitialize via original WeightedPool invariant; quoteJoin via original Router; fixed token maxima/minBPT passed through approvals; actual BPT |
 | 003 | Capital → quote → swap | Zero-origin Balancer query with sender argument; bounded-slippage exact-in Router swap; raw Vault reserves |
 | 004 | Lean Lab → load external proof of P → verify/apply/send | Real externally prepared certificate → immutable verify → CTF.reportPayouts [1,0] |
@@ -17,13 +17,13 @@
 | 013 | Lean Lab / details → separate Challenge/Solution → preview/download ZIP → load into Lean Lab | fflate ZIP, pinned toolchain, Lake config/optional lock, metadata template and goal/profile context. No automatic execute/publish; public evidence JSON remains separate. Author may explicitly publish supplied files with SIWE consent; source-to-goal comparison still requires the real profile |
 | 014 | Wallet menu → injected / explicit local → Disconnect; external identity change | Correct chain before sends; SIWE nonce/domain/chain/HttpOnly; account/chain changes clear old signer/private UI/session and require reconnect without automatic signature |
 | 015 | Research → filter/search → details / published source revisions | RPC registry/pool reads; explicitly author-published Challenge/Solution + hashes beside semantic commitment; absent or unverified source is labelled, no private-job fallback |
-| 016 | Details → comments/replies/edit/votes/profile | SIWE actor, persisted plaintext, immutable author, edit history, one address one +/- vote, remove/change, no self vote, deterministic Top/New |
-| 017 | Lean Lab → native check → status/history/cancel; prepare certificates externally → upload/verify | Web starts only action=check, never certificate generation/order. SIWE-private queue/history preserved; native check5s/2GiB, existing CLI/API register/prove retained with their disabled expensive policy. Four prepared external certificates plus own verified.json use original EVM checks. Website certificate generation is deferred. |
+| 016 | Details → onchain discussion; author → profile + personal blog → edit/history/vote/reply | Direct wallet → original EAS full Attestation.data → resolver author/latest/context/±1/0 checks; immutable full revisions and onchain scores; deterministic threaded Top/New; see ONCHAIN-SOCIAL.md |
+| 017 | Lean Lab → native check → status/history/cancel; prepare certificates externally → upload/verify | Web starts only action=check, never certificate generation/order. SIWE-private queue/history preserved; native check5s/2GiB, existing CLI/API register/prove retained with their disabled expensive policy. Four curated certificates and generic external bundles use original EVM checks; optional source remains provenance. Website certificate generation is deferred. |
 | 018 | Governance → propose/vote/queue/execute | Exact calldata review + optional read-only preflight; local block advancement is explicitly labelled, voting transactions remain real |
 | 019 | Capital → partial/all LP exit preview → per-token minima → confirm | Original queryRemoveLiquidityProportional → Router.removeLiquidityProportional with the same displayed limits; finality hook allows proportional removes. Returned outcomes redeem normally |
 | 020 | Statement → split / merge | 1 T = complete set; ERC1155↔ERC20 roundtrip, canonical metadata, exact collateral conservation |
 
-Profile additions: any public wallet profile shows its address, display name/bio, T/YES/NO/BPT holdings and comment count. Owner edits through SIWE. Author links open profile modal; `#profile/0x…` deep-links it. Comments may have parentId; parent must exist in same statement. Voting changes only off-chain ranking.
+Profile additions: any public wallet profile shows its address, display name/bio, T/YES/NO/BPT holdings and comment count. Owner edits through direct EAS wallet transactions. Author links open profile modal; `#profile/0x…` deep-links it. Comments may have parentId; parent must exist in same statement. Voting updates only onchain discussion scores, with no effect on mathematical settlement/governance weight. Personal blog and all profile/edit/vote history also live in EAS.
 
 Block observability is shared by every on-chain scenario: `/api/activity?to=…` reads actual blocks/receipts, timestamp/hash/actor, all decodable protocol events, gas cost and ERC-20 transfer deltas. Those deltas are receipt-local, not incorrectly described as whole-block historical balances.
 
@@ -32,5 +32,6 @@ Block observability is shared by every on-chain scenario: `/api/activity?to=…`
 - Core unit tests: community invariants and LP scenario mathematics.
 - Isolated real-contract economic tests: CTF/wrappers/WeightedPool/Permit2/creator fees/Splits/LP/redeem; proof verifier explicitly mocked **inside the test only**, then `evm_revert`.
 - Isolated governance tests: real membership/quorum/vote/Timelock/operator installation, then revert.
-- API tests: actual RPC, SIWE, profile identity/persistence, unknown-comment rejection, Palomar import, native Lean check and rejected sorry proof.
+- EAS tests: 26 isolated original-contract cases including all text/history reconstruction, hidden-blog descendant reads, author/context/latest, votes and batch atomicity. API social writes return410; native/SIWE/package checks remain separate. See ONCHAIN-SOCIAL.md.
+- Generic external import:36 small binding/controller tests;4 genuine wrapped CI certificates accepted by original EVM + actual bridge and2 tampered examples rejected at147, read-only. v3 descriptor/read path is present but no actual v3 certificate was tested; no new theorem/market is inferred from this validation.
 - Real crypto end-to-end smoke uses the published Lean fixture and the current pinned profile’s Groth16 certificates. No earlier test substitutes for this requirement.

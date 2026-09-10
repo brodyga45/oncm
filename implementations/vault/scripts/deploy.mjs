@@ -1,4 +1,8 @@
 import fs from 'node:fs';
+import {ensureProofDescriptor} from './proof-bootstrap.mjs';
+import {ensureProductionArtifacts} from './production-bootstrap.mjs';
+import {localEndpoints} from '../sdk/local-endpoints.mjs';
+const endpoints=localEndpoints(process.env.VAULT_PORT_OFFSET??0);
 import {
   Contract,
   ContractFactory,
@@ -10,9 +14,11 @@ import {
   ZeroAddress,
   ZeroHash,
 } from 'ethers';
-const rpc = process.env.VAULT_RPC || 'http://127.0.0.1:9547';
-if (!['http://127.0.0.1:9547', 'http://localhost:9547'].includes(rpc))
-  throw Error('Local deployment restricted to Vault RPC 9547');
+const rpc=process.env.VAULT_RPC||endpoints.rpcUrl;
+if (![endpoints.rpcUrl,`http://localhost:${endpoints.rpcPort}`].includes(rpc))
+  throw Error('Local deployment restricted to explicit Vault loopback port offset');
+ensureProofDescriptor(process.cwd());
+ensureProductionArtifacts(process.cwd());
 const provider = new JsonRpcProvider(rpc);
 provider.pollingInterval = 100;
 if ((await provider.getNetwork()).chainId !== 31373n) throw Error('Wrong chain');
@@ -191,8 +197,9 @@ const config = {
     ? JSON.parse(fs.readFileSync('.state/chain-instance.json')) : null,
   chainId: 31373,
   rpcUrl: rpc,
-  webUrl: 'http://127.0.0.1:5173',
-  apiUrl: 'http://127.0.0.1:4173',
+  localPortOffset:endpoints.offset,
+  webUrl:endpoints.webUrl,
+  apiUrl:endpoints.apiUrl,
   deploymentBlock: txs[0].blockNumber,
   addresses,
   accounts,

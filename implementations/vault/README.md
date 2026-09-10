@@ -2,6 +2,8 @@
 
 Независимое приложение ONCM: Gnosis Conditional Tokens → канонические ERC-20 wrappers → **настоящий Balancer V3 WeightedPool/Vault**. Отдельное членство OpenZeppelin Governor + Timelock, реальные Splits V2 wallets для дохода. Интерфейс Svelte, свой SDK, API, блокчейн и данные.
 
+Социальные функции теперь ончейн: оригинальный EAS хранит полные профили, личный блог, комментарии/ответы, редакции и голоса. [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md) содержит схемы, SDK, отдельные compiler pins, deployment blocks126–128 и проверенные ограничения. Старые SIWE social записи сохранены как явно отдельный legacy архив.
+
 Текущая граница сайта: native-проверка Lean и работа с **готовыми внешними сертификатами**. Пользователь подготавливает сертификат вне сайта; веб не запускает и не заказывает его вычисление. Загрузка, оригинальная EVM-проверка, применение, регистрация рынка и resolution остаются доступны. CLI/API и история прежних задач сохранены; генерация через веб отложена на будущую функцию.
 
 ## Запуск
@@ -10,11 +12,10 @@
 cd implementations/vault
 npm ci
 npm run setup:anvil
-# Только если .state/artifacts ещё отсутствуют: npm run compile
 npm run dev
 ```
 
-`npm run dev` запускает свою Anvil-сеть из сохранённого состояния, затем API и сайт. Если процессы уже работают, повторный запуск их использует. При первом запуске без deployment он использует имеющиеся artifacts; компиляторы и prover автоматически не запускаются. Отсутствие контракта из ранее сохранённого deployment приводит к ошибке с предложением восстановить snapshot, а не к незаметному новому deployment. Текущий devnet:
+`npm run dev` запускает свою Anvil-сеть из сохранённого состояния, затем API и сайт. Если процессы уже работают, повторный запуск их использует. При первом запуске восстанавливаются 27 проверенных production-артефактов из [production](production/README.md) и отдельный proof descriptor; SHA, исходники, compiler settings и pinned зависимости проверяются до deployment. Отличающиеся существующие артефакты не перезаписываются. Затем он последовательно добавляет SchemaRegistry, EAS и VaultSocialResolver, если social deployment ещё отсутствует; три проверенных production-артефакта сохранены в social/artifacts. Компиляторы и prover автоматически не запускаются. При существующем social deployment проверяются код, связь с registry и точные nonrevocable схемы. API/web объявляются готовыми только после проверки их ответа и идентичности deployment. Отсутствие контракта из ранее сохранённого deployment приводит к ошибке с предложением восстановить snapshot, а не к незаметному новому deployment. Текущий devnet:
 
 - Web: http://127.0.0.1:5173
 - API: http://127.0.0.1:4173/api/health
@@ -23,7 +24,11 @@ npm run dev
 - Node 22 рекомендуется. Официальный Anvil **1.7.1**, macOS ARM64, Cancun; EIP-170 включён, unlimited contract size выключен. На другой платформе задайте `VAULT_ANVIL` на официальный совместимый бинарник.
 - `.state/deployment.json` содержит реальные адреса, profile, deployment block. `.state/abis.json` — ABI для web/SDK. Runtime соседних implementations не используется.
 
-Вход: кнопка кошелька → Browser wallet либо явно обозначенный публичный local devnet account 0–3. Последние доступны только для RPC 9547 и chain 31373. Anvil выдаёт тестовые ETH; каждый из четырёх аккаунтов получает фиксированно 1,000,000 T при развёртывании. У T нет публичного mint. Его отсутствие эмиссии после конструктора — выбор этого локального приложения.
+Для независимой копии рядом с действующим стендом доступен `VAULT_PORT_OFFSET=10000 npm run dev`: RPC19547, API14173, web15173, тот же chain ID31373, собственные `.state` и `chainInstance`. SDK и SIWE проверяют согласованные loopback endpoints; remote URL не разрешает тестовые ключи. Vite cache хранится в `.cache/vite` этой копии. Сначала нужно установить зависимости этой копии; соседний runtime не используется.
+
+`npm run compile` остаётся явным воспроизводимым rebuild-путём, затем `node scripts/build-production-bootstrap.mjs` проверяет source/metadata bindings и обновляет distribution. Полная компиляция на текущем ARM-компьютере не уложилась в ограниченную60s попытку; таймаут не скрыт и при обычном запуске этот путь не выполняется. [Фактическая свежая проверка](evidence/fresh-start/README.md) отдельно фиксирует deployment, HTTP, SDK, original verifier и браузер; это не проверка `npm ci` на машине без установленных зависимостей.
+
+Вход: кнопка кошелька → Browser wallet либо явно обозначенный публичный local devnet account 0–3. Последние доступны только для loopback RPC согласованного port offset и chain 31373. Anvil выдаёт тестовые ETH; каждый из четырёх аккаунтов получает фиксированно 1,000,000 T при развёртывании. У T нет публичного mint. Его отсутствие эмиссии после конструктора — выбор этого локального приложения.
 
 Anvil пишет `.state/chain/anvil-state.json` каждые **10 секунд** и при штатном завершении, включая блоки, транзакции и historical states. Launcher сохраняет проверенную копию `anvil-state.last-good.json` через atomic rename; при повреждении основного файла использует её. После crash могут потеряться изменения после последнего корректного snapshot. Остановка через Ctrl+C/SIGTERM ждёт завершения Anvil и финального dump. Launcher отказывается запускать пустую замену, если ранее запущенная сеть потеряла snapshot; файл более 64 MiB также требует явного разбора, чтобы восстановление не вызвало новый пик памяти.
 
@@ -42,7 +47,7 @@ Anvil пишет `.state/chain/anvil-state.json` каждые **10 секунд*
 7. Капитал: swap теперь отвергается FinalityHook, пропорциональный вывод BPT доступен. Страница утверждения: погасить позиции. YES получает 1 T, NO получает 0. Балансы считываются из chain.
 8. Блоки: receipt, блок/hash/timestamp, отправитель, gas, decoded events и signed ERC-20 transfer deltas. После каждой транзакции есть переход в её блок.
 
-`proof/runner.mjs`, бинарники и manifest принадлежат этому приложению. Native Lean/exporter/RISC Zero toolchain paths заданы в `proof/runtime.local.json`; они являются установленными системными инструментами, а не сервисами другого приложения. Воспроизведение на другом компьютере требует установки этих закреплённых инструментов и настройки путей. `proof/manifest.json` задаёт Lean/exporter/checker/RISC Zero pins, imageId и foundation. Сборка verifier хранится в `proof/artifacts/LeanProofBridge.json`, constructor arguments — `proof/deployment.json`.
+`proof/runner.mjs`, бинарники и manifest принадлежат этому приложению. Native Lean/exporter/RISC Zero toolchain paths заданы в `proof/runtime.local.json`; они являются установленными системными инструментами, а не сервисами другого приложения. Воспроизведение на другом компьютере требует установки этих закреплённых инструментов и настройки путей. `proof/manifest.json` задаёт Lean/exporter/checker/RISC Zero pins, imageId и foundation. Сборка verifier хранится в `proof/artifacts/LeanProofBridge.json`, constructor arguments — `proof/deployment.json`. Отсутствующий локальный файл восстанавливается из tracked `proof/bootstrap-deployment.json`: проверяются SHA-256 оригинального bridge artifact и точные v3 image/profile/manifest. Уже существующий отличающийся descriptor не перезаписывается; требуется явная проверенная миграция.
 
 Профиль v3 фиксирует декларации `Oncm.goal` / `Oncm.solution`, foundation и native reductions `Nat.succ`/`Nat.add`; неподкреплённые name-based shortcuts других операций выключены. Допустимы только три аксиомы immutable foundation (`propext`, `Classical.choice`, `Quot.sound`), дополнительные аксиомы запрещены; цели проверяются по структурному Lean Name. Локальный профиль не обещает совместимость со всеми импортированными mathlib/Palomar репозиториями. Импорт сохраняет исходники, hashes, commit и metadata; неподдерживаемое окружение даёт настоящую диагностическую ошибку, а не сертификат.
 
@@ -57,7 +62,7 @@ Anvil пишет `.state/chain/anvil-state.json` каждые **10 секунд*
 | Finality | Balancer BaseHooks | FinalityHook блокирует swap/joins после resolver outcome, пропорциональные exits не перехватывает |
 | Доход | Balancer ProtocolFeeController + Splits V2 PullSplit/warehouse | AllocationController с согласием всех decreasing holders; новый immutable Split на каждую эпоху |
 | Governance | OZ 5.2 Governor, ERC20Votes, Timelock | Soulbound Membership, Timelock authorizer, immutable profile/operator registry |
-| Социальный слой | Express + SIWE, Svelte | Подписанная session, профили, replies, one-address votes, edit history, deterministic Top/New |
+| Социальный слой | Original EAS1.9.0 + SchemaRegistry, MIT | Immutable resolver schemas: полный профиль/блог/комментарии/ответы/редакции/голоса ончейн, latest/author/context/±1/0 rules; Svelte RPC view |
 | Proof | Lean + lean4export + NanoDa + RISC Zero/Groth16 | Закреплённый LeanProofBridge и runner; ни adminResolve, ни mock-путь основного приложения |
 | Очередь | p-queue 8.1.0 (MIT) | Один worker, объединение одинаковых запросов кошелька, отмена после cleanup, внешний resource guard без повторного lock |
 
@@ -96,11 +101,11 @@ Web swap сохраняет показанные minimumAmountOut/deadline до 
 
 `sdk.revenueSnapshot(address)` читает один blockTag: aggregate fees в Vault, уже собранную creator-часть в ProtocolFeeController, реальные ERC-20 балансы каждой epoch Split, forwarded-средства AllocationController и claimable Warehouse. Pending creator рассчитывается по оригинальным ставкам Controller и тому же округлению protocol portion; это оценка будущего сбора на указанном блоке. Web «Доход по этапам» показывает эти суммы отдельно и в исходных токенах.
 
-`sdk/community.mjs` содержит browser/Node клиент с SIWE login, profile, comments/replies/votes, Palomar import, job и export методами.
+`sdk/community.mjs` содержит browser/Node клиент для публичного чтения и SIWE-private tools. Для social writes ему передаются config+signer; методы вызывают original EAS через `sdk/social.mjs`. Основной chain SDK также экспортирует `sdk.social`. Palomar/job/export остаются отдельными API методами.
 
-Публичные API: `/api/config`, `/snapshot?account=…`, `/activity?to=…`, `/governance`, `/profiles/:address`, `/comments?statementId=…&sort=top|new`, `/fixtures`, `/palomar`, `/packages`, `/export/:statementId`. Аутентифицированные записи: `/auth/verify`, `/profile` PUT, `/comments` POST/PATCH, `/comments/:id/vote`, `/jobs`, `/import`, `/palomar/import`. Примеры: `scripts/api-test.mjs`. SIWE sessions — HttpOnly SameSite=Strict cookies, nonce одноразовый, domain+chain проверяются. Все авторы берутся из session; имя не заменяет видимый адрес. Plaintext отрисовывается Svelte с экранированием.
+Публичные API: `/api/config`, `/snapshot?account=…`, `/activity?to=…`, `/governance`, `/profiles/:address`, `/comments?statementId=…&sort=top|new`, `/blog/:address`, `/social/snapshot`, `/fixtures`, `/palomar`, `/packages`, `/export/:statementId`. Social reads восстанавливаются из EAS через RPC. Старые HTTP social writes возвращают410: session не может создавать профиль или голос. SIWE используется в private jobs/import/source tools (HttpOnly SameSite=Strict cookies, одноразовый nonce, domain+chain). Автор социальной записи — EAS attester прямой транзакции кошелька, имя не заменяет видимый адрес. Plaintext отрисовывается Svelte с экранированием.
 
-Комментарии, replies, votes и профили записываются атомарно в `.state/community.json`. Top: score desc, createdAt desc, id asc; New: createdAt desc, id asc. Один адрес может изменить или удалить свой голос, self-vote запрещён сервером. Это репутация обсуждения, не голоса Governor и не oracle.
+Полные социальные тексты и все версии записываются в EAS.Attestation.data. Resolver задаёт onchain score и запрет self-vote; Top ранжирует корни по score и порядку создания, New — по порядку создания, ответы идут хронологически внутри веток. Локальный social cache не является authority; прежний `.state/community.json` сохранён только как явно обозначенный legacy архив. Подробности и проверенные лимиты — [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md).
 
 [SCENARIOS.md](SCENARIOS.md) связывает все 20 US с web/SDK/contracts. Две дополнительные функции: [EXTRA-FEATURES.md](EXTRA-FEATURES.md).
 
@@ -163,6 +168,8 @@ perf05 — отдельный Lean4.33.1/NanoDa профиль чистой ло
 Настоящий CI4 `true-proof` уже включён в standalone bundle: **Загрузить true-proof из CI** → **Проверить original EVM и профиль** → **Применить к выбранному утверждению** → отдельная отправка proof ончейн. Для NO используется канонический case `false-refutation` с outcome2; `false-proof` отклоняется. Настоящие `false-registration` и `false-refutation` также включены в bundle и доступны тем же импортом; всего подготовлены четыре реальных сертификата. Перед применением нужно выбрать существующее утверждение с точно совпадающими goal/profile. После EVM проверки импорт заполнит подтверждённый outcome1 или2 и certificate; кнопка отправки proof вызовет обычный `StatementRegistry.submitProof`. Новый proof нельзя применить к v3-рынку. Локальная native-проверка остаётся на v3 и недоступна для отдельного perf05. Кнопок генерации/заказа сертификатов на сайте нет; импорт ничего не вычисляет. Допущенный ранее, но выключенный для новых регистраций профиль сохраняет возможность разрешения своих существующих рынков.
 
 SDK: `await sdk.verifyExternalCertificate(record, descriptor, candidateBridge)` возвращает pinned block/hash, originalVerifier, bridgeVerified, registered/profileEnabled и readyForRegistration/readyForResolution. `candidateBridge` помогает проверить развёрнутый adapter до governance; наличие такого adapter само не даёт admission. Публичный `GET /api/external-proofs` выдаёт только явный allowlist подготовленных публичных файлов и deployment matching текущему chainInstance. Он не читает private jobs/source/history. При появлении `external-proofs/perf05/true-proof.json` allowlist показывает его после обновления компонента без API restart; произвольные файлы не публикуются.
+
+**Новая цель вне каталога:** загрузите `oncm-external-certificate-bundle-v1` с полным artifact, точными goal-export bytes и необязательным исходником. Generic-путь поддерживает pinned perf05 и v3 без списка разрешённых theorem hashes; использует тот же original EVM/bridge. SDK: `sdk.verifyExternalBundle(rawJSON, expectedDescriptor)`. Исходник и описание остаются provenance, `sourceGoalRelation:not-verified`; source SHA не доказывает его соответствие цели. Схема, ограничения2MiB/1MiB/512KiB, реальные примеры и проверки: [EXTERNAL-CERTIFICATES.md](EXTERNAL-CERTIFICATES.md). Четыре прежние curated кнопки сохранены.
 
 На новой собственной Vault devnet `node scripts/prepare-external-profile.mjs` только проверяет/показывает план. Явный `--deploy` разворачивает отдельный immutable bridge существующим artifact и сохраняет точный proposal в `.state/additional-profiles/perf05.json`. Скрипт не вызывает registry/governance, не создаёт рынки, не меняет время, не майнит дополнительные блоки и не переключает default v3. Использовать его следует между короткими voting windows, поскольку обычный deployment также создаёт один блок. Старое deployment evidence другой цепи требует отдельного явного архивирования.
 

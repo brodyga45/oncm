@@ -10,7 +10,7 @@
     "archive:lost-chain": "node scripts/archive-lost-chain.mjs",
     "deploy": "node scripts/deploy.mjs",
     "api": "node server/index.mjs",
-    "web": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "web": "vite --host 127.0.0.1 --strictPort",
     "dev": "node scripts/start.mjs",
     "build": "vite build",
     "test": "node --test test/*.test.mjs",

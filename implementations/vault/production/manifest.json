@@ -1,0 +1,1382 @@
+{
+  "format": "vault-production-bootstrap-v1",
+  "scope": "Previously tested real production artifacts; no test/mock/unconfigured verifier; v3 bridge has its own independent bootstrap",
+  "metadataOnlyVerification": true,
+  "fullBytecodeRecompiled": false,
+  "artifacts": [
+    {
+      "name": "AllocationController",
+      "sourceName": "contracts/VaultIntegration.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/VaultIntegration.sol": "AllocationController"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "c8c227fd35c017a6d074db1c80f7e91b4204af42ba6e0b07fe9313a91a301fda",
+      "metadataIpfsDigest": "7b7f204f8338456bde3825d5b12c956249073514cc43ae1ff5bc37a5b5e2cb8c",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "04b5a7a6598b2faf56205df4303308b5eeef153e04c8508d678a8d6e5bf4f86b",
+      "runtimeBytes": 6488
+    },
+    {
+      "name": "ConditionalTokens",
+      "sourceName": "node_modules/@gnosis.pm/conditional-tokens-contracts/build/contracts/ConditionalTokens.json",
+      "binding": "Exact original published ABI/creation/runtime bytecode",
+      "upstreamArtifactSha256": "08a1c8752460866482387a185ab5e1d1e3589f06a95d1322f24b5cb14bc33af8",
+      "artifactSha256": "25cc5a15e61f3e3c8436b4d1b18a697919f695304a3b9875f0311bab44d95356",
+      "runtimeBytes": 14771
+    },
+    {
+      "name": "FinalityHook",
+      "sourceName": "contracts/VaultIntegration.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/VaultIntegration.sol": "FinalityHook"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "50fa07057f6057052ed5c846908100e6af449431e4956bbf70c42e1036cbd63e",
+      "metadataIpfsDigest": "9038e813b760a74fe68922e9fbf0197a34e33f2c00cba381cfe6946c356bc1a9",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "a11b284ee5b98811c769121cd39976dad8427792aa85769cd11e17d98314f30c",
+      "runtimeBytes": 3737
+    },
+    {
+      "name": "Membership",
+      "sourceName": "contracts/Governance.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Governance.sol": "Membership"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "82d72296db02496f721bd2c7daefa64e71d418af2d4b673b94b1a6b307e7fb1b",
+      "metadataIpfsDigest": "7864507e2eddca5127054aebbba425980038d0d2621b229825a00df21900ef19",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "d4c557684457374260f7641d2aaa8210e36196cdfe286d83be100d8afe22a1b0",
+      "runtimeBytes": 7481
+    },
+    {
+      "name": "Permit2",
+      "sourceName": "vendor/permit2/src/Permit2.sol",
+      "compiler": "0.8.17+commit.8df45f5f.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "vendor/permit2/src/Permit2.sol": "Permit2"
+        },
+        "evmVersion": "london",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "b0c3d7083ea7c5c4f227d2fd6c07d241bbeb4a2ee997d00d0fbad2575ca1db84",
+      "metadataIpfsDigest": "81b82160f1317abb0df61b240450fb2747ae6bd02a4abb1d24a397f4051834d7",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "687b116f36b3003861133692b24bdeecd1215d1b0360d38e134902b0597a3177",
+      "runtimeBytes": 7045
+    },
+    {
+      "name": "PoolCoordinator",
+      "sourceName": "contracts/VaultIntegration.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/VaultIntegration.sol": "PoolCoordinator"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "24cd9a5463c6eac9f7fea908cf09058d9355f4284eb23a1ef6686b75bb278a8d",
+      "metadataIpfsDigest": "33b86bb0bde07838ded48cafb517ecbc931a46384379fcd3d184ab464b8ae86c",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "85c04fc790399fd1fcfcf39243d4a4d483b8e1888dd820f7a679440be9ccfc53",
+      "runtimeBytes": 7960
+    },
+    {
+      "name": "PositionRouter",
+      "sourceName": "contracts/Protocol.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Protocol.sol": "PositionRouter"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "e1d0aab427254f448fbf8b6fcab59fd0107cb0aefe3022fab2ede6ed0ef5a10a",
+      "metadataIpfsDigest": "1f61d376447f26c2cf5879bebb1a55ae3ffe14e1d121c993f8ff0a85cab90798",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "9c597c4aa3b429855d7793577f07b144807aa2c8038332414a525354de3455eb",
+      "runtimeBytes": 5440
+    },
+    {
+      "name": "ProtocolFeeController",
+      "sourceName": "node_modules/@balancer-labs/v3-vault/contracts/ProtocolFeeController.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/@balancer-labs/v3-vault/contracts/ProtocolFeeController.sol": "ProtocolFeeController"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "597052c19df0a49d080d8d165346a1cf23867807e33c2bff0d13738ccbe28da3",
+      "metadataIpfsDigest": "d436c51ce2f415b2b2837ce73b38231dd6fd33fe35ed7485faf0ad3bd049d6b1",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "20f3164b806085e12e9bc31ee4c86dcd5901ce7f28c30eba38c4632705d79ea6",
+      "runtimeBytes": 10111
+    },
+    {
+      "name": "PullSplit",
+      "sourceName": "vendor/splits/packages/splits-v2/src/splitters/pull/PullSplit.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "vendor/splits/packages/splits-v2/src/splitters/pull/PullSplit.sol": "PullSplit"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "1d9dfbff0e1094a964aafcef39a6a3321657451aebf58cdc0e7db7efbf6be2b0",
+      "metadataIpfsDigest": "6b0aed1459b877138525603b1faec8e6199e6473c73217861f6d48d58f979fde",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "af7485ba7b6bb1679411cd0fc29b3bd182922b73a8f0b8950e586ce63a1ceaaf",
+      "runtimeBytes": 7745
+    },
+    {
+      "name": "PullSplitFactory",
+      "sourceName": "vendor/splits/packages/splits-v2/src/splitters/pull/PullSplitFactory.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "vendor/splits/packages/splits-v2/src/splitters/pull/PullSplitFactory.sol": "PullSplitFactory"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "f710da45a5746387ff8030a5ddfb459bbb351f25f818939f7fcae8c9caf67956",
+      "metadataIpfsDigest": "fa190d729a5bd8bb18df9f3a2e83ca03381666b2211d15aabe3cad5785175dc4",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "19bf6b4844f5d75ac8371604aa6a7fb9fcc57472930e2517b5773c78d364f045",
+      "runtimeBytes": 2213
+    },
+    {
+      "name": "ResolvedWithinWindowOperator",
+      "sourceName": "contracts/Protocol.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Protocol.sol": "ResolvedWithinWindowOperator"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "8c4b0798566cdfa893c7464ecc185ab2031da91d162f01db0ffdac9431841dc8",
+      "metadataIpfsDigest": "0297f9d795d9a12f7bb563b22a7ba61181190086536196460638b132bbc34ace",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "e42d8fa319437da4e361578630ffb3894c793d2ffc4641b1b3bfc3f63cb28354",
+      "runtimeBytes": 1457
+    },
+    {
+      "name": "Router",
+      "sourceName": "node_modules/@balancer-labs/v3-vault/contracts/Router.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/@balancer-labs/v3-vault/contracts/Router.sol": "Router"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "f0f107ef94aff734bb854de79f68c11d7a65f93d6795d6a093b21b7a6ff3ba14",
+      "metadataIpfsDigest": "e4fb59d48f5a3200d4b9ce71af5bfc59d886c336b85b9e536e6d9b72dc762a71",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "1f0410f1db22dc931a74f4dae705604e556dbc1be7c0d006b892ec5758f6f96a",
+      "runtimeBytes": 19323
+    },
+    {
+      "name": "SplitsWarehouse",
+      "sourceName": "vendor/splits/packages/splits-v2/src/SplitsWarehouse.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "vendor/splits/packages/splits-v2/src/SplitsWarehouse.sol": "SplitsWarehouse"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "fde59cbf9e3d08cee15adfdec58c82b67b92e0c3398a699bec7e49fd54b06632",
+      "metadataIpfsDigest": "28e9b5a57301c9ddad7e04065e73e27acc0cce74b45515ce9283f9c1f9e71217",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "ac7dc0da95d4509bf153ba9960d29f24b3bd80677c137b0a692c3c542795d1f8",
+      "runtimeBytes": 8347
+    },
+    {
+      "name": "StatementRegistry",
+      "sourceName": "contracts/Protocol.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Protocol.sol": "StatementRegistry"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "6f922ccb8b9b8b1b1650460bd242040f28608698e6b33b5401ec9480ac036e6f",
+      "metadataIpfsDigest": "5e61302819597987e748ea3f8e33784e319ea1b44f0f80cd633941b129a11e8b",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "8f3f1f1a9b523ea1d2a61c0b38a4c5c0d22b5d87d60e26e439aef578cd7ddd8e",
+      "runtimeBytes": 13714
+    },
+    {
+      "name": "TimelockController",
+      "sourceName": "@openzeppelin/contracts/governance/TimelockController.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "@openzeppelin/contracts/governance/TimelockController.sol": "TimelockController"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "fea67fb4fc1c12da1eb78f0587069f5d817b30f8a20c6d29a10d8aea869900a4",
+      "metadataIpfsDigest": "3a15ea5501c90de55ebdfdc25d76083e410112b604db5898ad8816eec734bc56",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "c21bb8b72b78f001bd2a89fbb9cf5dce90b984a5d41898b53d6c9c9abeb73fd2",
+      "runtimeBytes": 5377
+    },
+    {
+      "name": "TrueToken",
+      "sourceName": "contracts/Protocol.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Protocol.sol": "TrueToken"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "9e226a6705bbdbe468852743314375b8195569790d412cd8096b9aad5cb58e27",
+      "metadataIpfsDigest": "29fde1c9498af8bd1658e38bc03bd29d4f7dd8af42540925f87ac1b51c747e9d",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "846519cd824cb0fbc6614127c7584a8e309970d46f8d846d6f39a903b5421e7f",
+      "runtimeBytes": 1543
+    },
+    {
+      "name": "Vault",
+      "sourceName": "node_modules/@balancer-labs/v3-vault/contracts/Vault.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/@balancer-labs/v3-vault/contracts/Vault.sol": "Vault"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "1cc306fa56571538e103e642f1f4edbf6048024aa64174f5a827a5971eadc1be",
+      "metadataIpfsDigest": "de43f6fc76f9e15b7f3134f136035869b99c034ea3541a3f800f10c3aa30705f",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "bb583cece0fe6618edfd41d3046f7b4bbed5a191a0b0e4b9ffd88f046582781f",
+      "runtimeBytes": 24242
+    },
+    {
+      "name": "VaultAdmin",
+      "sourceName": "node_modules/@balancer-labs/v3-vault/contracts/VaultAdmin.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/@balancer-labs/v3-vault/contracts/VaultAdmin.sol": "VaultAdmin"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "49d5c16d52851a6e7309ce8d0b24f4f9b22d61f53f0333061385363f7b908ca5",
+      "metadataIpfsDigest": "de7d94f2fc159dab053b641424e838eb1ca50b1686e9e66dff1332a4ad61bf59",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "ecb3efc464f05332ec9493e466469e81a4eef006e11e3d0d2f632fb461aa3560",
+      "runtimeBytes": 12751
+    },
+    {
+      "name": "VaultAuthorizer",
+      "sourceName": "contracts/Governance.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Governance.sol": "VaultAuthorizer"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "80c040fef453800b16d6a409755fbbff1a37a275eba86ad2cf04bdd845577e9d",
+      "metadataIpfsDigest": "82b0abdfefd01c8a9b2087f5f4c63923fc462ccba54df5de6a0c54a895d6e7e8",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "c7b3ff3255b04e83f3227c2a0b1bf955dc2dab21df1df9b96f40c35b10d86b5d",
+      "runtimeBytes": 285
+    },
+    {
+      "name": "VaultExtension",
+      "sourceName": "node_modules/@balancer-labs/v3-vault/contracts/VaultExtension.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/@balancer-labs/v3-vault/contracts/VaultExtension.sol": "VaultExtension"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "8beedc671f52d5f27b0f78bbe15fd1ff135144e9e3ddc3c38277d23681290fac",
+      "metadataIpfsDigest": "3676d9275d39bf29a263502ac7ea82db5d0071d89cd4ba37888a87c6d4aab741",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "c687a5903618e6dfcf64cd2bb8a0220892ff073ba821e19f2c079249c86c9456",
+      "runtimeBytes": 20004
+    },
+    {
+      "name": "VaultFactory",
+      "sourceName": "node_modules/@balancer-labs/v3-vault/contracts/VaultFactory.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/@balancer-labs/v3-vault/contracts/VaultFactory.sol": "VaultFactory"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "62abb745936cc7dd03095c51eaa7324981c65c5659d3c2b1ed2c1f132264fc7f",
+      "metadataIpfsDigest": "acbe9186015657986b73f89e210a817da6e922f72c974112ce669b1a7ee46e79",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "5a936cc39ff5bcc572069598417df8655abd0826446101a715b9622d5b873f17",
+      "runtimeBytes": 3088
+    },
+    {
+      "name": "VaultGovernor",
+      "sourceName": "contracts/Governance.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "contracts/Governance.sol": "VaultGovernor"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "3fa10e9051f5610579317357675ec9178fb509918dc80d8dd709a581f24ecf14",
+      "metadataIpfsDigest": "e5e5ec08db250a420601c89c4067686051737b8386c3f4d6438ca483fe53daa0",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "68215e4ace86b654c0221a5f19d460f0a7b9960aeaf59ee1545cbb6e354bbf40",
+      "runtimeBytes": 14646
+    },
+    {
+      "name": "WeightedPool",
+      "sourceName": "@balancer-labs/v3-pool-weighted/contracts/WeightedPool.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "@balancer-labs/v3-pool-weighted/contracts/WeightedPool.sol": "WeightedPool"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "b771594d515e4820734d79a1825f2e6f1545066a9bfb59fd6e4a91294c0522f9",
+      "metadataIpfsDigest": "523f59bf72fb338e91108b50331c0a6791ab83071b94da0337bb4159ebf086b2",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "317183665b3bdbf7cb688fc21b17a22ddb7a9decdb8077f0a999b62abd2e37b3",
+      "runtimeBytes": 14549
+    },
+    {
+      "name": "WeightedPoolFactory",
+      "sourceName": "@balancer-labs/v3-pool-weighted/contracts/WeightedPoolFactory.sol",
+      "compiler": "0.8.28+commit.7893614a.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "@balancer-labs/v3-pool-weighted/contracts/WeightedPoolFactory.sol": "WeightedPoolFactory"
+        },
+        "evmVersion": "cancun",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "e3ac5741d97bc0dafc4d8c6b3b01c042b6cf8d4919d772972ec96bd1730f3476",
+      "metadataIpfsDigest": "1e14bb8d97708ccb41948407be86c6a1ef08daa0ee77c97cf40c4a7b1cd7594e",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "32187744bb566af7a189973716a9adeef7752fa68e1154121879d10ffc133424",
+      "runtimeBytes": 5566
+    },
+    {
+      "name": "WETH",
+      "sourceName": "node_modules/solmate/src/tokens/WETH.sol",
+      "compiler": "0.8.17+commit.8df45f5f.Emscripten.clang",
+      "settings": {
+        "compilationTarget": {
+          "node_modules/solmate/src/tokens/WETH.sol": "WETH"
+        },
+        "evmVersion": "london",
+        "libraries": {},
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 1
+        },
+        "remappings": [],
+        "viaIR": true
+      },
+      "metadataSha256": "a52278863fc985a8a7a774b1f13316b91a8b4f5599f24aa915f4f0cb5323b8d2",
+      "metadataIpfsDigest": "a47c3829a2aff2f72ab24173381116dbec5b92dacc65170cf93616d67d96d8a8",
+      "binding": "Current Solidity metadata UnixFS CIDv0 digest equals embedded bytecode metadata digest",
+      "artifactSha256": "08543f852ca90918f2ae974583e53404cbdde7ec6cf79c07980ad7bf057a2a4f",
+      "runtimeBytes": 2908
+    },
+    {
+      "name": "Wrapped1155",
+      "sourceName": "vendor/1155-to-20/build/contracts/Wrapped1155.json",
+      "binding": "Exact original published ABI/creation/runtime bytecode",
+      "upstreamArtifactSha256": "cb1d95432f79ef62e057632584efa55c5830831979cf604e2d5204cd1686762a",
+      "artifactSha256": "c7040cd19068d4aa2fd694cd978850fdf29cd97926dd4e74e124950e1115e648",
+      "runtimeBytes": 6299
+    },
+    {
+      "name": "Wrapped1155Factory",
+      "sourceName": "vendor/1155-to-20/build/contracts/Wrapped1155Factory.json",
+      "binding": "Exact original published ABI/creation/runtime bytecode",
+      "upstreamArtifactSha256": "28a3b7618b9af2baf27000574b61a4c8d4d51d857a58fdbe9b44f564f5676b92",
+      "artifactSha256": "00a71b493d3bd3ff8885c4b825775cbe5edefaebf3a0cf6d09f1352e0b4e0103",
+      "runtimeBytes": 6755
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "contracts/Governance.sol",
+      "sha256": "1e3310c279d37c602a7cb57ffd2968ccbba3ced914ee59cd14e804bb71d8b575"
+    },
+    {
+      "path": "contracts/Protocol.sol",
+      "sha256": "067a7e9109c8e297b40e6407ca8b7a7ed7f00a994ae92e1483445bae4fedff06"
+    },
+    {
+      "path": "contracts/VaultIntegration.sol",
+      "sha256": "d44b13c6b783a28bdf1dfeaddf702b97037c8be60d29249ef851f9e040ceb04e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/pool-utils/IPoolInfo.sol",
+      "sha256": "379e0d2449934a01181e55864cca49fbc0d2eca39fa32ec9e5a7f5995a011205"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/pool-weighted/IWeightedPool.sol",
+      "sha256": "a7b1d84bc48fa2d4ff852a5f20c6591dd7a1b75194d4d4c781da867619c03027"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/solidity-utils/helpers/IAuthentication.sol",
+      "sha256": "dc02070736eb16d0e02af0fd374c1648021510bf151c4d9f82ae6c78469057a3"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/solidity-utils/helpers/IPoolVersion.sol",
+      "sha256": "a3f0f1e4fe87bb90bfeecef9a6db76a9f4ea156dc22d98ff7ffd3e886a5e9ca9"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/solidity-utils/helpers/IRateProvider.sol",
+      "sha256": "6753e75c498eccdd830876248419856972d8374ee4d6eb34c326d01d5e708579"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/solidity-utils/helpers/IVersion.sol",
+      "sha256": "600c496cfdbc1cca0c9e3ad20a78bd2a0117649156d8c1b8cef5548adba1cb4a"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/solidity-utils/misc/IWETH.sol",
+      "sha256": "2082227c755e5174808967db5778533e6de4ab4ae6ad1639a0fbab5cdbb4dc81"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IAuthorizer.sol",
+      "sha256": "706677415fb432d0a207f2424eb4d502c4bfacf6c3035f500f4c85e503c9452e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IBasePool.sol",
+      "sha256": "f5d20625d4c2ed9b3d328a17cb53fbec30f934e6975bf3731a3856f96607f050"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IBasePoolFactory.sol",
+      "sha256": "cca56358467b92173e492f9329d21860f5141ded221f766ce8444b57cdfc67f7"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IERC20MultiTokenErrors.sol",
+      "sha256": "d07e78b98759a499238b761a77f82d8864f6d521f751a769141574519be565d5"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IHooks.sol",
+      "sha256": "8215f36ecb5755795cea74ebb8f31ef03fea4153015e7b1dd70238d5dca1cd0e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IPoolLiquidity.sol",
+      "sha256": "16280ed596335c9c777ed1b2db1b98fc70430dafa3c0faecc020922c5112de74"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IProtocolFeeController.sol",
+      "sha256": "a5d5be1067d4cd25f1446ac6e5780c1f61b06499b979b2585d66dd813dc66e93"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IRouter.sol",
+      "sha256": "e762ee0be14b036bcd908c03b015b0c713808b56d39ba3c95c3eabd685834ed6"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IRouterCommon.sol",
+      "sha256": "84efaae8af93fda1d8bb629c16d588c9da265d2ba1d75fc47cf849e38d51a47a"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/ISenderGuard.sol",
+      "sha256": "762920ea9bedd47b23ae953d6edf989316b8b008f1e425453a2bcfb72053993e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/ISwapFeePercentageBounds.sol",
+      "sha256": "b50a42dd21aa60fe9101ff77385fff56b6c61c040114093afc9bea2a5efa9775"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IUnbalancedLiquidityInvariantRatioBounds.sol",
+      "sha256": "6e7dfb50484f4fea68a65419c24ef6a2d2b3678f3822e28374b12745dc2d1802"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IVault.sol",
+      "sha256": "c207bc90e732dd3974b679f417bd5ae24ce285de031280e431f61925c30c579b"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IVaultAdmin.sol",
+      "sha256": "e840ffac6626d218ed7806e96f2b7ec4bf38e48cec318bc938f6c2c3e3357cd1"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IVaultErrors.sol",
+      "sha256": "cf44102d921f0f7058c12a193ac57d2a73d805c263b6d41ac669b17f60681a03"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IVaultEvents.sol",
+      "sha256": "41f68542a0ba9f1c0a3a66e1d6a089ecd5242aa332ec66d623e9169257e059b3"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IVaultExtension.sol",
+      "sha256": "5ba76cbc46c779c3d06c7d11cb6f7c5a8f9bf86f9d1c769bc56258e0b864f1e4"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/IVaultMain.sol",
+      "sha256": "79b7b257f2159ddbfbcb68bed5870883d5a0fb19c8f84281f9e3f477dcbac777"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/RouterTypes.sol",
+      "sha256": "df3c8801711ce197236f2d37470fe69ccb45dd826e4876dbff0ae5668e9cd176"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-interfaces/contracts/vault/VaultTypes.sol",
+      "sha256": "d73441f3b119e9cac5807f23a069802fef4ad0b511382d22390081694692b755"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-pool-utils/contracts/BasePoolFactory.sol",
+      "sha256": "2837e7f025fb4c61ade011d0992e22b799e31ae50f8a3e5e9b754f201489ef35"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-pool-utils/contracts/PoolInfo.sol",
+      "sha256": "d343bcd9879651fcd1bbff4be3eec57340f60d25bf273942e9455d160e7b1736"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-pool-weighted/contracts/WeightedPool.sol",
+      "sha256": "19f7acd875fe7fdfe1b1185670c2640848173d8dcd9daa01843d0c2a7dac1e09"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-pool-weighted/contracts/WeightedPoolFactory.sol",
+      "sha256": "e8196cefbdc3db99f215d6746716272a9811218801df758427c2fae8d772e0c0"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/Authentication.sol",
+      "sha256": "2a5ee70feae828a03c56312189775ebb68c21390dc7589ad21aefb27ad0cb1f2"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/BaseSplitCodeFactory.sol",
+      "sha256": "baa985aed90b7b218560f32366c7a3430749f6d08839fbaf59f23bf81b9e4338"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/BufferHelpers.sol",
+      "sha256": "daed5f79b4dbd644ffd559854040ff0146a58f3cd3819b0a177fb077add5e56d"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/CastingHelpers.sol",
+      "sha256": "74d19048db36e532044fde4b48fe290c340536849d0d63e805dee8e2a679263e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/CodeDeployer.sol",
+      "sha256": "cb3abc411d9614cdebf76d264c76a5562dd5d004e1de96526a6c0a70eda3c75e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/EVMCallModeHelpers.sol",
+      "sha256": "4716b90b5441cf98f4df95df42ee31773062f1d89569aad742bae6ce31819fee"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/FactoryWidePauseWindow.sol",
+      "sha256": "f1ed0527a20223b112869c6f3f5788e9228b4a3f6b4a7818fdd1ee78f28e67a7"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/InputHelpers.sol",
+      "sha256": "d17b6ae9a6b978a80cab13badcb7624e1a2e60da45f7e8808ca778b40ec8fbfa"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/PackedTokenBalance.sol",
+      "sha256": "3db4fa0e6bef541fdcb0bb28045d6125f1862030ec5e00f077c85a806764a8f5"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/RevertCodec.sol",
+      "sha256": "0a6f59a9b2d73bac68828f90ceeaeb8b18e094a71ec3b0192bad0941cc825a92"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/ScalingHelpers.sol",
+      "sha256": "005996c9fb77fd7678c9da2954194f64c87d8fa404937f6c873b2cdc2bac5b0d"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/TransientStorageHelpers.sol",
+      "sha256": "e531227accace4c7fb139b337ffeb125fe08a309e5e4e30bcd6bf8eccbeb54b1"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/Version.sol",
+      "sha256": "4c6dd5394175e7de0dce62f4523dd4ee11ced0126a47bb6f500a4fa85bd1537d"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/helpers/WordCodec.sol",
+      "sha256": "677ea27f0548142719b35be28caefb50443ebb4b8403e513b9359b96ceb1b550"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/math/FixedPoint.sol",
+      "sha256": "1e063fe00891a90376686350304a57377b27f9b64af14c32a1a826be513a7d02"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/math/LogExpMath.sol",
+      "sha256": "1fc52532773f733ebb24a35dc4091c59a13bad938db794adf736b2e33f3b2910"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/math/WeightedMath.sol",
+      "sha256": "4b3f1c7b0c70e55b3ae1b907426991ca7dabb66e9bd8c1180cf86eabf42ced24"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/openzeppelin/ReentrancyGuardTransient.sol",
+      "sha256": "0d51bcd0d530eb35feedec9193426e59541f0645fa8be4a8f5b9d13dffa69d1d"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/openzeppelin/SlotDerivation.sol",
+      "sha256": "340ec039ca76170ea47a77c837030a9ee58b8b4767d502624c1f344a47b07ee5"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/openzeppelin/StorageSlotExtension.sol",
+      "sha256": "1c6cc62d8816c7fbeb4aee884c60be7545d46f22643182635088b7e7c8fa3eac"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/solmate/Bytes32AddressLib.sol",
+      "sha256": "49b251930c1d3dce40ffefd4f6d42391403e75edea62f59cadb071398f7b90fc"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-solidity-utils/contracts/solmate/CREATE3.sol",
+      "sha256": "30245cb3ab86688daffaa3d0aeaf9f03aca9bc2a6611f911a4b18cb6fa304add"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/BalancerPoolToken.sol",
+      "sha256": "106597f2a849348828e1115ffe4e0f9be3c7b304d8cb66a6c36ee1bdced57def"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/BaseHooks.sol",
+      "sha256": "be90754ff602e0ebc506e24e3bdb59b657d255d6df04035885f9c25fb31620a8"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/BasePoolMath.sol",
+      "sha256": "aeae86c4770d1de073b6ca43787ac15afebeb732afc69665d6faf3d7b29a59ab"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/CommonAuthentication.sol",
+      "sha256": "3c6e34beb821cf73eb06b3cfda0aa9cd09e198178bf714c7f862173d9766cf8b"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/HooksConfigLib.sol",
+      "sha256": "5bd0a161e7af359a19975fdbae5eb897286f3e91812ab2645958f1fc4573e49b"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/MinTokenBalanceLib.sol",
+      "sha256": "8c7252e6c9095b0ae5be12868f9fe50eaafbc6371d51667837e3e3855aeeb7c9"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/PoolConfigConst.sol",
+      "sha256": "831ec7e84288a14e9160b6a4b575099837388cdcad30ff881eee1a12c5747850"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/PoolConfigLib.sol",
+      "sha256": "2f41ca23326e0904b0818c67f5ab0b44c742423979a35c659aca7e40babcdfca"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/PoolDataLib.sol",
+      "sha256": "a87d4b882406d877113a28ea1a399da7a602f9af54f07882a8122e752d0f8525"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/RouterWethLib.sol",
+      "sha256": "739a524af63bf0aae98de514a080e676083e0e0508fa2eca6227050c7c51be5e"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/VaultExtensionsLib.sol",
+      "sha256": "6963ef34fb04ed117e83ca419cd03651bba196a8dc01936deb55e5ea9f484078"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/lib/VaultStateLib.sol",
+      "sha256": "5d35b48900d86892c8e3aaf90dbe345dc6829167a5c7bb54e08460b2d70bfd4f"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/ProtocolFeeController.sol",
+      "sha256": "96617fbfb9221265c5fe36e5adb6302d29e6fb392ab3a81e180a9b5b361b598b"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/Router.sol",
+      "sha256": "f0d4b5702f08badece5de3ca6660f10fad12a5c3a5e2ba89f2f2bdb852a4291c"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/RouterCommon.sol",
+      "sha256": "48f8f51dab27598df722840338089dc7cb5ec85cea24860c677b6fccdf1c65fd"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/RouterHooks.sol",
+      "sha256": "57d1241ed5a5e90242654c69a9b9c1227670fc29adf21b0839fdb108a8f9c2fe"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/SenderGuard.sol",
+      "sha256": "b74955f99413edb5caf013a7e0d4f8dc226663f2e100b147a28cde0d4cb67c94"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/SingletonAuthentication.sol",
+      "sha256": "c9303cdb0150be33960091ca43abfb9a16f5afc1fb67688258cbf5c96cf71ada"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/token/ERC20MultiToken.sol",
+      "sha256": "3d9e55c37b5bfa07561b3f8b9c192ba73b6f2aaa49bb9d04045448473cd595d7"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/Vault.sol",
+      "sha256": "270e6f2c2fee00cdbd716d6c634a17eb323b4acb1391bdebeaa0a9ad1d6d1da9"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/VaultAdmin.sol",
+      "sha256": "10e4df173e748054ad79ace38e69b88eed9f8bfb5a1b647933c4095af8277a28"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/VaultCommon.sol",
+      "sha256": "dfc2ae7ec0693149a2177093aaa4437e6f50fdf651c767ed458c9a6fb311e761"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/VaultExtension.sol",
+      "sha256": "69aa4bf37cf83b7bac92d957f17f265a278e83028c868f5c981735b080ab5ec4"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/VaultFactory.sol",
+      "sha256": "a60833fecb84fff4ecd8e37f9842695a90e571be9332130308b00593af8d79dd"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/VaultGuard.sol",
+      "sha256": "a44426126f4f537cf99ecc2d9a62b53a99b5b9e65d815248e1fc71001b217a7a"
+    },
+    {
+      "path": "node_modules/@balancer-labs/v3-vault/contracts/VaultStorage.sol",
+      "sha256": "b4db71901bf85beadc82df35d87aa0f1e2ba2fb903cbcb811e930238e364acff"
+    },
+    {
+      "path": "node_modules/@gnosis.pm/conditional-tokens-contracts/build/contracts/ConditionalTokens.json",
+      "sha256": "08a1c8752460866482387a185ab5e1d1e3589f06a95d1322f24b5cb14bc33af8"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/access/AccessControl.sol",
+      "sha256": "1086a1ad3788972b885ff3f209da510615dde6214d46b29e1cd2a4924f66c06d"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/access/IAccessControl.sol",
+      "sha256": "c112f5c86fdc4e862f88d4f5694530342320923ebd5b5e7d9d8493550d337c2d"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/access/Ownable.sol",
+      "sha256": "38578bd71c0a909840e67202db527cc6b4e6b437e0f39f0c909da32c1e30cb81"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/access/Ownable2Step.sol",
+      "sha256": "c75345d7b9feef17ae29f2a800ca2f65f8021cf80436a41d6ec00f57f5180f36"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol",
+      "sha256": "fee9f14eae7b45504e19f2e5dd55e74d7ce05f9733157a5811bd883b80256639"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/extensions/GovernorSettings.sol",
+      "sha256": "f6268357cb5aeb8c2509699f78127b9b360e9bb57c2b4cb1406ca24a4573d66e"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol",
+      "sha256": "4fe02228a581a7b5f0f322834b79a898c5d65e1222573ca8afc0334feb6ae48b"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/extensions/GovernorVotes.sol",
+      "sha256": "bd306880ef79bac2fbd7ba3ed6ecc43bef4f78cbb5e26d12bdc0cc18a795163d"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol",
+      "sha256": "9febb68a832e0bc5e15fee84a1112436c8839f7f2294b3ec103cb1700af71c3c"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/Governor.sol",
+      "sha256": "063125f0ce359e1bf169c2ff8989e0b8f5ffc87b766398c158d229be1e147dd4"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/IGovernor.sol",
+      "sha256": "2f73642a69d9ff9033ffbb835dfac260c523e32d65e0eec3259857e5934882bc"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/TimelockController.sol",
+      "sha256": "89a4cf0e404a42f13d01efefb5c1b3b1d46641c670b626b1b885330f3faccd2a"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/utils/IVotes.sol",
+      "sha256": "f033b73ce92762d9ed9496b8a0f5f72bd0479e42388da584c2ff276cbb5cb9b1"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/governance/utils/Votes.sol",
+      "sha256": "feded838fdab8e52e1a3352f95dd7e63311b2c079f2293bda17633fbefda6d96"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/draft-IERC6093.sol",
+      "sha256": "56380323009ef4a119d44550b910fde1bff9cedde8f7f4c690152c7629bc3338"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC1271.sol",
+      "sha256": "599887e85d375f463f30e3c4cf139ea541e73c7b3535eb040da5e8d8145a4f14"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC1363.sol",
+      "sha256": "54f427f63724d9760211dfa9e0cc5d79d86c0724becd81f8e638e2e27b0e2669"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC165.sol",
+      "sha256": "49abfb8fa26e3f1715fe05948a96e3762b805bd4a77d103eb40ba96b1acfa144"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol",
+      "sha256": "cb42f0b4d269ba8ef2629c176a7f99bf4fb50837c92f45596b54822b26e3df4b"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC4626.sol",
+      "sha256": "76ac9a58abb54725e50d19c66583135efc523410f6d6fbcdfc0528c4cf070cbb"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC5267.sol",
+      "sha256": "efd1ebd1e04b6ef9c3b8781a097588f83da954323f438d54a71dc06508e6c7b8"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC5805.sol",
+      "sha256": "6ecc2370599496e6d862c2b4893975ec240f0ef8475daef1d20b5dd1efa90102"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/interfaces/IERC6372.sol",
+      "sha256": "2294c70df203a6a38985d064adca030293bec4b7aaa1237b62c7b1a34154f130"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/proxy/Proxy.sol",
+      "sha256": "5f5081378d4bc82b814b0d64990b7f7b9c69697593b73a3341f4a269940ba540"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
+      "sha256": "b3da220debe08c174f8848fa4c41cccf3d49e4e23c81d76528df99fb759f4937"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol",
+      "sha256": "8e2baa224856aa31b2b8706b2a9eb9c43694a04cfd02cb7886aba2f88014b1dd"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "sha256": "c322867b0b30f6d5f791e5ab9af5e3f5ff1c8c127906748f6725e592a5f40719"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol",
+      "sha256": "75f9f66db047b1413aa45538a53211e7b20479d74c3dd2657335bf4dc50b8811"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol",
+      "sha256": "f2a0c9b7b4b67cec3ae19dad94454da68da553512f22e4eaf39c46447e11815a"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "sha256": "9e7c70ec72d2f7d592e23ea84f3852b04f91f6f644ce57e0263493046b36afb9"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol",
+      "sha256": "026aca1c8ee4574eb9719dca7dfc33e3e57a618715ae702a675e8a8c9ea1e82d"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "sha256": "30edf7394bab78d48b7db3a059248e1ea7c2c77d2ec0e37a13bb91415aafbe5a"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "sha256": "8d3062e8831a07bab894607a7e6990f0b336024079ed5baaaae1f2b103e292ad"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+      "sha256": "2eae310f371d9107d81d4b1285f897e56074465f7caeeff90b5e3e1770dda7d6"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol",
+      "sha256": "fa1e231eedfd128232d8f34e9599165fb302c9dee5e58ef009f3b99f7e5d930d"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Address.sol",
+      "sha256": "2395099726e6c215641a5857a74f663987f37a3ad8a2932a9f3d8ee27fb11dd4"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Context.sol",
+      "sha256": "847fda5460fee70f56f4200f59b82ae622bb03c79c77e67af010e31b7e2cc5b6"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Create2.sol",
+      "sha256": "1ddfef650decd5f4e4bb57ac5f42add20bf90bc8ff716de27b8f22619be332ef"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+      "sha256": "0964ddd02f4a7a8cf9ba130e3aeead588ca3d425d5bc13cc4221358c69108ed0"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/cryptography/EIP712.sol",
+      "sha256": "e7f41ef62494c6c26ddaaac0f2790fa365b635e7c5aaacbeafba3067574e38d7"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol",
+      "sha256": "93e4c09f9c65d37a14d796601b67a67fc918e16957a6328261f8635e136adf76"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/cryptography/SignatureChecker.sol",
+      "sha256": "37a06b31bce546a771a6450bdccf8f88ab3fef1d91e1aa5a2e10324cbbd9b2f0"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Errors.sol",
+      "sha256": "0704b9d6c032cca8512a3bc3f30f49f86f1f03102d2896a3d23e794b82efea66"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
+      "sha256": "7fdc4dc9e3872f6a4c1ec9cfa9583a1fc18ccd7a416397a6e698bd5bbf92f32b"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "sha256": "7c5c3f98ab876991e7dd34b84d41137e836306eb9f36f6386a631f5be3f5d6d4"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+      "sha256": "68cf79a637995d5ed243c4a5856b42a5e134ee8786a05034e24d75927fc40ebc"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/math/SafeCast.sol",
+      "sha256": "9769274bf53f26a7c7896c526ea1980dc9bea5bf5c2a5fd04870008c4afc1de9"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/math/SignedMath.sol",
+      "sha256": "1ed50b1056af886752f0fb48a0165d381e69bb4a4b18b893b066dc144a7e08d7"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Nonces.sol",
+      "sha256": "9b4cbb85d1f5053c744e83302538eb643a713ffd14bc37665b224f1c66529339"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Panic.sol",
+      "sha256": "270fc8401c1a13fae6a7a4a2dd6e381b95d658896701e51f0d3e2688acab3dec"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol",
+      "sha256": "32fbb1c908ec1b4de85cc1bb10091aebd5816ffe80dfdd5ca5e084fbea67a462"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/ShortStrings.sol",
+      "sha256": "c5970e9c77c9a797941fcb9ab8c9a5d0b1227c610a919ee8a04ba061e6881873"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol",
+      "sha256": "75704538dcb223239280c6726d9a31cf769a7816718517c997fc7d63bdb70778"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/Strings.sol",
+      "sha256": "1d47b183ce3217de32c41cf6034281a783f41380ca99d1ca043509018b656165"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/structs/Checkpoints.sol",
+      "sha256": "51fdad936cefb4c63e987e97e516af965fbfca31e1798f380ae16e5b3a6fb3d1"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/structs/DoubleEndedQueue.sol",
+      "sha256": "463c51e14acbb0b9afef3f1f6903203cce5798fb168742ccd7e049e0397b2184"
+    },
+    {
+      "path": "node_modules/@openzeppelin/contracts/utils/types/Time.sol",
+      "sha256": "79534431c3934b23eafab9d02bda493cfc2ae383ba117a7c9698750c2e4845f1"
+    },
+    {
+      "path": "node_modules/solmate/src/tokens/ERC20.sol",
+      "sha256": "a3a7e839f42762ef24623581542a916e838f3c7c0bef647963d1fdad0f9d208a"
+    },
+    {
+      "path": "node_modules/solmate/src/tokens/WETH.sol",
+      "sha256": "22277963408ee27ddbc769fa27b5a09031b0f699e6b24d36f55435c6a2039ac1"
+    },
+    {
+      "path": "node_modules/solmate/src/utils/SafeTransferLib.sol",
+      "sha256": "aeda1e7c2966b2c435afffaa76001ec3e7bc3abf6c585ebe24ccf2930aa452d2"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "e49d4fb033bc3cbf5f7ce9ce2f3df6f881b1f84cb08b498e0b24d1ff9fab219f"
+    },
+    {
+      "path": "scripts/compile.mjs",
+      "sha256": "c631659a85b5beb55d2c9c065e720940d263b1ba02f52bc9eca56cfbfdf2ef94"
+    },
+    {
+      "path": "vendor/1155-to-20/build/contracts/Wrapped1155.json",
+      "sha256": "cb1d95432f79ef62e057632584efa55c5830831979cf604e2d5204cd1686762a"
+    },
+    {
+      "path": "vendor/1155-to-20/build/contracts/Wrapped1155Factory.json",
+      "sha256": "28a3b7618b9af2baf27000574b61a4c8d4d51d857a58fdbe9b44f564f5676b92"
+    },
+    {
+      "path": "vendor/permit2/src/AllowanceTransfer.sol",
+      "sha256": "7be95b655a59352a3007147a1b79f211fc819b9a615a92017acf7257ecb88276"
+    },
+    {
+      "path": "vendor/permit2/src/EIP712.sol",
+      "sha256": "cbb7df63c5839a3fbec78142222886da1614a4c7fcddcd8ba5ea176f9549d859"
+    },
+    {
+      "path": "vendor/permit2/src/interfaces/IAllowanceTransfer.sol",
+      "sha256": "a31c712c5cc8d171818a4225c09011f9ba86b2d5edf6045ac812bab93b6bbb87"
+    },
+    {
+      "path": "vendor/permit2/src/interfaces/IEIP712.sol",
+      "sha256": "e386407da496dbe874c10a81801c55744fb2922a51389a51c79001422e81e0cd"
+    },
+    {
+      "path": "vendor/permit2/src/interfaces/IERC1271.sol",
+      "sha256": "ec69c9c80939d613cda408fd05424e0dfa7b1fd76168a1fb6593f4b26b3b3d7b"
+    },
+    {
+      "path": "vendor/permit2/src/interfaces/IPermit2.sol",
+      "sha256": "51a2a4da1246abda880b17c72f7c45ab3a8dc4bcaac5ff7ba78221b6603cd7ce"
+    },
+    {
+      "path": "vendor/permit2/src/interfaces/ISignatureTransfer.sol",
+      "sha256": "8e7f355d7751cf96e81069c17fb97a3ec973c9391fbbb58ad3fb6e75be5cb19b"
+    },
+    {
+      "path": "vendor/permit2/src/libraries/Allowance.sol",
+      "sha256": "6c7d1edc74a9dca9940fa835db09302ed1a35019d69f4188351466e9a3fff458"
+    },
+    {
+      "path": "vendor/permit2/src/libraries/PermitHash.sol",
+      "sha256": "23f89633dbd02d8b52a33de3a915af5af73ff25e31f88b6cf994358f802efa60"
+    },
+    {
+      "path": "vendor/permit2/src/libraries/SignatureVerification.sol",
+      "sha256": "1804b3d7b1183225419ec8ee45daf89174ff3668315d71d28111d5fcc179f8e4"
+    },
+    {
+      "path": "vendor/permit2/src/Permit2.sol",
+      "sha256": "a19dd81d4edafe3bba0178abfc9063886c2981b4711a4cbbf3fac19370defc9a"
+    },
+    {
+      "path": "vendor/permit2/src/PermitErrors.sol",
+      "sha256": "0919679c5bb58466d3a06d9d3297ec4946ba5d135330f10f4fb080067586afad"
+    },
+    {
+      "path": "vendor/permit2/src/SignatureTransfer.sol",
+      "sha256": "234effebbe1e7ad7a3c791ea2b411f8e90993b758479817eb32c8767ea62ee8d"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/interfaces/IERC165.sol",
+      "sha256": "0cfee724ade6b6ef9a3014f1458600d767698ea52df432a8010d9910b35a619e"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/interfaces/IERC6909.sol",
+      "sha256": "0a0f7dab6e77fed20d63332eccd299594136a9ff4a459d06dbd41a241ee1a9df"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/interfaces/IERC6909X.sol",
+      "sha256": "d8e7d6dba19489348ad23f0944e2218c7da569e4f3b3bbab4ecaa9cb6f56ea38"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/interfaces/IERC6909XCallback.sol",
+      "sha256": "a446b3a26ead43199f3f32844a95fd797647d8e209607fcf507e46779c9f27de"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/interfaces/ISplitsWarehouse.sol",
+      "sha256": "19b704f36b7a56246501813f4d626da2255554325d0de8c4b692638fa47d38ca"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/libraries/Cast.sol",
+      "sha256": "43b4ea804eb0605bc069db80f40e091601187f56dabf768cc3bac038b26031b8"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/libraries/Clone.sol",
+      "sha256": "a54369735607a1bbab347a0254b1931e445784f48bd6f0f6fc100a64e23ca096"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/libraries/SplitV2.sol",
+      "sha256": "f0f9c139304968c5029f3fcb7a765852c811d2d10f7a1b76cd1a4a9e995abb57"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/SplitsWarehouse.sol",
+      "sha256": "1fdbcbe8a6515745367741c92007b855b03517527f688ed6217a9ee4dfedcd4c"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/splitters/pull/PullSplit.sol",
+      "sha256": "b86b7fa361cdc6d5c7802a8caa4c9499469a34ad24e28751a636a00ec08ff331"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/splitters/pull/PullSplitFactory.sol",
+      "sha256": "741402a3d74852f7710abc1d441f4f0d5f01d783a016e02c66a99b1ecd9b8b1c"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/splitters/SplitFactoryV2.sol",
+      "sha256": "8bd5230b65dc5187f78c9fe55e6b271ca0c61d27a487cce3d29abb1caa908949"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/splitters/SplitWalletV2.sol",
+      "sha256": "736309d648c0fb3d2b6bdd063f73c3c711b8d9d362ba21fa03e34d86ad736bda"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/tokens/ERC6909.sol",
+      "sha256": "8d5c705f9a38860e8dcc8de7004a11d609ce02afbf9caf5dc51aa47f9bceab31"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/tokens/ERC6909X.sol",
+      "sha256": "008d8febb254aa64fff823f0b6b70888da76fb49578b2fb63cd7ae575c865fbe"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/utils/ERC1271.sol",
+      "sha256": "1cf3450b447ac78b80f0a323f509ed9b260e2f77b6d38f27579e181584cc8e80"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/utils/Nonces.sol",
+      "sha256": "59b861958bfa6976177bf20edb9372a0f14abd9def15c45633916a458e822f24"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/utils/Ownable.sol",
+      "sha256": "d9ec9514f693886f21ec30aa342596e17ed313a925cf0e80cd23834e317a8f11"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/utils/Pausable.sol",
+      "sha256": "b2c8e1bafad89dc7cb08a90b6a23940de52bf83b940c7fd1bcb1bc5f4849d0f1"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/utils/UnorderedNonces.sol",
+      "sha256": "6d1f74899fb2931214cc3a75e86f565adb48d25fe6a347f144f568d3ab72a152"
+    },
+    {
+      "path": "vendor/splits/packages/splits-v2/src/utils/Wallet.sol",
+      "sha256": "30a03a9065c0d0f24eb6f11111d7ccbd2bb1c1b91c90f0a59a4ffb0465403fae"
+    }
+  ]
+}

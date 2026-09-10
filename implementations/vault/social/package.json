@@ -1,0 +1,12 @@
+{
+  "name": "oncm-vault-eas-social",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Isolated EAS compiler dependencies; does not alter Balancer/OZ 5.2 compilation",
+  "dependencies": {
+    "@ethereum-attestation-service/eas-contracts": "1.9.0",
+    "@openzeppelin/contracts": "5.3.0",
+    "solc": "0.8.29"
+  }
+}

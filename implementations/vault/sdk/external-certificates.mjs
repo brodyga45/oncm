@@ -1,4 +1,5 @@
 import { AbiCoder, Contract, dataLength, keccak256, sha256, toUtf8Bytes, ZeroAddress, ZeroHash } from 'ethers';
+import { inspectExternalBundle } from './external-bundle.mjs';
 
 const abi = AbiCoder.defaultAbiCoder();
 export const CLAIM_DOMAIN = sha256(toUtf8Bytes('ONCM_LEAN_CLAIM_V1'));
@@ -44,6 +45,17 @@ export function inspectExternalCertificate(record, descriptor) {
 export async function verifyExternalCertificate({ provider, registry, defaultBridge, record, descriptor,
   candidateBridge = ZeroAddress, contract = (address, contractAbi) => new Contract(address, contractAbi, provider) }) {
   const parsed = inspectExternalCertificate(record, descriptor);
+  return verifyParsedCertificate({provider,registry,defaultBridge,parsed,descriptor,candidateBridge,contract});
+}
+
+export async function verifyExternalBundle({provider,registry,defaultBridge,bundle,descriptor,foundationBytes,
+  candidateBridge=ZeroAddress,contract=(address,contractAbi)=>new Contract(address,contractAbi,provider)}) {
+  const parsed=inspectExternalBundle(bundle,{trustedProfile:descriptor,foundationBytes});
+  const checked=await verifyParsedCertificate({provider,registry,defaultBridge,parsed,descriptor,candidateBridge,contract});
+  return {...checked,genericBundle:true,cryptographicStatus:checked.bridgeVerified?'original-and-bridge-verified':'original-verified'};
+}
+
+async function verifyParsedCertificate({provider,registry,defaultBridge,parsed,descriptor,candidateBridge,contract}) {
   if ((await provider.getNetwork()).chainId !== 31373n) throw Error('Vault chain 31373 required');
   const block = await provider.getBlock('latest'), at = { blockTag: block.number };
   const reference = contract(defaultBridge, BRIDGE_ABI);

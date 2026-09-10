@@ -1,0 +1,26 @@
+{
+  "@ethereum-attestation-service/eas-contracts": {
+    "version": "1.9.0",
+    "resolved": "https://registry.npmjs.org/@ethereum-attestation-service/eas-contracts/-/eas-contracts-1.9.0.tgz",
+    "integrity": "sha512-L60y1fgKlY3a45xxnPlgRbiGQY8RF/lF+AzF1iVoR7/aEzitS0Nuyyjq8+IXs1sSSU0dl2+yGSmELxVeB6FelA=="
+  },
+  "@openzeppelin/contracts": {
+    "version": "5.3.0",
+    "resolved": "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-5.3.0.tgz",
+    "integrity": "sha512-zj/KGoW7zxWUE8qOI++rUM18v+VeLTTzKs/DJFkSzHpQFPD/jKKF0TrMxBfGLl3kpdELCNccvB3zmofSzm4nlA=="
+  },
+  "solc": {
+    "version": "0.8.29",
+    "resolved": "https://registry.npmjs.org/solc/-/solc-0.8.29.tgz",
+    "integrity": "sha512-M1hmcsejAtT1RWC+wy45Oi8a82nSnDl65wDzA3/8uWTC7R7VcnrMVIHv6/LHqnQPZ7OM2RIeKh3zpNo4E5lYbw=="
+  },
+  "easSources": {
+    "contracts/EAS.sol": "751bf7ab2f5e8b9036560dfe9fc1984cf10de2925fafe6cc71e2ea6aa97a2da4",
+    "contracts/SchemaRegistry.sol": "529434bb74ef976d9b710ade9d93c2b0f71adbaa2e83de427a8fd96e17623dad",
+    "contracts/Common.sol": "59132319dc1a72e5415df6cbc5593e581f16712c7af68b9b6c40db355df860e6",
+    "contracts/resolver/SchemaResolver.sol": "7a8b429dd14a029266159803a3c9c0ca356267e14e57cd4a81f8db95783e1db4"
+  },
+  "releaseCommit": "3683c3ec9383091eebd6f183e67b485e09a53dd7",
+  "license": "MIT",
+  "originalSourcesModified": false
+}
