@@ -1,0 +1,55 @@
+{
+  "scope": "Permissionless expired reward close and original controller existing-pool fee cache sync; no new transaction/browser acceptance in this patch",
+  "tests": {
+    "passed": 24,
+    "durationMs": 245.778333,
+    "nodeHeapMiB": 64
+  },
+  "build": {
+    "viteSeconds": 1.93,
+    "resourceReport": "completion-build-resources.json",
+    "status": "PASS"
+  },
+  "files": [
+    {
+      "path": "sdk/monetary-policy.mjs",
+      "sha256": "0f0aefe918edba60b4c82aed48b925b4452add64aa2c7714193f1420e2dfcc76",
+      "bytes": 29891
+    },
+    {
+      "path": "web/MonetaryPolicyPanel.svelte",
+      "sha256": "ae2217eb3317c2414d3896272d06edcd70e780b78c72996ad26768cd05c1c4c0",
+      "bytes": 19148
+    },
+    {
+      "path": "web/App.svelte",
+      "sha256": "8e72340e2186333674983478551fad88ee0996970b0b3421b0ac853f926219e3",
+      "bytes": 113903
+    },
+    {
+      "path": "test/monetary-policy.test.mjs",
+      "sha256": "f734db741b3e3ad147dbfd71c1b088f895e06d0469d09cf890c4aab36bbc75ab",
+      "bytes": 13799
+    },
+    {
+      "path": "test/monetary-fee-sync.test.mjs",
+      "sha256": "82660f6baf293995813d978927815d2f02124595d020ab1df5f2d3b3e6aa985e",
+      "bytes": 7118
+    },
+    {
+      "path": "web/monetary-window.mjs",
+      "sha256": "7441a99e6f7c285518904a963a961ba9a146284a309b487d3e59427e7bac482a",
+      "bytes": 1398
+    },
+    {
+      "path": "test/monetary-window.test.mjs",
+      "sha256": "ebd100156a605084b2b12ce994b6c49fd00a1e67aa16b3a4927255268e89cc1b",
+      "bytes": 1713
+    },
+    {
+      "path": "test/liquidity-revenue.test.mjs",
+      "sha256": "d1518990f8332c9474bb73b4ea9c260c29ab711e13bbe737f27442a5c93c9df4",
+      "bytes": 2629
+    }
+  ]
+}

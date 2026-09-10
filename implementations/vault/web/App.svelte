@@ -7,6 +7,7 @@
   import PackageEditor from './PackageEditor.svelte';
   import RevenuePreview from './RevenuePreview.svelte';
   import TreasuryPanel from './TreasuryPanel.svelte';
+  import MonetaryPolicyPanel from './MonetaryPolicyPanel.svelte';
   import OperatorReview from './OperatorReview.svelte';
   import GovernanceProposal from './GovernanceProposal.svelte';
   import ExternalCertificate from './ExternalCertificate.svelte';
@@ -60,7 +61,7 @@
     latestJob,
     claimables = {};
   let votingPower = '0';
-  let treasuryDraft = null;
+  let treasuryDraft = null, monetaryDraft = null, monetaryReviewEpoch = 0;
   let liquidityQuote = null;
   let palomarEntries = [],
     palomarQuery = '';
@@ -284,7 +285,7 @@
     replyTo = null;
     votingPower = '0';
     gov = { proposals: [] };
-    treasuryDraft = null;
+    treasuryDraft = null; monetaryDraft = null; monetaryReviewEpoch++;
     data = { ...data, balances: {} };
   }
   async function disconnectWallet(reason = 'Кошелёк отключён. Приватные данные очищены с экрана.') {
@@ -664,14 +665,28 @@
     return [t, d];
   }
   async function proposeGov() {
-    const owner=account,client=sdk,plan=treasuryDraft,reason=description,action=govAction;
+    const owner=account,client=sdk,plan=govAction==='monetary'?monetaryDraft:treasuryDraft,reason=description,action=govAction,reviewEpoch=monetaryReviewEpoch;
     await tx('Предложение Governor', async () => {
+      if(action==='monetary')return client.monetaryPolicy.propose(plan,reason,{isCurrent:()=>owner===account&&client===sdk&&plan===monetaryDraft&&reason===description&&govAction===action&&reviewEpoch===monetaryReviewEpoch});
       if(action==='treasury')return client.treasury.propose(plan,reason,{isCurrent:()=>owner===account&&client===sdk&&plan===treasuryDraft&&reason===description&&govAction===action});
       const [t, d] = govCall();
       return sdk.send(sdk.c('Governor', 'VaultGovernor').propose([t], [0], [d], description));
     });
     await refreshGovernance();
   }
+  async function reviewMonetaryPlan(plan) {
+    monetaryDraft=plan;monetaryReviewEpoch++;govAction='monetary';preflight=null;
+    description=plan.input.kind==='create-program'
+      ? `Mint ${plan.input.budgetT} T directly into RewardBudget; create program ${plan.input.expectedId} with exact meter, period and fixed remainder recipient. Protocol fees remain beneficiary income.`
+      : plan.input.kind==='mint' ? `Mint ${plan.input.amountT} T to ${plan.input.recipient}; new supply without MEMBER votes or protocol revenue diversion.`
+      : `Set ${plan.input.kind} to ${plan.input.percent}% through the pinned fee authority; collected protocol income remains beneficiary income.`;
+    await go('governance');
+  }
+  async function claimMonetary(id) {const owner=account,client=sdk;await tx('Получение награды',()=>client.monetaryPolicy.claim(id,{isCurrent:()=>owner===account&&client===sdk}));}
+  async function stakeMonetary(id,amount,options={}) {const owner=account,client=sdk;await tx('Блокировка BPT до конца программы',()=>client.monetaryPolicy.stake(id,amount,{isCurrent:()=>owner===account&&client===sdk&&options.isCurrent?.()!==false}));}
+  async function withdrawMonetary(id) {const owner=account,client=sdk;await tx('Возврат BPT программы',()=>client.monetaryPolicy.withdraw(id,{isCurrent:()=>owner===account&&client===sdk}));}
+  async function closeMonetary(plan,options={}) {const owner=account,client=sdk;await tx('Закрытие программы с фиксированным получателем остатка',()=>client.monetaryPolicy.close(plan,{isCurrent:()=>owner===account&&client===sdk&&options.isCurrent?.()!==false}));}
+  async function syncMonetaryFees(plan,options={}) {const owner=account,client=sdk;let result;await tx('Обновление protocol fee существующего пула',async()=>{result=await client.monetaryPolicy.syncProtocolFee(plan,{isCurrent:()=>owner===account&&client===sdk&&options.isCurrent?.()!==false});return result.receipt;});return result;}
   async function reviewTreasuryPlan(plan) {
     treasuryDraft=plan;govAction='treasury';preflight=null;
     description=plan.input.kind==='consent'
@@ -1737,18 +1752,21 @@
           <button class="secondary" disabled={busy} onclick={() => mine(1)}>+1 local block</button>
           <button class="secondary" disabled={busy} onclick={() => mine(10)}>+10 local blocks</button></div>
         </section>
+        {#key sdk}{#key account}<MonetaryPolicyPanel {sdk} {config} {account} {busy} onPrepared={reviewMonetaryPlan} onClaim={claimMonetary} onStake={stakeMonetary} onWithdraw={withdrawMonetary} onClose={closeMonetary} onSyncFees={syncMonetaryFees} />{/key}{/key}
         <div class="two-columns">
           <article class="panel">
             <h2>Предложить изменение</h2>
             <label
-              >Действие<select bind:value={govAction}
+              >Действие<select bind:value={govAction} onchange={()=>monetaryReviewEpoch++}
                 ><option value="profile">Добавить / выключить proof profile</option><option
                   value="operator">Добавить / выключить оператор</option
-                ><option value="membership">Изменить membership</option><option value="treasury">Подготовленное действие казны</option><option value="call"
+                ><option value="membership">Изменить membership</option><option value="treasury">Подготовленное действие казны</option><option value="monetary">Подготовленная денежная политика</option><option value="call"
                   >Произвольный protocol call</option
                 ></select
               ></label
-            >{#if govAction === 'treasury'}
+            >{#if govAction === 'monetary'}
+              {#if monetaryDraft}<div class="callout"><strong>{monetaryDraft.review.method}</strong><p>Точный упорядоченный batch от Timelock {monetaryDraft.executor}. Блок review {monetaryDraft.blockNumber}; повторная проверка перед proposal.</p>{#if monetaryDraft.review.totalSupplyBefore}<p>Supply сейчас {formatEther(monetaryDraft.review.totalSupplyBefore)} T → после этого выпуска {formatEther(monetaryDraft.review.hypotheticalTotalSupplyAfter)} T при неизменной другой эмиссии. {#if monetaryDraft.review.budget!==undefined}Бюджет {formatEther(monetaryDraft.review.budget)} T поступает в RewardBudget.{:else}Получатель {monetaryDraft.review.recipient}, сумма {formatEther(monetaryDraft.review.amount)} T.{/if}</p>{/if}<p>{monetaryDraft.review.simulation}</p><pre>{JSON.stringify(monetaryDraft,null,2)}</pre></div>{:else}<p>Сначала подготовьте точную политику в панели выше.</p>{/if}
+            {:else if govAction === 'treasury'}
               {#if treasuryDraft}<div class="callout"><strong>Казна: {treasuryDraft.method}</strong>
                 <p>Caller при исполнении: Timelock {treasuryDraft.treasury}. Проверено на блоке {treasuryDraft.blockNumber}; перед созданием proposal проверка выполняется заново.</p>
                 <pre>{JSON.stringify(treasuryDraft,null,2)}</pre></div>
@@ -1766,16 +1784,16 @@
                 >Адрес участника<input bind:value={newMember} placeholder="0x…" /></label
               >{:else}<label>Target address<input bind:value={target} placeholder="0x…" /></label
               ><label>Calldata<textarea class="code-input" bind:value={calldata}></textarea></label
-              >{/if}{#if !['call','treasury'].includes(govAction)}<label class="checkbox"
+              >{/if}{#if !['call','treasury','monetary'].includes(govAction)}<label class="checkbox"
                 ><input type="checkbox" bind:checked={enabled} />Активировать</label
               >{/if}<label
-              >Обоснование<textarea bind:value={description} placeholder="Что изменится и почему"
+              >Обоснование<textarea bind:value={description} oninput={()=>monetaryReviewEpoch++} placeholder="Что изменится и почему"
               ></textarea></label
-            ><button class="primary" disabled={busy || !description || !account || gov.account !== account || !gov.canPropose || (govAction==='treasury'&&!treasuryDraft)} onclick={proposeGov}
+            ><button class="primary" disabled={busy || !description || !account || gov.account !== account || !gov.canPropose || (govAction==='treasury'&&!treasuryDraft) || (govAction==='monetary'&&!monetaryDraft)} onclick={proposeGov}
               >Создать proposal ↗</button
             ><button
               class="secondary"
-              disabled={busy}
+              disabled={busy || govAction==='monetary'}
               onclick={() =>
                 task(
                   'Симуляция вызова Timelock',
@@ -1870,8 +1888,8 @@
             ><button
               class="secondary full"
               disabled={busy || !poolAddress}
-              onclick={() => tx('Сбор creator fees', () => sdk.collect(poolAddress))}
-              >Собрать creator fees → Split</button
+              onclick={() => tx(config.protocolVersion==='2'?'Сбор protocol + creator fees в Split':'Сбор creator fees', () => sdk.collect(poolAddress))}
+              >{config.protocolVersion==='2'&&config.monetaryPolicy?.status==='deployed'?'Собрать protocol + creator fees → Split':'Собрать creator fees → Split'}</button
             >
             <div class="divider"></div>
             {#each Object.entries(claimables) as [t, b]}<div class="claim-row">

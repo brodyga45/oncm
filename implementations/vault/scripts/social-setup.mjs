@@ -12,7 +12,7 @@ function descriptorBinding(d,config){
  if(d.chainId!==31373||d.chainInstance!==config.chainInstance.id||!same(d.statementRegistry,config.addresses.StatementRegistry))throw Error('Saved social descriptor belongs to another chain/deployment; explicit recovery required');
  for(const key of ['eas','schemaRegistry','resolver'])if(!isAddress(d[key])||!/^0x[0-9a-f]{64}$/i.test(d.codeHashes?.[key]||''))throw Error('Invalid saved social address/runtime pin: '+key);
 }
-/** Runs only the existing audited deployment script, never a compiler/prover.
+/** Runs only the existing pinned deployment script, never a compiler/prover.
  * Existing records are verified and preserved; missing contracts are not reset. */
 export async function ensureSocialSetup({root,config,rpc,runDeployment}){
  assertLocalConfig(config);

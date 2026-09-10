@@ -2,8 +2,9 @@ import {assertLocalConfig} from './local-endpoints.mjs';
 import { settlementInventory } from './capital.mjs';
 import { executeBoundedSwap } from './swap-limits.mjs';
 import { liquidityLimits, validateLiquidityQuote } from './liquidity.mjs';
-import { creatorFromAggregate } from './revenue.mjs';
+import { creatorFromAggregate, protocolFromAggregate, revenueCollectionMethod } from './revenue.mjs';
 import { readGovernance, decodeGovernanceCall } from './governance.mjs';
+import { createMonetaryPolicy } from './monetary-policy.mjs';
 import { createTreasury } from './treasury.mjs';
 import { verifyExternalCertificate, verifyExternalBundle } from './external-certificates.mjs';
 import { supportedExternalProfiles, selectExternalBundleProfile } from './external-profile-catalog.mjs';
@@ -170,6 +171,7 @@ export function createSDK(config, abis, runner) {
   }
   return {
     social: createOnchainSocial(config, write),
+    monetaryPolicy: createMonetaryPolicy({provider,config,write,send}),
     config,
     abis,
     provider,
@@ -214,8 +216,9 @@ export function createSDK(config, abis, runner) {
       const tokens = [...new Set([config.addresses.TrueToken, ...ss.flatMap((s) => [s.yes, s.no])])];
       const poolFees = await Promise.all(ps.map(async (pool) => {
         const poolTokens = [...await vault.getPoolTokens(pool.address, at)];
-        const [held, swapInfo, yieldInfo, creatorSwap, creatorYield] = await Promise.all([
+        const [held, heldProtocol, swapInfo, yieldInfo, creatorSwap, creatorYield] = await Promise.all([
           controller.getPoolCreatorFeeAmounts(pool.address, at),
+          controller.getProtocolFeeAmounts(pool.address, at),
           controller.getPoolProtocolSwapFeeInfo(pool.address, at),
           controller.getPoolProtocolYieldFeeInfo(pool.address, at),
           controller.getPoolCreatorSwapFeePercentage(pool.address, at),
@@ -234,9 +237,11 @@ export function createSDK(config, abis, runner) {
             pendingCreator: String(creatorFromAggregate(swap, swapInfo[0], creatorSwap, aggregateSwap)
               + creatorFromAggregate(yieldFee, yieldInfo[0], creatorYield, aggregateYield)),
             controllerCreator: String(held[i]),
+            pendingProtocol: String(protocolFromAggregate(swap,swapInfo[0],creatorSwap,aggregateSwap)+protocolFromAggregate(yieldFee,yieldInfo[0],creatorYield,aggregateYield)),
+            controllerProtocol: String(heldProtocol[i]),
           };
         }));
-        return { pool: pool.address, assets };
+        return { pool: pool.address, assets, swapRates:{protocol:String(swapInfo[0]),creator:String(creatorSwap),aggregate:String(aggregateSwap)} };
       }));
       const epochCount = Number(await allocation.epoch(at));
       const epochs = await Promise.all(Array.from({ length: epochCount }, async (_, i) => {
@@ -249,7 +254,7 @@ export function createSDK(config, abis, runner) {
         token, forwarded: String(await erc20(token).balanceOf(config.addresses.AllocationController, at)),
         claimable: account === ZeroAddress ? '0' : String(await warehouse.balanceOf(account, BigInt(token), at)),
       })));
-      return { blockNumber: block.number, blockHash: block.hash, account, activeEpoch: epochCount, pools: poolFees, epochs, assets };
+      return { blockNumber: block.number, blockHash: block.hash, account, activeEpoch: epochCount, pools: poolFees, epochs, assets,collectionMethod:revenueCollectionMethod(config),globalProtocolToBeneficiaries:revenueCollectionMethod(config)==='collectAll' };
     },
     async statementEvidence(statementId) {
       const s = await statement(statementId);
@@ -495,7 +500,7 @@ export function createSDK(config, abis, runner) {
       });
     },
     async collect(pool) {
-      return send(() => allocation.collect(pool));
+      return send(() => allocation[revenueCollectionMethod(config)](pool));
     },
     async distribute(epoch, token) {
       return send(() => allocation.distribute(epoch, token));

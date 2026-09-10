@@ -20,10 +20,11 @@
   {#if error}<p class="callout" role="alert">{error}</p>{/if}
   {#if snapshot}
     <p>Снимок блока {snapshot.blockNumber} · активная эпоха {snapshot.activeEpoch}. Все суммы в исходных активах.</p>
-    <p class="footnote">Pending creator — доля aggregate fees, ещё находящихся в Vault, рассчитанная по on-chain ставкам и округлению Controller. Controller creator уже собраны, но ещё не отправлены в Split. Collect переводит обе части в эпоху, действующую в момент транзакции.</p>
+    <p class="footnote">Pending — комиссии, ещё находящиеся в Vault; Controller — уже разделённые начисления, ещё не отправленные в Split. {#if snapshot.globalProtocolToBeneficiaries}V2 collectAll переводит protocol и creator части в один действующий Split выгодополучателей. Governance получает только свою долю.{:else}Legacy collect переводит только creator-часть. Global protocol суммы показаны отдельно и не объявляются доходом этого распределителя.{/if}</p>
     {#each snapshot.pools as pool}<details><summary>Пул {short(pool.pool)}</summary>
-      <table><thead><tr><th>Актив</th><th>Pending creator</th><th>Controller creator</th></tr></thead><tbody>
-        {#each pool.assets as asset}<tr><td title={asset.token}>{name(asset.token)} {short(asset.token)}</td><td>{formatEther(asset.pendingCreator)}</td><td>{formatEther(asset.controllerCreator)}</td></tr>{/each}
+      {#if pool.swapRates}<p>Protocol share {formatEther(BigInt(pool.swapRates.protocol)*100n)}%; creator share {formatEther(BigInt(pool.swapRates.creator)*100n)}% от остатка после protocol. Общая aggregate-доля {formatEther(BigInt(pool.swapRates.aggregate)*100n)}%. Это доли swap fee, не проценты от всего объёма сделки.</p>{/if}
+      <table><thead><tr><th>Актив</th><th>Pending protocol</th><th>Controller protocol</th><th>Pending creator</th><th>Controller creator</th></tr></thead><tbody>
+        {#each pool.assets as asset}<tr><td title={asset.token}>{name(asset.token)} {short(asset.token)}</td><td>{formatEther(asset.pendingProtocol??'0')}</td><td>{formatEther(asset.controllerProtocol??'0')}</td><td>{formatEther(asset.pendingCreator)}</td><td>{formatEther(asset.controllerCreator)}</td></tr>{/each}
       </tbody></table>
     </details>{/each}
     {#each snapshot.epochs as epoch}<details><summary>Эпоха {epoch.epoch} · Split {short(epoch.split)} · до distribute</summary>

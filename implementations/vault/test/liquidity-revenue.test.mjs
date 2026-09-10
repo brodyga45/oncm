@@ -23,3 +23,14 @@ test('creator preview keeps zero-fee cases and upstream round-up protocol portio
   assert.equal(creatorFromAggregate(60n, one / 2n, one / 5n, one * 6n / 10n), 10n);
   assert.equal(creatorFromAggregate(61n, one / 2n, one / 5n, one * 6n / 10n), 10n);
 });
+
+
+test('V2 collection includes protocol plus creator, legacy keeps original creator-only method',async()=>{
+ const {revenueCollectionMethod,protocolFromAggregate}=await import('../sdk/revenue.mjs');
+ assert.equal(revenueCollectionMethod({}),'collect');assert.equal(revenueCollectionMethod({protocolVersion:'2',monetaryPolicy:{status:'deployed'}}),'collectAll');
+ assert.equal(revenueCollectionMethod({protocolVersion:'2',monetaryPolicy:{status:'prepared'}}),'collect');
+ // Protocol50%, creator20% of the remaining50% -> total60%; 60 aggregate:50protocol+10creator.
+ assert.equal(protocolFromAggregate(60n,500000000000000000n,200000000000000000n,600000000000000000n),50n);
+ assert.equal(protocolFromAggregate(20n,0n,200000000000000000n,200000000000000000n),0n);
+ assert.equal(protocolFromAggregate(50n,500000000000000000n,0n,500000000000000000n),50n);
+});

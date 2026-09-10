@@ -1,0 +1,35 @@
+{
+  "mode": "read-only; no wallet or send callback",
+  "snapshot": {
+    "supported": true,
+    "status": "deployed",
+    "version": "vault-monetary-v1",
+    "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+    "rewards": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+    "executor": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "totalSupply": "0",
+    "blockNumber": 280,
+    "blockHash": "0x6381aa96d8237ee9dc1590b023df2326ddd36b0a189aaa8ca25c0892712e71c1",
+    "timestamp": 1789040107,
+    "account": "",
+    "balance": "0",
+    "reserved": "0",
+    "unreserved": "0",
+    "programCount": "0",
+    "programs": [],
+    "meters": [
+      {
+        "address": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+        "name": "Voluntary BPT lock",
+        "kind": "lp",
+        "metrics": [
+          {
+            "id": "0",
+            "name": "BPT-seconds committed until program end"
+          }
+        ]
+      }
+    ],
+    "nextOffset": null
+  }
+}

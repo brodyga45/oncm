@@ -12,3 +12,9 @@ export function creatorFromAggregate(amount, protocol, creator, aggregate) {
   if (protocolPart > n) throw Error('Controller rounding would exceed collected amount');
   return n - protocolPart;
 }
+export function revenueCollectionMethod(config) {
+  return String(config.protocolVersion)==='2' && config.monetaryPolicy?.status==='deployed' ? 'collectAll' : 'collect';
+}
+export function protocolFromAggregate(amount, protocol, creator, aggregate) {
+  return BigInt(amount)-creatorFromAggregate(amount,protocol,creator,aggregate);
+}

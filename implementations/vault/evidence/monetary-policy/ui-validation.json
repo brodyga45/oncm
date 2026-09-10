@@ -1,0 +1,67 @@
+{
+  "scope": "Vault US023 SDK/UI candidate; no deploy, mint, claims or protocol transactions in this implementation pass",
+  "tests": {
+    "passed": 17,
+    "durationMs": 237.807708,
+    "nodeHeapMiB": 64,
+    "command": "node --max-old-space-size=64 --test test/monetary-policy.test.mjs test/monetary-window.test.mjs test/liquidity-revenue.test.mjs"
+  },
+  "build": {
+    "viteSeconds": 1.73,
+    "resourceReport": "ui-build-resources.json",
+    "result": "PASS",
+    "warning": "bundle chunk >500kB, no build errors"
+  },
+  "sources": [
+    {
+      "path": "sdk/monetary-policy.mjs",
+      "bytes": 23646,
+      "sha256": "fe6440900036b660cdce9037a8cd5f32e25200d20cf48d542ecdd2b044e43abf"
+    },
+    {
+      "path": "sdk/index.mjs",
+      "bytes": 23490,
+      "sha256": "0e74d2af143ff057d347aa3e28c956627b71c28c9e79ad87a2e7bf954209b2db"
+    },
+    {
+      "path": "sdk/revenue.mjs",
+      "bytes": 1031,
+      "sha256": "8a8c29ded5a6d59f79f7af61bad1f20b3eb9c9a6b8c42cde1293f09c31b05766"
+    },
+    {
+      "path": "web/MonetaryPolicyPanel.svelte",
+      "bytes": 14326,
+      "sha256": "de6fdbafe1081ddc85dfe449c9604773133e9502729a077ced281f9eec377e8a"
+    },
+    {
+      "path": "web/monetary-window.mjs",
+      "bytes": 1398,
+      "sha256": "7441a99e6f7c285518904a963a961ba9a146284a309b487d3e59427e7bac482a"
+    },
+    {
+      "path": "web/App.svelte",
+      "bytes": 113176,
+      "sha256": "69618137996bf20db9e2d8b75cfd9bca8f13d5765868e440cb9ffcf4e90f2df5"
+    },
+    {
+      "path": "web/RevenuePreview.svelte",
+      "bytes": 4137,
+      "sha256": "8409c9eefa44335bcc6b36f4acc5cff0c196dfab20c87d32dafa013ef7929b82"
+    },
+    {
+      "path": "test/monetary-policy.test.mjs",
+      "bytes": 12319,
+      "sha256": "436a2fab317398ad211a569013c2cca04f3faeb24896f63fd3d54a336f67546a"
+    },
+    {
+      "path": "test/monetary-window.test.mjs",
+      "bytes": 1713,
+      "sha256": "ebd100156a605084b2b12ce994b6c49fd00a1e67aa16b3a4927255268e89cc1b"
+    },
+    {
+      "path": "test/liquidity-revenue.test.mjs",
+      "bytes": 2629,
+      "sha256": "d1518990f8332c9474bb73b4ea9c260c29ab711e13bbe737f27442a5c93c9df4"
+    }
+  ]
+}
