@@ -1898,7 +1898,7 @@
               >Адрес и процент, одна строка на получателя<textarea
                 class="code-input tall"
                 bind:value={allocationText}
-                placeholder={config?.accounts[0] + ' 60\n' + config?.accounts[1] + ' 40'}
+                placeholder={(config?.accounts?.[0] || '0x…') + ' 60\n' + (config?.accounts?.[1] || '0x…') + ' 40'}
               ></textarea></label
             ><button class="primary" disabled={busy} onclick={proposeAllocation}
               >Предложить распределение</button
