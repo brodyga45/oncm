@@ -52,3 +52,9 @@ Gas revenue зависит от вычислений и данных, а не н
 Переход на дешёвый L2 не сокращает offchain время zk proving: меняется доставка/проверка сертификата, а не вычисление самого сертификата.
 
 Источники: [Base Flashblocks](https://docs.base.org/base-chain/api-reference/flashblocks-api/flashblocks-api-overview), [Base fees](https://docs.base.org/specifications/transactions/network-fees), [Arbitrum finality](https://docs.arbitrum.io/how-arbitrum-works/deep-dives/finality).
+
+Повторная проверка источников: текущая документация Base уже предупреждает о планируемой замене Flashblocks в Cobalt; canonical 200 ms blocks доступны для раннего тестирования на Vibenet, обновление ещё не финализировано. Поэтому ~200 ms не фиксируем как гарантию mainnet finality и не привязываем SDK к нестабильному stream metadata. Используем стандартные receipts/logs и явно различаем предварительное включение и финальность.
+
+Практический порядок: Base Sepolia — первый кандидат для публичного smoke-прохода, Arbitrum Sepolia — сопоставимый второй замер; это рекомендация, не выполненный deployment. Стоимость testnet не переносим в mainnet: нужны актуальные mainnet fee estimates на тех же данных. Для полнотекстовых блогов отдельно измеряем несколько размеров (например 1, 10 и 50 KiB) с учётом разбиения, лимитов контрактов и полной платы за данные. Низкая стоимость swap сама по себе не доказывает низкую стоимость хранения текста.
+
+Собственную сеть рассматриваем после этих замеров, если действительно нужны собственная газовая экономика или T как native gas token. Переход на AnyTrust/внешнюю DA ради стоимости меняет предположения доступности данных: это самостоятельный выбор, а не бесплатное ускорение при неизменной модели доверия. См. [Arbitrum AnyTrust](https://docs.arbitrum.io/how-arbitrum-works/deep-dives/anytrust-protocol).
