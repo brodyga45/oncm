@@ -2,6 +2,8 @@
 
 ## Актуальное дополнение, 10 сентября 2026
 
+Exchange прошёл общий внешний bundle → регистрация → NO LP/trading → настоящее опровержение → выплаты в блоках202–218; в браузере раскрыты исход2 и CTF payout[0,1]. [Подробный журнал](evidence/exchange-false-generic-browser-2026-09-10.md). Generic import теперь реализован во всех трёх; конкретный browser pass общего формата пока подтверждён Exchange. Аудит чистого старта обнаружил ignored proof/deployment descriptors и отдельные orchestration gaps: исправляются и требуют фактического изолированного fresh-copy запуска, не только текущих работающих процессов.
+
 Исторический аудит ниже сохранён для трассировки. Новые авторитетные browser результаты: Exchange TRUE-цикл завершён, включая выдачу protocol LP обоим получателям в блоках 200/201; Vault FALSE-цикл завершён в блоках 148–169 вместе с производным ResolvedAs(False) → True. См. [Exchange](evidence/exchange-true-fees-browser-2026-09-10.md) и [Vault](evidence/vault-false-browser-2026-09-10.md). Полученные Exchange fee LP ещё не превращены в T. Agora FALSE resolution остаётся неподтверждённым после прежнего auto-review отказа.
 
 Полнотекстовый onchain social реализован в трёх приложениях; свежие browser/RPC результаты находятся в [onchain-social.md](onchain-social.md) и app evidence. Это заменяет старые offchain social passes. Generic external bundle import реализован и проверен в Agora/Vault, Exchange дорабатывается; настоящий сертификат совершенно новой цели этим не заявляется.
