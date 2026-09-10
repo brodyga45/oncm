@@ -1,0 +1,99 @@
+{
+  "capturedAt": "2026-09-10T10:33:46.440Z",
+  "scope": "read-only; no signer, sends, funding or chain changes",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "blockNumber": 193,
+  "blockHash": "0x04c2cb1af905deb5949b20a7e3c8957094379cc4a6fc87fde58db98c10dd2653",
+  "snapshot": {
+    "treasury": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "blockNumber": 193,
+    "blockHash": "0x04c2cb1af905deb5949b20a7e3c8957094379cc4a6fc87fde58db98c10dd2653",
+    "governor": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "chainId": 31373,
+    "nativeBalance": "0",
+    "governorCanSchedule": true,
+    "epoch": "2",
+    "shareBps": "0",
+    "assets": [
+      {
+        "token": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "balance": "0",
+        "claimable": "0"
+      }
+    ]
+  },
+  "dao20": {
+    "recipients": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "weights": [
+      "4000",
+      "2000",
+      "4000"
+    ],
+    "baseEpoch": "2"
+  },
+  "existingProposal1": {
+    "baseEpoch": "2",
+    "applied": false,
+    "recipients": [
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "weights": [
+      "2000",
+      "4000",
+      "4000"
+    ],
+    "consents": [
+      {
+        "recipient": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "approved": true
+      },
+      {
+        "recipient": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "approved": true
+      }
+    ]
+  },
+  "consentPreflight": {
+    "target": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+    "data": "0x281b091700000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001",
+    "value": "0",
+    "from": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "blockNumber": 193,
+    "decoded": {
+      "contract": "AllocationController",
+      "method": "setConsent",
+      "signature": "setConsent(uint256,bool)",
+      "args": [
+        {
+          "name": "id",
+          "type": "uint256",
+          "value": "1"
+        },
+        {
+          "name": "approved",
+          "type": "bool",
+          "value": true
+        }
+      ]
+    },
+    "ok": false,
+    "error": "execution reverted: \"not decreasing\"",
+    "revertData": "0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000e6e6f742064656372656173696e67000000000000000000000000000000000000"
+  },
+  "prepareConsent": {
+    "rejected": true,
+    "error": "Treasury share is not decreasing in this allocation"
+  },
+  "prepareTransfer": {
+    "rejected": true,
+    "error": "Insufficient treasury token balance; claim Warehouse revenue first"
+  },
+  "headUnchanged": true
+}

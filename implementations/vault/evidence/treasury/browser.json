@@ -1,0 +1,36 @@
+{
+  "scope": "ordinary public UI read-only preparation and preflight; no wallet connection, signer, proposal submission, funding or transaction",
+  "tabId": "102825369",
+  "url": "http://127.0.0.1:5173/",
+  "chainId": 31373,
+  "blockNumber": 193,
+  "blockHash": "0x04c2cb1af905deb5949b20a7e3c8957094379cc4a6fc87fde58db98c10dd2653",
+  "actor": null,
+  "treasury": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "visibleSnapshot": {"epoch": 2, "daoSharePercent": 0, "nativeBalance": "0.0", "tokenBalance": "0.0", "warehouseBalance": "0.0", "governorCanSchedule": true},
+  "dao20Draft": {
+    "button": "Подготовить доли с DAO 20%",
+    "text": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 40.00\n0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0 20.00\n0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 40.00",
+    "existingProposal1": "Готово к применению; still unapplied; Math20/Alice40/Bob40 unchanged"
+  },
+  "transferNegative": {
+    "token": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "recipient": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "quantity": "0.01",
+    "visibleError": "Insufficient treasury token balance; claim Warehouse revenue first"
+  },
+  "consentCallReview": {
+    "route": "Управление → Произвольный protocol call → Проверить вызов",
+    "target": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+    "caller": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "decodedMethod": "setConsent(uint256,bool)",
+    "decodedArgs": ["1", true],
+    "visibleStatus": "Вызов будет отклонён",
+    "originalContractRevert": "not decreasing",
+    "createProposalButton": "disabled",
+    "whyExpected": "DAO is not yet a recipient; existing proposal1 only decreases Alice and Bob"
+  },
+  "headUnchanged": true,
+  "ownTabClosed": true,
+  "successfulOnchainDaoCycleClaimed": false
+}

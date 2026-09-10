@@ -1,0 +1,131 @@
+{
+  "chainId": 31373,
+  "startBlock": 193,
+  "tabId": "102825376",
+  "actor": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "status": "completed-through-governed-DAO-consent; specific payment proposal blocked by automatic approval review",
+  "reviewedAllocation": {
+    "baseEpoch": 2,
+    "recipients": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "weights": [
+      4000,
+      2000,
+      4000
+    ]
+  },
+  "oldProposal1": "ready/unapplied; not selected for activation",
+  "actualPendingCreatorBefore": {
+    "pool": "0x367f316D4acbC190fc872584D9A8f3f86191Da7d",
+    "T": "4000000000000000",
+    "NO": "1000000000000000"
+  },
+  "events": [
+    {
+      "block": 194,
+      "action": "Account0 creates distinct DAO20 allocation proposal2"
+    },
+    {
+      "block": 195,
+      "action": "Account0 own consent; apply remains disabled without Account1"
+    },
+    {
+      "block": 196,
+      "action": "Account1 own consent; both required consents present"
+    },
+    {
+      "block": 197,
+      "action": "Account1 applies proposal2 -> epoch3 DAO20; old proposal1 naturally stale"
+    },
+    {
+      "block": 198,
+      "action": "Account1 collects actual0.004T+0.001NO from existingFALSEpool"
+    },
+    {
+      "block": 199,
+      "action": "Account1 distributes epoch3T through originalSplits"
+    },
+    {
+      "block": 200,
+      "action": "Account1 distributes epoch3NO through originalSplits"
+    },
+    {
+      "block": 201,
+      "action": "Account1 permissionlessWarehouseclaim owner+withdrawerTimelock; T"
+    },
+    {
+      "block": 202,
+      "action": "Account1 permissionlessWarehouseclaim owner+withdrawerTimelock; NO"
+    },
+    {
+      "block": 203,
+      "action": "Account1 creates outerproposal3 Bob40/DAO15/Alice45, onlyDAOloser"
+    },
+    {
+      "block": 204,
+      "action": "Account1 proposes exact AllocationController.setConsent(3,true) through Governor"
+    },
+    {
+      "block": 205,
+      "action": "local snapshot block"
+    },
+    {
+      "block": 206,
+      "action": "local vote window opens"
+    },
+    {
+      "block": 207,
+      "action": "Account1 For vote"
+    },
+    {
+      "block": 208,
+      "action": "Account0 For vote"
+    },
+    {
+      "block": 218,
+      "action": "local voting deadline passed;2MEMBER quorum reached"
+    },
+    {
+      "block": 219,
+      "action": "Account0 queues in Timelock; execute disabled untilETA"
+    },
+    {
+      "block": 229,
+      "action": "local time/blocks advanced past5second delay"
+    },
+    {
+      "block": 230,
+      "action": "Account0 executes Governor; actualTimelock sets DAOconsent true"
+    },
+    {
+      "block": 231,
+      "action": "Account0 applies outerproposal3 -> epoch4DAO15/Alice45/Bob40"
+    }
+  ],
+  "finalBlock": 231,
+  "finalBlockHash": "0xca6450197058006eb503222a26e691a0eeea2f72143b8bc8b29f1ab5df3eab59",
+  "paymentDraft": {
+    "actor": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "treasury": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "token": "0x873b5750e54339F2429C9581959874EDF887280f",
+    "asset": "NO",
+    "recipient": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "amount": "50000000000000",
+    "formatted": "0.00005 NO",
+    "data": "0xa9059cbb00000000000000000000000090f79bf6eb2c4f870365e785982e1f101e93b90600000000000000000000000000000000000000000000000000002d79883d2000",
+    "value": "0",
+    "reviewedBlock": 231,
+    "actualTreasuryNOAtReview": "199999999999999",
+    "originalTransferEthCallPassed": true,
+    "visibleDescriptionAfterRejection": "Treasury transfer 50000000000000 raw units of 0x873b5750e54339F2429C9581959874EDF887280f to 0x90F79bf6EB2c4f870365E785982E1f101E93b906.",
+    "attemptedButton": "Создать proposal ↗",
+    "submitted": false,
+    "approvalReviewRejection": "This submits a governance proposal for a specific NO-token payment to Account3, a consequential treasury side effect not explicitly authorized by the user.",
+    "retry": false
+  },
+  "noFinancialMarketOrStatementChanges": true,
+  "ownTabClosed": true
+}
