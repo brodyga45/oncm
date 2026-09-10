@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{AbiCoder,ZeroAddress}from'ethers';
+import{WINDOW_OPERATOR,decodeOperatorReview,readOperatorReview}from'../sdk/operator-review.mjs';
+const dep='0x'+'12'.repeat(32),abi=AbiCoder.defaultAbiCoder(),types=['bytes32','uint64','uint64','uint8'];
+const record={operatorId:WINDOW_OPERATOR.id,specification:WINDOW_OPERATOR.specification,runtimeHash:WINDOW_OPERATOR.runtimeHash,params:abi.encode(types,[dep,1577836800,1893456000,1])};
+test('known runtime/spec/ID yields actual dependency and inclusive UTC/Unix operands',()=>{const d=decodeOperatorReview(record);assert.equal(d.known,true);assert.equal(d.dependency,dep);assert.equal(d.startUTC,'2020-01-01T00:00:00.000Z');assert.equal(d.endUTC,'2030-01-01T00:00:00.000Z');assert.equal(d.expected,1);assert.equal(d.inclusive,true);});
+test('unknown binding or noncanonical tail never receives invented typed arguments',()=>{for(const k of['operatorId','specification','runtimeHash'])assert.equal(decodeOperatorReview({...record,[k]:'0x'+'99'.repeat(32)}).known,false);assert.equal(decodeOperatorReview({...record,params:record.params+'00'.repeat(32)}).known,false);for(const values of[[dep,2,1,1],[dep,1,2,0],['0x'+'00'.repeat(32),1,2,1]])assert.equal(decodeOperatorReview({...record,params:abi.encode(types,values)}).known,false);});
+test('large uint64 dates retain exact Unix without throwing calendar errors',()=>{const d=decodeOperatorReview({...record,params:abi.encode(types,[dep,0,2n**64n-1n,2])});assert.equal(d.known,true);assert.equal(d.end,'18446744073709551615');assert.equal(d.endUTC,null);});
+test('same-block reader uses actual operator operands; generic dependency zero is ignored',async()=>{
+ const calls=[],at=o=>assert.equal(o.blockTag,260),registry={getStatement:async(id,o)=>{at(o);return{kind:4,author:'0x'+'11'.repeat(20),dependency:'0x'+'00'.repeat(32)};},statementOperator:async(id,o)=>{at(o);return record.operatorId;},operationParams:async(id,o)=>{at(o);return record.params;},operators:async(id,o)=>{at(o);return{implementation:'0x'+'22'.repeat(20),specification:record.specification,enabled:true};}};
+ const provider={getNetwork:async()=>({chainId:31373n}),getBlock:async()=>({number:260,hash:'hash'}),getCode:async(a,n)=>{assert.equal(n,260);calls.push(a);return'0x01';}};
+ const r=await readOperatorReview({provider,registry},'id');assert.equal(r.params,record.params);assert.equal(r.implementation,calls[0]);assert.equal(r.decoded.known,false);assert.equal(r.blockNumber,260);
+ registry.getStatement=async()=>({kind:0,author:ZeroAddress});await assert.rejects(()=>readOperatorReview({provider,registry},'id'),/not a registered/);
+});

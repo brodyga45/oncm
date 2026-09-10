@@ -1,0 +1,58 @@
+{
+  "tabId": "102825394",
+  "startBlock": 231,
+  "finalBlock": 260,
+  "actions": [
+    {
+      "block": 232,
+      "action": "Account0 proposes exact existing operator admission after successful Timelock preflight"
+    },
+    {
+      "block": 235,
+      "action": "Account0 membership For vote"
+    },
+    {
+      "block": 236,
+      "action": "Account1 membership For vote"
+    },
+    {
+      "block": 247,
+      "action": "Account1 queues successful proposal; execute initially disabled before5second delay"
+    },
+    {
+      "block": 258,
+      "action": "Account1 executes original Governor/Timelock operator admission"
+    },
+    {
+      "block": 259,
+      "action": "Account1 creates canonicalwindowoperation from genuineTRUEbase; no funding/pool"
+    },
+    {
+      "block": 260,
+      "action": "Account1 resolves only this newcondition through ordinarychain resolver; TRUE"
+    }
+  ],
+  "window": {
+    "startUTC": "2020-01-01T00:00:00.000Z",
+    "startUnix": 1577836800,
+    "endUTC": "2030-01-01T00:00:00.000Z",
+    "endUnix": 1893456000,
+    "inclusive": true,
+    "expected": 1,
+    "dependency": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08"
+  },
+  "condition": "0x1bd795b2e2e3467fe19f3859600ca241e136557f81ad92252eddd73c979f38de",
+  "sourceChanges": "display-only: kind4 reads actual operator mapping/code and pinned canonical operands rather than displaying generic zero dependency",
+  "readonlyAfterBuild": {
+    "block": 260,
+    "wallet": "disconnected public",
+    "actualDependencyVisible": true,
+    "adapterSpecRuntimeVisible": true,
+    "exactUTCUnixExpectedVisible": true,
+    "oldZeroDependencyLabelRemoved": true,
+    "resolveButton": "disabled because already resolved"
+  },
+  "ownTabClosed": true,
+  "noBlockedActionRetried": true,
+  "noProofDeployLiquidityMint": true
+}

@@ -7,6 +7,7 @@
   import PackageEditor from './PackageEditor.svelte';
   import RevenuePreview from './RevenuePreview.svelte';
   import TreasuryPanel from './TreasuryPanel.svelte';
+  import OperatorReview from './OperatorReview.svelte';
   import GovernanceProposal from './GovernanceProposal.svelte';
   import ExternalCertificate from './ExternalCertificate.svelte';
   import SocialPanel from './SocialPanel.svelte';
@@ -1058,12 +1059,12 @@
               <dd>{statement.conditionId}</dd>
               <dt>Snapshot / metadata</dt>
               <dd>{statement.manifest || 'Производное ончейн утверждение'}</dd>
-              {#if statement.kind === 4}<dt>Operator ID / operands</dt>
-                <dd>{statement.operatorId}<br />{statement.operatorParams}</dd>{/if}
               <dt>YES / NO</dt>
               <dd>{statement.yes}<br />{statement.no}</dd>
             </dl>
-            {#if statement.kind > 0}<p>
+            {#if statement.kind > 0}
+              {#if statement.kind===4}{#key sdk}{#key statement.id}<OperatorReview {sdk} statementId={statement.id} />{/key}{/key}
+              {:else}<p>
                 Зависимость: {short(statement.dependency, 10)} · {[
                   '',
                   'ResolvedBy',
@@ -1075,7 +1076,7 @@
                   · ожидаемый исход: {statement.expected === 1 ? 'True' : 'False'}
                 {/if}
                 {statement.deadline ? new Date(statement.deadline * 1000).toLocaleString() + ' (' + localTimeZone + ')' : ''}
-              </p>
+              </p>{/if}
               {#if statement.kind === 1 || statement.kind === 3}<p class="footnote">
                 Учитывается время принятия исхода в блокчейне, включая точное равенство дедлайну.
                 После срока без нужного события производное можно разрешить как False.
