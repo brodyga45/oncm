@@ -1,0 +1,28 @@
+{
+  "chainId": 31371,
+  "observedBlock": "110",
+  "tab": "102825384",
+  "actionsAreDraftOnly": true,
+  "oversized": {
+    "amountT": "0.001",
+    "balanceT": "0.0008",
+    "createDisabled": true,
+    "error": "Insufficient treasury balance: requested 0.001 T; available 0.0008 T"
+  },
+  "restored": {
+    "amountT": "0.0004",
+    "createEnabled": true,
+    "createClicked": false,
+    "recipient": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc"
+  },
+  "tests": {
+    "passed": 22,
+    "failed": 0,
+    "nodeHeapMiB": 64
+  },
+  "limits": [
+    "No proposal POST attempted",
+    "No payment transaction",
+    "Read-only/draft UI observations only"
+  ]
+}

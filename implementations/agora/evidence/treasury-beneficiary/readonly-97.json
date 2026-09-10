@@ -1,0 +1,271 @@
+{
+  "mode": "API and RPC reads; unsubmitted browser drafts only, no treasury transactions",
+  "block": 97,
+  "activeJobs": [],
+  "filePinsUnchanged": {
+    ".local/deployment.json": "4d4e1bb93dcab4c681a0fa855a865b78b3af2815019b431f9fe738dae422f399",
+    "proof/deployment.json": "1613f88d16aa9cdbef738c5f19586ff0a1efd8af0d432c3c8b5ec3c66d2f60f1",
+    "proof/execution-policy.local.json": "2af0db8b638d747d096494af8633b92588d03e9301f9c1b82be07f6c50f1de6a",
+    ".local/app.json": "48fea31b416ea7f13cf5d99c852c9588bcb574fbd4aabcc2a15e559963e18b78"
+  },
+  "profiles": [
+    {
+      "id": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+      "entry": [
+        "0x9A676e781A523b5d0C0e43731313A708CB607508",
+        "0xa2e961f6916f7efcd4718b3a1888dde150c6652b5cf54029f384b1e7609e8465",
+        true
+      ]
+    },
+    {
+      "id": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "entry": [
+        "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+        "0xb2688e6decdefc2b98bfbe0db987d7c16d3c61dd10fe7b4a226deedde11e35d0",
+        true
+      ]
+    }
+  ],
+  "routes": {
+    "health": {
+      "ok": true,
+      "chainId": 31371,
+      "block": "97"
+    },
+    "treasury": {
+      "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+      "mechanism": "Safe council → Timelock",
+      "token": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "decimals": 18,
+      "observedBlock": "97",
+      "balance": "0",
+      "epochs": [
+        {
+          "epoch": "0",
+          "split": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "share": "0",
+          "claimable": "0",
+          "released": "0"
+        },
+        {
+          "epoch": "1",
+          "split": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "share": "0",
+          "claimable": "0",
+          "released": "0"
+        },
+        {
+          "epoch": "2",
+          "split": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "share": "0",
+          "claimable": "0",
+          "released": "0"
+        }
+      ]
+    },
+    "governance": {
+      "safe": "0xc717C55aB6DAD4e46F89a2D62f618f10023A508f",
+      "threshold": "2",
+      "owners": [
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+      ],
+      "nonce": "4",
+      "delay": "5",
+      "observedBlock": "97",
+      "observedBlockHash": "0x65c46ea8e8afd11430dd008d1e4bbe93834a9432ed3b7c29d1a3ce0afa9e1857",
+      "observedTimestamp": "1789034906",
+      "localTimeControls": true,
+      "proposals": [
+        {
+          "id": "809a9f5e-81dc-4354-9f1e-61b75b48853d",
+          "title": "Add resolved_after operator version 1",
+          "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "target": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "data": "0x3463c71c129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad78824cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1",
+          "salt": "0x960f120f94a8b6bb8564c06f88b42a7c88498396bc2db4051904a058c4ca22ea",
+          "operationId": "0x5e4ec3a4fd9f93c488e92e5afdadaae3df0da29387657a5a0fff969d926f314e",
+          "scheduleData": "0x01d5062a0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000960f120f94a8b6bb8564c06f88b42a7c88498396bc2db4051904a058c4ca22ea000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000643463c71c129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad78824cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b100000000000000000000000000000000000000000000000000000000",
+          "nonce": "0",
+          "safeHash": "0x6668c4a55c11ab33f337a3452ba912c0203625256c14ffddcf3ebcfd10b725b3",
+          "signatures": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "signature": "0x094fb5a5614cc56186cd74236aba0640778fc17cd92a793df1fbef3aa275150f5c08e0fdd1b48dd2fb4ed75a06f3ea033d31bed5bb7b5425e64fb367a9cb62141c"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "signature": "0x501b04965fb4ab0e8a30290ca823cb14d1c2e066bd468057fe8fc57bf41eea72702389c372a57bda030d4dcafd6e3ef347cb43c3880fb897dbe9d7b9aad8fbe31c"
+            }
+          ],
+          "createdAt": "2026-09-09T15:53:47.494Z",
+          "status": "executed",
+          "signatureCount": 2,
+          "scheduled": false,
+          "ready": false,
+          "done": true,
+          "operationTimestamp": "1",
+          "canSign": false,
+          "canSchedule": false,
+          "canExecute": false
+        },
+        {
+          "id": "804911b8-a481-42a0-bbe3-b14a3b0a74bb",
+          "title": "Add perf05 zero-axiom logic profile; keep v3 enabled",
+          "author": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "target": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "data": "0x6ce9535993cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10000000000000000000000000c6e7df5e7b4f2a278906862b61205850344d4e7db2688e6decdefc2b98bfbe0db987d7c16d3c61dd10fe7b4a226deedde11e35d0",
+          "salt": "0x564aecdff75a94ca7cd35269ce65c1729b30c98b5dedf7b293cc87cdb4a34a77",
+          "operationId": "0x7109abebd04dcbbf9e6f07f701306bca0c98fe4e47e445f653c8a51b79494605",
+          "scheduleData": "0x01d5062a0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000564aecdff75a94ca7cd35269ce65c1729b30c98b5dedf7b293cc87cdb4a34a77000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000646ce9535993cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10000000000000000000000000c6e7df5e7b4f2a278906862b61205850344d4e7db2688e6decdefc2b98bfbe0db987d7c16d3c61dd10fe7b4a226deedde11e35d000000000000000000000000000000000000000000000000000000000",
+          "nonce": "3",
+          "safeHash": "0x74013af8b023a0b5da56c24099fb2bb4400f369f3ae29ad966eb2b7a5efe0f43",
+          "signatures": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "signature": "0x12d6f961848c643344d5adfe456fc9b0e9907decdf0e10964d1be0f0f1a053e2546a030c758164b7bcf6336908ad8b8b00ae7669520f80d75c0a919e8830ed511c"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "signature": "0xd8038a66faecb9e741265891e8534f715fd04c1af85b54bda74146b62c4629e1295fbea02e07c23f5ee980cf9addac5aebd967112235f021d460f368de5074021b"
+            }
+          ],
+          "createdAt": "2026-09-10T00:24:44.213Z",
+          "status": "executed",
+          "signatureCount": 2,
+          "scheduled": false,
+          "ready": false,
+          "done": true,
+          "operationTimestamp": "1",
+          "canSign": false,
+          "canSchedule": false,
+          "canExecute": false
+        }
+      ]
+    },
+    "allocations": {
+      "epoch": 2,
+      "recipients": [
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      ],
+      "shares": [
+        "200000",
+        "400000",
+        "400000"
+      ],
+      "proposals": [
+        {
+          "id": 0,
+          "baseVersion": "0",
+          "expiresAt": "1789082325",
+          "proposer": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "executed": true,
+          "payees": [
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+          ],
+          "shares": [
+            "500000",
+            "500000"
+          ],
+          "approvals": [
+            false,
+            true
+          ],
+          "requiredConsents": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "previousShare": "600000",
+              "newShare": "500000",
+              "approved": true
+            }
+          ],
+          "status": "Applied",
+          "active": false,
+          "canApply": false
+        },
+        {
+          "id": 1,
+          "baseVersion": "1",
+          "expiresAt": "1789121229",
+          "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "executed": true,
+          "payees": [
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+          ],
+          "shares": [
+            "200000",
+            "400000",
+            "400000"
+          ],
+          "approvals": [
+            true,
+            true
+          ],
+          "requiredConsents": [
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "previousShare": "500000",
+              "newShare": "400000",
+              "approved": true
+            },
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "previousShare": "500000",
+              "newShare": "400000",
+              "approved": true
+            }
+          ],
+          "status": "Applied",
+          "active": false,
+          "canApply": false
+        }
+      ],
+      "epochs": [
+        {
+          "epoch": 0,
+          "split": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "claimable": "0"
+        },
+        {
+          "epoch": 1,
+          "split": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "claimable": "0"
+        },
+        {
+          "epoch": 2,
+          "split": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "claimable": "0"
+        }
+      ],
+      "observedBlock": "97",
+      "observedBlockHash": "0x65c46ea8e8afd11430dd008d1e4bbe93834a9432ed3b7c29d1a3ce0afa9e1857",
+      "observedAt": "1789034906"
+    }
+  },
+  "browser": {
+    "ownTab": "102825373",
+    "currentAllocation": [
+      "Math20",
+      "Reviewer40",
+      "Curator40"
+    ],
+    "preparedDraft": [
+      "Math16",
+      "Reviewer32",
+      "Timelock20",
+      "Curator32"
+    ],
+    "allThreeLosersVisible": true,
+    "treasuryBalanceZeroAndClaimsDisabled": true,
+    "transferComposerDisplayed": true,
+    "noProposalCreated": true
+  }
+}

@@ -33,3 +33,9 @@ test('dev time authorization requires both exact browser Origin and an existing 
  assert.throws(()=>authorizeDevTime(request,()=>{throw Object.assign(Error('Sign in'),{statusCode:401});}),e=>e.statusCode===401);
  assert.deepEqual(authorizeDevTime(request,session),{address:'wallet'});
 });
+
+test('a now-stale treasury action blocks signing, scheduling and execution without rewriting immutable calldata',async()=>{
+ const bound={...proposal,action:{kind:'allocation-consent'}};const values={getThreshold:2n,getOwners:['a','b'],nonce:0n,getMinDelay:5n,getTimestamp:99n};
+ const snapshot=await governanceSnapshot({client:{getBlock:async()=>({number:100n,timestamp:101n,hash:'h'}),getChainId:async()=>31371},read:async(a,n,fn)=>values[fn],manifest:{safe:'safe',timelock:'timelock'},proposals:[bound],rpcUrl:'http://127.0.0.1:9545',reviewAction:async()=>{throw Error('Outer allocation proposal is stale');}});
+ const p=snapshot.proposals[0];assert.equal(p.status,'action-unavailable');assert.equal(p.canSign,false);assert.equal(p.canSchedule,false);assert.equal(p.canExecute,false);assert.match(p.actionError,/stale/);assert.equal(p.data,bound.data);
+});

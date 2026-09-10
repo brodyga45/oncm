@@ -8,6 +8,7 @@ import {parseTokenAmount as parseEther,assertBaseUnits} from './amounts.mjs';
 import {parseBoundedJSON} from './external-bundle.mjs';
 export {inspectExternalBundle,parseBoundedJSON,EXTERNAL_BUNDLE_LIMITS} from './external-bundle.mjs';
 export {validateSourcePackage} from './source-package.mjs';
+export {governanceTreasuryCall,governanceShareDraft,allocationDraftReview,readTreasury} from './treasury.mjs';
 export {parseTokenAmount,parseFeePercent,parseSlippagePercent,parseAllocationPercent} from './amounts.mjs';
 import {createPublicClient,http,zeroHash,decodeEventLog} from 'viem';
 import {chain,assertLocalChain,stringify} from './chain.mjs';
@@ -50,6 +51,7 @@ export async function createAgoraSDK({wallet,config,client,apiUrl=network.apiUrl
   async proposeAllocation(payees,shares,expiresAt){const epoch=await read(config.allocation,'AllocationController','currentEpoch');const sorted=payees.map((a,i)=>({a,s:shares[i]})).sort((a,b)=>a.a.toLowerCase().localeCompare(b.a.toLowerCase()));return write(config.allocation,'AllocationController','propose',[epoch,sorted.map(x=>x.a),sorted.map(x=>x.s),expiresAt]);},
   consent:(id,approve=true)=>write(config.allocation,'AllocationController','setApproval',[id,approve]),
   applyAllocation:id=>write(config.allocation,'AllocationController','execute',[id]),
+  claimTreasuryEpoch:async epoch=>write(await read(config.allocation,'AllocationController','splits',[epoch]),'PaymentSplitter','release',[config.token,config.timelock]),
   claimEpoch:async(epoch,account=wallet?.account.address)=>write(await read(config.allocation,'AllocationController','splits',[epoch]),'PaymentSplitter','release',[config.token,account]),
   async signIn(){const {message}=await api('/auth/challenge',{method:'POST',body:{address:wallet.account.address}});const signature=await wallet.signMessage({message});const result=await api('/auth/verify',{method:'POST',body:{message,signature}});token=result.token;return{address:result.address};},
   async signOut(){await api('/auth/logout',{method:'POST'});token=undefined;},

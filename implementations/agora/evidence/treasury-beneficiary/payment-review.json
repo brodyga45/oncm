@@ -1,0 +1,28 @@
+{
+  "status": "review only: no governance proposal, signatures or transaction sent",
+  "chainId": 31371,
+  "observedBlock": "110",
+  "title": "Distribute treasury T through Safe and Timelock",
+  "recipientLabel": "Research guest (local test wallet)",
+  "target": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+  "data": "0xa9059cbb0000000000000000000000009965507d1a55bcc2695c58ba16fb37d819b0a4dc00000000000000000000000000000000000000000000000000016bcc41e90000",
+  "action": {
+    "kind": "treasury-transfer",
+    "recipient": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+    "amount": "0.0004",
+    "rawAmount": "400000000000000",
+    "token": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+    "executor": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853"
+  },
+  "valueWei": "0",
+  "treasuryBalanceBefore": "800000000000000",
+  "recipientBalanceBefore": "100000000000000000000000",
+  "hypotheticalTreasuryBalanceAfter": "400000000000000",
+  "hypotheticalRecipientBalanceAfter": "100000000400000000000000",
+  "simulation": {
+    "kind": "eth_call only, not an impersonated transaction",
+    "result": true
+  },
+  "sourceOfIncome": "Real 1 T FPMM NO trade104 protocol fee0.004T; epoch3 treasury20% claim105 transferred0.0008T",
+  "parentInstruction": "Stop before Create proposal pending explicit user confirmation of concrete internal payout"
+}

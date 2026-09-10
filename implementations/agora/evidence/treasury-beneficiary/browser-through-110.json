@@ -1,0 +1,2457 @@
+{
+  "mode": "Actual own-browser transactions, reconstructed and asserted read-only. No writes or signing in this script.",
+  "chainId": 31371,
+  "range": [
+    97,
+    110
+  ],
+  "actors": [
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+    "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+    "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853"
+  ],
+  "addresses": {
+    "token": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+    "allocation": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+    "safe": "0xc717C55aB6DAD4e46F89a2D62f618f10023A508f",
+    "timelock": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+    "noPool": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd"
+  },
+  "blocks": [
+    {
+      "number": "98",
+      "hash": "0xe06779a58fb7853c46125d13bf3cfa38a3e37a91e856df1404c1b3f2788d4c03",
+      "timestamp": "1789036795",
+      "transactionCount": 1
+    },
+    {
+      "number": "99",
+      "hash": "0xcbf0e07e97a8da047f4b9afc4935d77cbfc0d6aac8ee08c3c47dd2bd19707ae8",
+      "timestamp": "1789036816",
+      "transactionCount": 1
+    },
+    {
+      "number": "100",
+      "hash": "0xbfcd79c5e1d471351a4c7832cf129ad6fe13e5c243b7a74840801ed9c4807307",
+      "timestamp": "1789036875",
+      "transactionCount": 1
+    },
+    {
+      "number": "101",
+      "hash": "0x671711ced4052816f75848b250bd3af07c86b572fa912b233fa58ae3dca0798c",
+      "timestamp": "1789036908",
+      "transactionCount": 1
+    },
+    {
+      "number": "102",
+      "hash": "0x94a74247d662bc7b350e7b4173b19c17cd243873a2cea97fcb9cd3a5ed407278",
+      "timestamp": "1789036930",
+      "transactionCount": 1
+    },
+    {
+      "number": "103",
+      "hash": "0xdb3fd8081ffed79f6478a2b7eb38c988a297cd34b18f579120ab96766d15cd1b",
+      "timestamp": "1789037007",
+      "transactionCount": 1
+    },
+    {
+      "number": "104",
+      "hash": "0x57a9c59c8c9fcd1b3e56f2d9c7870783c2c793c0c28b0f28d0d96eb4ff77e1f2",
+      "timestamp": "1789037007",
+      "transactionCount": 1
+    },
+    {
+      "number": "105",
+      "hash": "0x21141c0ea2fa22ed1494935f828b971f387d11fa04604a4773124da19c93d647",
+      "timestamp": "1789037067",
+      "transactionCount": 1
+    },
+    {
+      "number": "106",
+      "hash": "0x5462236039fb0bd04efe399fef23447fe290603989cad3adb6a037845d2abbce",
+      "timestamp": "1789037137",
+      "transactionCount": 1
+    },
+    {
+      "number": "107",
+      "hash": "0x9b2eae2f7be6e44269063a69adc53b9e7d2ef1ee008c12fc06588a1060b9c474",
+      "timestamp": "1789037277",
+      "transactionCount": 1
+    },
+    {
+      "number": "108",
+      "hash": "0x27f1e214dedca90ca0338e10e4776d7cbccb55005c5dd75fbf96ee8fd72843c5",
+      "timestamp": "1789037311",
+      "transactionCount": 0
+    },
+    {
+      "number": "109",
+      "hash": "0x7448ca9a4b0aa50c24056a67830103c32cdfa8cf6479066e70f6375023565c49",
+      "timestamp": "1789037341",
+      "transactionCount": 1
+    },
+    {
+      "number": "110",
+      "hash": "0xb536762fd5fc4ad2c01cadddda34522d2e30641316f21970b603a5de238d3b97",
+      "timestamp": "1789037733",
+      "transactionCount": 1
+    }
+  ],
+  "receipts": [
+    {
+      "block": "98",
+      "hash": "0xdd00ca064a470b58fcd0308962d182be59a83d14a289a9338cbbb092c3bad550",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "329839",
+      "call": {
+        "functionName": "propose",
+        "args": [
+          "2",
+          [
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+          ],
+          [
+            "160000",
+            "320000",
+            "200000",
+            "320000"
+          ],
+          "1789121306"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 0,
+          "eventName": "AllocationProposed",
+          "args": {
+            "proposalId": "2",
+            "baseVersion": "2",
+            "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "payees": [
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+            ],
+            "shares": [
+              "160000",
+              "320000",
+              "200000",
+              "320000"
+            ],
+            "expiresAt": "1789121306"
+          }
+        }
+      ]
+    },
+    {
+      "block": "99",
+      "hash": "0x5072737c4b7de779f70c0397a6b329dc682744efaade9a417bff90d3a2958cfe",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "75053",
+      "call": {
+        "functionName": "setApproval",
+        "args": [
+          "2",
+          true
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 0,
+          "eventName": "AllocationApproval",
+          "args": {
+            "proposalId": "2",
+            "beneficiary": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "approved": true
+          }
+        }
+      ]
+    },
+    {
+      "block": "100",
+      "hash": "0x7ea0c6bd6b16657efc16737802c4e2720c8ff5a8738301828935fe194bfc9f7f",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "70055",
+      "call": {
+        "functionName": "setApproval",
+        "args": [
+          "2",
+          true
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 0,
+          "eventName": "AllocationApproval",
+          "args": {
+            "proposalId": "2",
+            "beneficiary": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "approved": true
+          }
+        }
+      ]
+    },
+    {
+      "block": "101",
+      "hash": "0x2ebc78a8e6a1ee7e237f0a206f4e71d83a50e54994cde7252efa44dcca943cb9",
+      "from": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "67556",
+      "call": {
+        "functionName": "setApproval",
+        "args": [
+          "2",
+          true
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 0,
+          "eventName": "AllocationApproval",
+          "args": {
+            "proposalId": "2",
+            "beneficiary": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "approved": true
+          }
+        }
+      ]
+    },
+    {
+      "block": "102",
+      "hash": "0xa4d4b8bb8ba1247fde8b5b9516e84cf50687939a6971e3dc8cc6f2c5f73e8121",
+      "from": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "1057925",
+      "call": {
+        "functionName": "execute",
+        "args": [
+          "2"
+        ]
+      },
+      "events": [
+        {
+          "address": "0xa783cdc72e34a174cca57a6d9a74904d0bec05a9",
+          "logIndex": 0,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "shares": "160000"
+          }
+        },
+        {
+          "address": "0xa783cdc72e34a174cca57a6d9a74904d0bec05a9",
+          "logIndex": 1,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "shares": "320000"
+          }
+        },
+        {
+          "address": "0xa783cdc72e34a174cca57a6d9a74904d0bec05a9",
+          "logIndex": 2,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "shares": "200000"
+          }
+        },
+        {
+          "address": "0xa783cdc72e34a174cca57a6d9a74904d0bec05a9",
+          "logIndex": 3,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "shares": "320000"
+          }
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 4,
+          "eventName": "AllocationApplied",
+          "args": {
+            "epoch": "3",
+            "split": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+            "payees": [
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+            ],
+            "shares": [
+              "160000",
+              "320000",
+              "200000",
+              "320000"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "block": "103",
+      "hash": "0x44f3232932e881cd41e7d78c9bc143916b290d7e25c233c9c98067c806b24792",
+      "from": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+      "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "value": "0",
+      "gasUsed": "46366",
+      "call": {
+        "functionName": "approve",
+        "args": [
+          "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+          "1000000000000000000"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "logIndex": 0,
+          "eventName": "Approval",
+          "args": {
+            "owner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+            "spender": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "value": "1000000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "104",
+      "hash": "0xfed7b419cf10fedcdb901b8712dfbef4c27a9f36db33633898a6a1173bad5b21",
+      "from": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+      "to": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+      "value": "0",
+      "gasUsed": "221503",
+      "call": {
+        "functionName": "buyWithDeadline",
+        "args": [
+          "1000000000000000000",
+          "1",
+          "1797353733624797310",
+          "1789037597"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "logIndex": 0,
+          "eventName": "Transfer",
+          "args": {
+            "from": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+            "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "value": "1000000000000000000"
+          }
+        },
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "logIndex": 1,
+          "eventName": "Approval",
+          "args": {
+            "owner": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "spender": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+            "value": "980000000000000000"
+          }
+        },
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "logIndex": 2,
+          "eventName": "Transfer",
+          "args": {
+            "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+            "value": "980000000000000000"
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "logIndex": 3,
+          "eventName": "TransferBatch",
+          "args": {
+            "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "from": "0x0000000000000000000000000000000000000000",
+            "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "ids": [
+              "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+              "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+            ],
+            "values": [
+              "980000000000000000",
+              "980000000000000000"
+            ]
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "logIndex": 4,
+          "eventName": "PositionSplit",
+          "args": {
+            "stakeholder": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+            "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "partition": [
+              "1",
+              "2"
+            ],
+            "amount": "980000000000000000"
+          }
+        },
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "logIndex": 5,
+          "eventName": "Transfer",
+          "args": {
+            "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "to": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+            "value": "4000000000000000"
+          }
+        },
+        {
+          "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "logIndex": 6,
+          "eventName": "ProtocolFeePaid",
+          "args": {
+            "epoch": "3",
+            "split": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+            "amount": "4000000000000000"
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "logIndex": 7,
+          "eventName": "TransferSingle",
+          "args": {
+            "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "to": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+            "id": "41740846788121194625506683636016940527623543740245805126308041698374451080170",
+            "value": "1815508821843229607"
+          }
+        },
+        {
+          "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "logIndex": 8,
+          "eventName": "FPMMBuy",
+          "args": {
+            "buyer": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+            "outcomeIndex": "1",
+            "investmentAmount": "1000000000000000000",
+            "feeAmount": "20000000000000000",
+            "outcomeTokensBought": "1815508821843229607"
+          }
+        }
+      ]
+    },
+    {
+      "block": "105",
+      "hash": "0xf8589f313f8d0fe94a62bfe8209e82fb5d6a1ec5f8a392d274c24893ec1a504f",
+      "from": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
+      "to": "0xa783cdc72e34a174cca57a6d9a74904d0bec05a9",
+      "value": "0",
+      "gasUsed": "108783",
+      "call": {
+        "functionName": "release",
+        "args": [
+          "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "logIndex": 0,
+          "eventName": "Transfer",
+          "args": {
+            "from": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+            "to": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "value": "800000000000000"
+          }
+        },
+        {
+          "address": "0xa783cdc72e34a174cca57a6d9a74904d0bec05a9",
+          "logIndex": 1,
+          "eventName": "ERC20PaymentReleased",
+          "args": {
+            "token": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "to": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "amount": "800000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "106",
+      "hash": "0x8c34789a70a9169a2420bb7f4b1724ee79bd6ade400f109c3068e2c5ffa4a926",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "329851",
+      "call": {
+        "functionName": "propose",
+        "args": [
+          "3",
+          [
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+          ],
+          [
+            "160000",
+            "320000",
+            "150000",
+            "370000"
+          ],
+          "1789123467"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 0,
+          "eventName": "AllocationProposed",
+          "args": {
+            "proposalId": "3",
+            "baseVersion": "3",
+            "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "payees": [
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+            ],
+            "shares": [
+              "160000",
+              "320000",
+              "150000",
+              "370000"
+            ],
+            "expiresAt": "1789123467"
+          }
+        }
+      ]
+    },
+    {
+      "block": "107",
+      "hash": "0xb8cad404fc346d0180beab1732fca660d97602c4b7650e9c713e5ce8e88785ca",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0xc717c55ab6dad4e46f89a2d62f618f10023a508f",
+      "value": "0",
+      "gasUsed": "95774",
+      "call": {
+        "functionName": "execTransaction",
+        "args": [
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0",
+          "0x01d5062a0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000d53f0338dfee84218ac68bfea868659d2c29bbc3db319d748835ad43997911420000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000004490a05b7f0000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000",
+          0,
+          "0",
+          "0",
+          "0",
+          "0x0000000000000000000000000000000000000000",
+          "0x0000000000000000000000000000000000000000",
+          "0xc4b9e5bd908cde22d1a65457a6305f763e791786e8c8383f969e1ca8b00d613d225ba9f6b5fb8d41de3ae6361cc887ac7391ce0e00966e31cd27a7e0799c67ea1f8b651ee1ecb58cb7bdfd0d22fe2e3d1b7936224286c9779673cc04bb9fae83bc3f37a734ad30e24d463c4b94570ca95c6fe8c181a97b898b14b784c0bdbdf4871f"
+        ]
+      },
+      "events": [
+        {
+          "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+          "logIndex": 0,
+          "eventName": "CallScheduled",
+          "args": {
+            "id": "0xa0386c8907d055a55fc160b9f6108f0d3c9724b4376f39bbc71646d452fd6dd5",
+            "index": "0",
+            "target": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+            "value": "0",
+            "data": "0x90a05b7f00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001",
+            "predecessor": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "delay": "5"
+          }
+        },
+        {
+          "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+          "logIndex": 1,
+          "eventName": "CallSalt",
+          "args": {
+            "id": "0xa0386c8907d055a55fc160b9f6108f0d3c9724b4376f39bbc71646d452fd6dd5",
+            "salt": "0xd53f0338dfee84218ac68bfea868659d2c29bbc3db319d748835ad4399791142"
+          }
+        },
+        {
+          "address": "0xc717c55ab6dad4e46f89a2d62f618f10023a508f",
+          "logIndex": 2,
+          "eventName": "ExecutionSuccess",
+          "args": {
+            "txHash": "0x95efff7d2035b4259f9bb2df6d2225018da1312a44549a69153989b1c1b2e23c",
+            "payment": "0"
+          }
+        }
+      ]
+    },
+    {
+      "block": "109",
+      "hash": "0x98efa166bc57150f2438ba6b94b92b771625042099e9901affc8cdc89281dcce",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+      "value": "0",
+      "gasUsed": "90054",
+      "call": {
+        "functionName": "execute",
+        "args": [
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "0",
+          "0x90a05b7f00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0xd53f0338dfee84218ac68bfea868659d2c29bbc3db319d748835ad4399791142"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 0,
+          "eventName": "AllocationApproval",
+          "args": {
+            "proposalId": "3",
+            "beneficiary": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "approved": true
+          }
+        },
+        {
+          "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+          "logIndex": 1,
+          "eventName": "CallExecuted",
+          "args": {
+            "id": "0xa0386c8907d055a55fc160b9f6108f0d3c9724b4376f39bbc71646d452fd6dd5",
+            "index": "0",
+            "target": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+            "value": "0",
+            "data": "0x90a05b7f00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001"
+          }
+        }
+      ]
+    },
+    {
+      "block": "110",
+      "hash": "0xee0bc9338ed47447d15bfa174d077e6da4b2044554c1ccc8d962d98e73360fa3",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "1008194",
+      "call": {
+        "functionName": "execute",
+        "args": [
+          "3"
+        ]
+      },
+      "events": [
+        {
+          "address": "0xb30daf0240261be564cea33260f01213c47aaa0d",
+          "logIndex": 0,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "shares": "160000"
+          }
+        },
+        {
+          "address": "0xb30daf0240261be564cea33260f01213c47aaa0d",
+          "logIndex": 1,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "shares": "320000"
+          }
+        },
+        {
+          "address": "0xb30daf0240261be564cea33260f01213c47aaa0d",
+          "logIndex": 2,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+            "shares": "150000"
+          }
+        },
+        {
+          "address": "0xb30daf0240261be564cea33260f01213c47aaa0d",
+          "logIndex": 3,
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "shares": "370000"
+          }
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "logIndex": 4,
+          "eventName": "AllocationApplied",
+          "args": {
+            "epoch": "4",
+            "split": "0xB30dAf0240261Be564Cea33260F01213c47AAa0D",
+            "payees": [
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+              "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+            ],
+            "shares": [
+              "160000",
+              "320000",
+              "150000",
+              "370000"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "snapshots": [
+    {
+      "block": "97",
+      "epoch": "2",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99999047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "98",
+      "epoch": "2",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99999047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "99",
+      "epoch": "2",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99999047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "100",
+      "epoch": "2",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99999047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "101",
+      "epoch": "2",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99999047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "102",
+      "epoch": "3",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "200000",
+          "320000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99999047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "104",
+      "epoch": "3",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "200000",
+          "320000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99998047129745479866654",
+        "100000000000000000000000",
+        "0"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "4000000000000000",
+          "denominator": "1000000",
+          "treasuryClaimable": "800000000000000",
+          "treasuryReleased": "0",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "105",
+      "epoch": "3",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "200000",
+          "320000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99998047129745479866654",
+        "100000000000000000000000",
+        "800000000000000"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "3200000000000000",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "800000000000000",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "106",
+      "epoch": "3",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "200000",
+          "320000"
+        ]
+      ],
+      "safeNonce": "4",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99998047129745479866654",
+        "100000000000000000000000",
+        "800000000000000"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "3200000000000000",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "800000000000000",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "107",
+      "epoch": "3",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "200000",
+          "320000"
+        ]
+      ],
+      "safeNonce": "5",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99998047129745479866654",
+        "100000000000000000000000",
+        "800000000000000"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "3200000000000000",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "800000000000000",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "109",
+      "epoch": "3",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "200000",
+          "320000"
+        ]
+      ],
+      "safeNonce": "5",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99998047129745479866654",
+        "100000000000000000000000",
+        "800000000000000"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "3200000000000000",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "800000000000000",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    },
+    {
+      "block": "110",
+      "epoch": "4",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "160000",
+          "320000",
+          "150000",
+          "370000"
+        ]
+      ],
+      "safeNonce": "5",
+      "balancesT": [
+        "99800240816326530612244",
+        "100000048163265306122448",
+        "100000000000000000000000",
+        "99998817451164869001816",
+        "99998047129745479866654",
+        "100000000000000000000000",
+        "800000000000000"
+      ],
+      "approvals": {
+        "2": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "3": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true
+        ]
+      },
+      "splits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "600000",
+            "400000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "500000",
+            "500000",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "2",
+          "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "400000",
+            "400000",
+            "200000",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "epoch": "3",
+          "address": "0xa783CDc72e34a174CCa57a6d9a74904d0Bec05A9",
+          "balance": "3200000000000000",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "800000000000000",
+          "shares": [
+            "320000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "200000"
+          ]
+        },
+        {
+          "epoch": "4",
+          "address": "0xB30dAf0240261Be564Cea33260F01213c47AAa0D",
+          "balance": "0",
+          "denominator": "1000000",
+          "treasuryClaimable": "0",
+          "treasuryReleased": "0",
+          "shares": [
+            "370000",
+            "320000",
+            "160000",
+            "0",
+            "0",
+            "0",
+            "150000"
+          ]
+        }
+      ],
+      "no": {
+        "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+        "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "0",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 0,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+      },
+      "true": {
+        "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+        "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+        "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+        "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+        "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "deadline": "0",
+        "resolvedAt": "1789001094",
+        "kind": 0,
+        "expectedOutcome": 0,
+        "outcome": 1,
+        "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+      }
+    }
+  ],
+  "proposals": [
+    {
+      "baseVersion": "2",
+      "expiresAt": "1789121306",
+      "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "executed": true,
+      "payees": [
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      ],
+      "shares": [
+        "160000",
+        "320000",
+        "200000",
+        "320000"
+      ]
+    },
+    {
+      "baseVersion": "3",
+      "expiresAt": "1789123467",
+      "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "executed": true,
+      "payees": [
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+      ],
+      "shares": [
+        "160000",
+        "320000",
+        "150000",
+        "370000"
+      ]
+    }
+  ],
+  "checks": {
+    "threeHumanConsents": true,
+    "actualProtocolIncome": true,
+    "claimPaysTreasuryNotCaller": true,
+    "onlyTimelockSecondProposalConsent": true,
+    "safeTwoOfTwoAndTimelockExecution": true,
+    "oldEpochFundsNotReallocated": true,
+    "denominator1000000": true,
+    "noBaseSettlements": true,
+    "noInternalTreasuryPayment": true
+  },
+  "limits": [
+    "UI gate observations are in README; not inferred from RPC tests",
+    "Payment review eth_call is not a payout or a governance proposal",
+    "Only T income/consent path completed; internal distribution awaits explicit confirmation"
+  ]
+}

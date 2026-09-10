@@ -1,0 +1,9 @@
+{
+  "activeJobs": [],
+  "filePins": {
+    ".local/deployment.json": "4d4e1bb93dcab4c681a0fa855a865b78b3af2815019b431f9fe738dae422f399",
+    "proof/deployment.json": "1613f88d16aa9cdbef738c5f19586ff0a1efd8af0d432c3c8b5ec3c66d2f60f1",
+    "proof/execution-policy.local.json": "2af0db8b638d747d096494af8633b92588d03e9301f9c1b82be07f6c50f1de6a",
+    ".local/app.json": "48fea31b416ea7f13cf5d99c852c9588bcb574fbd4aabcc2a15e559963e18b78"
+  }
+}

@@ -21,13 +21,17 @@ export function authorizeDevTime(request,session){
  return session(request); // Existing verified wallet/SIWE session, no new auth scheme.
 }
 
-export async function governanceSnapshot({client,read,manifest,proposals,rpcUrl}){
+export async function governanceSnapshot({client,read,manifest,proposals,rpcUrl,reviewAction=async()=>null}){
  const block=await client.getBlock({blockTag:'latest'}),extra={blockNumber:block.number};
  const [threshold,owners,nonce,delay,chainId]=await Promise.all([
   read(manifest.safe,'Safe','getThreshold',[],extra),read(manifest.safe,'Safe','getOwners',[],extra),
   read(manifest.safe,'Safe','nonce',[],extra),read(manifest.timelock,'AgoraTimelock','getMinDelay',[],extra),client.getChainId()]);
  const context={timestamp:block.timestamp,threshold,owners,nonce};
- const views=await Promise.all(proposals.map(async p=>proposalView(p,context,await read(manifest.timelock,'AgoraTimelock','getTimestamp',[p.operationId],extra))));
+ const views=await Promise.all(proposals.map(async p=>{
+  const view=proposalView(p,context,await read(manifest.timelock,'AgoraTimelock','getTimestamp',[p.operationId],extra));
+  if(p.action&&!view.done)try{view.actionContext=await reviewAction(p,block);}catch(e){view.actionError=e.message;view.canSign=false;view.canSchedule=false;view.canExecute=false;view.status='action-unavailable';}
+  return view;
+ }));
  return {safe:manifest.safe,threshold,owners,nonce,delay,observedBlock:block.number,observedBlockHash:block.hash,observedTimestamp:block.timestamp,localTimeControls:isLocalDevnet(rpcUrl,chainId),proposals:views};
 }
 

@@ -1,3 +1,4 @@
+import * as treasurySDK from '../sdk/treasury.mjs';
 import * as derived from '../src/derived-review.mjs';
 import * as creation from '../src/create-flow.mjs';
 import * as liquidity from '../sdk/liquidity-preview.mjs';
@@ -14,12 +15,12 @@ function setup(extra={}){
  const provider=new EventEmitter(),timers=[],requests=[];let addresses=[chain.devAccounts[0].address],chainId='0x7a8b';
  provider.request=async({method})=>method==='eth_chainId'?chainId:method==='eth_accounts'||method==='eth_requestAccounts'?addresses:null;
  const fetch=async(url,options)=>{requests.push({url,options});const custom=await extra.fetch?.(url,options);const body=custom??(url==='/api/markets'?{markets:[],observedBlock:'54'}:url.includes('/allocations')?{recipients:[],shares:[]}:url==='/api/governance'?{proposals:[]}:url==='/api/operators'||url==='/api/jobs'?[]:{});return{ok:true,json:async()=>body};};
- const bindings={...derived,...creation,...liquidity,...vue,...chain,...viem,...amounts,...packages,...drafts,...selection,...scopes,...session,...markets,...external,
+ const bindings={...treasurySDK,...derived,...creation,...liquidity,...vue,...chain,...viem,...amounts,...packages,...drafts,...selection,...scopes,...session,...markets,...external,
   pc:extra.pc??{},fetch,window:{ethereum:provider},onMounted:()=>{},onUnmounted:()=>{},
   createWalletScope:()=>scopes.createWalletScope({setTimer:fn=>{timers.push(fn);return fn;},clearTimer:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);}}),
  };
  const names=Object.keys(bindings).filter(k=>/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(k)&&k!=='default');
- const app=Function(...names,script+'\nreturn {connect,signin,clearPrivateContext,switchRole,startJob,applyPackage,wallet,account,role,sessionAddress,sessionToken,form,registration,proofSource,proofCertificate,jobs,shelf,notebook,profileDraft,error,notice,config,importedPackage,published,socialContextEpoch,importExternalCertificate,externalArtifactText,selectedId,list,page,proofOutcome,proofBinding,importExternalFile,importExternalText,packageJSON,importPackage,importPastedPackage,resolveDerivedFromState};')(...names.map(k=>bindings[k]));
+ const app=Function(...names,script+'\nreturn {connect,signin,clearPrivateContext,switchRole,startJob,applyPackage,wallet,account,role,sessionAddress,sessionToken,form,registration,proofSource,proofCertificate,jobs,shelf,notebook,profileDraft,error,notice,config,importedPackage,published,socialContextEpoch,importExternalCertificate,externalArtifactText,selectedId,list,page,proofOutcome,proofBinding,importExternalFile,importExternalText,packageJSON,importPackage,importPastedPackage,resolveDerivedFromState,prepareGovernanceShare,allocationText,allocationDraftEpoch,treasury,allocation,allocationReview,newGov,prepareTreasuryTransfer,treasuryCallPreview,createGovernance};')(...names.map(k=>bindings[k]));
  app.config.value={profileId:'0x'+'11'.repeat(32)};
  return {app,provider,timers,requests,setAccounts:a=>{addresses=a;provider.emit('accountsChanged',a);},setChain:c=>{chainId=c;provider.emit('chainChanged',c);}};
 }
@@ -96,4 +97,30 @@ test('actual pasted and file package handlers use identical strict validation an
 test('derived resolve preflight reports pending without write and rejects changed wallet while reading',async()=>{
  const d=deferred(),h=setup({pc:{readContract:()=>d.promise}}),a=h.app;a.selectedId.value='predicate';a.config.value.abis={AgoraRegistry:[]};const pending=a.resolveDerivedFromState();a.clearPrivateContext();d.resolve(1);await assert.rejects(pending,scopes.StaleWalletContext);assert.equal(h.requests.length,0);
  const h2=setup({pc:{readContract:async()=>0}});h2.app.selectedId.value='pending';h2.app.config.value.abis={AgoraRegistry:[]};await assert.rejects(h2.app.resolveDerivedFromState(),/Pending:.*No resolution transaction/);assert.equal(h2.requests.length,0);
+});
+
+test('actual treasury preset reads current epoch shares, prepares a draft only and clears on wallet change',async()=>{
+ const config={timelock:chain.devAccounts[5].address},current={epoch:2,observedBlock:'97',recipients:chain.devAccounts.slice(0,3).map(a=>a.address),shares:['400000','400000','200000']};
+ const h=setup({fetch:url=>url.includes('/allocations')?current:undefined}),a=h.app;a.config.value=config;
+ await a.prepareGovernanceShare();assert.equal(a.allocationDraftEpoch.value,2);assert.equal(a.allocationReview.value.rows.filter(r=>r.loses).length,3);assert.match(a.allocationText.value,/ 16/);assert.match(a.allocationText.value,/ 32/);assert.match(a.allocationText.value,/ 20/);
+ assert(h.requests.every(r=>!r.options?.method||r.options.method==='GET'));a.treasury.value={balance:'5'};a.prepareTreasuryTransfer();assert.equal(a.newGov.value.kind,'treasury-transfer');a.clearPrivateContext();assert.equal(a.treasury.value,null);assert.equal(a.allocationText.value,'');assert.equal(a.allocationDraftEpoch.value,null);assert.equal(a.newGov.value.kind,'profile');
+});
+
+const treasuryTestConfig=()=>({timelock:chain.devAccounts[5].address,token:chain.devAccounts[4].address,abis:{TrueToken:JSON.parse(fs.readFileSync(new URL('../artifacts/TrueToken.json',import.meta.url))).abi}});
+const treasuryTestSnapshot=c=>({address:c.timelock,token:c.token,balance:'800000000000000'});
+test('actual treasury preview uses exact BigInt balance including one wei, rejects unavailable identity',()=>{
+ const a=setup().app,c=treasuryTestConfig();a.config.value=c;a.treasury.value=treasuryTestSnapshot(c);a.newGov.value={kind:'treasury-transfer',recipient:chain.devAccounts[3].address,amount:'0.001'};
+ assert.equal(a.treasuryCallPreview.value.valid,false);assert.match(a.treasuryCallPreview.value.error,/Insufficient.*0.001.*0.0008/);
+ a.newGov.value.amount='0.0008';assert.equal(a.treasuryCallPreview.value.valid,true);a.newGov.value.amount='0.000800000000000001';assert.equal(a.treasuryCallPreview.value.valid,false);
+ a.newGov.value.amount='0.0004';assert.equal(a.treasuryCallPreview.value.valid,true);a.treasury.value=null;assert.equal(a.treasuryCallPreview.value.valid,false);
+});
+test('actual treasury click refresh rejects reduced balance before sign-in or proposal POST',async()=>{
+ const c=treasuryTestConfig(),h=setup({fetch:url=>url==='/api/treasury'?{...treasuryTestSnapshot(c),balance:'1'}:undefined}),a=h.app;a.config.value=c;a.treasury.value=treasuryTestSnapshot(c);a.newGov.value={kind:'treasury-transfer',recipient:chain.devAccounts[3].address,amount:'0.0004'};
+ await a.createGovernance();assert.match(a.error.value,/Insufficient treasury/);assert.equal(h.requests.length,1);assert.equal(h.requests[0].url,'/api/treasury');
+});
+test('actual treasury async preflight rejects wallet or A→B→A form changes without creating proposal',async()=>{
+ for(const change of ['wallet','form']){const d=deferred(),c=treasuryTestConfig(),h=setup({fetch:url=>url==='/api/treasury'?d.promise:undefined}),a=h.app;a.config.value=c;a.treasury.value=treasuryTestSnapshot(c);a.newGov.value={kind:'treasury-transfer',recipient:chain.devAccounts[3].address,amount:'0.0004'};
+ const pending=a.createGovernance();await tick();if(change==='wallet')a.clearPrivateContext();else{a.newGov.value.amount='0.0003';a.newGov.value.amount='0.0004';}d.resolve(treasuryTestSnapshot(c));await pending;
+ assert.equal(h.requests.some(r=>r.options?.method==='POST'),false);if(change==='form')assert.match(a.error.value,/draft changed/);
+ }
 });
