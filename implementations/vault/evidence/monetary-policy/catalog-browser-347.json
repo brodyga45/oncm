@@ -1,0 +1,29 @@
+{
+  "format": "vault-v2-external-profile-catalog-browser-v1",
+  "date": "2026-09-10",
+  "tabId": "102825414",
+  "url": "http://127.0.0.1:5173/",
+  "protocolLabel": "Vault V2",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "displayedBlock": 347,
+  "actor": null,
+  "walletControl": "Подключить кошелёк ⌄",
+  "action": "Scoped Playwright click on own tab's ⌘ Lean Lab navigation; read DOM snapshot only.",
+  "observed": {
+    "selectedProfile": "perf05 · чистая логика, без аксиом",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+    "bridge": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+    "registryLabel": "Выбранный registry · блок 347",
+    "registry": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+    "admissionLabel": "Профиль включён",
+    "policyText": "Отдельный экспериментальный профиль Lean 4.33.1 / NanoDa: zero axioms, без Nat/String extensions. Не профиль v3 и не пример Nat.add_comm.",
+    "certificateJson": "",
+    "verifyButtonDisabled": true,
+    "fourPublishedLoadersVisible": true,
+    "noLocalProvingTextVisible": true
+  },
+  "transactionCount": 0,
+  "scope": "Read-only UI label regression after API selected-registry catalog correction. No certificate reload/reverification, native check, proving, wallet connection or chain write. Genuine original/bridge verification remains separately evidenced at block 334 in profile-market-308-335.json. Other agent's concurrent chain progress was not controlled."
+}
