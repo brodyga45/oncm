@@ -1,0 +1,66 @@
+{
+  "checkedAt": "2026-09-10T14:51:20.299Z",
+  "origin": "https://sasquatch-impart-basil.ngrok-free.dev",
+  "publicWriteEnabled": true,
+  "genesis": {
+    "hash": "0x6e57f2da1aa9d1fdf5092452ca1fcb015ab3319f4b659ef1b9d7e43bd967e14a",
+    "timestamp": 1788989165
+  },
+  "head": {
+    "number": 846,
+    "timestamp": 1789057489,
+    "parentTimestamp": 1789057484
+  },
+  "restoredBlocks": [
+    {
+      "number": 533,
+      "hash": "0x2847ec7b690c1c1278b2b4e6b01c1269158f7ff33017c410e5a6b9be2b6a6018",
+      "timestamp": 1789051037
+    },
+    {
+      "number": 584,
+      "hash": "0x9a9d5e96f5cab924ba1c4bce555d535bf48ae2331166904115d11f8a285f9a12",
+      "timestamp": 1789056150
+    },
+    {
+      "number": 668,
+      "hash": "0xdacd8c6e8d9c12668f2622ebc55412156c296d28a2d7456e4c8f6cd700a2e3c3",
+      "timestamp": 1789056606
+    },
+    {
+      "number": 753,
+      "hash": "0xa34def308a18a4262b1470e1b50819e42c68ee73ce5ed34bbcda8ae1a6b213ae",
+      "timestamp": 1789057025
+    },
+    {
+      "number": 772,
+      "hash": "0x2afec79315eae112370f87444afe408ca937ffcc33b550bf29084b6dc9f167f7",
+      "timestamp": 1789057117
+    },
+    {
+      "number": 840,
+      "hash": "0x07515ef3980fbfa6ff6c0ac42d1c41faeca9a56c8d7293e9f4ce55022f2af12c",
+      "timestamp": 1789057458
+    }
+  ],
+  "restoredReceipts": [
+    {
+      "block": 533,
+      "hash": "0xd9c3aabdbc6170379ceeee82b3f021e9c586f7b9c9c51448fb8f6d2d49fef7fb",
+      "status": 1,
+      "logs": 2
+    },
+    {
+      "block": 584,
+      "hash": "0xafa3c0e2a725aad5ea58974e216ee1652fba6c888243e7e3245d9e515b0dc5ad",
+      "status": 1,
+      "logs": 4
+    },
+    {
+      "block": 753,
+      "hash": "0x469d24efa3e773d2db19eaaba1e06b6e91159198995bfce7b1fbe37afac4d4b5",
+      "status": 1,
+      "logs": 2
+    }
+  ]
+}

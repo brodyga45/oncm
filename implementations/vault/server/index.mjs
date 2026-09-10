@@ -1,6 +1,7 @@
 import {runtimeFiles,readRuntimeDeployment} from './runtime-version.mjs';
 import {createPublicPolicy,browserConfig,publicMiddleware,publicRouteWrapper,validSiweBinding} from './public-surface.mjs';
 import {createRpcGateway,PUBLIC_DEV_SENDERS,RPC_LIMITS} from './rpc-gateway.mjs';
+import {verifyPublicWriteReadiness} from './public-write-readiness.mjs';
 import {localEndpoints} from '../sdk/local-endpoints.mjs';
 const endpoints=localEndpoints(process.env.VAULT_PORT_OFFSET??0);
 import { palomarRecent, palomarSnapshot } from './palomar.mjs';
@@ -17,16 +18,23 @@ import crypto from 'node:crypto';
 import { createProofJobs, createProofWorker } from './proof-jobs.mjs';
 import { fileURLToPath } from 'node:url';
 import { SiweMessage } from 'siwe';
-import { Interface, isAddress, formatEther, ZeroAddress } from 'ethers';
+import { Interface, isAddress, formatEther, ZeroAddress, JsonRpcProvider } from 'ethers';
 import { createSDK } from '../sdk/index.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 process.chdir(root);
 const files=runtimeFiles(root,process.env.VAULT_PROTOCOL_VERSION??'legacy');
 const app = express();
 const PORT=endpoints.apiPort;
-// Fail closed until a separately reviewed onchain administrator migration
-// verifier is supplied here. Environment flags alone do not enable writes.
-const publicPolicy=createPublicPolicy(process.env);
+// One persistent read-only provider; env flags cannot replace the live role
+// audit. Its helper coalesces/cache-validates checks, never a saved plan flag.
+const publicPolicy=createPublicPolicy(process.env,{writeReadiness:async()=>{
+  const state=await verifyPublicWriteReadiness({config:readRuntimeDeployment(files),
+    provider:publicReadinessProvider,owner:process.env.VAULT_PUBLIC_OWNER});
+  return state.ready===true;
+}});
+// The verifier independently sends eth_chainId; avoid an extra network probe
+// for every individual contract getter during its pinned full audit.
+const publicReadinessProvider=publicPolicy.enabled?new JsonRpcProvider(endpoints.rpcUrl,31373,{staticNetwork:true,cacheTimeout:-1}):null;
 const ALLOWED=new Set(publicPolicy.enabled?[publicPolicy.origin]:[endpoints.webUrl,`http://localhost:${endpoints.webPort}`]);
 app.disable('x-powered-by');
 app.use(publicMiddleware(publicPolicy));
@@ -556,6 +564,7 @@ async function shutdown() {
   stopping = true;
   server.close();
   await proofJobs.close();
+  publicReadinessProvider?.destroy();
   process.exit(0);
 }
 process.on('SIGTERM', shutdown);

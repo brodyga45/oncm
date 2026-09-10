@@ -12,6 +12,8 @@ Vault is the maintained application in this repository. The table below preserve
 
 ## Current state
 
+The owner's local public pilot is at **[Vault](https://sasquatch-impart-basil.ngrok-free.dev)**, with the same HTTPS origin serving RPC at `/rpc` (chain31373). It requires a wallet supporting custom networks; the installed Uniswap Extension rejected this test network. Services run independently of this chat but the host Mac must remain awake and online. See [operations, ownership and verification evidence](docs/public-pilot.md).
+
 **Vault V2 completed its governed monetary browser cycle through block 552:** voted issuance and three reward programs, two traders/LPs, beneficiary income, four proportional reward claims, genuine CI4 Lean/Groth16 settlement, principal withdrawal, LP exits, redemption and fixed-recipient budget close. Supply remains 1006 test T and the reward reserve is zero. [Exact actions and balances](implementations/vault/docs/US023-BROWSER-RESULT.md). Use `VAULT_PROTOCOL_VERSION=2 npm run dev` in `implementations/vault` for an already deployed V2; see its README for first deployment and legacy selection.
 
 The local applications, native Lean/export/NanoDa checks and component tests run. The local deployment uses real cryptographic verifier contracts. Tests that substitute a verifier are confined to isolated economic tests; they do not establish Lean proof acceptance.

@@ -1,0 +1,54 @@
+{
+  "format": "vault-public-pilot-fee-cutover-v1",
+  "transactions": [
+    {
+      "label": "Propose owner85% / governance15% future fee epoch",
+      "hash": "0x9b2546e41446b8710d92f2484a7d48a2f0fe52bea843e2dac3c4169f05fa7cef",
+      "block": 581
+    },
+    {
+      "label": "Bob consents to transfer his future40% test share",
+      "hash": "0x43a79e62a4e4dd518dabf288b681e7c3a918e38572beb82a9de5f291e5bfcdb1",
+      "block": 582
+    },
+    {
+      "label": "Alice consents to transfer her future45% test share",
+      "hash": "0xcfda9c2a81b8b5d1d39110cf07ad4e41f56ae79feaadc6501f61b2daeee4ddec",
+      "block": 583
+    },
+    {
+      "label": "Activate future fee epoch2",
+      "hash": "0xafa3c0e2a725aad5ea58974e216ee1652fba6c888243e7e3245d9e515b0dc5ad",
+      "block": 584
+    }
+  ],
+  "before": {
+    "controller": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+    "epoch": "1",
+    "split": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+    "recipients": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "weights": [
+      "4000",
+      "1500",
+      "4500"
+    ]
+  },
+  "after": {
+    "epoch": "2",
+    "split": "0xB6a2C49Bb76b2e5d4100c79A24b897823dE47BAF",
+    "recipients": [
+      "0x4B5D2B35F36a3AC018D5c9a9C394Fadae667Fb2f",
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    ],
+    "weights": [
+      "8500",
+      "1500"
+    ]
+  },
+  "complete": true,
+  "finalBlock": 584
+}

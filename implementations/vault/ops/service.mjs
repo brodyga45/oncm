@@ -15,18 +15,23 @@ const log=rotatingLog(path.join(state,role+'.log'));
 let child,stopping=false,killTimer;
 async function main(){
   const config=JSON.parse(fs.readFileSync(path.join(state,'config.json')));
-  const env={...process.env,NODE_OPTIONS:'--max-old-space-size=512',VAULT_PROTOCOL_VERSION:'2',VAULT_PUBLIC_ORIGIN:config.origin,VAULT_PUBLIC_OWNER:config.owner,VAULT_PUBLIC_WRITES:'1'};
+  const env={...process.env,PATH:[process.env.PATH,'/usr/sbin','/sbin'].filter(Boolean).join(':'),NODE_OPTIONS:'--max-old-space-size=512',VAULT_PROTOCOL_VERSION:'2',VAULT_PUBLIC_ORIGIN:config.origin,VAULT_PUBLIC_OWNER:config.owner,VAULT_PUBLIC_WRITES:'1'};
   let executable=process.execPath,args;
   if(role==='chain'){
-    args=['scripts/chain.mjs'];env.VAULT_BLOCK_TIME='5';env.VAULT_MAX_PERSISTED_STATES='16';
+    args=['scripts/chain.mjs'];env.VAULT_BLOCK_TIME='5';env.VAULT_MAX_PERSISTED_STATES='16';env.VAULT_PRESERVE_HISTORICAL_STATES='0';
   }else if(role==='api'){
+    const ready=JSON.parse(fs.readFileSync('.state/chain/ready.json'));
+    const running=JSON.parse(fs.readFileSync('.state/chain/process.json'));
+    const deployment=JSON.parse(fs.readFileSync('.state/deployment-v2.json'));
+    if(ready.instance!==deployment.chainInstance.id||ready.instance!==running.instance||ready.launcherPid!==running.launcherPid||ready.anvilPid!==running.anvilPid)
+      throw Error('Persistent chain clock is not initialized for this process');
+    process.kill(ready.launcherPid,0);process.kill(ready.anvilPid,0);
     // Same chain ID alone is insufficient; reject an empty/replaced chain.
     const rpc=async(method,params=[])=>{
       const response=await fetch('http://127.0.0.1:9547',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params}),signal:AbortSignal.timeout(3000)});
       const body=await response.json();if(!response.ok||body.error)throw Error('Persistent Vault RPC unavailable');return body.result;
     };
     if(await rpc('eth_chainId')!=='0x7a8d')throw Error('Persistent Vault chain31373 is unavailable');
-    const deployment=JSON.parse(fs.readFileSync('.state/deployment-v2.json'));
     for(const key of ['StatementRegistry','TrueToken']){
       const address=deployment.addresses[key],expected=Object.entries(deployment.monetaryPolicy.runtimeHashes).find(([a])=>a.toLowerCase()===address.toLowerCase())?.[1];
       const code=await rpc('eth_getCode',[address,'latest']);
@@ -41,11 +46,11 @@ async function main(){
   child=spawn(executable,args,{stdio:['ignore','pipe','pipe'],env});
   child.stdout.on('data',log);child.stderr.on('data',log);
   child.once('error',error=>{log(error.stack+'\n');process.exitCode=1;});
-  child.once('close',(code)=>{clearTimeout(killTimer);process.exitCode=stopping?0:(code??1);});
+  child.once('close',(code)=>{clearTimeout(killTimer);process.exitCode=code??1;});
 }
 function stop(){
   if(stopping)return;stopping=true;
-  if(child){child.kill('SIGTERM');killTimer=setTimeout(()=>child.kill('SIGKILL'),15_000);}
+  if(child){child.kill('SIGTERM');killTimer=setTimeout(()=>child.kill('SIGKILL'),200_000);}
 }
 for(const signal of ['SIGINT','SIGTERM'])process.on(signal,stop);
 await main().catch(error=>{log(error.stack+'\n');process.exitCode=1;});

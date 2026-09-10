@@ -30,6 +30,12 @@ http {
   default_type application/octet-stream;
   server_tokens off;
   access_log off;
+  gzip on;
+  gzip_comp_level 3;
+  gzip_min_length 1024;
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_types application/json application/javascript text/javascript text/css image/svg+xml;
   client_max_body_size 1m;
   client_body_timeout 10s;
   send_timeout 20s;
@@ -62,6 +68,17 @@ http {
       proxy_read_timeout 20s;
     }
     location ~ /\\. { deny all; }
+    location /assets/ {
+      try_files $uri =404;
+      add_header Cache-Control "public, max-age=31536000, immutable";
+      add_header X-Content-Type-Options nosniff always;
+      add_header Referrer-Policy same-origin always;
+    }
+    location = /index.html {
+      add_header Cache-Control no-cache;
+      add_header X-Content-Type-Options nosniff always;
+      add_header Referrer-Policy same-origin always;
+    }
     location / { try_files $uri $uri/ /index.html; }
   }
 }
@@ -74,6 +91,6 @@ for value in [str(state),str(root),str(mimes),u.netloc]:
 atomic_write(state/'nginx.conf',conf.replace('STATE',str(state)).replace('ROOT',str(root)).replace('MIMES',str(mimes)).replace('PUBLIC_HOST',u.netloc).encode())
 for role in ['chain','api','nginx','ngrok']:
  label='org.oncm.vault.'+role
- d={'Label':label,'ProgramArguments':[node,str(root/'ops/service.mjs'),role], 'WorkingDirectory':str(root),'RunAtLoad':True,'KeepAlive':True,'ThrottleInterval':10,'ExitTimeOut':25,'AbandonProcessGroup':False,'ProcessType':'Background','StandardOutPath':'/dev/null','StandardErrorPath':'/dev/null','EnvironmentVariables':{'PATH':str(pathlib.Path(node).parent)+':/opt/homebrew/bin:/usr/bin:/bin','NODE_OPTIONS':'--max-old-space-size=512'}}
+ d={'Label':label,'ProgramArguments':[node,str(root/'ops/service.mjs'),role], 'WorkingDirectory':str(root),'RunAtLoad':True,'KeepAlive':True,'ThrottleInterval':10,'ExitTimeOut':240,'AbandonProcessGroup':False,'ProcessType':'Standard','StandardOutPath':'/dev/null','StandardErrorPath':'/dev/null','EnvironmentVariables':{'PATH':str(pathlib.Path(node).parent)+':/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin','NODE_OPTIONS':'--max-old-space-size=512'}}
  atomic_write(state/(label+'.plist'),plistlib.dumps(d))
 print(json.dumps({'prepared':str(state),'origin':a.origin,'owner':a.owner.lower(),'installed':False},indent=2))

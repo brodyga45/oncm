@@ -35,14 +35,27 @@ export function walletChain(config) {
 export async function selectWalletChain(ethereum, config) {
   const chain = walletChain(config);
   if (!chain) return; // Preserve the existing manually configured local-wallet flow.
+  const requestNetwork = async (method, params) => {
+    try { return await ethereum.request({ method, params }); }
+    catch (error) {
+      // A rejected request is a user decision, even if a wallet attaches an
+      // ambiguous message. Preserve it and never attempt another route.
+      const code = Number(error?.code);
+      if (code === 4001) throw error;
+      const unsupportedMessage = /^Uniswap Wallet does not support wallet_(?:add|switch)EthereumChain\.?$/i.test(error?.message || '');
+      if (code === 4200 || code === -32601 || unsupportedMessage)
+        throw Object.assign(new Error('Этот кошелёк не поддерживает добавление или переключение пользовательских сетей. Для Vault нужен кошелёк с поддержкой custom RPC, например MetaMask: сеть 31373, RPC ' + chain.rpcUrls[0], { cause: error }), { code: [4200, -32601].includes(code) ? code : 4200 });
+      throw error;
+    }
+  };
   const selected = await ethereum.request({ method: 'eth_chainId' });
   if (BigInt(selected) !== 31373n) {
     try {
-      await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: chain.chainId }] });
+      await requestNetwork('wallet_switchEthereumChain', [{ chainId: chain.chainId }]);
     } catch (error) {
       if (Number(error?.code) !== 4902) throw error;
-      await ethereum.request({ method: 'wallet_addEthereumChain', params: [chain] });
-      await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: chain.chainId }] });
+      await requestNetwork('wallet_addEthereumChain', [chain]);
+      await requestNetwork('wallet_switchEthereumChain', [{ chainId: chain.chainId }]);
     }
   }
   if (BigInt(await ethereum.request({ method: 'eth_chainId' })) !== 31373n)

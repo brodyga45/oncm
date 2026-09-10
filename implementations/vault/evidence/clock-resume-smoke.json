@@ -1,0 +1,27 @@
+{
+  "isolatedPort": 19847,
+  "anvil": "1.7.1/4072e48705af9d93e3c0f6e29e93b5e9a40caed8",
+  "genesis": {
+    "hash": "0x5383cef7feb261b80114fa944a10defd9be1d4a6e8849e85fa3e2ac2c435e233",
+    "timestamp": "0x5f5e1000"
+  },
+  "saved": {
+    "number": "0x1",
+    "timestamp": "0x743aa380"
+  },
+  "newBlocks": [
+    {
+      "number": "0x2",
+      "timestamp": "0x743aa382",
+      "hash": "0xae9945caec0ac57cd3cd6a54eb64c961abb1fea068c299f1d0da5a2eb9f099bd"
+    },
+    {
+      "number": "0x3",
+      "timestamp": "0x743aa383",
+      "hash": "0xcebd1c57281b93c89d2e55d70027e37d78083e0cd88032e7e281ff24c8cbd934"
+    }
+  ],
+  "sameGenesis": true,
+  "monotonic": true,
+  "onlyEmptyBlocks": true
+}

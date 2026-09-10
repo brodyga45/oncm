@@ -820,7 +820,13 @@
         await refresh();
         if (/^#profile\/0x[0-9a-f]{40}$/i.test(location.hash))
           await openProfile(location.hash.slice(9));
-        timer = setInterval(() => refresh().catch(() => {}), 7000);
+        // Public tunnel quotas count polling too; writes still refresh immediately.
+        let refreshing = false;
+        timer = setInterval(async () => {
+          if (refreshing || document.hidden) return;
+          refreshing = true;
+          try { await refresh(); } catch {} finally { refreshing = false; }
+        }, config.publicMode ? 30000 : 7000);
       } catch (e) {
         error = e.message;
       }
@@ -871,6 +877,7 @@
     {#if launchPublicUrl}<section class="panel" role="alert"><p>Этот экземпляр настроен на публичный HTTPS-адрес. Откройте его для чтения блокчейна и подключения кошелька.</p><a class="primary" href={launchPublicUrl}>Открыть публичный Vault ↗</a></section>{/if}
     {#if walletOpen && config}<div class="wallet-panel">
         <h3>Ваш кошелёк</h3>
+        {#if config.publicMode}<p>Нужен кошелёк с поддержкой пользовательских сетей (custom RPC), например MetaMask.</p>{/if}
         <p>Профиль, блог и обсуждения записываются в блокчейн транзакциями кошелька. Подпись SIWE используется для личных инструментов.</p>
         <button class="primary full" onclick={() => connect(false)} disabled={busy}
           >Browser wallet ↗</button

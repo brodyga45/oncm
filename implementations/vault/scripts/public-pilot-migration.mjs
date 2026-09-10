@@ -1,7 +1,7 @@
 // Prepare/read-only verify only. This file has no signer, send, mining or reset path.
 import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
 import {Contract,Interface,JsonRpcProvider,ZeroAddress,getAddress,id,keccak256,toUtf8Bytes,sha256} from 'ethers';
-import {readPublicPilotControlState,verifyPublicWriteReadiness,PUBLIC_DEV_ADDRESSES} from '../server/public-write-readiness.mjs';
+import {readPublicPilotControlState,publicControlViolations,PUBLIC_DEV_ADDRESSES} from '../server/public-write-readiness.mjs';
 import {preparePilotFeeMigration,preparePilotGasFunding} from './public-pilot-migration-plan.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),argv=process.argv.slice(2);
 if(argv.length!==3||!['--plan','--verify'].includes(argv[0])||argv[1]!=='--out')throw Error('Usage: node --max-old-space-size=128 scripts/public-pilot-migration.mjs --plan|--verify --out .state/public-pilot-plan.json');
@@ -14,7 +14,8 @@ const allowed=new Set(['eth_chainId','eth_getBlockByNumber','eth_getCode','eth_c
 provider.send=async(method,params)=>{if(!allowed.has(method))throw Error('Read-only migration tool rejects '+method);rpcCounts[method]=(rpcCounts[method]??0)+1;return send(method,params);};
 const same=(a,b)=>a.toLowerCase()===b.toLowerCase(),json=x=>JSON.stringify(x,(_,v)=>typeof v==='bigint'?String(v):v,2)+'\n';
 try{
- const control=argv[0]==='--verify'?await verifyPublicWriteReadiness({config,provider,owner}):await readPublicPilotControlState({config,provider,owner});
+ const control=await readPublicPilotControlState({config,provider,owner});
+ if(argv[0]==='--verify'){const initialViolations=publicControlViolations(control,{initial:true});if(initialViolations.length)throw Error('Initial pilot cutover is incomplete: '+initialViolations.join('; '));}
  const a=config.addresses,at={blockTag:control.block.number},member=new Interface(['function setMember(address,bool)']),token=new Contract(a.TrueToken,['function balanceOf(address) view returns(uint256)','function totalSupply() view returns(uint256)','function allowance(address,address) view returns(uint256)','function transfer(address,uint256) returns(bool)','function approve(address,uint256) returns(bool)','event Approval(address indexed owner,address indexed spender,uint256 value)'],provider);
  const allocation=new Contract(a.AllocationController,abis.AllocationControllerV2??abis.AllocationController,provider),epoch=await allocation.epoch(at),split=await allocation.allocation(epoch,at);
  const treasuryBalance=await token.balanceOf(a.Timelock,at),budgetBalance=await token.balanceOf(a.RewardBudget,at),supply=await token.totalSupply(at);
@@ -43,7 +44,7 @@ try{
      signatures:'TrueTokenV2 is ERC20+Ownable, not ERC20Permit. Membership Permit cannot transfer the nontransferable MEMBER; delegateBySig signed by a burned dev member has zero current voting weight. Historical Governor snapshots and queued calls require explicit inspection. Permit2 rights remain sender-owned; moving dev T out does not revoke all old signatures or future beneficiary income.',
      bootstrapAuthorizer:'The old bootstrap authorizer contract still exists but is not the active V2 Vault authorizer; live active-controller/authorizer bindings are verified.',
      publicWriteGate:'Only role/authority readiness is a continuing write gate. Requiring dev T balances to stay forever zero would allow anyone to disable the pilot by transferring dust to a dev address; initial asset migration is separately compared to this exact plan.'},rpcCounts};
- result.futureFeeMigration=preparePilotFeeMigration(result,pc);result.nativeGasFunding=preparePilotGasFunding(result);
+ if(argv[0]==='--plan'){result.futureFeeMigration=preparePilotFeeMigration(result,pc);result.nativeGasFunding=preparePilotGasFunding(result);}else result.initialCutoverVerified=true;
  result.residual.publicKeyRights='The separate futureFeeMigration moves the current dev 85% to the owner with both ordinary dev consents. Previous-epoch claims and social authorship remain historical and public-key-controlled; they are not overwritten.';
  fs.mkdirSync(path.dirname(destination),{recursive:true});fs.writeFileSync(destination,json(result),{flag:'wx'});
  console.log(json({mode:result.mode,block:control.block,owner,membershipSupply:control.memberSupply,nonzeroMembers:control.members.filter(m=>m.balance!=='0'),authorityReady:control.ready,violations:control.violations,transferTotalT:String(transferred),expectedOwnerAfterT:String(ownerBefore+transferred),treasuryT:String(treasuryBalance),queuedGovernor:queued.length,otherNonterminal:result.residual.otherNonterminalGovernorProposals.length,activeDevTApprovals:activeApprovals.length,allocation:result.preserved.allocation,out:path.relative(root,destination)}));

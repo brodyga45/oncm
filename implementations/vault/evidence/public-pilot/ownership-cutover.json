@@ -1,0 +1,81 @@
+{
+  "format": "vault-public-pilot-cutover-v1",
+  "owner": "0x4b5d2b35f36a3ac018d5c9a9c394fadae667fb2f",
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "chainId": 31373,
+  "reviewedBlock": 563,
+  "transactions": [
+    {
+      "label": "Transfer existing V2 T to pilot owner",
+      "hash": "0x0838c1521860fe378b1ae5723c83055d67d5de4c1a75139a24a4b425377ea17b",
+      "block": 564,
+      "gasUsed": "46593"
+    },
+    {
+      "label": "Transfer existing V2 T to pilot owner",
+      "hash": "0xa56cf354c94ff34147dc7638f14c67c82852ae9510f1d04b0902989f11b4a4c2",
+      "block": 565,
+      "gasUsed": "29469"
+    },
+    {
+      "label": "Fund owner with 100 valueless local test ETH",
+      "hash": "0x0b261df3dfbc2bee940eb77f437e368e1d026c90f0535395115c56afad3ab6bc",
+      "block": 566,
+      "gasUsed": "21000"
+    },
+    {
+      "label": "Propose atomic membership handoff",
+      "hash": "0xe8a530941dcbb1401e02b4a2b12e4a3e59fc652943cdaa215387909798738de6",
+      "block": 567,
+      "gasUsed": "99737"
+    },
+    {
+      "label": "Existing Alice member votes FOR handoff",
+      "hash": "0x92b2f4d69c505d224848cc1daf67d015966d9f1fa526e1525e90c3b2677be647",
+      "block": 570,
+      "gasUsed": "83233"
+    },
+    {
+      "label": "Existing Bob member votes FOR handoff",
+      "hash": "0x07c14338f89f6d0a27363faf6349427d6fe775acd9337af76b930760a744429c",
+      "block": 571,
+      "gasUsed": "66133"
+    },
+    {
+      "label": "Queue handoff through existing Timelock",
+      "hash": "0xbd3f02dde887c41151c942764bb0db6936c1933c6aba6d505d7fba6443905631",
+      "block": 578,
+      "gasUsed": "182609"
+    },
+    {
+      "label": "Execute atomic membership handoff",
+      "hash": "0x55955b7bb6cb82fc932fd4ad7328ade79d3dd6a2513ae9c967ffca06a7104abd",
+      "block": 580,
+      "gasUsed": "413636"
+    }
+  ],
+  "clockSteps": [
+    {
+      "method": "evm_mine",
+      "count": 2
+    },
+    {
+      "method": "evm_mine",
+      "count": 6
+    },
+    {
+      "method": "evm_increaseTime",
+      "seconds": 5
+    },
+    {
+      "method": "evm_mine",
+      "count": 1
+    }
+  ],
+  "ownerNativeBefore": "0",
+  "proposalId": "28079361714377966200051538231425867515087296222008876319810912748424519916395",
+  "complete": true,
+  "finalBlock": 580,
+  "ownerT": "1004998920999997997425",
+  "ownerNative": "100000000000000000000"
+}

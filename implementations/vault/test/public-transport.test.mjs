@@ -42,6 +42,32 @@ test('rejected switch is not followed by alternate add; false success and wrong 
   await assert.rejects(selectWalletChain({request:async r=>r.method==='eth_chainId'?'0x1':null},config),/did not select/);
 });
 
+test('unsupported custom-network methods explain the required wallet and exact RPC without more requests',async()=>{
+  for (const failure of [Object.assign(Error('Unsupported'),{code:4200}),Object.assign(Error('Method not found'),{code:-32601}),Error('Uniswap Wallet does not support wallet_addEthereumChain')]) {
+    const calls=[];
+    await assert.rejects(selectWalletChain({request:async request=>{
+      calls.push(request.method);
+      if(request.method==='eth_chainId')return'0x1';
+      if(request.method==='wallet_switchEthereumChain')throw Object.assign(Error('Unknown chain'),{code:4902});
+      throw failure;
+    }},config),error=>error.cause===failure&&error.message.includes('MetaMask')&&error.message.includes('31373')&&error.message.includes(config.rpcUrl));
+    assert.deepEqual(calls,['eth_chainId','wallet_switchEthereumChain','wallet_addEthereumChain']);
+  }
+  const calls=[];
+  await assert.rejects(selectWalletChain({request:async request=>{calls.push(request.method);if(request.method==='eth_chainId')return'0x1';throw Object.assign(Error('Unsupported'),{code:4200});}},config),/custom RPC/);
+  assert.deepEqual(calls,['eth_chainId','wallet_switchEthereumChain']);
+});
+
+test('user rejection of network addition remains the identical error even with an unsupported-looking message',async()=>{
+  const refusal=Object.assign(Error('Uniswap Wallet does not support wallet_addEthereumChain'),{code:4001});
+  const calls=[];
+  await assert.rejects(selectWalletChain({request:async request=>{
+    calls.push(request.method);if(request.method==='eth_chainId')return'0x1';
+    if(request.method==='wallet_switchEthereumChain')throw Object.assign(Error('Unknown chain'),{code:4902});throw refusal;
+  }},config),error=>error===refusal);
+  assert.deepEqual(calls,['eth_chainId','wallet_switchEthereumChain','wallet_addEthereumChain']);
+});
+
 test('read-only public signer rejects sends and financial typed signatures before forwarding, but permits SIWE',async()=>{
   const calls=[];const raw={request:async r=>{calls.push(r.method);return 'okay';}};
   const guarded=publicWalletProvider(raw,config);
@@ -62,4 +88,11 @@ test('same chain ID alone is insufficient: injected RPC must contain the actual 
   assert.deepEqual(reads,[a,b]);
   for(const wrong of ['0x','0x6002']) await assert.rejects(verifyInjectedDeployment({getCode:async()=>wrong},pinned),/does not match/);
   await assert.rejects(verifyInjectedDeployment({getCode:async()=>code},{...pinned,monetaryPolicy:{runtimeHashes:{}}}),/does not match/);
+});
+
+test('wallet site consent is requested before network actions; refusal stops connection',async()=>{
+  const {injectedWallet}=await import('../sdk/index.mjs');
+  const calls=[],refusal=Object.assign(Error('Consent required'),{code:4001});
+  await assert.rejects(injectedWallet({request:async r=>{calls.push(r.method);throw refusal;}},config),e=>e===refusal);
+  assert.deepEqual(calls,['eth_requestAccounts']);
 });

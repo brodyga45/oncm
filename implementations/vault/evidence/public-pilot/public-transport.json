@@ -1,0 +1,36 @@
+{
+  "format": "vault-public-transport-smoke-v1",
+  "checkedAt": "2026-09-10T14:34:47.439Z",
+  "origin": "https://sasquatch-impart-basil.ngrok-free.dev",
+  "chainId": 31373,
+  "restoredReceipt": {
+    "hash": "0xafa3c0e2a725aad5ea58974e216ee1652fba6c888243e7e3245d9e515b0dc5ad",
+    "block": 584,
+    "status": 1
+  },
+  "timestamps": {
+    "block584": 1789056150,
+    "block668": 1789056606,
+    "latest": 1789057022
+  },
+  "testAddress": "0x429Afe3D50E84c9784E76a93b5E97310F474adcf",
+  "funding": {
+    "hash": "0x5554e358125930903dc607824408ccabba249962cd5cc68ecb0336a3ea0a3106",
+    "block": 752,
+    "amount": "0.002 local test ETH"
+  },
+  "publicProfile": {
+    "hash": "0x469d24efa3e773d2db19eaaba1e06b6e91159198995bfce7b1fbe37afac4d4b5",
+    "block": 753,
+    "gasUsed": "376718",
+    "uid": "0x8f9a87e0dc703ef1e6fb19229b43d26433a88d22179f64dbf1e398e3d19c7869",
+    "attester": "0x429Afe3D50E84c9784E76a93b5E97310F474adcf"
+  },
+  "ownerBalancesUnchanged": {
+    "eth": "100000000000000000000",
+    "t": "1004998920999997997425",
+    "supply": "1006000000000000000000"
+  },
+  "adminMethodRejected": -32601,
+  "browserWalletTransactionTested": false
+}

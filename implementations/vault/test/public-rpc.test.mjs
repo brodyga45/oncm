@@ -105,3 +105,9 @@ test('slow or failed migration readiness cannot broadcast or accumulate work out
     release(false);await new Promise(r=>setImmediate(r));assert.equal((await g(JSON.stringify(request('eth_chainId')))).status,200);
   }finally{clearTimeout(keepAlive);}
 });
+
+test('populated wallet estimates support nonce, chain binding and contract creation within gas cap',()=>{
+  const envelope=validateRpcEnvelope({jsonrpc:'2.0',id:1,method:'eth_estimateGas',params:[{from:'0x'+'11'.repeat(20),nonce:'0x0',chainId:'0x7a8d',data:'0x60016000'}]});
+  assert.equal(envelope.calls[0].params[0].nonce,'0x0');
+  assert.throws(()=>validateRpcEnvelope({jsonrpc:'2.0',id:2,method:'eth_estimateGas',params:[{chainId:'0x1',data:'0x6000'}]}),/chain 31373/);
+});

@@ -9,18 +9,36 @@ const memberABI=['function owner() view returns(address)','function balanceOf(ad
 const governorABI=['function token() view returns(address)','function timelock() view returns(address)','function votingDelay() view returns(uint256)','function votingPeriod() view returns(uint256)','function proposalThreshold() view returns(uint256)','function state(uint256) view returns(uint8)','function proposalSnapshot(uint256) view returns(uint256)','function proposalDeadline(uint256) view returns(uint256)','function proposalEta(uint256) view returns(uint256)','event ProposalCreated(uint256 proposalId,address proposer,address[] targets,uint256[] values,string[] signatures,bytes[] calldatas,uint256 voteStart,uint256 voteEnd,string description)'];
 const timeABI=['function getMinDelay() view returns(uint256)','function hasRole(bytes32,address) view returns(bool)','event RoleGranted(bytes32 indexed role,address indexed account,address indexed sender)','event RoleRevoked(bytes32 indexed role,address indexed account,address indexed sender)'];
 const cached=new WeakMap();
+export function findPilotCutover(transfers,owner){
+ const expected=PUBLIC_DEV_ADDRESSES.slice(0,4),ledger=new Map();
+ const blocks=new Map();for(const e of transfers){const rows=blocks.get(e.blockNumber)??[];rows.push(e);blocks.set(e.blockNumber,rows);}
+ for(const [blockNumber,rows]of [...blocks].sort((a,b)=>a[0]-b[0])){
+  for(const e of rows){const amount=BigInt(e.value);if(e.from!==ZeroAddress)ledger.set(lower(e.from),(ledger.get(lower(e.from))??0n)-amount);if(e.to!==ZeroAddress)ledger.set(lower(e.to),(ledger.get(lower(e.to))??0n)+amount);}
+  for(const mint of rows.filter(e=>e.from===ZeroAddress&&same(e.to,owner)&&BigInt(e.value)===10n**18n)){
+   const burns=rows.filter(e=>e.transactionHash===mint.transactionHash&&e.to===ZeroAddress&&BigInt(e.value)===10n**18n);
+   if(expected.every(who=>burns.some(e=>same(e.from,who)))&&[...ledger].reduce((n,[,v])=>n+v,0n)===10n**18n&&ledger.get(lower(owner))===10n**18n)
+    return {blockNumber,transactionHash:mint.transactionHash,ownerAdded:normal(owner),burnedPublicMembers:expected};
+  }
+ }
+ return null;
+}
 async function logs(provider,address,topics,end){
  const result=[];for(let from=0;from<=end;from+=2000){result.push(...await provider.getLogs({address,topics,fromBlock:from,toBlock:Math.min(end,from+1999)}));if(result.length>5000)throw Error('Public control audit exceeds5000 logs; archive/checkpoint review required');}
  return result;
 }
-export function publicControlViolations(s){
+export function publicControlViolations(s,{initial=false}={}){
  const errors=[],need=(v,message)=>{if(!v)errors.push(message);},a=s.addresses,o=s.owner;
  need(s.chainId===31373&&s.protocolVersion==='2','Selected network is not Vault V2 chain31373');
  need(!PUBLIC_DEV_ADDRESSES.some(x=>same(x,o)),'Owner is a public development address');
  need(s.runtimeVerified===true,'Runtime pins were not verified');
- need(s.memberSupply==='1000000000000000000','Membership must have exactly one MEMBER');
- const own=s.members.find(m=>same(m.address,o));need(own?.balance==='1000000000000000000'&&own?.votes==='1000000000000000000'&&same(own?.delegate,o),'Owner must hold one self-delegated MEMBER');
- for(const m of s.members.filter(m=>!same(m.address,o)))need(m.balance==='0'&&m.votes==='0','Residual member or votes at '+m.address);
+ if(initial){
+  need(s.memberSupply==='1000000000000000000','Initial membership must have exactly one MEMBER');
+  const own=s.members.find(m=>same(m.address,o));need(own?.balance==='1000000000000000000'&&own?.votes==='1000000000000000000'&&same(own?.delegate,o),'Initial owner must hold one self-delegated MEMBER');
+  for(const m of s.members.filter(m=>!same(m.address,o)))need(m.balance==='0'&&m.votes==='0','Unexpected initial member or votes at '+m.address);
+  const rows=(s.beneficiaries?.recipients??[]).map((who,i)=>[lower(who),s.beneficiaries?.weights?.[i]]);
+  need(rows.length===2&&rows.some(([who,w])=>who===lower(o)&&w==='8500')&&rows.some(([who,w])=>who===lower(a.Timelock)&&w==='1500'),'Initial future-fee epoch must be owner85%/Timelock15%');
+ }
+ for(const who of PUBLIC_DEV_ADDRESSES){const m=s.members.find(m=>same(m.address,who));need(m?.balance==='0'&&m?.votes==='0','Residual public dev member or votes at '+who);}
  for(const [key,address]of Object.entries(s.owners))need(same(address,a.Timelock),key+' authority is not the actual Timelock');
  need(same(s.governor.token,a.Membership)&&same(s.governor.timelock,a.Timelock),'Governor points to a different membership or executor');
  const expected={DEFAULT_ADMIN_ROLE:[a.Timelock],PROPOSER_ROLE:[a.Governor],CANCELLER_ROLE:[a.Governor],EXECUTOR_ROLE:[ZeroAddress]};
@@ -29,7 +47,7 @@ export function publicControlViolations(s){
  for(const [key,value]of Object.entries(s.bindings.expected))need(same(s.bindings.actual[key],value),'Binding differs: '+key);
  need(Array.isArray(s.beneficiaries?.recipients)&&s.beneficiaries.recipients.length>0,'Current fee epoch was not verified');
  for(const who of s.beneficiaries?.recipients??[])need(!PUBLIC_DEV_ADDRESSES.some(dev=>same(dev,who)),'Current fee beneficiary is a public dev address: '+who);
- need(Number.isInteger(s.cutoverBlock)&&s.cutoverBlock>0,'No current owner membership cutover observed');
+ need(Number.isInteger(s.cutoverBlock)&&s.cutoverBlock>0&&s.cutover?.ownerAdded===o&&s.cutover?.burnedPublicMembers?.length===4,'No atomic initial owner/dev membership cutover observed');
  // Revoking members does not erase old historical votes or a queued operation.
  for(const p of s.proposals)if(BigInt(p.snapshot)<BigInt(s.cutoverBlock??0)&&[0,1,4,5].includes(p.state))errors.push('Pre-cutover proposal remains actionable: '+p.id+' ('+p.stateName+')');
  return errors;
@@ -51,8 +69,10 @@ export async function readPublicPilotControlState({config,provider,owner}){
   logs(provider,a.Membership,[mi.getEvent('Transfer').topicHash],block.number),
   logs(provider,a.Timelock,[[ti.getEvent('RoleGranted').topicHash,ti.getEvent('RoleRevoked').topicHash]],block.number),
   logs(provider,a.Governor,[gi.getEvent('ProposalCreated').topicHash],block.number)]);
- const mintOwners=new Set(PUBLIC_DEV_ADDRESSES.map(lower));mintOwners.add(lower(o));let cutoverBlock=0;
- for(const log of memberLogs){const e=mi.parseLog(log).args;for(const who of[e.from,e.to])if(who!==ZeroAddress)mintOwners.add(lower(who));if(same(e.to,o)&&e.from===ZeroAddress)cutoverBlock=Math.max(cutoverBlock,log.blockNumber);if(PUBLIC_DEV_ADDRESSES.some(who=>same(who,e.from))&&e.to===ZeroAddress)cutoverBlock=Math.max(cutoverBlock,log.blockNumber);}
+ const mintOwners=new Set(PUBLIC_DEV_ADDRESSES.map(lower));mintOwners.add(lower(o));
+ const decodedTransfers=memberLogs.map(log=>({...mi.parseLog(log).args.toObject(),blockNumber:log.blockNumber,transactionHash:log.transactionHash}));
+ for(const e of decodedTransfers)for(const who of[e.from,e.to])if(who!==ZeroAddress)mintOwners.add(lower(who));
+ const cutover=findPilotCutover(decodedTransfers,o),cutoverBlock=cutover?.blockNumber??0;
  const members=[];for(const address of mintOwners){const[b,v,d]=await Promise.all([member.balanceOf(address,at),member.getVotes(address,at),member.delegates(address,at)]);members.push({address:normal(address),balance:String(b),votes:String(v),delegate:d});}
  const roleIds={DEFAULT_ADMIN_ROLE:ZeroHash,PROPOSER_ROLE:id('PROPOSER_ROLE'),CANCELLER_ROLE:id('CANCELLER_ROLE'),EXECUTOR_ROLE:id('EXECUTOR_ROLE')},roles={};
  for(const [name,role]of Object.entries(roleIds)){const candidates=new Set([a.Timelock,a.Governor,o,ZeroAddress,...PUBLIC_DEV_ADDRESSES].map(lower));for(const log of roleLogs){const e=ti.parseLog(log).args;if(e.role===role)candidates.add(lower(e.account));}roles[name]=[];for(const who of candidates)if(await time.hasRole(role,who,at))roles[name].push(normal(who));}
@@ -69,12 +89,12 @@ export async function readPublicPilotControlState({config,provider,owner}){
  const epoch=await allocation.epoch(at),row=await allocation.allocation(epoch,at),beneficiaries={epoch:String(epoch),split:row.split,recipients:[...row.recipients],weights:[...row.weights].map(String)};
  const governor={token:await gov.token(at),timelock:await gov.timelock(at),votingDelay:String(await gov.votingDelay(at)),votingPeriod:String(await gov.votingPeriod(at)),proposalThreshold:String(await gov.proposalThreshold(at))};
  const tail=await provider.send('eth_getBlockByNumber',['0x'+block.number.toString(16),false]);if(tail.hash!==block.hash)throw Error('Control snapshot block reorged');
- const result=serial({format:'vault-public-control-readiness-v1',chainId:31373,protocolVersion:'2',chainInstance:config.chainInstance.id,block,owner:o,addresses:a,runtimeVerified:true,memberSupply:await member.totalSupply(at),members,owners,governor,timelock:{minDelay:String(await time.getMinDelay(at)),roles},bindings,beneficiaries,cutoverBlock:cutoverBlock||null,proposals});
+ const result=serial({format:'vault-public-control-readiness-v1',chainId:31373,protocolVersion:'2',chainInstance:config.chainInstance.id,block,owner:o,addresses:a,runtimeVerified:true,memberSupply:await member.totalSupply(at),members,owners,governor,timelock:{minDelay:String(await time.getMinDelay(at)),roles},bindings,beneficiaries,cutover,cutoverBlock:cutoverBlock||null,proposals});
  result.violations=publicControlViolations(result);result.ready=result.violations.length===0;cached.set(provider,{key:cacheKey,value:result});return structuredClone(result);
 }
 
-// The one-owner rule is this pilot's launch policy, not a limitation of Governor.
-// A legitimate change of membership requires an explicit public policy update.
+// The historical one-owner cutover does not prohibit later ordinary governance
+// from adding real members or removing the initial owner. Public dev keys stay revoked.
 // Between full audits, inspect logs from the pinned implementations which emit
 // every relevant authority change. There is no blind 60-second allow cache.
 export function createPublicReadinessVerifier({fullAudit=readPublicPilotControlState,now=Date.now,ttlMs=60000}={}){
@@ -108,11 +128,11 @@ export function createPublicReadinessVerifier({fullAudit=readPublicPilotControlS
    // Historical fields retain their full-audit block; checkedBlock is the later
    // event-validated authority observation, not a fabricated fresh storage read.
    const value={...structuredClone(entry.state),checkedBlock:{...entry.checked},auditMode:refresh?'full':'event-validated',fullAuditAt:entry.fullAt};
-   if(!value.ready)throw Error('Public writes remain closed: '+value.violations.join('; '));
+   if(!value.ready){const error=Error('Public writes remain closed: '+value.violations.join('; '));error.code='PUBLIC_NOT_READY';throw error;}
    return value;
   };
   entry.task=work();
-  try{return await entry.task;}catch(error){entry.state=undefined;throw error;}finally{entry.task=undefined;}
+  try{return await entry.task;}catch(error){if(error.code!=='PUBLIC_NOT_READY')entry.state=undefined;throw error;}finally{entry.task=undefined;}
  };
 }
 export const verifyPublicWriteReadiness=createPublicReadinessVerifier();

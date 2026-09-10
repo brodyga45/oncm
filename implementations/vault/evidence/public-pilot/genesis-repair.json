@@ -1,0 +1,30 @@
+{
+  "format": "vault-explicit-genesis-header-repair-v1",
+  "checkedAt": "2026-09-10T14:42:46.711Z",
+  "checkpoint": "840",
+  "originalHash": "0x6e57f2da1aa9d1fdf5092452ca1fcb015ab3319f4b659ef1b9d7e43bd967e14a",
+  "removedSyntheticTimestamps": [
+    1789056151,
+    1789056607,
+    1789057118
+  ],
+  "before": {
+    "bytes": 10556610,
+    "sha256": "80bba85a25f1d04a2642fe3919bdff14a691b9a3c0ffbd4419c8481d58015534",
+    "blockNumber": "840",
+    "blockTimestamp": "1789057458",
+    "validatedAt": "2026-09-10T14:42:46.306Z"
+  },
+  "after": {
+    "bytes": 10552005,
+    "sha256": "7d482caadab178732dacee02115252c9c138ba10426349b82c287ae2d8865f7e",
+    "blockNumber": "840",
+    "blockTimestamp": "1789057458",
+    "validatedAt": "2026-09-10T14:42:46.603Z"
+  },
+  "unchanged": {
+    "otherFields": "a928b81e4dfb59adb8c15ef7c79f870d57121a4d5223392cfd3f24cb51bbc17c",
+    "blocksAboveZero": "991a9b0f637ed73819589beff9a9b188a05d6845d2a728bb06912bff682981c1"
+  },
+  "transactionsRemoved": 0
+}

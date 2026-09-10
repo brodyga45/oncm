@@ -538,9 +538,10 @@ export async function localWallet(config, index = 0) {
 }
 export async function injectedWallet(ethereum, config) {
   if (!ethereum) throw Error('Install an EIP-1193 wallet');
+  // Some wallets require site/account consent before any network-management RPC.
+  await ethereum.request({ method: 'eth_requestAccounts', params: [] });
   if (config) await selectWalletChain(ethereum, config);
   const provider = new BrowserProvider(publicWalletProvider(ethereum, config), undefined, { cacheTimeout: -1 });
-  await provider.send('eth_requestAccounts', []);
   if ((await provider.getNetwork()).chainId !== 31373n)
     throw Error('Switch to chain31373 using the RPC of this Vault instance');
   await verifyInjectedDeployment(provider, config);

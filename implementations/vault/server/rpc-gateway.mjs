@@ -18,11 +18,13 @@ function address(x){requireThat(typeof x==='string'&&isAddress(x),'Address requi
 function block(x){if(['latest','pending','earliest','safe','finalized'].includes(x))return x;quantity(x);return x;}
 function count(params,min,max=min){requireThat(Array.isArray(params)&&params.length>=min&&params.length<=max,'Invalid parameter count');}
 function call(x){
-  fields(x,['from','to','data','input','value','gas','gasPrice','maxFeePerGas','maxPriorityFeePerGas','accessList','type']);
-  address(x.to);if(x.from!==undefined)address(x.from);
+  fields(x,['from','to','data','input','value','gas','gasPrice','maxFeePerGas','maxPriorityFeePerGas','accessList','type','nonce','chainId']);
+  if(x.to!==undefined&&x.to!==null)address(x.to);if(x.from!==undefined)address(x.from);
   requireThat(!(x.data!==undefined&&x.input!==undefined),'Use one calldata field');
   if(x.data!==undefined)bytes(x.data,RPC_LIMITS.data);if(x.input!==undefined)bytes(x.input,RPC_LIMITS.data);
-  for(const key of ['value','gasPrice','maxFeePerGas','maxPriorityFeePerGas'])if(x[key]!==undefined)quantity(x[key]);
+  if(x.to===undefined||x.to===null)requireThat((x.data??x.input??'0x').length>2,'Creation estimate requires initcode');
+  for(const key of ['value','gasPrice','maxFeePerGas','maxPriorityFeePerGas','nonce'])if(x[key]!==undefined)quantity(x[key]);
+  if(x.chainId!==undefined)requireThat(quantity(x.chainId)===31373n,'Estimate/call must bind chain 31373');
   if(x.type!==undefined)requireThat(quantity(x.type)<=2n,'Unsupported transaction type');
   const gas=x.gas===undefined?RPC_LIMITS.gas:quantity(x.gas);requireThat(gas>0n&&gas<=RPC_LIMITS.gas,'Gas exceeds public execution cap');
   if(x.accessList!==undefined){
