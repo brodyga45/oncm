@@ -1,0 +1,50 @@
+# V2 fee policy and bounded incentive meters
+
+Status: additive source implementation compiled;13 isolated meter tests passed. No new main-chain deployment, mint, market, swap or governance transaction is part of this source pass. V1 pools/hooks and collateral remain their original contracts.
+
+## Reused components and concrete new glue
+
+Pricing, balance accounting, swap fees, LP shares, registration callbacks and swap execution remain original pinned `@balancer-labs/v3-*`1.0.0 (GPL-3.0) contracts. ERC20 custody, checked full-precision arithmetic and reentrancy protection reuse OpenZeppelin5.2.0. AllocationControllerV2 inherits the existing consent/epoch implementation and uses original Splits V2 pull wallets/Warehouse. New application code supplies immutable incentive meters, a small fee-routing permission policy and an additive coordinator. No new AMM or event-derived onchain oracle is invented.
+
+Pinned local source is authoritative: `SenderGuard.sol`, `Router.sol`, `VaultExtension.sol` query setup, `Vault.sol` swap math, `ProtocolFeeController.sol`, `VaultAdmin.sol` and `CommonAuthentication.sol` under node_modules/@balancer-labs/v3-vault/contracts. Package integrity remains in package-lock; the named compile report records source hashes.
+
+## Actual onchain trading measurement
+
+Each new statement gets one IncentiveFinalityHook with immutable registry, statement, original factory/Vault/router, router runtime hash, governance executor, fee sink and RewardBudget. Registration checks STANDARD non-rate tokens, exactly T plus that statement's wrapper, while later reward-program binding requires an official pool and both creator/swap-fee-manager roles bound to the allocation contract. The public roles getter cannot run inside onRegister: its registered-bit guard is only satisfied after the callback. It preserves before-initialize/before-swap/before-join finality checks and has no exit hook. Pool resolution still permits ordinary proportional exits. It does not prevent informed pre-proof trading.
+
+AfterSwap executes only from the actual Vault. Aggregate T-volume counts the actual gross T input for a buy or actual T output for a sell, including alternative direct routers. Only the pinned original Router earns address-specific rewards: the recipient is its transient `getSender()`, checked against the immutable router address and runtime hash. It can be a smart-account/forwarder, not necessarily an EOA. UserData is never a payee authority. Other routers continue working and their volume is measured, but they earn no address reward. This describes these pools, not unrelated venues.
+
+The original Router's query methods accept arbitrary `sender`. Pinned VaultExtension refuses nonzero-origin query transactions; zero-origin eth_call uses the upstream query convention. The meter additionally skips all measurement and weight writes when tx.origin is zero. It never uses tx.origin as the beneficiary identity. Actual query and forged-userData regression tests use the original Router.
+
+Programs choose one immutable metric at a specific pool:
+
+- Metric0: gross T-leg amount (18-decimal raw T), for exact-in or exact-out swaps.
+- Metric1: **only exact-in T-input fees**, `ceil(amountInT * staticSwapFee / 1e18)`, matching the pinned original Vault's mulUp. Sells with outcome-token input and all exact-out swaps earn no metric1 weight. There is no claimed oracle conversion of YES/NO fees to T. Dynamic fee and amount-adjustment hooks are disabled, so the measured static fee is the actual fee used.
+
+A fee-weighted budget is not a fixed cashback rate: after the earning period, each account receives `floor(programBudget * ownWeight / totalWeight)`. Governance selects the amount and finite window. Reward funding is separate minted T, never deducted from LP fees or beneficiary revenue. Trading volume can include repeated/self-directed activity; the program is not proof of economically independent demand.
+
+Binding is immutable and must precede program.start. The budget itself binds one immutable meter and expected program counter prevents a concurrently executed governance batch from configuring a different program. Each pool has at most8 concurrent program slots; expired slots can be reused while prior rights/history remain in RewardBudget. No iteration over all users or event-log reading occurs.
+
+## LP incentive choice
+
+Canonical Synthetix staking is a real BPT-compatible alternative: [official SIP68](https://github.com/Synthetixio/SIPs/blob/master/content/sips/sip-68.md) describes Balancer LP staking and funding checks. [Sky's preserved Synthetix implementation](https://raw.githubusercontent.com/sky-ecosystem/endgame-toolkit/master/src/synthetix/StakingRewards.sol) includes original provenance and implements streaming reward-per-token with withdrawal and variable active stake. That is a sound choice for a separate continuous emission gauge. It introduces another reward engine and different accounting from the already selected immutable closing budget.
+
+This version instead uses small explicit BptLockMeter glue with the shared RewardBudget. Participation is optional: stake real official-pool BPT during [start,end), held in contract custody until end; record `amountBPT*(end-depositTimestamp)` committed BPT-seconds. No early exit exists for that voluntary lock. Normal unstaked BPT remains transferable and withdrawable through Balancer. Locked principal is withdrawable at/after end even if the pool has resolved, the claim window has expired, or the reward budget has closed. The meter has no governance principal withdrawal. Reward claims and principal withdrawal are separate actions.
+
+## Fees reach beneficiaries, including global protocol fees
+
+AllocationControllerV2 is creator and exclusive swap-fee manager of official V2 pools. Governance can set a pool static fee within the coordinator's0.01%–10% range, set creator share under original controller bounds, and set global/per-pool protocol fee percentages through original controller setters. Creator share is a fraction of the fees remaining after protocol share, so original aggregate share is `protocol + (1-protocol)*creator`, with original controller precision rules. The residual fee belongs to LPs.
+
+`collectAll(pool)` collects pending aggregate fees, then withdraws both creator and protocol balances directly into the current epoch's original Split wallet. Original inherited creator-only collect remains callable, but the V2 app uses collectAll. Prior epoch ownership and losing-beneficiary consent rules are unchanged; governance's only entitlement is its explicit top-level percentage. Permissionless creator withdrawal can send only to the creator allocation contract, whose sweep forwards to the current epoch.
+
+FeeRoutingAuthorizer is an immutable allowlist. Actual original controller action IDs permit protocol withdrawal **only** for the allocation contract; that contract fixes its destination to the active Split. DAO direct withdrawal and per-token withdrawal are denied. Global/per-pool protocol percentage setters are allowed for the actual Timelock. New authorizer/controller replacement, arbitrary permission grants and unknown methods are denied. Pool swap manager is an exclusive allocation role; governance invokes its bound setter. Pause/recovery safety actions remain available. The bootstrap must install this final authorizer after binding coordinator/ownership; no deployer privilege persists in it. New versions can be deployed later, but cannot use this permission contract to redirect this version's existing revenue. This invariant applies to official V2 pools; legacy broad-authorizer deployments retain their historical permission model.
+
+## Validation and resolved implementation finding
+
+[Contract results](evidence/monetary-policy/meters-contract-tests.json):13/13 passed with original Balancer1.0.0 Vault/Router/WeightedPool/fee controller and original Splits. The registry and execution forwarder are explicitly isolated policy fixtures. This test does not claim a Lean certificate, public-chain deployment or Governor voting UI pass. It runs in an ephemeral in-process Hardhat Cancun instance without HTTP RPC; it never reads or writes the current application network. [Final resource report](evidence/monetary-policy/meters-test-resources-03.json):1.854s,527560272B peak,1GiB limit, cleanupErrors[].
+
+The tests cover normal trading before any program exists; an unofficial factory-created pool refused a program; actual original action-ID parity and rejected DAO fee withdrawal/authorizer/controller replacement; governed fee changes; immutable program binding; forged payee ignored; arbitrary query sender unable to persist reward state; an actual alternative Vault router measured without reward; exact T-volume and exact-in T fee metrics, with excluded sell/exact-out fee cases; both original fee streams collected exactly to Split; unchanged losing-beneficiary consent; BPT-seconds custody/no early exit; after-resolution BPT unlock and original proportional exit. RewardBudget core Governor/Timelock tests are recorded separately by their owner.
+
+Two early attempts remain recorded. Attempt1 stopped on a test-only duplicate fallback ABI composition error, fixed by selecting functions/events/errors. Attempt2 exposed a genuine integration issue: the public `getPoolRoleAccounts` getter requires the registered bit that Vault stores only after `onRegister`. The role/official-pool check moved to immutable program configuration after pool registration. The test then verified both successful new-pool creation and refusal to fund an unofficial pool. [Bounded recompilation](evidence/monetary-policy/meters-compile-fix-resources.json) produced the final artifacts without changing legacy artifacts. No main-chain state changed during diagnosis or correction.
+
+Current runtime sizes: AllocationControllerV2 8258B, FeeRoutingAuthorizer1590B, PoolCoordinatorV2 13274B, IncentiveFinalityHook8327B, BptLockMeter3043B, all below EIP170. Source and evidence are frozen for root review; deployment is a separate explicitly versioned step.

@@ -1,0 +1,21 @@
+{
+  "format": "vault-meter-isolated-v1",
+  "scope": "Ephemeral in-process Hardhat Cancun, original Balancer1.0.0 Vault/Router/WeightedPool/Controller and Splits, explicit mocked statement validity/executor for policy tests, no main RPC or Lean claim",
+  "results": [
+    "A newly initialized official pool trades normally before any reward program exists",
+    "A directly factory-created unofficial pool cannot receive a configured reward budget",
+    "Original authentication action IDs match fixed allowlist; no DAO withdrawal or authorizer/controller upgrade",
+    "Governed original fee setters, pool role management and immutable program configuration",
+    "Actual original Router swap ignores forged userData payee; records exact fee and gross T volume",
+    "Original query arbitrary sender cannot persist rewards; transaction query rejects",
+    "A real untrusted Vault router is measured but earns no address reward",
+    "Sell T-output counts actual volume but never T-input fee reward",
+    "EXACT_OUT T input earns volume only; no falsely reconstructed fee",
+    "Global and creator fees both flow exactly into current beneficiary Split; no DAO capture",
+    "Inherited allocation retains losing EOA consent; governance cannot override it",
+    "Voluntary BPT custody records exact committed seconds and rejects early withdrawal",
+    "End-of-program weights freeze; resolved pools reject swaps and initialization while BPT unlock/exit remains possible"
+  ],
+  "passed": 13,
+  "legacyChainTouched": false
+}

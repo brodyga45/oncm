@@ -1,0 +1,110 @@
+{
+  "format": "vault-additive-v2-plan-v1",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "rpcUrl": "http://127.0.0.1:9547",
+  "reviewedBlock": {
+    "number": 260,
+    "hash": "0x2c5e688517011e935597956d20563edaa25c7771cd17d8b7ea96c2acae423dab"
+  },
+  "legacyFileHashes": {
+    "deployment.json": "5a68e3b05d004e39289dd046bcfc9061662ab177d801744b2fdf83490d901445",
+    "abis.json": "45fd7047caa85a3df2961f07899f0071b221836a3eb4d80683370d1331731d52",
+    "social-deployment.json": "993a408673fed48337ca06fc8bcb9d201beb878f0f7446f247e826e79d6a3142"
+  },
+  "legacyAddresses": {
+    "TrueToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "Membership": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "Timelock": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "Governor": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "Authorizer": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+    "ConditionalTokens": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    "Wrapped1155Factory": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+    "StatementRegistry": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+    "PositionRouter": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+    "ResolvedWithinWindowOperator": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+    "VaultFactory": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+    "Vault": "0xEeF679B6039be59316710F14B6424Cf4809D2C4B",
+    "ProtocolFeeController": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+    "VaultAdmin": "0x5F5121201Ee55167FE6cC7E1ACCf9be2A25453f2",
+    "VaultExtension": "0x3A3198788fFE1850D9e912C6071E05fEb3c20e1B",
+    "WeightedPoolFactory": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+    "Permit2": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+    "WETH": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+    "Router": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
+    "SplitsWarehouse": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+    "PullSplitFactory": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+    "AllocationController": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+    "PoolCoordinator": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+    "LeanProofBridge": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F"
+  },
+  "reuse": {
+    "Membership": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "Timelock": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "Governor": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "ConditionalTokens": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    "Wrapped1155Factory": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+    "SplitsWarehouse": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+    "PullSplitFactory": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+    "Permit2": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+    "WETH": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+    "ResolvedWithinWindowOperator": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0"
+  },
+  "reuseRuntimeHashes": {
+    "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512": "0x933a20e2107f813614be7776ba2c1759cb8272a9db7c8cc83ceb6ec1cad8da09",
+    "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0x0210923f3de61dcb815ffd5e1a0542b15e0d900fc2ebe215efe6f897fb9cebad",
+    "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0x1d1ae4e8244c5f4bab8ebacb4c2c49ff61c0deb78967df00717362574a1a2b0f",
+    "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0xadf1ee4719c637975ba08765e3a1187f2fb865c9b17386005960a81ff29cfcc7",
+    "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318": "0x5a569ed726741390192f1d546da3ea1785b60648c9c23b298c6b7e47205ecf56",
+    "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d": "0xbda3d90c36e16af19ba6ebf244eb87c1c4759c88dbe2e7e59c65f6352bf54b0b",
+    "0x59b670e9fA9D0A427751Af201D676719a970857b": "0x451974dc08aa710005c4c0e0913734854e903bca4ea5d4ccc35b3d58111fa9b7",
+    "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE": "0x753c6a637b2083a8044fdfc9355aafa44c2e77388f51583f9cd4c90bce07afbd",
+    "0x68B1D87F95878fE05B998F19b66F4baba5De1aed": "0x3c723cc28e181b8ad41817710a95007a42b4de39038e063439e52ee93b630487",
+    "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0": "0x093ec21ed5b620d42cffe8da37a4e40b5404d1fb0908becbdaa1c5f3d35c8404"
+  },
+  "governance": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "deployerNonce": 115,
+  "genesis": [],
+  "initialSupply": "0",
+  "allocation": {
+    "sourceController": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
+    "sourceEpoch": "4",
+    "recipients": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "weights": [
+      "4000",
+      "1500",
+      "4500"
+    ]
+  },
+  "pendingProfiles": [
+    {
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+      "tag": "perf05",
+      "verifier": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "manifest": "{\"format\":\"oncm-vault-external-profile-v1\",\"profileTag\":\"oncm.lean4.33.1.nanoda.4c544ed4.logic.perf05.zeroaxiom\",\"profileId\":\"0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10\",\"imageId\":\"0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb\",\"foundationSha256\":\"94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124\",\"permittedAxioms\":[],\"natExtension\":false,\"stringExtension\":false,\"lean\":\"4.33.1\",\"goalCommitment\":\"SHA256 exact goal export prefix including this distinct foundation\",\"sourceCommit\":\"d79a177f4c162eefe9e6e197fdafad09b9ab5a8d\",\"profileUrl\":\"https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/profile.json\"}",
+      "runtimeHash": "0x04e9f009898c81c6f2dfb76a4023cfdde7d5a83719f77027b5b6974270aec15c"
+    },
+    {
+      "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+      "imageId": "0x3ba46e4e43724929a3b160c49e75ea89d1ea529f357d8ba07cf55054cb3f2deb",
+      "tag": "v3",
+      "verifier": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+      "manifest": "0xa2e961f6916f7efcd4718b3a1888dde150c6652b5cf54029f384b1e7609e8465",
+      "runtimeHash": "0x5398490967ae2ca84d1c4fe984628392b5f18bdd1ad4adb7134edb9aec71b730"
+    }
+  ],
+  "monetaryManifestSha256": "486a536e99bff1b958548096e4a028b39dbf4ec9eab80db43fce5ba20e1d303d",
+  "actions": [
+    "Deploy separate collateral/registry/Vault/fees/rewards graph",
+    "Bind coordinator once; transfer allocation ownership to existing Timelock",
+    "Install immutable scoped fee authorizer as final bootstrap action",
+    "Save separate V2 descriptor; no profiles admitted and no tokens issued"
+  ],
+  "preserved": "Legacy collateral, markets, positions, LP, fee epochs, social history and Governor remain at their original addresses"
+}

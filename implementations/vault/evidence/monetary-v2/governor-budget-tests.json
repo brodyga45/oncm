@@ -1,0 +1,191 @@
+{
+  "status": "passed",
+  "isolation": "in-process Hardhat; no network listener or main RPC",
+  "results": [
+    "No implicit genesis; only actual Timelock owns uncapped V2 mint",
+    "Original Governor votes + Timelock atomically mint and reserve finite budget",
+    "A stale expectedId reverts the entire executed mint+create batch",
+    "Existing balance is reserved; unfunded budget cannot reuse it",
+    "Invalid recipient/window and zero issuance reject in executor eth_call",
+    "A second zero-participation program has an independent finite budget",
+    "Meter-only weights, earning boundaries and nonzero participant/weight enforced",
+    "Final immutable weights pay floor pro-rata; claims cannot redirect or replay",
+    "Permissionless close sends dust and zero-weight budget only to voted recipient"
+  ],
+  "receipts": [
+    {
+      "label": "deploy Membership",
+      "block": 1,
+      "hash": "0x7258705d1d517ee372c1227f5f891a046027dbdf8d58e59c2fe0b36d3db81bf3"
+    },
+    {
+      "label": "deploy TimelockController",
+      "block": 2,
+      "hash": "0x87b162cb4ee06245aeae7b13f6065653db56aa76da4c43e42941af1ff85ad748"
+    },
+    {
+      "label": "deploy VaultGovernor",
+      "block": 3,
+      "hash": "0x383f93a7f5a7a977062f5c8639a02813603bf049994cd01cf0eb5415f3a3dd8f"
+    },
+    {
+      "label": "Governor proposer",
+      "block": 4,
+      "hash": "0xf94c193fb5a69e9b8534b582e2b5b7ec46707768b92b3957eebbbb9fec6bc60a"
+    },
+    {
+      "label": "Governor canceller",
+      "block": 5,
+      "hash": "0x540764c1a0886073f31fc0f04f0090467e3f072dda55e4f3d7e5200dc6829c55"
+    },
+    {
+      "label": "Membership owner",
+      "block": 6,
+      "hash": "0x2fdc1027917d847abf67e3793d6b9612fdddf15a7febb4bd0d28c4acfef091fc"
+    },
+    {
+      "label": "Remove bootstrap admin",
+      "block": 7,
+      "hash": "0x39ec867874fd66ec798a4798882a40cc8fedf06c898f3e4ecc370d13d7951587"
+    },
+    {
+      "label": "deploy TrueTokenV2",
+      "block": 8,
+      "hash": "0x4a02d71aa1ed4a19832de37d66a6fbcd3dcbc0992926d39c229483a115a30b7a"
+    },
+    {
+      "label": "deploy RewardBudget",
+      "block": 9,
+      "hash": "0xb062dc97d00da9913e30ea3365b91c409c26e04981a34d56db1a942d51919948"
+    },
+    {
+      "label": "deploy RewardMeterHarness",
+      "block": 10,
+      "hash": "0x7f475386a210d68dda7f63d98bbd0c451e57dec2dd6b740f98425f639a84fc75"
+    },
+    {
+      "label": "Propose program zero",
+      "block": 11,
+      "hash": "0x92ce9eeb7b25d2cc4c2e3d75952db0138defb30d997c17fe1d40c68b8b629248"
+    },
+    {
+      "label": "Alice vote program zero",
+      "block": 14,
+      "hash": "0x5dbb0f83dac911643087e2ec4ca71eda55f410d46d19c12c2caea8819db738de"
+    },
+    {
+      "label": "Bob vote program zero",
+      "block": 15,
+      "hash": "0x0b8909ef51fa1b3fdb8390c8c881e31d9a0f87fc6060b5214f6f29eff080ca9d"
+    },
+    {
+      "label": "Queue program zero",
+      "block": 26,
+      "hash": "0xafbf2dc12bfe5b6853f6fd031e1729a4d91b34511a1cb84ca6e0490f5b0770f1"
+    },
+    {
+      "label": "Execute program zero",
+      "block": 28,
+      "hash": "0x828abc3707289f071d018cbbd864a84eb3af7b8803b307e48a904aee427c8c7c"
+    },
+    {
+      "label": "Propose stale CAS",
+      "block": 29,
+      "hash": "0x09d9e9b1324f97e45e7f41742eda880b89a7195f4dc1264d89d4b09a13b665f1"
+    },
+    {
+      "label": "Alice vote stale CAS",
+      "block": 32,
+      "hash": "0xaefb048ec3b285ba80c96639b55d2ed64d3b367f6eaab0f55292de3d86b2b79d"
+    },
+    {
+      "label": "Bob vote stale CAS",
+      "block": 33,
+      "hash": "0xe9098324e4730973a2cbe4fd17f7bb4cfde6547d89b3586050dc616086408488"
+    },
+    {
+      "label": "Queue stale CAS",
+      "block": 44,
+      "hash": "0x52b07f44e82bd9afb7b03a0722f235573e8b6d60c1c6bd9a31831310d3ae4fff"
+    },
+    {
+      "label": "Propose unfunded",
+      "block": 46,
+      "hash": "0x7e8597a9f1b1f133c0e0c805bdd8de621f960ed3c5ace191ecefb5e4830715d5"
+    },
+    {
+      "label": "Alice vote unfunded",
+      "block": 49,
+      "hash": "0x1b8aa5a5753ae4b608aaee61ed589f18644d2cc85d1883c358c34bd78ebc2b53"
+    },
+    {
+      "label": "Bob vote unfunded",
+      "block": 50,
+      "hash": "0xe017082395b379cd5a00f5cee0f3b88a8b48a67d3c6d8816ba14b4d2482da3f3"
+    },
+    {
+      "label": "Queue unfunded",
+      "block": 61,
+      "hash": "0xaf9e3e06be13287fa55318490ebedca89988d06ee2da779fb95ac93c31eacf7e"
+    },
+    {
+      "label": "Propose program one",
+      "block": 63,
+      "hash": "0xce62e5268d524c35aa1734c2719e650c9da979c14a7919126f8854ba6fd4e01e"
+    },
+    {
+      "label": "Alice vote program one",
+      "block": 66,
+      "hash": "0x9139c37326245e5f55ce0dd12e0c33f2a8aff7edd2348502a5371337cbcf8d78"
+    },
+    {
+      "label": "Bob vote program one",
+      "block": 67,
+      "hash": "0x788422b0f5a9ffa0ae4a5d85922a387e7fedca711a59a0473752d41b564fad23"
+    },
+    {
+      "label": "Queue program one",
+      "block": 78,
+      "hash": "0x686c1fab82a5d440dff25825c68a935f5a0c3b651a889acd6002d8e847699c5c"
+    },
+    {
+      "label": "Execute program one",
+      "block": 80,
+      "hash": "0xe042e52205303f46387c5db261fab503bf382c42a3a5282a7a8b772a96fba76e"
+    },
+    {
+      "label": "Alice weight1",
+      "block": 82,
+      "hash": "0x22a2e96acd8c9edf3f6f134f9fe88904e22c170c603a2013546a8c2ce0e0ec52"
+    },
+    {
+      "label": "Bob weight2",
+      "block": 83,
+      "hash": "0xb4dc5b042ac440b0933f9c3d7326761b0819bc5cd10e3909cc23f2df081bb3b9"
+    },
+    {
+      "label": "Alice claim",
+      "block": 85,
+      "hash": "0xcf4d060b4d164da1990e4c5b27db8ea7b8c1ab54d96e89b1afc8e60ec42181e6"
+    },
+    {
+      "label": "Bob claim",
+      "block": 86,
+      "hash": "0x0ef068760c1e9bf39b3e852118e4d6d5b3e0ac839233c9b24afb79c7cfefc664"
+    },
+    {
+      "label": "Close dust",
+      "block": 88,
+      "hash": "0x5818300355f4dadbc50358b1b8da0830d470d514bd00f3588576a65eb4bcc89b"
+    },
+    {
+      "label": "Close zero-weight",
+      "block": 89,
+      "hash": "0xb3112a06b0bf103186d717c67f6bdbd539810d431cb42d82bc048c446836cb2e"
+    }
+  ],
+  "programs": 2,
+  "totalSupply": "130",
+  "reserved": "0",
+  "testMeter": "unrestricted RewardMeterHarness; never production"
+}
