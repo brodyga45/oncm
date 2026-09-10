@@ -1,0 +1,55 @@
+{
+  "format": "oncm-exchange-portable-package-browser-v1",
+  "chainId": 31372,
+  "beforeBlock": 228,
+  "afterBlock": 228,
+  "browserTab": "102825327",
+  "marketId": "0x8594060552f0d9bf4b2ae4ef9aba4693c0b7a3ffcaea2b17d9608aa791f767bb",
+  "download": {
+    "name": "lean-package.json",
+    "bytes": 11837,
+    "sha256": "4eb6d93d38b9dcefc283d4c05bccda5ff4c8cc125f08c729ed513b58e1766f46"
+  },
+  "paste": {
+    "bytes": 11837,
+    "sha256": "4eb6d93d38b9dcefc283d4c05bccda5ff4c8cc125f08c729ed513b58e1766f46",
+    "exactFileBytes": true
+  },
+  "restored": {
+    "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "sourceSha256": "b855742a179058525366cc931d7da745f91ebb6ff85358e41205b44dfa1f89ad",
+    "fixtureId": "",
+    "targetDeclaration": "Oncm.goal"
+  },
+  "beforeExplicitVerify": {
+    "certificate": "",
+    "createEnabled": false,
+    "status": "Package loaded as an unverified draft. Verify its external certificate below before registration."
+  },
+  "afterExplicitVerify": {
+    "verifiedAtBlock": 228,
+    "originalVerifier": "0xD781C44726058d2971B58408c492192877FAAC17",
+    "originalAndImmutableBridgeAccepted": true,
+    "bundleSha256": "294029a2fd8ed9fd5fe95b4ae86cdfd5e38ceca075f6d0d0bafb9a1a50c0b9d8",
+    "createEnabled": true,
+    "sourceGoalRelation": "not-verified"
+  },
+  "afterEditingPaste": {
+    "certificate": "",
+    "createEnabled": false
+  },
+  "actions": [
+    "Download Lean package from existing FALSE market Specification",
+    "Paste portable Lean package JSON with all downloaded fields",
+    "Load pasted package draft",
+    "Verify pasted registration certificate",
+    "Append one whitespace to pasted input and observe certificate readiness cleared",
+    "Cancel; no duplicate creation"
+  ],
+  "limitations": [
+    "No file-picker upload was attempted in this pass.",
+    "No new proof/native export was computed.",
+    "The embedded proofProfile is historical descriptive metadata; current availability was read from the real registry during verification."
+  ]
+}

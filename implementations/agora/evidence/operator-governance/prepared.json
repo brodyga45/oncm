@@ -1,0 +1,124 @@
+{
+  "scope": "read-only preflight, no new operator or statement transaction",
+  "chainId": 31371,
+  "block": "90",
+  "operator": "ResolvedAfterOperator",
+  "address": "0x610178da211fef7d417bc0e6fed39f05609ad788",
+  "runtimeHash": "0x24cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1",
+  "artifactRuntimeMatches": true,
+  "operatorId": "0x129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7",
+  "entry": [
+    "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+    "0x24cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1"
+  ],
+  "alreadyRegistered": true,
+  "registry": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+  "safe": "0xc717C55aB6DAD4e46F89a2D62f618f10023A508f",
+  "timelock": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+  "threshold": "2",
+  "owners": [
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+  ],
+  "nonce": "4",
+  "delay": "5",
+  "registryOwner": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+  "proposalCalldata": "0x3463c71c129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad78824cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1",
+  "newStatement": {
+    "kind": 4,
+    "dependency": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+    "parameters": "0x0000000000000000000000000000000000000000000000000000000070dba040",
+    "deadlineUnix": "1893441600",
+    "meaning": "Whether identity base was recorded strictly after2030 local midnight; actual2026 record gives FALSE",
+    "expectedOutcome": 2,
+    "funding": "0",
+    "fee": "0.02"
+  },
+  "base": {
+    "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+    "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+    "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "deadline": "0",
+    "resolvedAt": "1789001094",
+    "kind": 0,
+    "expectedOutcome": 0,
+    "outcome": 1,
+    "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+  },
+  "historicalAdmissionReceipts": [
+    {
+      "block": "12",
+      "timestamp": "1788969659",
+      "hash": "0x4d1b94706614e95e33c76c84a6ff03a671e3446dad5cb598c2160d8b7f4722c6",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0xc717c55ab6dad4e46f89a2d62f618f10023a508f",
+      "status": "success",
+      "gasUsed": "114294",
+      "events": [
+        {
+          "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+          "eventName": "CallScheduled",
+          "args": {
+            "id": "0x5e4ec3a4fd9f93c488e92e5afdadaae3df0da29387657a5a0fff969d926f314e",
+            "index": "0",
+            "target": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+            "value": "0",
+            "data": "0x3463c71c129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad78824cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1",
+            "predecessor": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "delay": "5"
+          }
+        },
+        {
+          "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+          "eventName": "CallSalt",
+          "args": {
+            "id": "0x5e4ec3a4fd9f93c488e92e5afdadaae3df0da29387657a5a0fff969d926f314e",
+            "salt": "0x960f120f94a8b6bb8564c06f88b42a7c88498396bc2db4051904a058c4ca22ea"
+          }
+        },
+        {
+          "address": "0xc717c55ab6dad4e46f89a2d62f618f10023a508f",
+          "eventName": "ExecutionSuccess",
+          "args": {
+            "txHash": "0x6668c4a55c11ab33f337a3452ba912c0203625256c14ffddcf3ebcfd10b725b3",
+            "payment": "0"
+          }
+        }
+      ]
+    },
+    {
+      "block": "14",
+      "timestamp": "1788969666",
+      "hash": "0xdebac45476e99258f11f7f8920ab17a6aff14c7902361837b1c9771c3a667f5e",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+      "status": "success",
+      "gasUsed": "136090",
+      "events": [
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "OperatorConfigured",
+          "args": {
+            "operatorId": "0x129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7",
+            "evaluator": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+            "manifestHash": "0x24cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1"
+          }
+        },
+        {
+          "address": "0xa513e6e4b8f2a923d98304ec87f64353c4d5c853",
+          "eventName": "CallExecuted",
+          "args": {
+            "id": "0x5e4ec3a4fd9f93c488e92e5afdadaae3df0da29387657a5a0fff969d926f314e",
+            "index": "0",
+            "target": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+            "value": "0",
+            "data": "0x3463c71c129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7000000000000000000000000610178da211fef7d417bc0e6fed39f05609ad78824cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1"
+          }
+        }
+      ]
+    }
+  ]
+}

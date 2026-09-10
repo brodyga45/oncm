@@ -12,6 +12,8 @@ Chosen after coordination with Agora and Vault. These preserve original V2 and i
 
 **Verification.** Economic integration creates a real imbalance with trades, quotes a profitable full set, explicitly broadcasts an impossible-minimum transaction and verifies unchanged user T and pool reserves after its revert, then executes a valid profit and verifies T increased and executor retained zero T.
 
+**Actual browser pass.** At blocks229–242, Alice funded two original pools, Bob bought10T of YES, and Carol executed a10T full-set strategy with a2T minimum. Both original Swap legs and the executor event were inspected in the browser; historical balance assertions confirm2.148402661908158473T profit. A symmetric pre-trade quote and the post-execution quote were negative and disabled; a3T minimum also disabled execution. [Public receipts and exact accounting](docs/evidence/arbitrage-browser/README.md) distinguish this successful browser path from the separate deliberately reverting contract test.
+
 **Tradeoff.** Profit is gross T, excluding ETH gas. Quotes can become stale, but minProfit/deadline protect the transaction. Failed transactions still cost gas. A prior ERC-20 approval is a separate transaction; it survives a subsequent execution revert.
 
 ## 2. Trader execution journal
@@ -23,5 +25,7 @@ Chosen after coordination with Agora and Vault. These preserve original V2 and i
 **Mechanics.** Token ordering determines T/outcome input/output. Ordinary trades and the atomic executor both appear under the external transaction sender; an arbitrage transaction has two Swap fills. Ledger grouping is per statement and outcome. Nominal fee is 0.30% of the input asset; fees in YES/NO are not silently reported as T. CSV amounts are raw 18-decimal units.
 
 **Verification.** The economic test produces two direct swaps plus an atomic two-leg transaction, confirms four fills/three transactions for the trader, no false fills for the LP-only wallet, correct outcome coverage and CSV columns.
+
+**Actual browser pass.** Carol's journal after block242 showed the two YES/NO sales under one external transaction and12.148T volume. Its actual downloaded1019-byte CSV matches both original Swap events, including exact amounts and0.03 outcome-token input fees. [CSV evidence](docs/evidence/arbitrage-browser/csv.json) accompanies the coordinator's earlier direct-trade journal check.
 
 **Tradeoff.** This is a swap execution ledger, not tax accounting or complete LP cost basis. Transfers, LP mints/burns and changes on unrelated exchanges are outside its scope. RPC scanning is suitable for this local chain; a large deployment would paginate/cache indexed logs.

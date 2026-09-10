@@ -1,0 +1,46 @@
+{
+  "sourceFile": "/Users/ignatignat/Downloads/exchange-executions (1).csv",
+  "bytes": 1019,
+  "sha256": "a01f8614bd3d1b2ecbe115639e132d3ed02696d2b86978caab2ea57b279d9f84",
+  "rows": [
+    {
+      "statementId": "0x6624a45383aa60c6444d0d639e4aa8f17a601fc17bfcdd6aaef4b1b2bf573d0f",
+      "title": "Arbitrage QA · False theorem recorded as FALSE",
+      "pool": "0x0D90773e4e9Dd71942D48250694654A94156A1d9",
+      "side": "NO",
+      "direction": "Sell",
+      "actor": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "tx": "0xada7d7a20a0bd3040f6de66ba327e28289b7a1ba0b2623137a14f121ce6201da",
+      "block": "242",
+      "logIndex": "24",
+      "timestamp": "1789034470",
+      "amountIn": "10000000000000000000",
+      "inputAsset": "NO",
+      "amountOut": "3990394236541925155",
+      "outputAsset": "T",
+      "nominalFeeInput": "30000000000000000",
+      "tAmount": "3990394236541925155",
+      "outcomeAmount": "10000000000000000000"
+    },
+    {
+      "statementId": "0x6624a45383aa60c6444d0d639e4aa8f17a601fc17bfcdd6aaef4b1b2bf573d0f",
+      "title": "Arbitrage QA · False theorem recorded as FALSE",
+      "pool": "0x953E3A35cf894359778e8aB7160eD7d061F23899",
+      "side": "YES",
+      "direction": "Sell",
+      "actor": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "tx": "0xada7d7a20a0bd3040f6de66ba327e28289b7a1ba0b2623137a14f121ce6201da",
+      "block": "242",
+      "logIndex": "18",
+      "timestamp": "1789034470",
+      "amountIn": "10000000000000000000",
+      "inputAsset": "YES",
+      "amountOut": "8158008425366233318",
+      "outputAsset": "T",
+      "nominalFeeInput": "30000000000000000",
+      "tAmount": "8158008425366233318",
+      "outcomeAmount": "10000000000000000000"
+    }
+  ],
+  "assertions": "Both actual downloaded CSV rows match the original V2 Swap receipt, exact amounts and nominal input fee; one transaction/two sides."
+}

@@ -1,0 +1,298 @@
+{
+  "mode": "read-only verification of actual scoped browser transactions; no scripted writes",
+  "chainId": 31371,
+  "before": "90",
+  "after": "93",
+  "statement": {
+    "id": "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+    "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "conditionId": "0xc00c21062dcfeddb11062191014b11bf2b32905d33c8b91bf53832293622a169",
+    "dependency": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+    "deadline": "0",
+    "resolvedAt": "1789034709",
+    "kind": 4,
+    "expectedOutcome": 0,
+    "outcome": 2,
+    "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "metadataURI": "agora:0x104df08efc0841942d82d6527a392508b34704c0ea9c718f732686a043989b18"
+  },
+  "custom": [
+    "0x129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7",
+    "0x0000000000000000000000000000000000000000000000000000000070dba040"
+  ],
+  "poolState": {
+    "address": "0x2340E2c1Fd4370ff362e6567818c7330e3D9Cb63",
+    "totalSupply": "0",
+    "balances": [
+      "0",
+      "0"
+    ]
+  },
+  "computedOutcome": 2,
+  "receipts": [
+    {
+      "block": "91",
+      "blockHash": "0x694aee4897757f3b5d477759fb80c4af09d1ac44cddf65f70333ddcf2fc1a20e",
+      "timestamp": "1789034656",
+      "hash": "0xa35d371a4ba23c04bffe81c0f463152e7bd8f921ac896dddb7c908628c7ae18a",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "value": "0",
+      "gasUsed": "367735",
+      "call": {
+        "functionName": "registerCustom",
+        "args": [
+          "0x129374354c5c05fefa1c9b605dc9ef3aed515b0a6acb5a7377a9803aa0242de7",
+          "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+          "0x0000000000000000000000000000000000000000000000000000000070dba040",
+          "agora:0x104df08efc0841942d82d6527a392508b34704c0ea9c718f732686a043989b18"
+        ]
+      },
+      "events": [
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "ConditionPreparation",
+          "args": {
+            "conditionId": "0xc00c21062dcfeddb11062191014b11bf2b32905d33c8b91bf53832293622a169",
+            "oracle": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+            "questionId": "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+            "outcomeSlotCount": "2"
+          }
+        },
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "StatementRegistered",
+          "args": {
+            "statementId": "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+            "conditionId": "0xc00c21062dcfeddb11062191014b11bf2b32905d33c8b91bf53832293622a169",
+            "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "kind": 4,
+            "metadataURI": "agora:0x104df08efc0841942d82d6527a392508b34704c0ea9c718f732686a043989b18"
+          }
+        }
+      ]
+    },
+    {
+      "block": "92",
+      "blockHash": "0xe49b99611cf6e12b2751c7a2bcac70629694fa849f85929d7157e029288499bc",
+      "timestamp": "1789034656",
+      "hash": "0x5841610f6119f7f3aa437d9c8c1ec924fedc6302d02baabbc76e03099cea52a1",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "value": "0",
+      "gasUsed": "3555748",
+      "call": {
+        "functionName": "createPool",
+        "args": [
+          "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+          "20000000000000000"
+        ]
+      },
+      "events": [
+        {
+          "address": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+          "unparsed": true
+        },
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "MarketCreated",
+          "args": {
+            "statementId": "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+            "pool": "0x2340E2c1Fd4370ff362e6567818c7330e3D9Cb63",
+            "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "fee": "20000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "93",
+      "blockHash": "0x92806d690c1baa7f81abdd23784ed24ad06f64600d623b1ad8ae318fddf0623b",
+      "timestamp": "1789034709",
+      "hash": "0x18c6874315641c693f73441313dde0eb07068ace73170f3b8671c7f0c94d1636",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "value": "0",
+      "gasUsed": "110512",
+      "call": {
+        "functionName": "resolveDerived",
+        "args": [
+          "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2"
+        ]
+      },
+      "events": [
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "ConditionResolution",
+          "args": {
+            "conditionId": "0xc00c21062dcfeddb11062191014b11bf2b32905d33c8b91bf53832293622a169",
+            "oracle": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+            "questionId": "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+            "outcomeSlotCount": "2",
+            "payoutNumerators": [
+              "0",
+              "1"
+            ]
+          }
+        },
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "StatementResolved",
+          "args": {
+            "statementId": "0x793cb8665be94a4c9e158229d6bc6eb366bb2b084cf59348fe213a4100edb7b2",
+            "outcome": 2,
+            "resolvedAt": "1789034709",
+            "evidenceHash": "0x4e49116fac8ae0c8b0c5f67e48ac556cd4a4404e46faf8dfa5d56cc960badfe3"
+          }
+        }
+      ]
+    }
+  ],
+  "snapshots": [
+    {
+      "block": "90",
+      "bases": [
+        {
+          "statement": {
+            "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+            "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+            "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+            "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+            "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "deadline": "0",
+            "resolvedAt": "1789001094",
+            "kind": 0,
+            "expectedOutcome": 0,
+            "outcome": 1,
+            "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+          },
+          "pools": [
+            {
+              "address": "0xd8058efe0198ae9dD7D563e1b4938Dcbc86A1F81",
+              "totalSupply": "100000000000000000000",
+              "balances": [
+                "93926711606657934252",
+                "106465986394557823130"
+              ]
+            }
+          ]
+        },
+        {
+          "statement": {
+            "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+            "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+            "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+            "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+            "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "deadline": "0",
+            "resolvedAt": "0",
+            "kind": 0,
+            "expectedOutcome": 0,
+            "outcome": 0,
+            "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+          },
+          "pools": [
+            {
+              "address": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+              "totalSupply": "90000000000000000000",
+              "balances": [
+                "96983265306122448981",
+                "83519563652891935912"
+              ]
+            }
+          ]
+        }
+      ],
+      "ownerT": "99800240816326530612244",
+      "ctfT": "201685895280127322008",
+      "operator": [
+        "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+        "0x24cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1"
+      ],
+      "count": "6"
+    },
+    {
+      "block": "93",
+      "bases": [
+        {
+          "statement": {
+            "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+            "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+            "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+            "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+            "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "deadline": "0",
+            "resolvedAt": "1789001094",
+            "kind": 0,
+            "expectedOutcome": 0,
+            "outcome": 1,
+            "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+          },
+          "pools": [
+            {
+              "address": "0xd8058efe0198ae9dD7D563e1b4938Dcbc86A1F81",
+              "totalSupply": "100000000000000000000",
+              "balances": [
+                "93926711606657934252",
+                "106465986394557823130"
+              ]
+            }
+          ]
+        },
+        {
+          "statement": {
+            "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+            "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+            "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+            "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+            "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "deadline": "0",
+            "resolvedAt": "0",
+            "kind": 0,
+            "expectedOutcome": 0,
+            "outcome": 0,
+            "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+          },
+          "pools": [
+            {
+              "address": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+              "totalSupply": "90000000000000000000",
+              "balances": [
+                "96983265306122448981",
+                "83519563652891935912"
+              ]
+            }
+          ]
+        }
+      ],
+      "ownerT": "99800240816326530612244",
+      "ctfT": "201685895280127322008",
+      "operator": [
+        "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+        "0x24cc4d544dec2efcc2411925621b3ecfbff618af3c487bc5954c02883f1c92b1"
+      ],
+      "count": "7"
+    }
+  ],
+  "checks": {
+    "existingOriginalOperatorBytecode": true,
+    "existingSafeTimelockAdmissionRecorded": "prepared.json blocks12/14; not replayed",
+    "exactCustomBinding": true,
+    "zeroFunding": true,
+    "originalCTFPayoutFalse": true,
+    "originalBasesAndPoolsUnchanged": true,
+    "ownerTAndCTFCollateralUnchanged": true,
+    "oldNOStillOpen": true
+  },
+  "limits": [
+    "No new operator alias or second admission was fabricated",
+    "No operator disable/version migration or governance failure branch in this pass",
+    "No funding/trading of this custom market",
+    "Previously refused NO settlement and matching kind2 draft remain untouched"
+  ]
+}
