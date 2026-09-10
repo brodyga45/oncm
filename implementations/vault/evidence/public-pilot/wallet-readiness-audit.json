@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-09-10T18:20:39.238237+00:00",
+  "readOnly": true,
+  "origin": "https://sasquatch-impart-basil.ngrok-free.dev",
+  "chainId": 31373,
+  "publicWriteEnabled": true,
+  "genesisHash": "0x6e57f2da1aa9d1fdf5092452ca1fcb015ab3319f4b659ef1b9d7e43bd967e14a",
+  "head": 3196,
+  "receipts": [
+    {
+      "name": "governance-fees",
+      "hash": "0xafa3c0e2a725aad5ea58974e216ee1652fba6c888243e7e3245d9e515b0dc5ad",
+      "block": 584,
+      "status": 1,
+      "logCount": 4
+    },
+    {
+      "name": "sdk-profile",
+      "hash": "0x469d24efa3e773d2db19eaaba1e06b6e91159198995bfce7b1fbe37afac4d4b5",
+      "block": 753,
+      "status": 1,
+      "logCount": 2
+    },
+    {
+      "name": "test-wallet-funding",
+      "hash": "0x3f923283bf8e49826deab5d174962ddbac0f88bc236bc1ebb2261e41b6fa1fe1",
+      "block": 2064,
+      "status": 1,
+      "logCount": 0
+    }
+  ],
+  "preparedTestWallet": {
+    "address": "0x9191ecae9985C8022F695628CD508e6E382196dc",
+    "balanceWei": "1000000000000000000",
+    "metamaskImportVerified": false
+  },
+  "browserWalletLoginVerified": false
+}
