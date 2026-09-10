@@ -1,0 +1,1074 @@
+{
+  "mode": "read-only reconstruction/assertions of root actual browser transactions; no writes or browser claims inferred from tests",
+  "chainId": 31371,
+  "before": "93",
+  "after": "97",
+  "proposalId": "1",
+  "proposal": {
+    "baseVersion": "1",
+    "expiresAt": "1789121229",
+    "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "executed": true,
+    "payees": [
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "shares": [
+      "200000",
+      "400000",
+      "400000"
+    ]
+  },
+  "requiredConsentAddresses": [
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  ],
+  "newSplitState": {
+    "address": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+    "balanceT": "0",
+    "totalShares": "1000000",
+    "accounts": [
+      {
+        "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "shares": "200000"
+      },
+      {
+        "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "shares": "400000"
+      },
+      {
+        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "shares": "400000"
+      }
+    ]
+  },
+  "receipts": [
+    {
+      "block": "94",
+      "blockHash": "0x813d91886a13079901769777238377091269828970652ee47f68a934d13429a3",
+      "timestamp": "1789034839",
+      "hash": "0xc0a9d1ef4c02bf9cb6c0868dd3a1c6d57ba1fda330fb97aca3e3c73c29e2e0f1",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "283613",
+      "call": {
+        "functionName": "propose",
+        "args": [
+          "1",
+          [
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+          ],
+          [
+            "200000",
+            "400000",
+            "400000"
+          ],
+          "1789121229"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "eventName": "AllocationProposed",
+          "args": {
+            "proposalId": "1",
+            "baseVersion": "1",
+            "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "payees": [
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+            ],
+            "shares": [
+              "200000",
+              "400000",
+              "400000"
+            ],
+            "expiresAt": "1789121229"
+          }
+        }
+      ]
+    },
+    {
+      "block": "95",
+      "blockHash": "0xed8ba609fd90013549cc8e89d6ef9efce41de04541343c9c69bd0323e9b8458b",
+      "timestamp": "1789034853",
+      "hash": "0x1d4a0a86b00e00480cc0bc04fdaf57a9948fd1eb90e0aff39c5ebf6edeecba67",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "72554",
+      "call": {
+        "functionName": "setApproval",
+        "args": [
+          "1",
+          true
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "eventName": "AllocationApproval",
+          "args": {
+            "proposalId": "1",
+            "beneficiary": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "approved": true
+          }
+        }
+      ]
+    },
+    {
+      "block": "96",
+      "blockHash": "0xe85682941a3fdf4ef55ca218ed6a3d3fd787b023ed62e64b3804f75cd594cfe5",
+      "timestamp": "1789034884",
+      "hash": "0xae44e56bc0562186edaa0ef921e96f4a7b49683453ba6d24198303a611315868",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "70055",
+      "call": {
+        "functionName": "setApproval",
+        "args": [
+          "1",
+          true
+        ]
+      },
+      "events": [
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "eventName": "AllocationApproval",
+          "args": {
+            "proposalId": "1",
+            "beneficiary": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "approved": true
+          }
+        }
+      ]
+    },
+    {
+      "block": "97",
+      "blockHash": "0x65c46ea8e8afd11430dd008d1e4bbe93834a9432ed3b7c29d1a3ce0afa9e1857",
+      "timestamp": "1789034906",
+      "hash": "0xe6739b91f7daeade6cd3dddf34d518d8cfa9198661da035ece087879b14fcd02",
+      "from": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "to": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+      "value": "0",
+      "gasUsed": "996393",
+      "call": {
+        "functionName": "execute",
+        "args": [
+          "1"
+        ]
+      },
+      "events": [
+        {
+          "address": "0x5392a33f7f677f59e833febf4016cddd88ff9e67",
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "shares": "200000"
+          }
+        },
+        {
+          "address": "0x5392a33f7f677f59e833febf4016cddd88ff9e67",
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "shares": "400000"
+          }
+        },
+        {
+          "address": "0x5392a33f7f677f59e833febf4016cddd88ff9e67",
+          "eventName": "PayeeAdded",
+          "args": {
+            "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "shares": "400000"
+          }
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "eventName": "AllocationApplied",
+          "args": {
+            "epoch": "2",
+            "split": "0x5392A33F7F677f59e833FEBF4016cDDD88fF9E67",
+            "payees": [
+              "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+            ],
+            "shares": [
+              "200000",
+              "400000",
+              "400000"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "snapshots": [
+    {
+      "block": "93",
+      "epoch": "1",
+      "recipients": [
+        [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "500000",
+          "500000"
+        ]
+      ],
+      "proposalCount": "1",
+      "proposal": null,
+      "approvals": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "approved": false
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "approved": false
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "approved": false
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "approved": false
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "approved": false
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "approved": false
+        }
+      ],
+      "oldSplits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "totalShares": "1000000",
+          "totalReleasedT": "0",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "600000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "400000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "totalShares": "1000000",
+          "totalReleasedT": "96326530612244896",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        }
+      ],
+      "balancesT": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "value": "99800240816326530612244"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "value": "100000048163265306122448"
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "value": "99998817451164869001816"
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "value": "99999047129745479866654"
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "value": "201685895280127322008"
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "block": "94",
+      "epoch": "1",
+      "recipients": [
+        [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "500000",
+          "500000"
+        ]
+      ],
+      "proposalCount": "2",
+      "proposal": {
+        "baseVersion": "1",
+        "expiresAt": "1789121229",
+        "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "executed": false,
+        "payees": [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "shares": [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      },
+      "approvals": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "approved": false
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "approved": false
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "approved": false
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "approved": false
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "approved": false
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "approved": false
+        }
+      ],
+      "oldSplits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "totalShares": "1000000",
+          "totalReleasedT": "0",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "600000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "400000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "totalShares": "1000000",
+          "totalReleasedT": "96326530612244896",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        }
+      ],
+      "balancesT": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "value": "99800240816326530612244"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "value": "100000048163265306122448"
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "value": "99998817451164869001816"
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "value": "99999047129745479866654"
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "value": "201685895280127322008"
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "block": "95",
+      "epoch": "1",
+      "recipients": [
+        [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "500000",
+          "500000"
+        ]
+      ],
+      "proposalCount": "2",
+      "proposal": {
+        "baseVersion": "1",
+        "expiresAt": "1789121229",
+        "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "executed": false,
+        "payees": [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "shares": [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      },
+      "approvals": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "approved": true
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "approved": false
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "approved": false
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "approved": false
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "approved": false
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "approved": false
+        }
+      ],
+      "oldSplits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "totalShares": "1000000",
+          "totalReleasedT": "0",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "600000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "400000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "totalShares": "1000000",
+          "totalReleasedT": "96326530612244896",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        }
+      ],
+      "balancesT": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "value": "99800240816326530612244"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "value": "100000048163265306122448"
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "value": "99998817451164869001816"
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "value": "99999047129745479866654"
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "value": "201685895280127322008"
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "block": "96",
+      "epoch": "1",
+      "recipients": [
+        [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "500000",
+          "500000"
+        ]
+      ],
+      "proposalCount": "2",
+      "proposal": {
+        "baseVersion": "1",
+        "expiresAt": "1789121229",
+        "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "executed": false,
+        "payees": [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "shares": [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      },
+      "approvals": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "approved": true
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "approved": true
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "approved": false
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "approved": false
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "approved": false
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "approved": false
+        }
+      ],
+      "oldSplits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "totalShares": "1000000",
+          "totalReleasedT": "0",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "600000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "400000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "totalShares": "1000000",
+          "totalReleasedT": "96326530612244896",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        }
+      ],
+      "balancesT": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "value": "99800240816326530612244"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "value": "100000048163265306122448"
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "value": "99998817451164869001816"
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "value": "99999047129745479866654"
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "value": "201685895280127322008"
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "block": "97",
+      "epoch": "2",
+      "recipients": [
+        [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      ],
+      "proposalCount": "2",
+      "proposal": {
+        "baseVersion": "1",
+        "expiresAt": "1789121229",
+        "proposer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "executed": true,
+        "payees": [
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "shares": [
+          "200000",
+          "400000",
+          "400000"
+        ]
+      },
+      "approvals": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "approved": true
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "approved": true
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "approved": false
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "approved": false
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "approved": false
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "approved": false
+        }
+      ],
+      "oldSplits": [
+        {
+          "epoch": "0",
+          "address": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "totalShares": "1000000",
+          "totalReleasedT": "0",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "600000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "400000",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        },
+        {
+          "epoch": "1",
+          "address": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "totalShares": "1000000",
+          "totalReleasedT": "96326530612244896",
+          "balanceT": "0",
+          "accounts": [
+            {
+              "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+              "shares": "500000",
+              "releasedT": "48163265306122448"
+            },
+            {
+              "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+              "shares": "0",
+              "releasedT": "0"
+            },
+            {
+              "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+              "shares": "0",
+              "releasedT": "0"
+            }
+          ]
+        }
+      ],
+      "balancesT": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "value": "99800240816326530612244"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "value": "100000048163265306122448"
+        },
+        {
+          "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "value": "99998817451164869001816"
+        },
+        {
+          "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "value": "99999047129745479866654"
+        },
+        {
+          "address": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "value": "100000000000000000000000"
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "value": "201685895280127322008"
+        },
+        {
+          "address": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+          "value": "0"
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "exactPayeesAndShares": true,
+    "twoDecreasingOwnersOnly": true,
+    "curatorOnlyAt95": true,
+    "bothAt96": true,
+    "noMathematicianConsent": true,
+    "permissionlessMathematicianExecution97": true,
+    "oldEpochSplitAddressesSharesReleasedAndBalancesUnchanged": true,
+    "allSixActorsTAndCTFCollateralAndControllerTUnchanged": true,
+    "noTokenMovement": true,
+    "newImmutableEpoch2": true
+  },
+  "limits": [
+    "UI enabled/disabled observations belong to root manual README, not inferred here",
+    "ETH gas balances change; unchanged amounts here refer to T and CTF collateral",
+    "No new protocol income was generated or released in these four transactions"
+  ]
+}
