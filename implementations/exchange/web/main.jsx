@@ -1072,9 +1072,19 @@ function ArbitragePanel({ m, sdk, address, run, busy }) {
   const [amount, setAmount] = useState("1"),
     [minimum, setMinimum] = useState("0.01"),
     [quote, setQuote] = useState(null);
-  useEffect(() => setQuote(null), [amount]);
+  const quoteGuard = useRef(createProofImportGuard());
+  quoteGuard.current.select(`${m.id}/${address}/${amount}`, sdk);
+  useEffect(() => () => quoteGuard.current.invalidate(), []);
+  function changeAmount(value) {
+    quoteGuard.current.invalidate();
+    setQuote(null);
+    setAmount(value);
+  }
   async function preview() {
-    setQuote(await sdk.quoteArbitrage(m, parseEther(amount)));
+    const ticket = quoteGuard.current.begin();
+    setQuote(null);
+    const next = await sdk.quoteArbitrage(m, parseEther(amount));
+    if (quoteGuard.current.current(ticket)) setQuote(next);
   }
   return (
     <section className="panel arbitrage-panel">
@@ -1095,7 +1105,7 @@ function ArbitragePanel({ m, sdk, address, run, busy }) {
           label="T to split"
           type="number"
           value={amount}
-          onChange={setAmount}
+          onChange={changeAmount}
         />
         <Field
           label="Minimum profit · T"
