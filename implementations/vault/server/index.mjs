@@ -1,6 +1,7 @@
 import { palomarRecent, palomarSnapshot } from './palomar.mjs';
 import { community } from './community.mjs';
 import { publications, preparePackage, packageZip } from './publications.mjs';
+import { externalProofCatalog } from './external-proofs.mjs';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import fs from 'node:fs';
@@ -262,6 +263,9 @@ app.get(
     res.json(fs.existsSync(f) ? JSON.parse(fs.readFileSync(f)) : []);
   }),
 );
+app.get('/api/external-proofs', route(async (_, res) => {
+  res.json(externalProofCatalog(root, ctx().config));
+}));
 app.get(
   '/api/palomar',
   route(async (req, res) =>

@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "nat-reflexivity",
+    "exitCode": 0,
+    "report": "docs/imports/ix-starter/evidence/nat-reflexivity-repaired-resources.json",
+    "command": [
+      "/usr/bin/python3",
+      "tools/lean-zk/resource-guard.py",
+      "--memory-mib",
+      "1024",
+      "--timeout",
+      "5",
+      "--report",
+      "/Users/ignatignat/Documents/ChatGPT/oncm/docs/imports/ix-starter/evidence/nat-reflexivity-repaired-resources.json",
+      "--",
+      "node",
+      "tools/lean-zk/runner.mjs"
+    ],
+    "input": {
+      "action": "check",
+      "outcome": 1,
+      "sourcePath": "packages/nat-reflexivity/Oncm.lean",
+      "sourceSha256": "d3ab713c93ff99999001cca233b34763c783bc709a272ec288ba880d696352a8",
+      "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e"
+    },
+    "guardSha256": "e5b832f5f86f151e986385dfbe3a0dac07621c2c332a5bd2f844b996ec0cb9f3"
+  },
+  {
+    "slug": "peano-zero-add",
+    "exitCode": 0,
+    "report": "docs/imports/ix-starter/evidence/peano-zero-add-repaired-resources.json",
+    "command": [
+      "/usr/bin/python3",
+      "tools/lean-zk/resource-guard.py",
+      "--memory-mib",
+      "1024",
+      "--timeout",
+      "5",
+      "--report",
+      "/Users/ignatignat/Documents/ChatGPT/oncm/docs/imports/ix-starter/evidence/peano-zero-add-repaired-resources.json",
+      "--",
+      "node",
+      "tools/lean-zk/runner.mjs"
+    ],
+    "input": {
+      "action": "check",
+      "outcome": 1,
+      "sourcePath": "packages/peano-zero-add/Oncm.lean",
+      "sourceSha256": "0783b43fec437dd2dd8f8f5e8bbbe4788d52327c42176681c9480186f707e446",
+      "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e"
+    },
+    "guardSha256": "e5b832f5f86f151e986385dfbe3a0dac07621c2c332a5bd2f844b996ec0cb9f3"
+  },
+  {
+    "slug": "peano-succ-add",
+    "exitCode": 0,
+    "report": "docs/imports/ix-starter/evidence/peano-succ-add-repaired-resources.json",
+    "command": [
+      "/usr/bin/python3",
+      "tools/lean-zk/resource-guard.py",
+      "--memory-mib",
+      "1024",
+      "--timeout",
+      "5",
+      "--report",
+      "/Users/ignatignat/Documents/ChatGPT/oncm/docs/imports/ix-starter/evidence/peano-succ-add-repaired-resources.json",
+      "--",
+      "node",
+      "tools/lean-zk/runner.mjs"
+    ],
+    "input": {
+      "action": "check",
+      "outcome": 1,
+      "sourcePath": "packages/peano-succ-add/Oncm.lean",
+      "sourceSha256": "793bce5a3db0e7be164076cf2fb9ee526713d8492e86550259769987d5f95b66",
+      "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e"
+    },
+    "guardSha256": "e5b832f5f86f151e986385dfbe3a0dac07621c2c332a5bd2f844b996ec0cb9f3"
+  }
+]

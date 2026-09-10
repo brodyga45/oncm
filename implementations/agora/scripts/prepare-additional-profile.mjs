@@ -1,0 +1,24 @@
+// Deploy only the immutable verifier bridge. Governance remains a browser action.
+import fs from 'node:fs';import path from 'node:path';
+import {encodeFunctionData,zeroAddress} from 'viem';
+import {root,artifact} from './deploy.mjs';
+import {publicClient as client,devWallet,assertLocalChain,stringify} from '../sdk/chain.mjs';
+import {loadExternalBundle,verifyExternalArtifact} from '../server/external-certificates.mjs';
+await assertLocalChain();
+const m=JSON.parse(fs.readFileSync(path.join(root,'.local/deployment.json'))),bundle=loadExternalBundle(root);
+const a=JSON.parse(fs.readFileSync(path.join(root,'proof/artifacts/LeanProofBridge.json')));
+const location=path.join(root,'.local/additional-profile.json');
+if(fs.existsSync(location))throw Error('Additional bridge descriptor already exists; inspect it instead of deploying twice');
+const previous=await client.readContract({address:m.registry,abi:artifact('AgoraRegistry').abi,functionName:'profiles',args:[m.profileId]});
+const pending=await client.readContract({address:m.registry,abi:artifact('AgoraRegistry').abi,functionName:'profiles',args:[bundle.profile.profileId]});
+if(pending[0]!==zeroAddress)throw Error('Additional profile already exists in registry');
+const tx=await devWallet(0).deployContract({abi:a.abi,bytecode:a.bytecode,args:[bundle.profile.imageId,bundle.profile.profileId],gas:25000000n});
+const receipt=await client.waitForTransactionReceipt({hash:tx});if(receipt.status!=='success')throw Error('Bridge deployment failed');
+const bridge=receipt.contractAddress;
+await verifyExternalArtifact(bundle.registration,{bundle,bridge,abi:a.abi,client});
+const proposal={title:'Add perf05 zero-axiom logic profile; keep v3 enabled',kind:'profile',profileId:bundle.profile.profileId,verifier:bridge,manifestHash:bundle.manifestHash};
+const data=encodeFunctionData({abi:artifact('AgoraRegistry').abi,functionName:'configureProfile',args:[proposal.profileId,bridge,proposal.manifestHash]});
+const after=await client.readContract({address:m.registry,abi:artifact('AgoraRegistry').abi,functionName:'profiles',args:[m.profileId]});
+if(stringify(after)!==stringify(previous))throw Error('Original profile unexpectedly changed');
+const result={bridge,profileId:proposal.profileId,imageId:bundle.profile.imageId,manifestHash:bundle.manifestHash,proposal,target:m.registry,data,tx,block:receipt.blockNumber,registrationVerified:true,governanceInstalled:false};
+fs.writeFileSync(location,stringify(result));console.log(stringify(result));

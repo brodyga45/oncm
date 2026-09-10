@@ -1,0 +1,67 @@
+{
+  "format": "oncm-real-groth16-ci-v1",
+  "profile": "perf05",
+  "case": "false-registration",
+  "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+  "outcome": 0,
+  "journal": "0x368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b144f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb493cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000000",
+  "rawSeal": "0x05d9fbfe9fe64e643c2c72ea4e5790fd91bc6004b2d894c37ee9489b58ab8edf2dd23937992b0ddcd81b7c42ecd491f2403d0c14e19cd0d834d353335fd233c71bf9d502718140444a763a382752655d851ba2cee29930ca389b176f6192bcd622909af1131418fb320ede69a291e76c8012370c8ec556be58e840ecd59e888523255a5198a471237205a519b618475701d198b613c3e6027c16aa0174533d3b0d75a944375edc2edd14f2eb4d08c8bf6ed3984ac2ebf9465d77b35035a9c7961d21775b210490d9e48b454d5dd487c9ed0d0d9a804e7b4652c3358a8b99abae1e34d3e1a4269cb680c0ae9ded73f4b6d47369b45c9f1e7b73e8dd57bd0499d4",
+  "evmSeal": "0x73c457ba05d9fbfe9fe64e643c2c72ea4e5790fd91bc6004b2d894c37ee9489b58ab8edf2dd23937992b0ddcd81b7c42ecd491f2403d0c14e19cd0d834d353335fd233c71bf9d502718140444a763a382752655d851ba2cee29930ca389b176f6192bcd622909af1131418fb320ede69a291e76c8012370c8ec556be58e840ecd59e888523255a5198a471237205a519b618475701d198b613c3e6027c16aa0174533d3b0d75a944375edc2edd14f2eb4d08c8bf6ed3984ac2ebf9465d77b35035a9c7961d21775b210490d9e48b454d5dd487c9ed0d0d9a804e7b4652c3358a8b99abae1e34d3e1a4269cb680c0ae9ded73f4b6d47369b45c9f1e7b73e8dd57bd0499d4",
+  "certificate": "0x00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000010473c457ba05d9fbfe9fe64e643c2c72ea4e5790fd91bc6004b2d894c37ee9489b58ab8edf2dd23937992b0ddcd81b7c42ecd491f2403d0c14e19cd0d834d353335fd233c71bf9d502718140444a763a382752655d851ba2cee29930ca389b176f6192bcd622909af1131418fb320ede69a291e76c8012370c8ec556be58e840ecd59e888523255a5198a471237205a519b618475701d198b613c3e6027c16aa0174533d3b0d75a944375edc2edd14f2eb4d08c8bf6ed3984ac2ebf9465d77b35035a9c7961d21775b210490d9e48b454d5dd487c9ed0d0d9a804e7b4652c3358a8b99abae1e34d3e1a4269cb680c0ae9ded73f4b6d47369b45c9f1e7b73e8dd57bd0499d4000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b144f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb493cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000000",
+  "verifierParameters": "0x73c457ba541936f0d907daf0c7253a39a9c5c427c225ba7709e44702d3c6eedc",
+  "receiptSha256": "8249a0de12861e21a39423bf47434d620db7fd05675e04c747a29c47e6ff3750",
+  "receiptKind": "Groth16",
+  "verifiedBy": "official r0vm 3.0.6 VerifyRequest / Receipt::verify",
+  "elapsedSeconds": 514.7441464860001,
+  "evmVerified": false,
+  "pins": {
+    "format": "oncm-proof-ci-pins-v1",
+    "r0vm": {
+      "version": "3.0.6",
+      "commit": "1cc70cf05033a79ebc90f07c679cb4bd1cd301b9",
+      "url": "https://github.com/risc0/risc0/releases/download/v3.0.6/cargo-risczero-x86_64-unknown-linux-gnu.tgz",
+      "archiveBytes": 72347320,
+      "sha256": "615d961bfb81d318db5071d7548389c850e324ac7f421c075176daf26082a60a"
+    },
+    "docker": {
+      "requestedTag": "risczero/risc0-groth16-prover:v2025-04-03.1",
+      "pinnedImage": "risczero/risc0-groth16-prover@sha256:7f173963196570b7a71816ed70565a4579264c5d2e3e0ecb028102538ad0e331",
+      "indexDigest": "sha256:a4f80ce2e0b8e2bb7637a93c37136a6776ac00ec843a3fdf1c67b1d5ffea64ee",
+      "compressedLayersBytes": 2399158367,
+      "metadataCheckedOn": "2026-09-10",
+      "memory": "9g",
+      "memorySwap": "9g",
+      "cpus": "4",
+      "pidsLimit": 128,
+      "workerThreads": 4
+    },
+    "host": {
+      "memoryMax": "12G",
+      "memorySwapMax": 0,
+      "cpuQuota": "400%",
+      "tasksMax": 128,
+      "caseTimeoutSeconds": 1800,
+      "workerThreads": 4,
+      "rustLog": "info,risc0_zkvm::host::server::prove::prover_impl=debug,risc0_zkvm::host::recursion::prove=debug,risc0_zkp::prove::prover=debug,risc0_groth16::prove::docker=debug"
+    },
+    "scope": "GitHub public Linux x64 standard runner only; CI-specific limits exceed local 2GiB target",
+    "ethereum": {
+      "selector": "0x73c457ba",
+      "risc0EthereumCommit": "32aa0b6f23ddd02dd93fc71717667606e5c7db86"
+    },
+    "sharedBudget": {
+      "memoryMax": "13G",
+      "memoryMaxBytes": 13958643712,
+      "memorySwapMax": 0,
+      "cpuQuota": "400%",
+      "tasksMax": 256,
+      "requiredDockerCgroupDriver": "systemd",
+      "requiredCgroupVersion": 2,
+      "reason": "CI1 host4G SIGKILL corrected with shared13G; CI2 fits at4.587GiB with zeroOOM but uses1195CPU-seconds and reaches600s timeout. Use existing public4CPU plus1800s, unchanged memory/crypto."
+    }
+  },
+  "sourceCommit": "ed830fe68cc94aeac6eb01049a92464182bba737",
+  "runId": "34419882266"
+}

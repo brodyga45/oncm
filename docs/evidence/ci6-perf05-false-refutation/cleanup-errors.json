@@ -1,0 +1,12 @@
+[
+  {
+    "command": [
+      "sudo",
+      "systemctl",
+      "stop",
+      "oncm-ci-34421160265-1-perf05-false-refutation.scope"
+    ],
+    "returnCode": 5,
+    "stderr": "Failed to stop oncm-ci-34421160265-1-perf05-false-refutation.scope: Unit oncm-ci-34421160265-1-perf05-false-refutation.scope not loaded.\n"
+  }
+]

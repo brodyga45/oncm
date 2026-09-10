@@ -79,3 +79,36 @@ workers. The blockchain and Vite process stayed running. Live checks afterwards:
 No proof jobs were generated and no blockchain transactions were submitted by
 these scheduler checks. Browser verification of the new sign-in/cancel wiring
 and real proof performance measurements are still required separately.
+
+## External perf05 certificates: CI3 registration and CI4 true proof
+
+The standalone Exchange bundle now includes the exact reviewed CI4 artifact at
+`proof/profiles/perf05/certificates/true-proof.json` (5,199 bytes, SHA256
+`65a54ad884fad55139b830cbeb83f551191c1d954382036c03a5006b3c5683b1`).
+It proves outcome 1 under the distinct zero-axiom perf05 profile. It is not a v3
+certificate. The existing CI3 artifact remains the separate outcome-0 registration
+certificate for the same canonical goal.
+
+`node --test tests/proof-import.test.mjs tests/proof-import-state.test.mjs`:
+**19/19 passed**. Coverage includes exact image/profile/goal/outcome/ABI binding,
+mutated artifact rejection, wrong-purpose registration/proof rejection, and
+pending verification invalidation across A → B → A navigation, outcome/wallet
+changes, unmount and overlapping imports. An ordinary unchanged-form rerender
+preserves the pending verification. `npm run build`: passed (1.67 seconds).
+
+`node tests/proof-import-live.mjs`: **PASS**, read-only at Exchange block 122.
+The actual immutable bridge `0xCace1b78160AE76398F486c8a18044da0d66d86D`
+accepted both genuine artifacts and rejected a coherently ABI-encoded mutated
+seal. Existing v3 remained enabled. At that observation perf05 was not yet
+installed in the registry, so readiness to create was correctly false.
+
+HTTP reads after reloading the idle API only: both allowlisted certificate
+routes return 200 with the exact stored artifact, an unknown case returns 404.
+No blockchain transaction or proof job was run for these checks. The API reload
+does not reset the chain or stored data; the API's in-memory SIWE sessions reset.
+
+The Proof lab button **Load published YES certificate · CI4** only fills the
+JSON field. The user separately clicks **Verify pasted proof certificate** and
+**3 · Submit proof onchain**. Actual Governor installation, browser market
+creation, LP/trading and final settlement are separate root-owned browser QA;
+these read-only checks do not claim those scenarios have completed.

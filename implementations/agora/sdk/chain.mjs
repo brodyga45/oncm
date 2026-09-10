@@ -1,4 +1,5 @@
-import {defineChain,createPublicClient,createWalletClient,http,custom,parseAbi,decodeEventLog,formatEther,parseEther,zeroAddress,zeroHash,keccak256,toHex} from 'viem';
+import {parseTokenAmount as parseEther} from './amounts.mjs';
+import {defineChain,createPublicClient,createWalletClient,http,custom,parseAbi,decodeEventLog,formatEther,zeroAddress,zeroHash,keccak256,toHex} from 'viem';
 import {mnemonicToAccount} from 'viem/accounts';
 export const chain=defineChain({id:31371,name:'Agora local research chain',nativeCurrency:{name:'Dev Ether',symbol:'ETH',decimals:18},rpcUrls:{default:{http:['http://127.0.0.1:9545']}}});
 export const mnemonic='test test test test test test test test test test test junk';

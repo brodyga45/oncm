@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {keccak256,toHex} from 'viem';
+import {ixStarterFixtures} from './ix-starter.mjs';
 
 // Read only public raw GitHub files at a full immutable commit. No repository code
 // or build hook is executed by this importer, and redirects are not followed.
@@ -23,7 +24,7 @@ export async function importSnapshot(url){
  const [source,toolchain,manifest,formalization]=await Promise.all([boundedText(base+s.file),boundedText(base+'lean-toolchain',true),boundedText(base+'lake-manifest.json',true),boundedText(base+'formalization.yaml',true)]);
  return{schemaVersion:2,title:`${s.repository} · ${s.file.split('/').at(-1)}`,source,repositoryUrl:s.url,commit:s.commit,sourceHash:keccak256(toHex(source)),metadata:{title:`${s.repository} · ${s.file.split('/').at(-1)}`,description:'Imported from an immutable public Lean repository snapshot. Review the exact declaration and informal description before registration.',externalRef:s.url},files:{[s.file]:source,...toolchain&&{'lean-toolchain':toolchain},...manifest&&{'lake-manifest.json':manifest},...formalization&&{'formalization.yaml':formalization}},provenance:{...s,fetchedAt:new Date().toISOString(),registryStatus:'unverified external source'}};
 }
-export function fixtures(root){const f=path.join(root,'proof/fixtures.json');if(!fs.existsSync(f))return[];const data=JSON.parse(fs.readFileSync(f,'utf8'));return Array.isArray(data)?data:data.fixtures??[];}
+export function fixtures(root){const f=path.join(root,'proof/fixtures.json');const data=fs.existsSync(f)?JSON.parse(fs.readFileSync(f,'utf8')):[];return [...(Array.isArray(data)?data:data.fixtures??[]),...ixStarterFixtures(root)];}
 
 export async function searchPalomar(query=''){
  const data=JSON.parse(await boundedText('https://data.palomar-registry.org/recent.json',false,2_000_000));

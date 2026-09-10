@@ -2,6 +2,8 @@ import { settlementInventory } from './capital.mjs';
 import { executeBoundedSwap } from './swap-limits.mjs';
 import { liquidityLimits, validateLiquidityQuote } from './liquidity.mjs';
 import { creatorFromAggregate } from './revenue.mjs';
+import { readGovernance, decodeGovernanceCall } from './governance.mjs';
+import { verifyExternalCertificate } from './external-certificates.mjs';
 import {
   Interface,
   Contract,
@@ -174,6 +176,9 @@ export function createSDK(config, abis, runner) {
     position,
     allocation,
     ensureChain,
+    verifyExternalCertificate: (record, descriptor, candidateBridge) => verifyExternalCertificate({
+      provider, registry, defaultBridge: config.addresses.LeanProofBridge, record, descriptor, candidateBridge,
+    }),
     send,
     approve,
     permit,
@@ -181,6 +186,11 @@ export function createSDK(config, abis, runner) {
     statements,
     pools,
     balances,
+    governanceSnapshot: (account = '') => readGovernance({ provider, config, abis,
+      governor: new Contract(config.addresses.Governor, abis.VaultGovernor, provider),
+      membership: new Contract(config.addresses.Membership, abis.Membership, provider),
+      timelockAt: (address) => new Contract(address, abis.TimelockController, provider),
+    }, account),
     quoteInitialize: (pool, amounts, bps = 100) => quoteLiquidity('initialize', pool, amounts, bps),
     quoteJoin: (pool, bpt, bps = 100) => quoteLiquidity('join', pool, bpt, bps),
     quoteExit: (pool, bpt, bps = 100) => quoteLiquidity('exit', pool, bpt, bps),
@@ -320,25 +330,13 @@ export function createSDK(config, abis, runner) {
     },
     async governancePreflight(target, data, value = 0n) {
       const block = await provider.getBlock('latest');
-      let decoded = null;
-      for (const abi of Object.values(abis)) {
-        try {
-          const p = new Interface(abi).parseTransaction({ data, value });
-          if (p) {
-            decoded = {
-              method: p.name,
-              signature: p.signature,
-              args: p.args.toArray(true).map(String),
-            };
-            break;
-          }
-        } catch {}
-      }
+      const decoded = decodeGovernanceCall(target, data, value, config, abis);
+      const authority = await c('Governor', 'VaultGovernor').timelock({ blockTag: block.number });
       const base = {
         target,
         data,
         value: String(value),
-        from: config.addresses.Timelock,
+        from: authority,
         blockNumber: block.number,
         decoded,
       };
@@ -348,7 +346,7 @@ export function createSDK(config, abis, runner) {
         const result = await provider.send('eth_call', [
           {
             to: target,
-            from: config.addresses.Timelock,
+            from: authority,
             data,
             value: '0x' + BigInt(value).toString(16),
           },

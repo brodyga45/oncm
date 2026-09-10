@@ -7,10 +7,15 @@ import {
   keccak256,
   toUtf8Bytes,
 } from "ethers";
+import { verifyExternalCertificate } from "./proof-import.mjs";
+export { decodeExternalCertificate, fixtureForCertificate } from "./proof-import.mjs";
 export { parseEther, formatEther };
 export class ExchangeSDK {
   constructor(provider, signer, deployment, abis, onTx = () => {}) {
     Object.assign(this, { provider, signer, deployment, abis, onTx });
+  }
+  verifyExternalCertificate(artifact, profile, expected) {
+    return verifyExternalCertificate(this, artifact, profile, expected);
   }
   contract(key) {
     const names = {

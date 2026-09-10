@@ -1,0 +1,2 @@
+Resource guard failed: [Errno 1] Cannot account for worker PID 74793
+Worker stopped: guard-error; see /Users/ignatignat/Documents/ChatGPT/oncm/docs/imports/ix-starter/evidence/nat-reflexivity-resources.json

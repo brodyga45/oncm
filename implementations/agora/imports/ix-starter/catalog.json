@@ -1,0 +1,266 @@
+{
+  "format": "oncm-source-catalog-v1",
+  "adapter": "ix-pinned-source-v1",
+  "retrievedAt": "2026-09-10",
+  "snapshot": {
+    "repository": "https://github.com/argumentcomputer/ix",
+    "commit": "4c91254346284dcd984f1940f2c527114b1c5190",
+    "committedAt": "2026-09-09T16:44:21Z",
+    "toolchain": "leanprover/lean4:v4.33.1",
+    "upstreamManifest": "upstream/lake-manifest.json"
+  },
+  "entries": [
+    {
+      "id": "ix:4c91254346284dcd984f1940f2c527114b1c5190:nat-reflexivity",
+      "slug": "nat-reflexivity",
+      "title": "Natural-number equality is reflexive",
+      "declaration": "myReflEq",
+      "formalGoal": "∀ n : Nat, n = n",
+      "origin": {
+        "repository": "https://github.com/argumentcomputer/ix",
+        "commit": "4c91254346284dcd984f1940f2c527114b1c5190",
+        "path": "Tests/MinimalDefs.lean",
+        "lines": [
+          1,
+          5
+        ],
+        "url": "https://github.com/argumentcomputer/ix/blob/4c91254346284dcd984f1940f2c527114b1c5190/Tests/MinimalDefs.lean#L1"
+      },
+      "package": {
+        "sourcePath": "packages/nat-reflexivity/Source.lean",
+        "oncmSourcePath": "packages/nat-reflexivity/Oncm.lean",
+        "toolchain": "leanprover/lean4:v4.33.1",
+        "imports": [
+          "Init (implicit Lean prelude)"
+        ],
+        "externalLakeDependencies": [],
+        "extraction": "exact whole file"
+      },
+      "status": {
+        "source": "pinned-upstream-proof-body-present",
+        "leanCheck": "passed",
+        "nativeKernelCheck": "passed-v3",
+        "zkCertificate": "not-found",
+        "onchain": "not-submitted"
+      },
+      "certificate": null,
+      "goalHash": "0x0c4a883bb94052eaded6ef924b27897ec7ce5df19a444b5dc4645da3d4035431",
+      "candidateProfileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+      "license": "MIT OR Apache-2.0",
+      "nativeAttempt": {
+        "result": "evidence/nat-reflexivity-check.json",
+        "resourceReport": "evidence/nat-reflexivity-resources.json",
+        "diagnostics": "evidence/nat-reflexivity-stderr.txt",
+        "exitCode": 126
+      },
+      "nativeValidation": {
+        "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+        "result": "evidence/nat-reflexivity-repaired-check.json",
+        "resources": "evidence/nat-reflexivity-repaired-resources.json",
+        "sourceHash": "0xd3ab713c93ff99999001cca233b34763c783bc709a272ec288ba880d696352a8",
+        "exportHash": "0xe4021e7fc6281d0582468499313e3f07014e060293a8c3cde8c725f755099e4e",
+        "wallSeconds": 3.731,
+        "peakTreeFootprintBytes": 123641296,
+        "certificateGenerated": false,
+        "goalExport": "evidence/nat-reflexivity-goal.ndjson",
+        "proofExport": "evidence/nat-reflexivity-proof.ndjson"
+      }
+    },
+    {
+      "id": "ix:4c91254346284dcd984f1940f2c527114b1c5190:peano-zero-add",
+      "slug": "peano-zero-add",
+      "title": "Zero on the left leaves a Peano natural unchanged",
+      "declaration": "Tests.Ix.Kernel.TutorialDefs.tnAddZero",
+      "formalGoal": "∀ m : Tests.Ix.Kernel.TutorialDefs.TN, Tests.Ix.Kernel.TutorialDefs.TN.add .zero m = m",
+      "origin": {
+        "repository": "https://github.com/argumentcomputer/ix",
+        "commit": "4c91254346284dcd984f1940f2c527114b1c5190",
+        "path": "Tests/Ix/Kernel/TutorialDefs.lean",
+        "lines": [
+          135,
+          140
+        ],
+        "url": "https://github.com/argumentcomputer/ix/blob/4c91254346284dcd984f1940f2c527114b1c5190/Tests/Ix/Kernel/TutorialDefs.lean#L135"
+      },
+      "package": {
+        "sourcePath": "packages/peano-zero-add/Source.lean",
+        "oncmSourcePath": "packages/peano-zero-add/Oncm.lean",
+        "toolchain": "leanprover/lean4:v4.33.1",
+        "imports": [
+          "Init (implicit Lean prelude)"
+        ],
+        "externalLakeDependencies": [],
+        "extraction": "exact selected lines, with original namespace restored; test harness and unrelated axioms excluded"
+      },
+      "status": {
+        "source": "pinned-upstream-proof-body-present",
+        "leanCheck": "passed",
+        "nativeKernelCheck": "passed-v3",
+        "zkCertificate": "not-found",
+        "onchain": "not-submitted"
+      },
+      "certificate": null,
+      "goalHash": "0x267490085041d732f6dd20c88b7ffbb970315639deb3c71f12b97370d0e600ec",
+      "candidateProfileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+      "license": "MIT OR Apache-2.0",
+      "nativeValidation": {
+        "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+        "result": "evidence/peano-zero-add-repaired-check.json",
+        "resources": "evidence/peano-zero-add-repaired-resources.json",
+        "sourceHash": "0x0783b43fec437dd2dd8f8f5e8bbbe4788d52327c42176681c9480186f707e446",
+        "exportHash": "0xdf9b7155a77a852860a7b13aace5949bcc877e71b0295e8e9fcd1ddd44cfbc01",
+        "wallSeconds": 1.38,
+        "peakTreeFootprintBytes": 128802112,
+        "certificateGenerated": false,
+        "goalExport": "evidence/peano-zero-add-goal.ndjson",
+        "proofExport": "evidence/peano-zero-add-proof.ndjson"
+      }
+    },
+    {
+      "id": "ix:4c91254346284dcd984f1940f2c527114b1c5190:peano-succ-add",
+      "slug": "peano-succ-add",
+      "title": "Adding a successor produces the successor of the sum",
+      "declaration": "Tests.Ix.Kernel.TutorialDefs.tnAddSucc",
+      "formalGoal": "∀ n m : Tests.Ix.Kernel.TutorialDefs.TN, Tests.Ix.Kernel.TutorialDefs.TN.add (.succ n) m = .succ (Tests.Ix.Kernel.TutorialDefs.TN.add n m)",
+      "origin": {
+        "repository": "https://github.com/argumentcomputer/ix",
+        "commit": "4c91254346284dcd984f1940f2c527114b1c5190",
+        "path": "Tests/Ix/Kernel/TutorialDefs.lean",
+        "lines": [
+          135,
+          141
+        ],
+        "url": "https://github.com/argumentcomputer/ix/blob/4c91254346284dcd984f1940f2c527114b1c5190/Tests/Ix/Kernel/TutorialDefs.lean#L135"
+      },
+      "package": {
+        "sourcePath": "packages/peano-succ-add/Source.lean",
+        "oncmSourcePath": "packages/peano-succ-add/Oncm.lean",
+        "toolchain": "leanprover/lean4:v4.33.1",
+        "imports": [
+          "Init (implicit Lean prelude)"
+        ],
+        "externalLakeDependencies": [],
+        "extraction": "exact selected lines, with original namespace restored; test harness and unrelated axioms excluded"
+      },
+      "status": {
+        "source": "pinned-upstream-proof-body-present",
+        "leanCheck": "passed",
+        "nativeKernelCheck": "passed-v3",
+        "zkCertificate": "not-found",
+        "onchain": "not-submitted"
+      },
+      "certificate": null,
+      "goalHash": "0x4ee70ef387fe02b79ea4ba35aa0df2967bfb74e2770a347d38254305aac3debf",
+      "candidateProfileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+      "license": "MIT OR Apache-2.0",
+      "nativeValidation": {
+        "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+        "result": "evidence/peano-succ-add-repaired-check.json",
+        "resources": "evidence/peano-succ-add-repaired-resources.json",
+        "sourceHash": "0x793bce5a3db0e7be164076cf2fb9ee526713d8492e86550259769987d5f95b66",
+        "exportHash": "0xcc6d864d127ceb783d9e68df5587d3389d9b1d2fa29803715683d6cbf6cf3640",
+        "wallSeconds": 1.41,
+        "peakTreeFootprintBytes": 135405416,
+        "certificateGenerated": false,
+        "goalExport": "evidence/peano-succ-add-goal.ndjson",
+        "proofExport": "evidence/peano-succ-add-proof.ndjson"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "upstream/Tests/MinimalDefs.lean",
+      "originPath": "Tests/MinimalDefs.lean",
+      "sha256": "139560f6e82857e05e09e18509867ce87ace200d0c969dbf079430945ac8ed37",
+      "bytes": 98,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/Tests/MinimalDefs.lean"
+    },
+    {
+      "path": "upstream/Tests/Ix/Kernel/TutorialDefs.lean",
+      "originPath": "Tests/Ix/Kernel/TutorialDefs.lean",
+      "sha256": "76039425d894c4fe05760bb9a84bf2dc3d5ff333a5403cf049841389ecb6c794",
+      "bytes": 50573,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/Tests/Ix/Kernel/TutorialDefs.lean"
+    },
+    {
+      "path": "upstream/lean-toolchain",
+      "originPath": "lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "bytes": 25,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/lean-toolchain"
+    },
+    {
+      "path": "upstream/lakefile.lean",
+      "originPath": "lakefile.lean",
+      "sha256": "fd77bc87a1cb43e202f30f11fe9739c9cbdbbcd73b4dc65499967c31fc0c5a69",
+      "bytes": 15032,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/lakefile.lean"
+    },
+    {
+      "path": "upstream/lake-manifest.json",
+      "originPath": "lake-manifest.json",
+      "sha256": "549ab5ade02b3b63062ff122b1523b557bcc595aca5ffed15a54ea9b27bfc874",
+      "bytes": 2104,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/lake-manifest.json"
+    },
+    {
+      "path": "upstream/LICENSE-MIT",
+      "originPath": "LICENSE-MIT",
+      "sha256": "dc9de72071a0c52ba5ea1796e08a4a19a9d5f931e742db66290867246dc2a418",
+      "bytes": 1085,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/LICENSE-MIT"
+    },
+    {
+      "path": "upstream/LICENSE-APACHE",
+      "originPath": "LICENSE-APACHE",
+      "sha256": "b28f8e76818565e459f777688228fd41d4de08df939c47709e931d8a733c152a",
+      "bytes": 11359,
+      "url": "https://raw.githubusercontent.com/argumentcomputer/ix/4c91254346284dcd984f1940f2c527114b1c5190/LICENSE-APACHE"
+    },
+    {
+      "path": "packages/nat-reflexivity/Source.lean",
+      "sha256": "139560f6e82857e05e09e18509867ce87ace200d0c969dbf079430945ac8ed37",
+      "bytes": 98
+    },
+    {
+      "path": "packages/nat-reflexivity/Oncm.lean",
+      "sha256": "d3ab713c93ff99999001cca233b34763c783bc709a272ec288ba880d696352a8",
+      "bytes": 197
+    },
+    {
+      "path": "packages/nat-reflexivity/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "bytes": 25
+    },
+    {
+      "path": "packages/peano-zero-add/Source.lean",
+      "sha256": "c7776321177261c66725837899dfcfcacfe367c051d38b09e2aa92687764647b",
+      "bytes": 294
+    },
+    {
+      "path": "packages/peano-zero-add/Oncm.lean",
+      "sha256": "0783b43fec437dd2dd8f8f5e8bbbe4788d52327c42176681c9480186f707e446",
+      "bytes": 493
+    },
+    {
+      "path": "packages/peano-zero-add/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "bytes": 25
+    },
+    {
+      "path": "packages/peano-succ-add/Source.lean",
+      "sha256": "c06b076fcc99de4139c8b0f2128acd205a8262df6dc0ef0ce3084dbd81ca57fc",
+      "bytes": 385
+    },
+    {
+      "path": "packages/peano-succ-add/Oncm.lean",
+      "sha256": "793bce5a3db0e7be164076cf2fb9ee526713d8492e86550259769987d5f95b66",
+      "bytes": 636
+    },
+    {
+      "path": "packages/peano-succ-add/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "bytes": 25
+    }
+  ]
+}

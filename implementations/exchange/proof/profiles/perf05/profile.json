@@ -1,0 +1,63 @@
+{
+  "format": "oncm-experimental-kernel-profile-v1",
+  "status": "CI bundle prepared; full Groth16 proof and CI execution not yet measured",
+  "parentOptimizationProfileId": "0x730ef03873b8f58642dfd9ee0a7f8f4b5bbf9e613addf824c6e2520033a4dfb7",
+  "profileTag": "oncm.lean4.33.1.nanoda.4c544ed4.logic.perf05.zeroaxiom",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+  "foundationSha256": "94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124",
+  "foundationBytes": 1073,
+  "foundationConstants": [
+    "False"
+  ],
+  "permittedAxioms": [],
+  "requiredAxiomCount": 0,
+  "natExtension": false,
+  "stringExtension": false,
+  "maxExportBytes": 16777216,
+  "inputProtocol": "unchanged perf02 bulk read of v3 serde words",
+  "shaImplementationGuest": "risc0_zkvm 3.0.6 sha::rust_crypto::Sha256",
+  "goalDeclaration": "Oncm.goal",
+  "solutionDeclaration": "Oncm.solution",
+  "goalCommitment": "SHA256 exact goal export prefix including this distinct foundation",
+  "journal": "domain, goalHash, profileId, outcome0/1/2",
+  "mathematicalPolicy": "Full NanoDa parse + check_all_declars for goal and full proof; exact canonical goal/solution and fixed prefix; zero axioms; genuine False inductive checked each time",
+  "fixtures": {
+    "true": {
+      "source": "fixtures/OncmTrue.lean",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "goalBytes": 1622,
+      "proofBytes": 1945,
+      "outcome": 1
+    },
+    "false": {
+      "source": "fixtures/OncmFalse.lean",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "goalBytes": 1358,
+      "proofBytes": 1910,
+      "outcome": 2
+    }
+  },
+  "certificate": null,
+  "registeredOnchain": false,
+  "notEquivalentToNatProfile": true,
+  "binarySha256": "0f57d516124e0fe3e36ed3a0957e3321536d872f55826bc555319c1af3a4f208",
+  "cycleCountTrust": "host-provided diagnostics only",
+  "files": {
+    "fixtures/OncmFalse.lean": "b855742a179058525366cc931d7da745f91ebb6ff85358e41205b44dfa1f89ad",
+    "fixtures/OncmTrue.lean": "adb0142ac2d8cef01d92fc0dce76e19e0d5b8a9184c0004cdf29ca05a1b1a0b9",
+    "fixtures/false-goal.ndjson": "f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+    "fixtures/false-proof.ndjson": "a4cd1fd73777b953c60a35d7cc5f589bc8ce38a7bb100eb6791adbabdfaa6525",
+    "fixtures/foundation.ndjson": "94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124",
+    "fixtures/true-goal.ndjson": "2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "fixtures/true-proof.ndjson": "e64ec54bf4373db1020e9fa7142f61027e179a8d7d663c4da9162148046c383e",
+    "lean-checker.bin": "0f57d516124e0fe3e36ed3a0957e3321536d872f55826bc555319c1af3a4f208"
+  },
+  "sourceProvenance": {
+    "lean": "4.33.1",
+    "exporterCommit": "15f6055e299ad5b89345e533cc2192f4cc00f659",
+    "nanodaCommit": "4c544ed4099c8227f07d5de77ad1e69fb0740a27",
+    "risc0Commit": "1cc70cf05033a79ebc90f07c679cb4bd1cd301b9",
+    "buildProvenance": "perf05 bounded build and executor records; this workflow proves prebuilt guest; does not reproduce compilation"
+  }
+}

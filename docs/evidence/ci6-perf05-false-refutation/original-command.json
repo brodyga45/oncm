@@ -1,0 +1,11 @@
+[
+  "/home/runner/work/_temp/oncm-proof/bin/r0vm",
+  "--elf",
+  "/home/runner/work/oncm/oncm/tools/lean-zk/ci/profiles/perf05/lean-checker.bin",
+  "--initial-input",
+  "/home/runner/work/_temp/oncm-proof/artifacts/perf05-false-refutation/stdin.bin",
+  "--receipt-kind",
+  "groth16",
+  "--receipt",
+  "/home/runner/work/_temp/oncm-proof/artifacts/perf05-false-refutation/receipt.bin"
+]

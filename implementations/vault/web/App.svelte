@@ -1,7 +1,10 @@
 <script>
   import { proofNotice } from './proof-status.mjs';
+  import { bindOutcomeCertificate, bindProofJob, proofBindingMatches } from './proof-binding.mjs';
   import PackageEditor from './PackageEditor.svelte';
   import RevenuePreview from './RevenuePreview.svelte';
+  import GovernanceProposal from './GovernanceProposal.svelte';
+  import ExternalCertificate from './ExternalCertificate.svelte';
   import { quotedSwapLimits } from '../sdk/swap-limits.mjs';
   import { onMount } from 'svelte';
   import {
@@ -75,6 +78,7 @@
     fixtureId = '',
     declaration = '',
     certificate = '';
+  let certificateBinding = null, proofEpoch = 0;
   let splitAmount = '100',
     mergeAmount = '10',
     side = '0',
@@ -116,6 +120,8 @@
   ];
   $: proofBusy = ['queued', 'running', 'cancelling'].includes(latestJob?.status);
   $: statement = data.statements.find((s) => s.id === sid);
+  $: proofReady = proofBindingMatches(certificateBinding, statement, outcome, certificate);
+  $: if (certificateBinding && !proofReady) clearProofCertificate();
   $: pool = data.pools.find((p) => p.address === poolAddress);
   $: tradeKey = JSON.stringify([poolAddress, direction, String(tradeAmount), String(slippage), account]);
   $: quoteCurrent = tradeQuote?.key === tradeKey;
@@ -166,6 +172,15 @@
     }
     if (!sid && data.statements.length) sid = data.statements[0].id;
     if (!poolAddress && data.pools.length) poolAddress = data.pools[0].address;
+    if (page === 'governance') await refreshGovernance();
+    if (page === 'revenue') await loadClaims();
+  }
+  async function refreshGovernance() {
+    const owner = account, client = sdk;
+    const snapshot = await client.governanceSnapshot(owner);
+    if (owner !== account || client !== sdk) return;
+    gov = snapshot;
+    votingPower = snapshot.currentVotes;
   }
   async function go(next) {
     page = next;
@@ -173,8 +188,7 @@
     try {
       if (next === 'activity') activity = await api('/activity');
       if (next === 'governance') {
-        gov = await api('/governance');
-        votingPower = account ? String(await sdk.c('Membership').getVotes(account)) : '0';
+        await refreshGovernance();
       }
       if (next === 'lab') {
         fixtures = await api('/fixtures');
@@ -238,7 +252,7 @@
     displayName = '';
     bio = '';
     source = '-- Import a published Lean challenge, or write a theorem here.\n';
-    certificate = '';
+    clearProofCertificate();
     registrationCertificate = '';
     fixtureId = '';
     declaration = '';
@@ -246,6 +260,7 @@
     editing = null;
     replyTo = null;
     votingPower = '0';
+    gov = { proposals: [] };
     data = { ...data, balances: {} };
   }
   async function disconnectWallet(reason = 'Кошелёк отключён. Приватные данные очищены с экрана.') {
@@ -288,6 +303,7 @@
     });
   }
   async function select(s) {
+    clearProofCertificate();
     sid = s.id;
     goalHash = s.goalHash;
     profileId = s.profileId;
@@ -298,6 +314,7 @@
     await go('detail');
   }
   async function job(action) {
+    const capturedEpoch = proofEpoch, owner = account;
     const submitted = await tx('Lean / ' + action, async () => {
       const j = await api('/jobs', {
         method: 'POST',
@@ -316,9 +333,9 @@
       jobs = await api('/jobs');
       return j;
     });
-    if (submitted) poll(submitted.id, account).catch((e) => { error = e.message; });
+    if (submitted) poll(submitted.id, owner, capturedEpoch).catch((e) => { error = e.message; });
   }
-  async function poll(id, owner) {
+  async function poll(id, owner, capturedEpoch = proofEpoch) {
     if (owner !== account || latestJob?.id !== id) return;
     const current = await api('/jobs/' + id);
     if (owner !== account || latestJob?.id !== id) return;
@@ -326,7 +343,7 @@
     notice = proofNotice(current);
     if (['queued', 'running', 'cancelling'].includes(latestJob.status)) {
       await new Promise((r) => setTimeout(r, 1200));
-      return poll(id, owner);
+      return poll(id, owner, capturedEpoch);
     }
     const history = await api('/jobs');
     if (owner !== account || latestJob?.id !== id) return;
@@ -335,20 +352,30 @@
       throw Error(latestJob.diagnostics || latestJob.result?.diagnostics || latestJob.result?.error || 'Proof job failed');
     if (latestJob.status === 'cancelled') return;
     const r = latestJob.result || {};
+    if (latestJob.input.action === 'prove') {
+      const binding = bindProofJob(latestJob, data.statements.find(s => s.id === sid), outcome);
+      if (capturedEpoch === proofEpoch && binding) {
+        certificate = binding.certificate; certificateBinding = binding;
+      } else if (r.certificate) {
+        notice = 'Сертификат сохранён в истории. Выбор утверждения или исхода изменился; форма не перезаписана.';
+      }
+      return;
+    }
+    // A completed check/registration must not overwrite a newer imported source/profile.
+    if (latestJob.input.source !== source || latestJob.input.profileId !== profileId) return;
     if (r.goalHash) goalHash = r.goalHash;
     if (r.profileId) profileId = r.profileId;
     if (r.registrationCertificate) registrationCertificate = r.registrationCertificate;
     if (r.certificate) {
       if (latestJob.input.action === 'register') registrationCertificate = r.certificate;
-      else certificate = r.certificate;
     }
   }
   async function inspectJob(id) {
-    const owner = account;
+    const owner = account, capturedEpoch = proofEpoch;
     const current = await api('/jobs/' + id);
     if (owner !== account) return;
     latestJob = current;
-    poll(id, owner).catch((e) => { error = e.message; });
+    poll(id, owner, capturedEpoch).catch((e) => { error = e.message; });
   }
   async function cancelJob() {
     const id = latestJob?.id;
@@ -371,6 +398,7 @@
   }
   function restoreJobInput() {
     if (!latestJob?.input) return;
+    clearProofCertificate();
     const input = latestJob.input;
     source = input.source || '';
     fixtureId = input.fixtureId || '';
@@ -418,9 +446,55 @@
           }
         })
         .find((l) => l?.name === 'StatementCreated');
-      if (l) sid = l.args.statementId;
+      if (l) { clearProofCertificate(); sid = l.args.statementId; }
       return r;
     });
+  }
+  async function useExternalCertificate(review, descriptor) {
+    if (review.outcome === 0) {
+      clearProofCertificate();
+      goalHash = review.goalHash; profileId = review.profileId;
+      registrationCertificate = review.certificate; title = review.goal.title;
+      source = review.goal.source; fixtureId = ''; declaration = 'Oncm.goal';
+      manifest = JSON.stringify({ sourceUrl: review.goal.sourceUrl, sourceSha256: review.goal.sourceSha256,
+        goalExportSha256: review.goal.goalExportSha256, profile: descriptor.tag, imageId: review.imageId,
+        sourceCommit: review.sourceCommit, runId: review.runId });
+      await go('create');
+    } else {
+      if (!statement || statement.kind !== 0 || statement.goalHash.toLowerCase() !== review.goalHash.toLowerCase()
+        || statement.profileId.toLowerCase() !== review.profileId.toLowerCase()) {
+        error = 'Сначала выберите утверждение с точно такими же goal hash и profile ID.'; return;
+      }
+      const binding = bindOutcomeCertificate(statement, review.outcome, review.certificate);
+      if (!binding || !proofBindingMatches(binding, statement, review.outcome, review.certificate)) {
+        error = 'Сертификат не соответствует открытому утверждению и выбранному исходу.'; return;
+      }
+      clearProofCertificate();
+      outcome = String(review.outcome); certificate = review.certificate; certificateBinding = binding;
+      notice = 'Настоящий сертификат связан с выбранным утверждением. Отправка ончейн — отдельная кнопка.';
+    }
+  }
+  function clearProofCertificate() {
+    certificate = ''; certificateBinding = null; proofEpoch++;
+  }
+  function setOutcomeCertificate(value) {
+    clearProofCertificate(); certificate = value;
+    certificateBinding = bindOutcomeCertificate(data.statements.find(s => s.id === sid), outcome, value);
+  }
+  async function submitOutcomeProof() {
+    const binding = certificateBinding, client = sdk;
+    await tx('Проверка сертификата и CTF payout', () => {
+      if (client !== sdk || binding !== certificateBinding
+        || !proofBindingMatches(binding, data.statements.find(s => s.id === sid), outcome, certificate))
+        throw Error('Выбор или сертификат изменился. Снова примените сертификат к утверждению.');
+      return client.prove(binding.statementId, binding.outcome, binding.certificate);
+    });
+  }
+  async function proposeExternalProfile(descriptor, deployment) {
+    govAction = 'profile'; newProfile = descriptor.profileId; newVerifier = deployment.bridge;
+    newManifest = descriptor.manifest; enabled = true;
+    description = deployment.proposal.description; preflight = null;
+    await go('governance');
   }
   async function createPool() {
     await tx('Создание WeightedPool', () => sdk.createPool(sid, Number(side), weight, fee));
@@ -540,15 +614,15 @@
   }
   async function loadClaims() {
     if (!account || !sdk) return;
-    const owner = account;
+    const owner = account, client = sdk;
     const tokens = [config.addresses.TrueToken, ...data.statements.flatMap((s) => [s.yes, s.no])];
-    const w = sdk.c('SplitsWarehouse');
+    const w = client.c('SplitsWarehouse');
     const result = Object.fromEntries(
       await Promise.all(
         tokens.map(async (t) => [t, String(await w.balanceOf(owner, BigInt(t)))]),
       ),
     );
-    if (owner === account) claimables = result;
+    if (owner === account && client === sdk) claimables = result;
   }
   function govCall() {
     let t, d;
@@ -582,13 +656,13 @@
       const [t, d] = govCall();
       return sdk.send(sdk.c('Governor', 'VaultGovernor').propose([t], [0], [d], description));
     });
-    gov = await api('/governance');
+    await refreshGovernance();
   }
   async function vote(p, support) {
     await tx('Голосование membership', () =>
       sdk.send(sdk.c('Governor', 'VaultGovernor').castVote(p.id, support)),
     );
-    gov = await api('/governance');
+    await refreshGovernance();
   }
   async function moveGov(p, execute = false) {
     await tx(execute ? 'Исполнение Timelock' : 'Очередь Timelock', () =>
@@ -600,7 +674,12 @@
           ](p.targets, p.values, p.calldatas, keccak256(toUtf8Bytes(p.description))),
       ),
     );
-    gov = await api('/governance');
+    await refreshGovernance();
+  }
+  async function cancelGov(p) {
+    await tx('Отмена автором Pending proposal', () => sdk.send(() =>
+      sdk.c('Governor', 'VaultGovernor').cancel(p.targets, p.values, p.calldatas, p.descriptionHash)));
+    await refreshGovernance();
   }
   async function proposeAllocation() {
     await tx('Предложение новых долей', () => {
@@ -618,13 +697,15 @@
       );
     });
   }
-  async function mine() {
-    await task('10 локальных блоков + 10 секунд', async () => {
+  async function mine(count) {
+    await task(count === 1 ? '1 локальный блок + 1 секунда' : '10 локальных блоков + 10 секунд', async () => {
+      if (![1, 10].includes(count)) throw Error('Only 1 or 10 local blocks are supported');
       if (config.chainId !== 31373) throw Error('Local chain only');
-      await sdk.provider.send('evm_increaseTime', [10]);
-      await sdk.provider.send('hardhat_mine', ['0xa']);
+      await sdk.ensureChain();
+      await sdk.provider.send('evm_increaseTime', [count]);
+      await sdk.provider.send('hardhat_mine', ['0x' + count.toString(16)]);
     });
-    if (page === 'governance') gov = await api('/governance');
+    if (page === 'governance') await refreshGovernance();
   }
   async function openProfile(a) {
     profileView = await api('/profiles/' + a);
@@ -1513,6 +1594,7 @@
           </div>
           <span class="pill">{config?.proof?.status || 'runner loading'}</span>
         </section>
+        <ExternalCertificate {sdk} onuse={useExternalCertificate} onproposal={proposeExternalProfile} />
         <div class="two-columns lab-layout">
           <article class="panel">
             <div class="panel-heading">
@@ -1539,12 +1621,14 @@
               /></label
             >
             <div class="button-row">
-              <button class="secondary" disabled={busy || proofBusy} onclick={() => job('check')}
+              <button class="secondary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={() => job('check')}
                 >Проверить Lean</button
-              ><button class="primary" disabled={busy || proofBusy} onclick={() => job('register')}
+              ><button class="primary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={() => job('register')}
                 >Сертификат регистрации</button
               >
             </div>
+            {#if profileId !== config.proof.profileId}<p class="footnote">Выбран отдельный профиль {profileId}.
+              Локальный runner настроен на v3; используйте импорт соответствующего внешнего сертификата выше.</p>{/if}
             <p class="footnote">
               Задача выполняется в фоне. Источник и результаты очереди видны только вашему кошельку;
               опубликованный on-chain сертификат публичен. Профиль проверяет цель Oncm.goal и
@@ -1574,11 +1658,13 @@
               <h2>Доказательство исхода</h2>
               <label
                 >Утверждение<select
-                  bind:value={sid}
-                  onchange={() => {
-                    if (statement) {
-                      goalHash = statement.goalHash;
-                      profileId = statement.profileId;
+                  value={sid} disabled={busy}
+                  onchange={event => {
+                    clearProofCertificate(); sid = event.currentTarget.value;
+                    const selected = data.statements.find(s => s.id === sid);
+                    if (selected) {
+                      goalHash = selected.goalHash;
+                      profileId = selected.profileId;
                     }
                   }}
                   ><option value="">Выберите утверждение</option
@@ -1587,27 +1673,27 @@
                     >{/each}</select
                 ></label
               ><label
-                >Доказать<select bind:value={outcome}
+                >Доказать<select value={outcome} disabled={busy}
+                  onchange={event => { clearProofCertificate(); outcome = event.currentTarget.value; }}
                   ><option value="1">P → True</option><option value="2">¬P → False</option></select
                 ></label
               ><button
                 class="primary full"
-                disabled={busy || proofBusy || !sid}
+                disabled={busy || proofBusy || !sid || statement?.profileId !== config.proof.profileId}
                 onclick={() => job('prove')}>Запустить Lean + zk proof</button
               ><label
                 >Сертификат исхода<textarea
                   class="code-input"
-                  bind:value={certificate}
+                  value={certificate} disabled={busy}
+                  oninput={event => setOutcomeCertificate(event.currentTarget.value)}
                   placeholder="0x…"
                 ></textarea></label
               ><button
                 class="secondary full"
-                disabled={busy || !certificate || !sid}
-                onclick={() =>
-                  tx('Проверка сертификата и CTF payout', () =>
-                    sdk.prove(sid, Number(outcome), certificate),
-                  )}>Отправить proof ончейн ↗</button
+                disabled={busy || !proofReady}
+                onclick={submitOutcomeProof}>Отправить proof ончейн ↗</button
               >
+              {#if certificate && !proofReady}<p class="footnote">Journal сертификата должен точно совпадать с открытым утверждением, профилем и исходом. Проверка кодировки не заменяет криптографическую проверку EVM.</p>{/if}
             </article>
             <article class="panel">
               <h2>Импорт snapshot</h2>
@@ -1670,7 +1756,9 @@
               голосов.
             </p>
           </div>
-          <button class="secondary" disabled={busy} onclick={mine}>+10 local blocks</button>
+          <div class="button-row"><button class="secondary" disabled={busy} onclick={() => task('Обновление Governor', refreshGovernance)}>Обновить состояние</button>
+          <button class="secondary" disabled={busy} onclick={() => mine(1)}>+1 local block</button>
+          <button class="secondary" disabled={busy} onclick={() => mine(10)}>+10 local blocks</button></div>
         </section>
         <div class="two-columns">
           <article class="panel">
@@ -1701,7 +1789,7 @@
               >{/if}<label
               >Обоснование<textarea bind:value={description} placeholder="Что изменится и почему"
               ></textarea></label
-            ><button class="primary" disabled={busy || !description} onclick={proposeGov}
+            ><button class="primary" disabled={busy || !description || !account || gov.account !== account || !gov.canPropose} onclick={proposeGov}
               >Создать proposal ↗</button
             ><button
               class="secondary"
@@ -1729,11 +1817,16 @@
               <dt>Governor</dt>
               <dd>{config?.addresses.Governor}</dd>
               <dt>Timelock</dt>
-              <dd>{config?.addresses.Timelock}</dd>
+              <dd>{gov.timelock || config?.addresses.Timelock}</dd>
               <dt>Задержка</dt>
-              <dd>{gov.timelockDelay || 5} секунд в devnet</dd>
+              <dd>{gov.timelockDelay ?? '—'} секунд</dd>
               <dt>Голосование</dt>
-              <dd>1 блок ожидания · 8 блоков голосования · 50% quorum</dd>
+              <dd>{gov.votingDelay ?? '—'} ожидания · {gov.votingPeriod ?? '—'} голосования в единицах Governor clock</dd>
+              <dt>Кворум (текущая настройка)</dt><dd>{gov.quorumNumerator ?? '—'} / {gov.quorumDenominator ?? '—'} от исторического membership supply</dd>
+              <dt>Порог предложения</dt><dd>{gov.proposalThreshold === undefined ? '—' : formatEther(gov.proposalThreshold)} MEMBER</dd>
+              <dt>Право предложить</dt><dd>{!account ? 'Подключите кошелёк' : gov.account !== account ? 'Обновите снимок' : gov.canPropose ? 'Порог достигнут на предыдущем Governor clock' : 'Голосового веса на предыдущем clock недостаточно'}</dd>
+              <dt>Часы Governor</dt><dd>{gov.clockMode || '—'} · {gov.clock ?? '—'}</dd>
+              <dt>Снимок чтения</dt><dd>Блок {gov.blockNumber ?? '—'} · {gov.blockHash || '—'}</dd>
             </dl>
             <p>
               Профиль неизменяем: новый verifier требует нового profile ID. Выключение останавливает
@@ -1745,42 +1838,8 @@
             </p>
           </article>
         </div>
-        {#each gov.proposals as p}<article class="panel proposal">
-            <div class="panel-heading">
-              <h2>{p.description}</h2>
-              <span class="status">{gov.states[p.state]}</span>
-            </div>
-            <code>Proposal {short('0x' + BigInt(p.id).toString(16), 12)}</code>
-            <p>
-              Голосование: блоки {p.start}–{p.end} · for {amount(p.votes[1])} · against {amount(
-                p.votes[0],
-              )}
-            </p>
-            <details>
-              <summary>Просмотреть исполняемые вызовы</summary>
-              <pre>{JSON.stringify(
-                  { targets: p.targets, values: p.values, calldatas: p.calldatas },
-                  null,
-                  2,
-                )}</pre>
-            </details>
-            <div class="button-row">
-              {#if p.state === 1}<button class="primary" disabled={busy} onclick={() => vote(p, 1)}
-                  >За</button
-                ><button class="secondary" disabled={busy} onclick={() => vote(p, 0)}>Против</button
-                ><button class="secondary" disabled={busy} onclick={() => vote(p, 2)}
-                  >Воздержаться</button
-                >{/if}{#if p.state === 4}<button
-                  class="primary"
-                  disabled={busy}
-                  onclick={() => moveGov(p)}>Поставить в Timelock</button
-                >{/if}{#if p.state === 5}<button
-                  class="primary"
-                  disabled={busy}
-                  onclick={() => moveGov(p, true)}>Исполнить</button
-                >{/if}
-            </div>
-          </article>{/each}
+        {#each gov.proposals as p (p.id)}<GovernanceProposal proposal={p} snapshot={gov} {account} {busy} onVote={vote} onMove={moveGov} onCancel={cancelGov} />{/each}
+        {#if !gov.proposals.length}<article class="panel"><p>В этой цепи пока нет предложений Governor.</p></article>{/if}
       {:else if page === 'revenue'}
         {#key account}<RevenuePreview {sdk} {account} statements={data.statements} token={config.addresses.TrueToken} />{/key}
         <section class="page-heading compact">

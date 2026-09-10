@@ -1,0 +1,12 @@
+[
+  {
+    "command": [
+      "sudo",
+      "systemctl",
+      "stop",
+      "oncm-ci-34419882266-1-perf05-false-registration.scope"
+    ],
+    "returnCode": 5,
+    "stderr": "Failed to stop oncm-ci-34419882266-1-perf05-false-registration.scope: Unit oncm-ci-34419882266-1-perf05-false-registration.scope not loaded.\n"
+  }
+]

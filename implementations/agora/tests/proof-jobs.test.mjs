@@ -77,3 +77,12 @@ test('input size limits apply before retaining a new job', async t => {
   assert.notEqual((await f.post({ ...input, arbitrary: 'x'.repeat(200_001) })).statusCode, 200);
   assert.equal(f.db.jobs.length, 0);
 });
+test('ownerless legacy history neither breaks listing nor becomes wallet-owned',async t=>{
+  const legacy={id:'legacy',status:'succeeded',input:{...input},result:{status:'checked'}};
+  const own={...legacy,id:'owned',owner:'alice'};
+  const f=await setup(t,async()=>{throw Error('No execution expected');},{history:[legacy,own]});
+  const response=await f.app.inject({method:'GET',url:'/api/jobs',headers:{'x-test-owner':'alice'}});
+  assert.equal(response.statusCode,200);assert.deepEqual(response.json(),[own]);
+  assert.notEqual((await f.cancel('legacy')).statusCode,200);
+  assert.equal(f.db.jobs.length,2);assert.deepEqual(f.db.jobs[0],legacy);
+});

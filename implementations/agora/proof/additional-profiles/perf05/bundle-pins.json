@@ -1,0 +1,9 @@
+{
+  "registration.json": "773a9b8bcf797a2e226b398b07ab53c1cba345549689c9c59d625bdf21923144",
+  "profile.json": "b2688e6decdefc2b98bfbe0db987d7c16d3c61dd10fe7b4a226deedde11e35d0",
+  "fixtures/foundation.ndjson": "94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124",
+  "fixtures/true-goal.ndjson": "2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+  "fixtures/OncmFalse.lean": "b855742a179058525366cc931d7da745f91ebb6ff85358e41205b44dfa1f89ad",
+  "fixtures/false-goal.ndjson": "f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+  "fixtures/OncmTrue.lean": "adb0142ac2d8cef01d92fc0dce76e19e0d5b8a9184c0004cdf29ca05a1b1a0b9"
+}

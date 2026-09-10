@@ -62,3 +62,21 @@ For perf05, this is a generic cryptographic verifier check only: the current app
 ## Next resolution certificate trial
 
 After CI3 was authoritatively completed, the coordinator dispatched [run34418238753](https://github.com/brodyga45/oncm/actions/runs/34418238753), job102687803303, on the same published commit `d79a177`, with `perf05 / true-proof`. The GitHub UI confirmed In progress. It is the sole heavy computation; limits remain4CPU/13GiB aggregate, no swap,1800s per case. The user subsequently confirmed continuing GitHub for tests. Result pending; registration proof is never reused as a resolution proof.
+
+## CI4 resolution proof accepted and used in a market
+
+Run34418238753 completed successfully: perf05 true-proof outcome1, elapsed612.801255s. Artifact10130185596 is365279ZIPbytes, SHA256`516e134ba619b2cbeb27917b81d1e7b267cd9e2e5717e335242bd09e63a07309`. Compact certificate and receipt are preserved under [ci4-perf05-true-proof](evidence/ci4-perf05-true-proof/verified.json). Independent original EVM acceptance, changed-image/journal rejection and the local recording transaction are in [evm-verification.json](evidence/ci4-perf05-true-proof/evm-verification.json): chain31372block122, status1, gas251838.
+
+The same genuine certificate was imported through Vault web and accepted by its governance-admitted perf05 bridge to resolve the registered market in chain31373block110. Full browser evidence is in the manual journal. This is not a v3 certificate and does not establish universal Mathlib compatibility.
+
+After CI4 was confirmed terminal, single [CI5run34419882266](https://github.com/brodyga45/oncm/actions/runs/34419882266), job102692778335, was dispatched from published main with perf05/false-registration. UI confirmed In progress; no parallel heavy computation or local proving was started.
+
+## CI5 false-goal registration and CI6 refutation accepted
+
+CI5 completed successfully on commit `ed830fe68cc94aeac6eb01049a92464182bba737`. Artifact10130716694 is356096ZIPbytes, SHA256`dc2dfe9017822cb7c1fec5418d7b4ff52360bec6f1cdabbcb1784e9196b4b6a2`; the downloaded bytes match GitHub metadata. Genuine registration of `∀ P : Prop, P` took514.744146s, guest execution13.72539ms, peak7,825,907,712bytes (7.288GiB), with no OOM or swap. The original EVM verifier and additional perf05 bridge accepted it in read-only checks at chain31372block122; modified image/journal values were rejected. See [CI5 evidence](evidence/ci5-perf05-false-registration/README.md). No recording transaction was sent for this check. Independent copies are included in all three applications.
+
+This remains outcome0: it certifies a well-formed proposition, not its truth or falsity. Only after all CI5 steps were authoritatively terminal, the coordinator dispatched [CI6run34421160265](https://github.com/brodyga45/oncm/actions/runs/34421160265), job102696670677, `perf05 / false-refutation`, through GitHub's browser UI. It is the sole remote heavy computation; local proving remains disabled. Result pending at this entry.
+
+**Completion update:** CI6 succeeded. Artifact10131317513 is396161ZIPbytes, SHA256`7aabf698087992f936e23447ad18088dd5f25a0ca4493b3093c1b2f3f0e16b2d`, verified against GitHub metadata. The case took900.799123s; guest execution26.013461ms; peak9,817,907,200bytes (9.144GiB), CPU3502.470449s, no OOM/swap. The original EVM verifier accepted its outcome2 claim and rejected altered image/journal values. The additional perf05 bridge accepted the refutation and rejected the same bytes as a true proof or registration certificate. These were read-only calls at Exchange chain31372block122, not market resolution transactions. Compact receipt, exact bindings, reports and provenance: [CI6 evidence](evidence/ci6-perf05-false-refutation/README.md).
+
+All four bounded perf05 cases now have genuine independently verified certificates: true registration, true proof, false registration, false refutation. Copies are kept independently in each application. There is no active heavy CI job from these six runs and no local prover was started. Full NO-market browser lifecycles and v3/Mathlib certificates remain separate outstanding work.

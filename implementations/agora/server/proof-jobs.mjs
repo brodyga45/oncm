@@ -107,7 +107,7 @@ export function createProofJobs({ db, save, execute, maxPending = 16, maxPerOwne
     return job;
   }
   async function cancel(owner, id) {
-    const job = db.jobs.find(j => j.id === id && j.owner.toLowerCase() === owner.toLowerCase());
+    const job = db.jobs.find(j => j.id === id && typeof j.owner === 'string' && j.owner.toLowerCase() === owner.toLowerCase());
     if (!job) throw Error('Unknown job');
     if (terminal.has(job.status)) return job;
     const entry = active.get(id);
@@ -122,7 +122,7 @@ export function createProofJobs({ db, save, execute, maxPending = 16, maxPerOwne
     return job;
   }
   return { submit, cancel,
-    list: owner => db.jobs.filter(j => j.owner.toLowerCase() === owner.toLowerCase()),
+    list: owner => db.jobs.filter(j => typeof j.owner === 'string' && j.owner.toLowerCase() === owner.toLowerCase()),
     stats: () => ({ active: queue.pending, waiting: queue.size, maxPending, maxPerOwner }),
     close: async () => {
       closed = true;

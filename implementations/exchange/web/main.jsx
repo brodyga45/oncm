@@ -14,7 +14,8 @@ import {
   toUtf8Bytes,
 } from "ethers";
 import { SiweMessage } from "siwe";
-import { ExchangeSDK } from "../sdk/index.mjs";
+import { ExchangeSDK, fixtureForCertificate } from "../sdk/index.mjs";
+import { createProofImportGuard } from "./proof-import-state.mjs";
 import abis from "./generated/abis.json";
 import "./style.css";
 const API = "http://127.0.0.1:4172",
@@ -669,7 +670,7 @@ function MarketView({
           busy={busy}
         />
       )}{" "}
-      {tab === "proof" && <ProofLab m={m} sdk={sdk} run={run} busy={busy} session={session} signIn={signIn} address={address} />}{" "}
+      {tab === "proof" && <ProofLab key={m.id} m={m} sdk={sdk} run={run} busy={busy} session={session} signIn={signIn} address={address} />}{" "}
       {tab === "details" && (
         <div className="panel">
           <div className="spec-grid">
@@ -1151,7 +1152,25 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
     [outcome, setOutcome] = useState(1),
     [fixture, setFixture] = useState(m.metadata.fixtureId || ""),
     [target, setTarget] = useState(m.metadata.targetDeclaration || ""),
+    [catalog, setCatalog] = useState(null),
+    [importStatus, setImportStatus] = useState(""),
+    [externalJSON, setExternalJSON] = useState(""),
     [job, start, cancelJob] = useProofJob({ session, signIn, address });
+  const importGuard = useRef(createProofImportGuard());
+  importGuard.current.select(JSON.stringify([m.id, m.goal, m.profile, outcome, source, fixture, target, address, externalJSON]), sdk);
+  useEffect(() => () => importGuard.current.invalidate(), []);
+  useEffect(() => { api("proof/catalog").then(setCatalog); }, [m.profile]);
+  const selectedProfile = catalog?.profiles.find(p => p.profileId.toLowerCase() === m.profile.toLowerCase());
+  async function verifyImportedProof(artifact, ticket = importGuard.current.begin()) {
+    setCertificate(""); setImportStatus("");
+    if (!importGuard.current.current(ticket)) throw Error("The proof form changed while reading the file; import it again.");
+    const result = await sdk.verifyExternalCertificate(artifact, selectedProfile, {statementId: m.id, goalHash: m.goal, profileId: m.profile, outcome});
+    if (!importGuard.current.current(ticket)) throw Error("The selected market or proof form changed during verification; verify the certificate again.");
+    if (!result.available) throw Error("This profile is not enabled for resolution by governance");
+    setCertificate(result.certificate);
+    setImportStatus(`Original onchain verifier accepted ${outcome === 1 ? "YES" : "NO"} proof at block ${result.verifiedAtBlock}. Submit below to settle this market.`);
+  }
+  useEffect(() => { if (!certificate) setImportStatus(""); }, [certificate]);
   useEffect(() => {
     if (
       job?.result?.certificate &&
@@ -1191,6 +1210,12 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
         Compilation, certificate generation and final settlement are separate
         steps. An accepted Lean check alone cannot settle this market.
       </p>
+      <p className="note">{selectedProfile?.label || short(m.profile)} · {selectedProfile?.localRunner ? "Local Lean runner available; external CI certificates also accepted." : "External certificate profile. Local proving is unavailable for this image."}</p>
+      {selectedProfile?.id === "perf05" && m.goal.toLowerCase() === "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b" && <Button secondary disabled={busy || outcome !== 1} onClick={() => run("Load published YES certificate", async () => {
+        const artifact = await api("proof/certificates/perf05/true-proof");
+        setCertificate(""); setImportStatus("");
+        setExternalJSON(JSON.stringify(artifact, null, 2));
+      })}>Load published YES certificate · CI4</Button>}
       <div className="input-row">
         <label className="field">
           <span>PROVE WHICH OUTCOME</span>
@@ -1199,6 +1224,7 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
             onChange={(e) => {
               setOutcome(Number(e.target.value));
               setCertificate("");
+              setImportStatus("");
             }}
           >
             <option value="1">P · YES</option>
@@ -1245,20 +1271,28 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
           accept=".lean,.json"
           onChange={(e) =>
             run("Read proof file", async () => {
-              const text = await e.target.files[0].text();
-              try {
-                const p = JSON.parse(text);
-                setCertificate(p.certificate || "");
-                if (p.source) setSource(p.source);
-                if (p.outcome) setOutcome(Number(p.outcome));
-              } catch {
+              const file = e.target.files[0];
+              if (!file) return;
+              if (file.size > 128 * 1024) throw Error("Proof import exceeds 128 KB");
+              const ticket = importGuard.current.begin();
+              setCertificate(""); setImportStatus("");
+              const text = await file.text();
+              if (file.name.endsWith(".json")) {
+                await verifyImportedProof(JSON.parse(text), ticket);
+              } else {
                 setSource(text);
                 setCertificate("");
+                setImportStatus("");
               }
             })
           }
         />
       </label>
+      <label className="field">
+        <span>OR PASTE EXTERNAL CI PROOF JSON</span>
+        <textarea value={externalJSON} onChange={e => setExternalJSON(e.target.value)} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
+      </label>
+      <Button secondary disabled={busy || !externalJSON || externalJSON.length > 128 * 1024} onClick={() => run("Verify pasted external proof certificate", () => verifyImportedProof(JSON.parse(externalJSON)))}>Verify pasted proof certificate</Button>
       <textarea
         className="code-editor"
         value={source}
@@ -1276,7 +1310,7 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
           <Button
             secondary
             key={action}
-            disabled={busy || job?.status === "Running"}
+            disabled={busy || job?.status === "Running" || !selectedProfile?.localRunner}
             onClick={() =>
               run(label, () =>
                 start({
@@ -1334,8 +1368,9 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
       <Field
         label="VERIFIABLE CERTIFICATE BYTES · 0x…"
         value={certificate}
-        onChange={setCertificate}
+        onChange={value => { importGuard.current.invalidate(); setCertificate(value); setImportStatus(""); }}
       />
+      {importStatus && <p className="note" role="status">{importStatus}</p>}
       <Button
         disabled={busy || !certificate || m.outcome > 0}
         onClick={() =>
@@ -1378,9 +1413,20 @@ function CreateMarket({
     [operatorArgs, setOperatorArgs] = useState(""),
     [job, start, cancelJob] = useProofJob({ session, signIn, address }),
     [packageDraft, setPackageDraft] = useState(initialDraft || null),
-    [fixtures, setFixtures] = useState([]);
+    [fixtures, setFixtures] = useState([]),
+    [profiles, setProfiles] = useState([]),
+    [importStatus, setImportStatus] = useState(""),
+    [externalJSON, setExternalJSON] = useState("");
+  async function refreshProfiles() {
+    const catalog = await api("proof/catalog");
+    setProfiles(catalog.profiles);
+    setFixtures(catalog.fixtures);
+    return catalog;
+  }
+  const selectedProfile = profiles.find(p => p.profileId.toLowerCase() === profile.toLowerCase());
+  useEffect(() => { if (!certificate) setImportStatus(""); }, [certificate]);
   useEffect(() => {
-    api("proof/fixtures").then(setFixtures);
+    refreshProfiles();
   }, []);
   useEffect(() => {
     if (
@@ -1412,9 +1458,11 @@ function CreateMarket({
   }, [initialDraft]);
   async function upload(file) {
     if (!file) return;
+    if (file.size > 1024 * 1024) throw Error("Package exceeds 1 MB");
     const text = await file.text();
-    try {
+    if (file.name.endsWith(".json")) {
       const p = JSON.parse(text);
+      if (p.format === "oncm-real-groth16-ci-v1") return importCertificate(p);
       setPackageDraft(p);
       setFixture(p.fixtureId || "");
       setSource(p.source || p.leanSource || "");
@@ -1424,7 +1472,7 @@ function CreateMarket({
       setProfile(p.profileId || profile);
       setCertificate(p.registrationCertificate || "");
       setTarget(p.targetDeclaration || "");
-    } catch {
+    } else {
       setSource(text);
       setCertificate("");
       setGoal("");
@@ -1432,6 +1480,18 @@ function CreateMarket({
       setFixture("");
       if (!title) setTitle(file.name.replace(".lean", ""));
     }
+  }
+  async function importCertificate(artifact) {
+    setCertificate(""); setImportStatus("");
+    const catalog = await refreshProfiles();
+    const candidate = catalog.profiles.find(p => p.profileId.toLowerCase() === artifact.profileId?.toLowerCase());
+    const result = await sdk.verifyExternalCertificate(artifact, candidate, { outcome: 0 });
+    const f = fixtureForCertificate(catalog.fixtures, result);
+    setKind(0); setSource(f.source); setTitle(f.title); setDescription(f.description);
+    setGoal(f.goalHash); setProfile(f.profileId); setFixture(f.id); setTarget(f.targetDeclaration);
+    setPackageDraft({ ...f, fixtureId: f.id, externalCertificate: artifact });
+    setCertificate(result.certificate);
+    setImportStatus(`Exact ${candidate.label} goal imported. Original onchain verifier accepted registration at block ${result.verifiedAtBlock}. ${result.available ? "Ready to create the market." : "Governance must enable this profile before market creation."}`);
   }
   return (
     <div className="modal-overlay">
@@ -1473,7 +1533,21 @@ function CreateMarket({
         />
         {kind === 0 ? (
           <>
-            {fixtures.map((f) => (
+            <label className="field">
+              <span>IMMUTABLE PROOF PROFILE</span>
+              <select value={profile} onChange={e => {
+                setProfile(e.target.value); setCertificate(""); setGoal(""); setSource(""); setFixture(""); setPackageDraft(null); setImportStatus("");
+              }}>
+                {profiles.map(p => <option key={p.profileId} value={p.profileId}>{p.label} · {p.installed && p.newEnabled ? "enabled" : "awaiting governance"}</option>)}
+              </select>
+            </label>
+            <p className="note">{selectedProfile?.localRunner ? "This image supports the local Lean runner and external certificates." : "This separate logic profile accepts external CI certificates. It does not replace v3."}</p>
+            <Button secondary disabled={busy} onClick={() => run("Refresh proof profile availability", refreshProfiles)}>Refresh onchain availability</Button>
+            {selectedProfile?.id === "perf05" && <Button secondary disabled={busy} onClick={() => run("Download successful CI registration certificate", async () => {
+              const artifact = await api("proof/certificates/perf05/true-registration");
+              download(new Blob([JSON.stringify(artifact, null, 2)], {type: "application/json"}), "perf05-true-registration.json");
+            })}>Download real CI registration certificate</Button>}
+            {fixtures.filter(f => f.profileId.toLowerCase() === profile.toLowerCase()).map((f) => (
               <button
                 className="fixture-card"
                 key={f.id}
@@ -1486,14 +1560,32 @@ function CreateMarket({
                   setFixture(f.id);
                   setTarget(f.targetDeclaration);
                   setCertificate("");
+                  setImportStatus("");
                   setPackageDraft({ ...f, fixtureId: f.id });
                 }}
               >
-                <span>PUBLISHED LEAN CORE · {f.version}</span>
+                <span>{f.sourceKind || "PUBLISHED LEAN CORE"} · {f.version}</span>
                 <b>{f.title}</b>
                 <small>Load source package · {f.upstreamDeclaration} →</small>
               </button>
             ))}
+            <label className="file">
+              Import external CI registration certificate JSON
+              <input type="file" accept=".json" onChange={e => {
+                const file = e.target.files[0];
+                e.target.value = "";
+                if (file) run("Verify external registration certificate", async () => {
+                  if (file.size > 128 * 1024) throw Error("Certificate exceeds 128 KB");
+                  await importCertificate(JSON.parse(await file.text()));
+                });
+              }} />
+            </label>
+            <label className="field">
+              <span>OR PASTE EXTERNAL CI REGISTRATION JSON</span>
+              <textarea value={externalJSON} onChange={e => setExternalJSON(e.target.value)} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
+            </label>
+            <Button secondary disabled={busy || !externalJSON || externalJSON.length > 128 * 1024} onClick={() => run("Verify pasted registration certificate", () => importCertificate(JSON.parse(externalJSON)))}>Verify pasted registration certificate</Button>
+            {importStatus && <p className="note" role="status">{importStatus}</p>}
             <label className="file">
               Upload Lean source or portable JSON package
               <input
@@ -1533,7 +1625,7 @@ function CreateMarket({
             </div>
             <Button
               secondary
-              disabled={busy || !source || job?.status === "Running"}
+              disabled={busy || !source || job?.status === "Running" || !selectedProfile?.localRunner}
               onClick={() =>
                 run("Submit Lean check", () =>
                   start({
@@ -1553,7 +1645,7 @@ function CreateMarket({
             </Button>
             <Button
               secondary
-              disabled={busy || job?.status === "Running"}
+              disabled={busy || job?.status === "Running" || !selectedProfile?.localRunner}
               onClick={() =>
                 run("Submit registration job", () =>
                   start({
@@ -1604,7 +1696,7 @@ function CreateMarket({
             <Field
               label="GoalWellFormed certificate"
               value={certificate}
-              onChange={setCertificate}
+              onChange={value => { setCertificate(value); setImportStatus(""); }}
               placeholder="0x…"
             />
             <p className="note">
@@ -1689,7 +1781,7 @@ function CreateMarket({
           </Button>
           <Button
             disabled={
-              busy || !sdk?.signer || !title || (kind === 0 && !certificate)
+              busy || !sdk?.signer || !title || (kind === 0 && (!certificate || !selectedProfile?.installed || !selectedProfile?.newEnabled))
             }
             onClick={() =>
               run("Create market", async () => {
@@ -2586,11 +2678,13 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
   async function refresh() {
     if (!sdk) return;
     const a = sdk.contract("allocation"),
-      count = Number(await a.currentEpoch()),
-      pc = Number(await a.proposalCount());
+      blockTag = Number(await sdk.provider.send("eth_blockNumber", [])),
+      snapshot = { blockTag },
+      count = Number(await a.currentEpoch(snapshot)),
+      pc = Number(await a.proposalCount(snapshot));
     const es = [];
     for (let i = 1; i <= count; i++) {
-      const e = await a.epoch(i);
+      const e = await a.epoch(i, snapshot);
       es.push({
         id: i,
         split: e.split,
@@ -2601,9 +2695,15 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
     setEpochs(es);
     const ps = [];
     for (let i = 1; i <= pc; i++) {
-      const p = await a.proposal(i);
-      const losing = address ? await a.isLosing(i, address) : false,
-        consent = address ? await a.consent(i, address) : false;
+      const p = await a.proposal(i, snapshot);
+      const baseEpoch = es.find((e) => e.id === Number(p.base));
+      const required = (await Promise.all((baseEpoch?.recipients || []).map(async (recipient) => ({
+        recipient,
+        losing: await a.isLosing(i, recipient, snapshot),
+        consent: await a.consent(i, recipient, snapshot),
+      })))).filter((r) => r.losing);
+      const own = required.find((r) => r.recipient.toLowerCase() === address?.toLowerCase());
+      const losing = Boolean(own), consent = Boolean(own?.consent);
       ps.push({
         id: i,
         base: Number(p.base),
@@ -2612,6 +2712,9 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
         applied: p.applied,
         losing,
         consent,
+        required,
+        ready: Boolean(baseEpoch) && required.every((r) => r.consent),
+        blockTag,
       });
     }
     setProposals(ps);
@@ -2762,7 +2865,7 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
                 ? "Applied"
                 : p.base !== epochs.length
                   ? "Stale"
-                  : "Awaiting consent"}
+                  : p.ready ? "Ready to apply" : "Awaiting consent"}
             </span>
           </div>
           <table>
@@ -2777,6 +2880,12 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
               ))}
             </tbody>
           </table>
+          <p className="note">Required consents at block #{p.blockTag}:</p>
+          {p.required.length ? (
+            <ul>{p.required.map((r) => (
+              <li key={r.recipient}><code>{r.recipient}</code> · {r.consent ? "Consented" : "Consent missing"}</li>
+            ))}</ul>
+          ) : <p className="note">No beneficiary's share decreases.</p>}
           {!p.applied && p.base === epochs.length && (
             <div className="button-row">
               {p.losing && (
@@ -2797,7 +2906,7 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
                 </Button>
               )}
               <Button
-                disabled={busy || !address}
+                disabled={busy || !address || !p.ready}
                 onClick={() =>
                   run("Apply allocation", async () => {
                     await sdk.applyAllocation(p.id);

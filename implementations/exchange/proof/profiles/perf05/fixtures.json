@@ -1,0 +1,44 @@
+[
+  {
+    "id": "lean-logic-true-perf05",
+    "profileName": "Lean logic · perf05 · zero axioms",
+    "title": "Every proposition implies itself",
+    "description": "For each proposition P, P implies P. A minimal Lean logic smoke with no axioms.",
+    "source": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P → P\n\ntheorem solution : goal := fun P h => h\n\nend Oncm\n",
+    "goalExport": "{\"meta\":{\"exporter\":{\"name\":\"lean4export\",\"version\":\"3.1.0\"},\"format\":{\"version\":\"3.1.0\"},\"lean\":{\"githash\":\"819816b2e0a3bf405af45ae5c7af2491d8f5bee6\",\"version\":\"4.33.1\"}}}\n{\"in\":1,\"str\":{\"pre\":0,\"str\":\"False\"}}\n{\"ie\":0,\"sort\":0}\n{\"in\":2,\"str\":{\"pre\":1,\"str\":\"rec\"}}\n{\"in\":3,\"str\":{\"pre\":0,\"str\":\"u\"}}\n{\"il\":1,\"param\":3}\n{\"in\":4,\"str\":{\"pre\":0,\"str\":\"motive\"}}\n{\"in\":5,\"str\":{\"pre\":0,\"str\":\"t\"}}\n{\"const\":{\"name\":1,\"us\":[]},\"ie\":1}\n{\"ie\":2,\"sort\":1}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":2,\"name\":5,\"type\":1},\"ie\":3}\n{\"bvar\":1,\"ie\":4}\n{\"bvar\":0,\"ie\":5}\n{\"app\":{\"arg\":5,\"fn\":4},\"ie\":6}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":6,\"name\":5,\"type\":1},\"ie\":7}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":7,\"name\":4,\"type\":3},\"ie\":8}\n{\"inductive\":{\"ctors\":[],\"recs\":[{\"all\":[1],\"isUnsafe\":false,\"k\":false,\"levelParams\":[3],\"name\":2,\"numIndices\":0,\"numMinors\":0,\"numMotives\":1,\"numParams\":0,\"rules\":[],\"type\":8}],\"types\":[{\"all\":[1],\"ctors\":[],\"isRec\":false,\"isReflexive\":false,\"isUnsafe\":false,\"levelParams\":[],\"name\":1,\"numIndices\":0,\"numNested\":0,\"numParams\":0,\"type\":0}]}}\n{\"in\":6,\"str\":{\"pre\":0,\"str\":\"Oncm\"}}\n{\"in\":7,\"str\":{\"pre\":6,\"str\":\"goal\"}}\n{\"in\":8,\"str\":{\"pre\":0,\"str\":\"P\"}}\n{\"in\":9,\"str\":{\"pre\":0,\"str\":\"a\"}}\n{\"in\":10,\"str\":{\"pre\":9,\"str\":\"_@\"}}\n{\"in\":11,\"str\":{\"pre\":10,\"str\":\"_internal\"}}\n{\"in\":12,\"str\":{\"pre\":11,\"str\":\"_hyg\"}}\n{\"in\":13,\"num\":{\"i\":0,\"pre\":12}}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":4,\"name\":13,\"type\":5},\"ie\":9}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":9,\"name\":8,\"type\":0},\"ie\":10}\n{\"def\":{\"all\":[7],\"hints\":{\"regular\":1},\"levelParams\":[],\"name\":7,\"safety\":\"safe\",\"type\":0,\"value\":10}}\n",
+    "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+    "targetDeclaration": "Oncm.goal",
+    "proofDeclaration": "Oncm.solution",
+    "version": "4.33.1 / perf05",
+    "upstreamDeclaration": "fun P h => h",
+    "sourceKind": "MINIMAL LEAN LOGIC",
+    "outcome": 1,
+    "externalRef": {
+      "ciProfile": "perf05",
+      "sourceCommit": "d79a177f4c162eefe9e6e197fdafad09b9ab5a8d"
+    }
+  },
+  {
+    "id": "lean-logic-false-perf05",
+    "profileName": "Lean logic · perf05 · zero axioms",
+    "title": "Every proposition is true",
+    "description": "A deliberately false statement: every proposition holds. Its refutation applies the assumption to False.",
+    "source": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P\n\ntheorem solution : goal → False := fun h => h False\n\nend Oncm\n",
+    "goalExport": "{\"meta\":{\"exporter\":{\"name\":\"lean4export\",\"version\":\"3.1.0\"},\"format\":{\"version\":\"3.1.0\"},\"lean\":{\"githash\":\"819816b2e0a3bf405af45ae5c7af2491d8f5bee6\",\"version\":\"4.33.1\"}}}\n{\"in\":1,\"str\":{\"pre\":0,\"str\":\"False\"}}\n{\"ie\":0,\"sort\":0}\n{\"in\":2,\"str\":{\"pre\":1,\"str\":\"rec\"}}\n{\"in\":3,\"str\":{\"pre\":0,\"str\":\"u\"}}\n{\"il\":1,\"param\":3}\n{\"in\":4,\"str\":{\"pre\":0,\"str\":\"motive\"}}\n{\"in\":5,\"str\":{\"pre\":0,\"str\":\"t\"}}\n{\"const\":{\"name\":1,\"us\":[]},\"ie\":1}\n{\"ie\":2,\"sort\":1}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":2,\"name\":5,\"type\":1},\"ie\":3}\n{\"bvar\":1,\"ie\":4}\n{\"bvar\":0,\"ie\":5}\n{\"app\":{\"arg\":5,\"fn\":4},\"ie\":6}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":6,\"name\":5,\"type\":1},\"ie\":7}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":7,\"name\":4,\"type\":3},\"ie\":8}\n{\"inductive\":{\"ctors\":[],\"recs\":[{\"all\":[1],\"isUnsafe\":false,\"k\":false,\"levelParams\":[3],\"name\":2,\"numIndices\":0,\"numMinors\":0,\"numMotives\":1,\"numParams\":0,\"rules\":[],\"type\":8}],\"types\":[{\"all\":[1],\"ctors\":[],\"isRec\":false,\"isReflexive\":false,\"isUnsafe\":false,\"levelParams\":[],\"name\":1,\"numIndices\":0,\"numNested\":0,\"numParams\":0,\"type\":0}]}}\n{\"in\":6,\"str\":{\"pre\":0,\"str\":\"Oncm\"}}\n{\"in\":7,\"str\":{\"pre\":6,\"str\":\"goal\"}}\n{\"in\":8,\"str\":{\"pre\":0,\"str\":\"P\"}}\n{\"forallE\":{\"binderInfo\":\"default\",\"body\":5,\"name\":8,\"type\":0},\"ie\":9}\n{\"def\":{\"all\":[7],\"hints\":{\"regular\":1},\"levelParams\":[],\"name\":7,\"safety\":\"safe\",\"type\":0,\"value\":9}}\n",
+    "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+    "targetDeclaration": "Oncm.goal",
+    "proofDeclaration": "Oncm.solution",
+    "version": "4.33.1 / perf05",
+    "upstreamDeclaration": "fun h => h False",
+    "sourceKind": "MINIMAL LEAN LOGIC",
+    "outcome": 2,
+    "externalRef": {
+      "ciProfile": "perf05",
+      "sourceCommit": "d79a177f4c162eefe9e6e197fdafad09b9ab5a8d"
+    }
+  }
+]

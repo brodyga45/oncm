@@ -1,0 +1,40 @@
+{
+  "repository": "brodyga45/oncm",
+  "runId": 34421160265,
+  "jobId": 102696670677,
+  "artifactId": 10131317513,
+  "artifactName": "lean-zk-perf05-false-refutation-34421160265",
+  "sourceCommit": "ed830fe68cc94aeac6eb01049a92464182bba737",
+  "zipBytes": 396161,
+  "zipSha256": "7aabf698087992f936e23447ad18088dd5f25a0ca4493b3093c1b2f3f0e16b2d",
+  "zipDigestMatchedGitHubMetadata": true,
+  "strictReceiptFramingAndExtractedBytesMatched": true,
+  "elapsedSeconds": 900.799123228,
+  "guestExecutionMilliseconds": 26.013461,
+  "peakBytes": 9817907200,
+  "peakGiB": 9.143638610839844,
+  "cpuSeconds": 3502.470449,
+  "parentMemoryEvents": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "filesSha256": {
+    "evm-seal.bin": "3d8105466af1c1a2b7631d2317543dc664a3f68e2b5f43ee3057157cbff654a9",
+    "verified.json": "3f6e79745765b11ab9267282399115685cbd58cc5760af11e8d639722308313b",
+    "receipt.bin": "007ba54a7aa8672338ba75df27e96cf5633c5500c3c44e1215b5be188b36e677",
+    "docker-command.json": "dce3e418248bb5b3b8dd517305621721400c9dfb0ce399aa7f89840ba7f9d1e2",
+    "cleanup-errors.json": "368aa20a24123b5c7f9376e2ec60f7898cd0f587cafceadd0ec0db06f8a5e412",
+    "certificate.bin": "091abb2b6bd916f9541699caaa58458c9aace4fe2ebf5d680b63f517c0b0fce4",
+    "evm-verification.json": "165609190ad5e3ff967bdd15abceb8b6d5721f4f08275a26c9a52f5a136c078f",
+    "journal.bin": "815157be1801bb371c353f2ed78e2770e2804c0ccad360dd7ef48a162219ca91",
+    "original-command.json": "fc06fb37843336f73921d2e4fe3495075173c4a3d9f6863fd1cc31ccfc4cdad0",
+    "phase-boundaries.txt": "b649ec971d90b9e7c458019a012dfbefd261137d828e11fc3cb1cfa954788df8",
+    "cgroup-summary.json": "86ca31c46486b1aa8ca87c9c7646d17b895cd3b962b63f7eb4244c949d7bc3c8",
+    "proof.json": "a31cf8edad6890fa6557512c8fe73db6266f5dc606b069a23df12556df53567a",
+    "additional-bridge-verification.json": "b9f1bd9f08602fde5e522d1e08452460e7af8730fd602b48e5cfec34dd3b601e"
+  }
+}

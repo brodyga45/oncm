@@ -4,6 +4,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import {createProofJobs,registerProofRoutes} from "./proof-jobs.mjs";
 import {createProofWorker} from "./proof-worker.mjs";
+import {readProofCatalog, catalogWithChain} from "./proof-catalog.mjs";
 import {
   JsonRpcProvider,
   Interface,
@@ -249,13 +250,12 @@ app.post("/api/comments/:id/vote", auth, (req, res) => {
   save("comment-votes", votes);
   res.json(commentView(c, req.address));
 });
-app.get("/api/proof/fixtures", (req, res) =>
-  res.json(
-    fs.existsSync("proof/fixtures.json")
-      ? JSON.parse(fs.readFileSync("proof/fixtures.json"))
-      : [],
-  ),
-);
+app.get("/api/proof/fixtures", (req, res) => res.json(readProofCatalog(root).fixtures));
+app.get("/api/proof/catalog", async (req, res) => res.json(await catalogWithChain(root, context().sdk)));
+app.get("/api/proof/certificates/perf05/:caseName", (req, res) => {
+  if (!["true-registration", "true-proof"].includes(req.params.caseName)) return res.status(404).json({error: "Published certificate not found"});
+  res.json(JSON.parse(fs.readFileSync(`proof/profiles/perf05/certificates/${req.params.caseName}.json`, "utf8")));
+});
 app.get("/api/proof/profile", (req, res) =>
   res.json(
     fs.existsSync("proof/manifest.json")
@@ -268,11 +268,8 @@ function storePackage(input) {
   if (!source || source.length > 1000000)
     throw Error("Lean source required (max 1 MB)");
   const payload = { schema: "exchange-lean-package-v1", ...input, source };
-  if (input.profileId && fs.existsSync("proof/manifest.json")) {
-    const profile = JSON.parse(fs.readFileSync("proof/manifest.json"));
-    if (profile.profileId.toLowerCase() === input.profileId.toLowerCase())
-      payload.proofProfile = profile;
-  }
+  const profile = readProofCatalog(root).profiles.find(p => p.profileId.toLowerCase() === input.profileId?.toLowerCase());
+  if (profile) payload.proofProfile = profile;
   delete payload.id;
   delete payload.createdAt;
   const serialized = JSON.stringify(payload),
@@ -411,6 +408,8 @@ registerProofRoutes(app, {
   validate: body => {
     if (!fs.existsSync("proof/runner.mjs")) throw Object.assign(Error("Real Lean/zk runner is unavailable"), {statusCode:503});
     const supported = JSON.parse(fs.readFileSync("proof/manifest.json", "utf8"));
+    if (body?.profileId && body.profileId.toLowerCase() !== supported.profileId.toLowerCase())
+      throw Error("The local runner supports v3 only. Import an external certificate for the selected additional profile.");
     if (body?.targetDeclaration && supported.goalDeclaration && body.targetDeclaration !== supported.goalDeclaration)
       throw Error(`This installed profile checks ${supported.goalDeclaration}. Wrap the selected proposition in that declaration.`);
   },

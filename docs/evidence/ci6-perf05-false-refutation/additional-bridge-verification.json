@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "readOnly": true,
+  "chainId": 31372,
+  "case": "false-refutation",
+  "outcome": 2,
+  "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+  "verifier": "0xCace1b78160AE76398F486c8a18044da0d66d86D",
+  "block": 122,
+  "installed": false,
+  "available": false,
+  "fixtureId": "lean-logic-false-perf05",
+  "rejectedAsTrueProof": true,
+  "rejectedAsRegistration": true
+}

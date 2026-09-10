@@ -1,0 +1,41 @@
+{
+  "artifacts": [
+    {
+      "path": "evidence/nat-reflexivity-goal.ndjson",
+      "bytes": 31690,
+      "sha256": "0c4a883bb94052eaded6ef924b27897ec7ce5df19a444b5dc4645da3d4035431"
+    },
+    {
+      "path": "evidence/nat-reflexivity-proof.ndjson",
+      "bytes": 32873,
+      "sha256": "e4021e7fc6281d0582468499313e3f07014e060293a8c3cde8c725f755099e4e"
+    },
+    {
+      "path": "evidence/peano-zero-add-goal.ndjson",
+      "bytes": 35816,
+      "sha256": "267490085041d732f6dd20c88b7ffbb970315639deb3c71f12b97370d0e600ec"
+    },
+    {
+      "path": "evidence/peano-zero-add-proof.ndjson",
+      "bytes": 37169,
+      "sha256": "df9b7155a77a852860a7b13aace5949bcc877e71b0295e8e9fcd1ddd44cfbc01"
+    },
+    {
+      "path": "evidence/peano-succ-add-goal.ndjson",
+      "bytes": 36006,
+      "sha256": "4ee70ef387fe02b79ea4ba35aa0df2967bfb74e2770a347d38254305aac3debf"
+    },
+    {
+      "path": "evidence/peano-succ-add-proof.ndjson",
+      "bytes": 37472,
+      "sha256": "cc6d864d127ceb783d9e68df5587d3389d9b1d2fa29803715683d6cbf6cf3640"
+    }
+  ],
+  "implementationFiles": {
+    "tools/lean-zk/runner.mjs": "c94cf1a830ec4b97ea9c8a4d75c515485f78aa1cdebee7d89aabd4931808aaad",
+    "tools/lean-zk/goal-prefix.mjs": "6da1b12f11d155af46921145629c894c1b8ed399186d28c5f850d4adee0ab5c2",
+    "tools/lean-zk/resource-guard.py": "e5b832f5f86f151e986385dfbe3a0dac07621c2c332a5bd2f844b996ec0cb9f3",
+    "tools/lean-zk/manifest.json": "a2e961f6916f7efcd4718b3a1888dde150c6652b5cf54029f384b1e7609e8465",
+    "tools/lean-zk/bin/check-native": "00de154c36d4a25de6e3c59d91be4c93e57e018facef77294b244f79d5f1f12d"
+  }
+}

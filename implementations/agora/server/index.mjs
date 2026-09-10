@@ -1,10 +1,14 @@
+import {governanceSnapshot,advanceLocalTime,authorizeDevTime} from './governance-view.mjs';
 import {createResearchStore} from './research.mjs';
+import {packageJobs} from './package-artifacts.mjs';
+import {allocationProposalView} from './allocation-view.mjs';
+import {loadExternalBundle,verifyExternalArtifact} from './external-certificates.mjs';
 import {createSocialStore} from './social.mjs';
 import {importSnapshot,fixtures,searchPalomar,importPalomar} from './imports.mjs';
 import {createProofJobs,createProofWorker,registerProofJobRoutes} from './proof-jobs.mjs';
 import Fastify from 'fastify';import cors from '@fastify/cors';import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
 import {createSiweMessage,parseSiweMessage} from 'viem/siwe';import {isAddress,encodeFunctionData,recoverMessageAddress} from 'viem';
-import {publicClient as pc,devAccounts,devWallet,erc20Abi,parseEther,zeroAddress,zeroHash,keccak256,toHex,decodeEventLog,stringify,assertLocalChain} from '../sdk/chain.mjs';import {root,artifact} from '../scripts/deploy.mjs';
+import {publicClient as pc,devAccounts,devWallet,erc20Abi,parseEther,zeroAddress,zeroHash,keccak256,toHex,decodeEventLog,stringify,assertLocalChain,chain} from '../sdk/chain.mjs';import {root,artifact} from '../scripts/deploy.mjs';
 const app=Fastify({logger:false,bodyLimit:2_000_000});await app.register(cors,{origin:'http://127.0.0.1:5171',credentials:true});app.setReplySerializer(stringify);
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'.local/deployment.json')));const names=['AgoraRegistry','ConditionalTokens','FixedProductMarketMaker','AllocationController','PaymentSplitter','Safe','AgoraTimelock','TrueToken'];const abis=Object.fromEntries(names.map(n=>[n,artifact(n).abi]));
 const dbPath=path.join(root,'.local/app.json');const db=fs.existsSync(dbPath)?JSON.parse(fs.readFileSync(dbPath)):{metadata:{},comments:[],jobs:[],governance:[]};const save=()=>{fs.writeFileSync(`${dbPath}.tmp`,stringify(db));fs.renameSync(`${dbPath}.tmp`,dbPath);};
@@ -16,6 +20,22 @@ async function markets(){const count=Number(await read(manifest.registry,'AgoraR
 app.get('/api/health',async()=>({ok:true,chainId:await pc.getChainId(),block:await pc.getBlockNumber()}));
 app.get('/api/config',async()=>({...JSON.parse(fs.readFileSync(path.join(root,'.local/deployment.json'))),abis,devnet:true,roles:['Curator · council · beneficiary','Reviewer · council · beneficiary','Mathematician','Liquidity provider','Trader','Research guest'],proofAvailable:fs.existsSync(path.join(root,'proof/runner.mjs'))&&manifest.proofStatus==='real'}));
 app.get('/api/fixtures',async()=>fixtures(root));
+app.get('/api/additional-profile',async()=>{
+ const bundle=loadExternalBundle(root),file=path.join(root,'.local/additional-profile.json');
+ const deployed=fs.existsSync(file)?JSON.parse(fs.readFileSync(file)):{};
+ const state=await read(manifest.registry,'AgoraRegistry','profiles',[bundle.profile.profileId]);
+ return{...deployed,profileId:bundle.profile.profileId,imageId:bundle.profile.imageId,label:'perf05 · zero-axiom propositional logic',permittedAxioms:[],nativeRunner:false,enabled:state[2]&&state[0].toLowerCase()===deployed.bridge?.toLowerCase(),registrationArtifact:bundle.registration,fixtures:bundle.fixtures};
+});
+app.post('/api/certificates/import',async req=>{
+ const bundle=loadExternalBundle(root),file=path.join(root,'.local/additional-profile.json');
+ if(!fs.existsSync(file))throw Error('Additional profile bridge has not been deployed');
+ const deployed=JSON.parse(fs.readFileSync(file));
+ const statement=req.body?.statementId?await read(manifest.registry,'AgoraRegistry','getStatement',[req.body.statementId]):undefined;
+ const bridgeAbi=JSON.parse(fs.readFileSync(path.join(root,'proof/artifacts/LeanProofBridge.json'))).abi;
+ const result=await verifyExternalArtifact(req.body?.artifact,{bundle,statement:statement?{id:req.body.statementId,...statement}:undefined,bridge:deployed.bridge,abi:bridgeAbi,client:pc});
+ const state=await read(manifest.registry,'AgoraRegistry','profiles',[result.profileId]);
+ return{...result,enabled:state[2]&&state[0].toLowerCase()===deployed.bridge.toLowerCase()};
+});
 app.post('/api/import/snapshot',async req=>importSnapshot(String(req.body?.url??'')));
 app.get('/api/operators',async()=>{const n=Number(await read(manifest.registry,'AgoraRegistry','operatorCount'));return Promise.all(Array.from({length:n},async(_,i)=>{const id=await read(manifest.registry,'AgoraRegistry','operatorIds',[BigInt(i)]);const [evaluator,manifestHash]=await read(manifest.registry,'AgoraRegistry','operators',[id]);return{id,evaluator,manifestHash};}));});
 app.get('/api/markets',async()=>({markets:await markets(),observedBlock:await pc.getBlockNumber()}));
@@ -25,10 +45,11 @@ app.post('/api/metadata',async req=>{const {title,source='',description='',tag='
 app.get('/api/package/:id',async req=>{
  const m=(await markets()).find(x=>x.id===req.params.id);if(!m)throw new Error('Unknown statement');
  const source=m.metadata.source??m.metadata.goal??'';const files={...m.metadata.files,'Statement.lean':source};
- const completed=db.jobs.filter(j=>j.status==='succeeded'&&(j.input.statementId===m.id||j.result?.goalHash===m.goalHash));
+ const owner=sessionToken(req)?session(req).address:undefined;
+ const completed=packageJobs(db.jobs,m,owner);
  const artifacts=completed.map(j=>({action:j.input.action,source:j.input.source,result:j.result}));
  const descriptor=path.join(root,'proof/deployment.json');const profile=fs.existsSync(descriptor)?JSON.parse(fs.readFileSync(descriptor,'utf8')):{profileId:manifest.profileId,status:manifest.proofStatus};
- return {schemaVersion:2,statementId:m.id,goalHash:m.goalHash,profileId:m.profileId,source,metadata:m.metadata,chainId:31371,conditionId:m.conditionId,files,fileHashes:Object.fromEntries(Object.entries(files).map(([name,content])=>[name,keccak256(toHex(content))])),profile,artifacts,registrationCertificate:completed.find(j=>j.input.action==='register')?.result.registrationCertificate,warning:'Source files, commitments and completed job artifacts are exported. A profile-specific checker and its pinned dependencies are required to reproduce the proof; a registry label is not settlement evidence.'};
+ return {schemaVersion:2,statementId:m.id,goalHash:m.goalHash,profileId:m.profileId,source,metadata:m.metadata,chainId:31371,conditionId:m.conditionId,files,fileHashes:Object.fromEntries(Object.entries(files).map(([name,content])=>[name,keccak256(toHex(content))])),profile,artifacts,registrationCertificate:completed.find(j=>j.input.action==='register')?.result.registrationCertificate,warning:'Public statement files and commitments are exported. Completed job artifacts are included only for their signed-in owner; sign in to include your own results. A profile-specific checker and its pinned dependencies are required to reproduce the proof; a registry label is not settlement evidence.'};
 });
 app.post('/api/auth/challenge',async req=>{const address=req.body?.address;if(!isAddress(address))throw new Error('Invalid address');const nonce=crypto.randomBytes(16).toString('hex');const message=createSiweMessage({address,chainId:31371,domain:'127.0.0.1:5171',uri:'http://127.0.0.1:5171',version:'1',nonce,issuedAt:new Date(),expirationTime:new Date(Date.now()+600000),statement:'Sign in to Agora comments and proof jobs. This does not authorize blockchain transactions.'});nonces.set(nonce,{address,message,expires:Date.now()+600000});return{message};});
 app.post('/api/auth/verify',async(req,reply)=>{const {message,signature}=req.body;const p=parseSiweMessage(message);const record=nonces.get(p.nonce);if(!record||record.message!==message||record.expires<Date.now())throw new Error('Expired or unknown sign-in challenge');nonces.delete(p.nonce);if(p.chainId!==31371||p.uri!=='http://127.0.0.1:5171'||!await pc.verifySiweMessage({message,signature,domain:'127.0.0.1:5171',nonce:p.nonce,address:record.address}))throw new Error('Invalid sign-in signature');const token=crypto.randomBytes(32).toString('hex');sessions.set(token,{address:record.address,expires:Date.now()+3600000});reply.header('set-cookie',`agora_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=3600`);return{address:record.address,token};});
@@ -46,8 +67,34 @@ app.post('/api/comments/:id/vote',async req=>social.vote(session(req).address,re
 app.patch('/api/comments/:id',async req=>{const s=session(req);const c=db.comments.find(c=>c.id===req.params.id);if(!c)throw new Error('Unknown comment');if(req.body.hidden!==undefined){if(s.address.toLowerCase()!==manifest.accounts[0].toLowerCase())throw new Error('Moderator required');c.hidden=!!req.body.hidden;c.reason=String(req.body.reason??'');}else{if(c.author.toLowerCase()!==s.address.toLowerCase())throw new Error('Author required');const text=String(req.body.text??'').trim();if(!text||text.length>10000)throw new Error('Invalid comment');c.history.push({text:c.text,at:c.editedAt??c.createdAt});c.text=text;c.editedAt=new Date().toISOString();}save();return c;});
 const proofJobs=createProofJobs({db,save,execute:createProofWorker(root)});
 registerProofJobRoutes(app,{jobs:proofJobs,session});
-app.get('/api/allocations',async req=>{const epoch=Number(await read(manifest.allocation,'AllocationController','currentEpoch'));const recipients=await read(manifest.allocation,'AllocationController','recipients');const n=Number(await read(manifest.allocation,'AllocationController','proposalCount'));const proposals=await Promise.all(Array.from({length:n},async(_,i)=>{const p=await read(manifest.allocation,'AllocationController','proposal',[BigInt(i)]);return{id:i,...p,approvals:await Promise.all(recipients[0].map(a=>read(manifest.allocation,'AllocationController','approved',[BigInt(i),a])))};}));const epochs=await Promise.all(Array.from({length:epoch+1},async(_,i)=>{const split=await read(manifest.allocation,'AllocationController','splits',[BigInt(i)]);const balance=await pc.readContract({address:manifest.token,abi:erc20Abi,functionName:'balanceOf',args:[split]});let claimable=0n;if(req.query.account&&isAddress(req.query.account))claimable=await read(split,'PaymentSplitter','releasable',[manifest.token,req.query.account]);return{epoch:i,split,balance,claimable};}));return{epoch,recipients:recipients[0],shares:recipients[1],proposals,epochs};});
-app.get('/api/governance',async()=>({safe:manifest.safe,threshold:await read(manifest.safe,'Safe','getThreshold'),owners:await read(manifest.safe,'Safe','getOwners'),nonce:await read(manifest.safe,'Safe','nonce'),proposals:await Promise.all(db.governance.map(async p=>({...p,ready:await read(manifest.timelock,'AgoraTimelock','isOperationReady',[p.operationId]),done:await read(manifest.timelock,'AgoraTimelock','isOperationDone',[p.operationId])})))}));
+app.get('/api/allocations',async req=>{
+ const block=await pc.getBlock();const blockNumber=block.number;
+ const at=(address,name,fn,args=[])=>read(address,name,fn,args,{blockNumber});
+ const epoch=Number(await at(manifest.allocation,'AllocationController','currentEpoch'));
+ const recipients=await at(manifest.allocation,'AllocationController','recipients');
+ const n=Number(await at(manifest.allocation,'AllocationController','proposalCount'));
+ // AllocationApplied records preserve the exact old recipients, including removed
+ // beneficiaries. Reading only today's recipients would misdescribe stale proposals.
+ const applied=await pc.getContractEvents({address:manifest.allocation,abi:abis.AllocationController,eventName:'AllocationApplied',fromBlock:0n,toBlock:blockNumber});
+ const baselines=new Map(applied.map(event=>[String(event.args.epoch),{payees:event.args.payees,shares:event.args.shares}]));
+ baselines.set(String(epoch),{payees:recipients[0],shares:recipients[1]});
+ const proposals=await Promise.all(Array.from({length:n},async(_,i)=>{
+  const p=await at(manifest.allocation,'AllocationController','proposal',[BigInt(i)]);
+  const baseline=baselines.get(String(p.baseVersion));if(!baseline)throw Error('Allocation baseline unavailable; refresh from an archive RPC');
+  const approvals=await Promise.all(baseline.payees.map(a=>at(manifest.allocation,'AllocationController','approved',[BigInt(i),a])));
+  return allocationProposalView({id:i,...p},baseline,approvals,{epoch,timestamp:block.timestamp});
+ }));
+ const epochs=await Promise.all(Array.from({length:epoch+1},async(_,i)=>{
+  const split=await at(manifest.allocation,'AllocationController','splits',[BigInt(i)]);
+  const balance=await pc.readContract({address:manifest.token,abi:erc20Abi,functionName:'balanceOf',args:[split],blockNumber});
+  let claimable=0n;if(req.query.account&&isAddress(req.query.account))claimable=await at(split,'PaymentSplitter','releasable',[manifest.token,req.query.account]);
+  return{epoch:i,split,balance,claimable};
+ }));
+ return{epoch,recipients:recipients[0],shares:recipients[1],proposals,epochs,observedBlock:blockNumber,observedBlockHash:block.hash,observedAt:block.timestamp};
+});
+const currentGovernance=()=>governanceSnapshot({client:pc,read,manifest,proposals:db.governance,rpcUrl:chain.rpcUrls.default.http[0]});
+app.get('/api/governance',currentGovernance);
+app.post('/api/dev/advance-time',async req=>{authorizeDevTime(req,session);return advanceLocalTime({client:pc,rpcUrl:chain.rpcUrls.default.http[0]});});
 app.post('/api/governance',async req=>{const author=session(req).address;const b=req.body;const data=b.kind==='operator'?encodeFunctionData({abi:abis.AgoraRegistry,functionName:'configureOperator',args:[b.profileId,b.verifier,b.manifestHash]}):b.kind==='disable'?encodeFunctionData({abi:abis.AgoraRegistry,functionName:'setProfileEnabled',args:[b.profileId,!!b.enabled]}):encodeFunctionData({abi:abis.AgoraRegistry,functionName:'configureProfile',args:[b.profileId,b.verifier,b.manifestHash]});const salt=keccak256(toHex(crypto.randomUUID()));const target=manifest.registry;const delay=await read(manifest.timelock,'AgoraTimelock','getMinDelay');const scheduleData=encodeFunctionData({abi:abis.AgoraTimelock,functionName:'schedule',args:[target,0n,data,zeroHash,salt,delay]});const nonce=await read(manifest.safe,'Safe','nonce');const safeArgs=[manifest.timelock,0n,scheduleData,0,0n,0n,0n,zeroAddress,zeroAddress,nonce];const hash=await read(manifest.safe,'Safe','getTransactionHash',safeArgs);const operationId=await read(manifest.timelock,'AgoraTimelock','hashOperation',[target,0n,data,zeroHash,salt]);const p={id:crypto.randomUUID(),title:String(b.title??'Protocol profile change'),author,target,data,salt,operationId,scheduleData,nonce:nonce.toString(),safeHash:hash,signatures:[],createdAt:new Date().toISOString()};db.governance.push(p);save();return p;});
 app.post('/api/governance/:id/signatures',async req=>{const p=db.governance.find(x=>x.id===req.params.id);if(!p)throw new Error('Unknown proposal');const address=await recoverMessageAddress({message:{raw:p.safeHash},signature:req.body.signature});if(!manifest.council.some(a=>a.toLowerCase()===address.toLowerCase()))throw new Error('Council signature required');p.signatures=p.signatures.filter(s=>s.address.toLowerCase()!==address.toLowerCase());p.signatures.push({address,signature:req.body.signature});save();return p;});
 app.get('/api/activity',async req=>{const head=await pc.getBlockNumber();const from=BigInt(req.query.from??(head>50n?head-50n:0n));const to=from+50n<head?from+50n:head;const blocks=[];for(let number=to;number>=from;--number){const block=await pc.getBlock({blockNumber:number,includeTransactions:true});const txs=await Promise.all(block.transactions.map(async tx=>{const receipt=await pc.getTransactionReceipt({hash:tx.hash});const events=receipt.logs.map(log=>{for(const [contract,abi]of Object.entries(abis)){try{const e=decodeEventLog({abi,data:log.data,topics:log.topics});return{address:log.address,event:e.eventName,args:e.args,contract,logIndex:log.logIndex};}catch{}}return{address:log.address,event:'Raw log',topics:log.topics,data:log.data,logIndex:log.logIndex};});const changes=[];for(const e of events){if(e.event==='Transfer')changes.push({asset:e.address,from:e.args.from,to:e.args.to,amount:e.args.value});if(e.event==='TransferSingle')changes.push({asset:e.address,positionId:e.args.id,from:e.args.from,to:e.args.to,amount:e.args.value});if(e.event==='TransferBatch')e.args.ids.forEach((id,i)=>changes.push({asset:e.address,positionId:id,from:e.args.from,to:e.args.to,amount:e.args.values[i]}));}const deltas=new Map();const add=(asset,positionId,address,delta)=>{if(address===zeroAddress)return;const key=`${asset}/${positionId??''}/${address.toLowerCase()}`;const d=deltas.get(key)??{asset,positionId,address,delta:0n};d.delta+=BigInt(delta);deltas.set(key,d);};for(const c of changes){add(c.asset,c.positionId,c.from,-BigInt(c.amount));add(c.asset,c.positionId,c.to,c.amount);}add('ETH',null,tx.from,-(tx.value+receipt.gasUsed*receipt.effectiveGasPrice));if(tx.to&&tx.value)add('ETH',null,tx.to,tx.value);return{balanceDeltas:[...deltas.values()].filter(d=>d.delta!==0n),hash:tx.hash,actor:tx.from,to:tx.to,value:tx.value,status:receipt.status,gasUsed:receipt.gasUsed,gasCost:receipt.gasUsed*receipt.effectiveGasPrice,events,changes};}));blocks.push({number,hash:block.hash,timestamp:block.timestamp,transactions:txs});if(number===0n)break;}return{head,blocks};});

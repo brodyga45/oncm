@@ -1,0 +1,33 @@
+{
+  "tag": "perf05",
+  "label": "perf05 · чистая логика, без аксиом",
+  "description": "Отдельный экспериментальный профиль Lean 4.33.1 / NanoDa: zero axioms, без Nat/String extensions. Не профиль v3 и не пример Nat.add_comm.",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+  "selector": "0x73c457ba",
+  "verifierParameters": "0x73c457ba541936f0d907daf0c7253a39a9c5c427c225ba7709e44702d3c6eedc",
+  "manifest": "{\"format\":\"oncm-vault-external-profile-v1\",\"profileTag\":\"oncm.lean4.33.1.nanoda.4c544ed4.logic.perf05.zeroaxiom\",\"profileId\":\"0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10\",\"imageId\":\"0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb\",\"foundationSha256\":\"94661738a0c260b50a6dc27a09015793d2c0205919f97448a1a4937d13d12124\",\"permittedAxioms\":[],\"natExtension\":false,\"stringExtension\":false,\"lean\":\"4.33.1\",\"goalCommitment\":\"SHA256 exact goal export prefix including this distinct foundation\",\"sourceCommit\":\"d79a177f4c162eefe9e6e197fdafad09b9ab5a8d\",\"profileUrl\":\"https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/profile.json\"}",
+  "lean": "4.33.1",
+  "goals": [
+    {
+      "key": "true",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "title": "Для любого P: Prop, P → P",
+      "outcome": 1,
+      "source": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P → P\n\ntheorem solution : goal := fun P h => h\n\nend Oncm\n",
+      "sourceSha256": "adb0142ac2d8cef01d92fc0dce76e19e0d5b8a9184c0004cdf29ca05a1b1a0b9",
+      "goalExportSha256": "2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "sourceUrl": "https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/fixtures/OncmTrue.lean"
+    },
+    {
+      "key": "false",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "title": "Для любого P: Prop утверждается P",
+      "outcome": 2,
+      "source": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P\n\ntheorem solution : goal → False := fun h => h False\n\nend Oncm\n",
+      "sourceSha256": "b855742a179058525366cc931d7da745f91ebb6ff85358e41205b44dfa1f89ad",
+      "goalExportSha256": "f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "sourceUrl": "https://github.com/brodyga45/oncm/blob/d79a177f4c162eefe9e6e197fdafad09b9ab5a8d/tools/lean-zk/ci/profiles/perf05/fixtures/OncmFalse.lean"
+    }
+  ]
+}
