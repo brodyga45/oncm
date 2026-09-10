@@ -1,0 +1,186 @@
+{
+  "format": "vault-v2-eas-setup-evidence-v1",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "blocks": [
+    278,
+    279,
+    280
+  ],
+  "addresses": {
+    "schemaRegistry": "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849",
+    "eas": "0xF32D39ff9f6Aa7a7A64d7a4F00a54826Ef791a55",
+    "resolver": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+    "statementRegistry": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB"
+  },
+  "receipts": [
+    {
+      "contract": "SchemaRegistry",
+      "address": "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849",
+      "hash": "0x7d7299ae9f398a049f2d4b878a3846b1b62569a03302d27db46a58357f8983f3",
+      "blockNumber": 278,
+      "blockHash": "0xbd02ac8e0f1d39e2ad83e463c7e1cd7dd8ad8c8079b4a5321c028160b0ecaa5a",
+      "status": 1,
+      "gasUsed": "500945",
+      "timestamp": 1789040107,
+      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "nonce": 132,
+      "constructorArguments": [],
+      "creationBytecodeMatchesPinnedArtifact": true,
+      "events": []
+    },
+    {
+      "contract": "EAS",
+      "address": "0xF32D39ff9f6Aa7a7A64d7a4F00a54826Ef791a55",
+      "hash": "0xba66e1ca1a756783aaa5f7ad6d84a7c0985c45136f7c9dcf480469db25c2190d",
+      "blockNumber": 279,
+      "blockHash": "0x4b37c4ad326616861421abc8a51475c9eb49a9b8f4d1ccaa7810b44070f7bc02",
+      "status": 1,
+      "gasUsed": "3279744",
+      "timestamp": 1789040107,
+      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "nonce": 133,
+      "constructorArguments": [
+        "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849"
+      ],
+      "creationBytecodeMatchesPinnedArtifact": true,
+      "events": []
+    },
+    {
+      "contract": "VaultSocialResolver",
+      "address": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+      "hash": "0x0aec2dbdb9650507fcd3cb178a1133bd13da6c5766f54ad9fe39f52631253ca0",
+      "blockNumber": 280,
+      "blockHash": "0x6381aa96d8237ee9dc1590b023df2326ddd36b0a189aaa8ca25c0892712e71c1",
+      "status": 1,
+      "gasUsed": "1833811",
+      "timestamp": 1789040107,
+      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "nonce": 134,
+      "constructorArguments": [
+        "0xF32D39ff9f6Aa7a7A64d7a4F00a54826Ef791a55",
+        "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB"
+      ],
+      "creationBytecodeMatchesPinnedArtifact": true,
+      "events": [
+        {
+          "address": "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849",
+          "index": 0,
+          "topics": [
+            "0xd0b86852e21f9e5fa4bc3b0cff9757ffe243d50c4b43968a42202153d651ea5e",
+            "0x0074c65587dd301ef513e21f5528d35c44c70d461c4dd82a2660294192c9de60",
+            "0x000000000000000000000000d6e1afe5ca8d00a2efc01b89997abe2de47fdfaf"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000000000000000000000200074c65587dd301ef513e21f5528d35c44c70d461c4dd82a2660294192c9de60000000000000000000000000d6e1afe5ca8d00a2efc01b89997abe2de47fdfaf000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000031737472696e6720646973706c61794e616d652c737472696e672062696f2c627974657333322070726576696f7573554944000000000000000000000000000000",
+          "decoded": {
+            "name": "Registered",
+            "args": [
+              "0x0074c65587dd301ef513e21f5528d35c44c70d461c4dd82a2660294192c9de60",
+              "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+              [
+                "0x0074c65587dd301ef513e21f5528d35c44c70d461c4dd82a2660294192c9de60",
+                "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+                false,
+                "string displayName,string bio,bytes32 previousUID"
+              ]
+            ]
+          }
+        },
+        {
+          "address": "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849",
+          "index": 1,
+          "topics": [
+            "0xd0b86852e21f9e5fa4bc3b0cff9757ffe243d50c4b43968a42202153d651ea5e",
+            "0x26b7b17861c268d0d36d897527a942f3b65ecb901b072fdc4ff9b0f8dd6bb0d4",
+            "0x000000000000000000000000d6e1afe5ca8d00a2efc01b89997abe2de47fdfaf"
+          ],
+          "data": "0x000000000000000000000000000000000000000000000000000000000000002026b7b17861c268d0d36d897527a942f3b65ecb901b072fdc4ff9b0f8dd6bb0d4000000000000000000000000d6e1afe5ca8d00a2efc01b89997abe2de47fdfaf00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000007a75696e7438206b696e642c627974657333322073746174656d656e7449642c6279746573333220726f6f745549442c6279746573333220706172656e745549442c627974657333322070726576696f75735549442c737472696e67207469746c652c737472696e6720626f64792c626f6f6c2064656c65746564000000000000",
+          "decoded": {
+            "name": "Registered",
+            "args": [
+              "0x26b7b17861c268d0d36d897527a942f3b65ecb901b072fdc4ff9b0f8dd6bb0d4",
+              "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+              [
+                "0x26b7b17861c268d0d36d897527a942f3b65ecb901b072fdc4ff9b0f8dd6bb0d4",
+                "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+                false,
+                "uint8 kind,bytes32 statementId,bytes32 rootUID,bytes32 parentUID,bytes32 previousUID,string title,string body,bool deleted"
+              ]
+            ]
+          }
+        },
+        {
+          "address": "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849",
+          "index": 2,
+          "topics": [
+            "0xd0b86852e21f9e5fa4bc3b0cff9757ffe243d50c4b43968a42202153d651ea5e",
+            "0x7c1c3c45a228da7e5bc4703366b83ea7e7819c6b78f788b623cb043c2db92b8a",
+            "0x000000000000000000000000d6e1afe5ca8d00a2efc01b89997abe2de47fdfaf"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000000000000000000000207c1c3c45a228da7e5bc4703366b83ea7e7819c6b78f788b623cb043c2db92b8a000000000000000000000000d6e1afe5ca8d00a2efc01b89997abe2de47fdfaf00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000003062797465733332207461726765745549442c627974657333322070726576696f75735549442c696e74382076616c756500000000000000000000000000000000",
+          "decoded": {
+            "name": "Registered",
+            "args": [
+              "0x7c1c3c45a228da7e5bc4703366b83ea7e7819c6b78f788b623cb043c2db92b8a",
+              "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+              [
+                "0x7c1c3c45a228da7e5bc4703366b83ea7e7819c6b78f788b623cb043c2db92b8a",
+                "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+                false,
+                "bytes32 targetUID,bytes32 previousUID,int8 value"
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "schemas": {
+    "profile": {
+      "uid": "0x0074c65587dd301ef513e21f5528d35c44c70d461c4dd82a2660294192c9de60",
+      "resolver": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+      "revocable": false,
+      "schema": "string displayName,string bio,bytes32 previousUID"
+    },
+    "entry": {
+      "uid": "0x26b7b17861c268d0d36d897527a942f3b65ecb901b072fdc4ff9b0f8dd6bb0d4",
+      "resolver": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+      "revocable": false,
+      "schema": "uint8 kind,bytes32 statementId,bytes32 rootUID,bytes32 parentUID,bytes32 previousUID,string title,string body,bool deleted"
+    },
+    "vote": {
+      "uid": "0x7c1c3c45a228da7e5bc4703366b83ea7e7819c6b78f788b623cb043c2db92b8a",
+      "resolver": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+      "revocable": false,
+      "schema": "bytes32 targetUID,bytes32 previousUID,int8 value"
+    }
+  },
+  "codeChecks": {
+    "schemaRegistry": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322",
+    "eas": "0x7b45933476096a2ef4a9a14f4c8273a91ab2d5e1d90f4456e870333a3866120e",
+    "resolver": "0xe2cb3bf287c95329a86e740bb3228d1e1c68780aa29bce4975d4c5f7ac4b6ea3"
+  },
+  "legacy": {
+    "descriptorSha256": "993a408673fed48337ca06fc8bcb9d201beb878f0f7446f247e826e79d6a3142",
+    "expectedDescriptorSha256": "993a408673fed48337ca06fc8bcb9d201beb878f0f7446f247e826e79d6a3142",
+    "unchanged": true,
+    "code": {
+      "schemaRegistry": {
+        "address": "0xc351628EB244ec633d5f21fBD6621e1a683B1181",
+        "beforeHash": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322",
+        "afterHash": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322"
+      },
+      "eas": {
+        "address": "0xFD471836031dc5108809D173A067e8486B9047A3",
+        "beforeHash": "0x8b0fa4389c82aea0ee722fdb6007433e11353bc5e4fa9369491a1c52b37734a6",
+        "afterHash": "0x8b0fa4389c82aea0ee722fdb6007433e11353bc5e4fa9369491a1c52b37734a6"
+      },
+      "resolver": {
+        "address": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+        "beforeHash": "0x742a66bda2cec45d56f02d00bbbf08d488d34e1778aa5c8ae50497a6b4284edb",
+        "afterHash": "0x742a66bda2cec45d56f02d00bbbf08d488d34e1778aa5c8ae50497a6b4284edb"
+      }
+    }
+  },
+  "scope": "Three additive original EAS social deployments only. New resolver binds V2 registry; legacy social descriptor/code retained. No profile/comment/blog/attestation write or automatic social migration in this capture."
+}
