@@ -1,0 +1,908 @@
+{
+  "format": "vault-v2-final-file-only-economic-assertions-v1",
+  "status": "PASS",
+  "checks": 541,
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "before": {
+    "number": 527,
+    "hash": "0x9e09db98c645ff8b02ea9d81eb696a9872df219483f27ec4355505ec9d9296b1",
+    "timestamp": 1789050472
+  },
+  "after": {
+    "number": 552,
+    "hash": "0x24e2d290c48bcc5821821bb49e55bc8ba7e3a442d59398873b6f2fff203b3bc5",
+    "timestamp": 1789051973
+  },
+  "inputs": {
+    "evidence/monetary-policy/settlement-actions-528-552.json": {
+      "sha256": "0xe18fdefcea4ce7a817f5303f6656d552281915021a92f2ec435190e715735522",
+      "bytes": 180832
+    },
+    "evidence/monetary-policy/earning-actions-508-527.json": {
+      "sha256": "0x8f9902233a48e83f89fb13a1faaac93f4bfaa3769ca0198fefbebf413e8c7325",
+      "bytes": 179211
+    },
+    "evidence/monetary-policy/earning-actions-508-527.after.json": {
+      "sha256": "0xfd81a34153cb6f4dc3ad63451ecdeb1e27fa4e1e2f88b9dcdb9cc584c5579a96",
+      "bytes": 26897
+    },
+    "evidence/monetary-policy/settlement-actions-528-552.after.json": {
+      "sha256": "0xf5d579be9adb604cb23101e49fe4f16e58b6c758c7788199b491e39451e6ec7d",
+      "bytes": 26590
+    },
+    "evidence/monetary-policy/resolution-533.json": {
+      "sha256": "0x9562971c225c7357912f6ed02eb7591febc73b448431876fbe2ea08f89e01ac8",
+      "bytes": 6229
+    },
+    "external-proofs/perf05/true-proof.json": {
+      "sha256": "0x65a54ad884fad55139b830cbeb83f551191c1d954382036c03a5006b3c5683b1",
+      "bytes": 5199
+    },
+    "evidence/monetary-policy/clock-end-531.result.json": {
+      "sha256": "0x5ad15f999c861498f0aff8172b9d6eac89fb20ea6208c7b75e37ed34714a6656",
+      "bytes": 4131
+    },
+    "evidence/monetary-policy/clock-end-531.before.json": {
+      "sha256": "0x5c578caa37701418849a64e60ad3da5adcf5e87baa18c0ff7194d13a8629d98b",
+      "bytes": 26839
+    },
+    "evidence/monetary-policy/clock-end-531.after.json": {
+      "sha256": "0xef895ebd1628c7fc4b3b6ad0cf2d2741612deb51ff69a98e20f687bd2949de13",
+      "bytes": 26935
+    },
+    "evidence/monetary-policy/clock-close-548.result.json": {
+      "sha256": "0x9fd6954bf4222157c94fa0c706f7a6a0c35666b8cae6d3084f6bfac95223d79d",
+      "bytes": 4073
+    },
+    "evidence/monetary-policy/clock-close-548.before.json": {
+      "sha256": "0xfcbf65c111b587ad22cdb970d12b20b9a09814fd50637ac8a363ece1219f07a6",
+      "bytes": 26671
+    },
+    "evidence/monetary-policy/clock-close-548.after.json": {
+      "sha256": "0x860787e570016147493697a17ce189b204c2931ef415712cebbf4fe4282733fd",
+      "bytes": 26643
+    }
+  },
+  "scriptSha256": "0x2a6cc69015d5e3c397bfb91fce5a1503cb2f4ef19bb79ee8b33b1bf9fb852ea3",
+  "claims": [
+    {
+      "block": 534,
+      "transaction": "0x5b6ad2062edbfd76481bca2319df6bbe760b10c7037e227e09c18d69fe5af3f1",
+      "programId": 0,
+      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "weight": "1107356864331648874",
+      "amount": "2997293290548789958"
+    },
+    {
+      "block": 535,
+      "transaction": "0x5aa96a37c63161695b783150a38ff4b05811e36a968c6219c27b6126ebff8473",
+      "programId": 1,
+      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "weight": "768000000000000000000",
+      "amount": "1999881517436141478"
+    },
+    {
+      "block": 537,
+      "transaction": "0x7f2608bae86e050b187403413c6abcdfaac56dbacd4fa433a767910984d80900",
+      "programId": 0,
+      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "weight": "1000000000000000",
+      "amount": "2706709451210041"
+    },
+    {
+      "block": 538,
+      "transaction": "0xacf38ff0a8d86413a326e54ddb71598d06a49130da2f2af5cb6fae9900ffcbee",
+      "programId": 1,
+      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "weight": "45500000000000000",
+      "amount": "118482563858521"
+    }
+  ],
+  "claimedTotal": "4999999999999999998",
+  "closes": [
+    {
+      "block": 550,
+      "transaction": "0x097cc3eff4250d90c78cdb7db5d592563adb9cf501161dda1c3c6ab026423da8",
+      "programId": 2,
+      "recipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "amount": "1000000000000000000"
+    },
+    {
+      "block": 551,
+      "transaction": "0x68b88a025167e6e3b9e4ef210583b664ae7db29ba52d7548690b68e87a232391",
+      "programId": 0,
+      "recipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "amount": "1"
+    },
+    {
+      "block": 552,
+      "transaction": "0xe36333cdde48e2b7286c75c4023d9ecfd56d6753cb9d85a95c4effab77e73664",
+      "programId": 1,
+      "recipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "amount": "1"
+    }
+  ],
+  "closedTotal": "1000000000000000002",
+  "principal": [
+    {
+      "block": 536,
+      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "bptAmount": "1000000000000000000",
+      "exitBlock": 545
+    },
+    {
+      "block": 539,
+      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "bptAmount": "100000000000000",
+      "exitBlock": 541
+    }
+  ],
+  "exits": [
+    {
+      "block": 541,
+      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "bptIn": "100000000000000",
+      "tokens": [
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+        "0x276C216D241856199A83bf27b2286659e5b877D3"
+      ],
+      "amounts": [
+        "95821138645022",
+        "104435683153506"
+      ]
+    },
+    {
+      "block": 545,
+      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "bptIn": "19999999999998599879",
+      "tokens": [
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+        "0x276C216D241856199A83bf27b2286659e5b877D3"
+      ],
+      "amounts": [
+        "19164227729003115577",
+        "20887136630699831607"
+      ]
+    }
+  ],
+  "redemptions": [
+    {
+      "block": 543,
+      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "yes": "1159201405840430",
+      "no": "0",
+      "T": "1159201405840430"
+    },
+    {
+      "block": 548,
+      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "yes": "29998743298593201356",
+      "no": "30000000000000000000",
+      "T": "29998743298593201356"
+    }
+  ],
+  "treasuryFees": [
+    {
+      "block": 530,
+      "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "label": "T",
+      "collected": "6500000000000000",
+      "distributed": "6499999999999999",
+      "amount": "974999999999999",
+      "warehouseRemaining": "0"
+    },
+    {
+      "block": 531,
+      "token": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "label": "YES",
+      "collected": "650000000000000",
+      "distributed": "649999999999999",
+      "amount": "97499999999999",
+      "warehouseRemaining": "0"
+    }
+  ],
+  "treasuryFinal": {
+    "T": "1000975000000000001",
+    "YES": "97499999999999"
+  },
+  "rewardsFinal": {
+    "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+    "programCount": "3",
+    "programLimit": 20,
+    "reserved": "0",
+    "tokenBalance": "0",
+    "unreserved": "0",
+    "computedOutstandingBudget": "0",
+    "programs": [
+      {
+        "id": "0",
+        "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+        "start": "1789050027",
+        "end": "1789050927",
+        "claimDeadline": "1789051827",
+        "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "budget": "3000000000000000000",
+        "paid": "2999999999999999999",
+        "reclaimed": "1",
+        "totalWeight": "1108356864331648874",
+        "closed": true,
+        "accounts": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "weight": "1107356864331648874",
+            "claimed": true,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+            "weight": "1000000000000000",
+            "claimed": true,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          }
+        },
+        "observedHookBinding": {
+          "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+          "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+          "metric": "0",
+          "configured": true
+        },
+        "lpMeterBinding": {
+          "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "pool": "0x0000000000000000000000000000000000000000"
+        },
+        "earningActive": false,
+        "claimWindowActive": false
+      },
+      {
+        "id": "1",
+        "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+        "start": "1789050027",
+        "end": "1789050927",
+        "claimDeadline": "1789051827",
+        "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "budget": "2000000000000000000",
+        "paid": "1999999999999999999",
+        "reclaimed": "1",
+        "totalWeight": "768045500000000000000",
+        "closed": true,
+        "accounts": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "weight": "768000000000000000000",
+            "claimed": true,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+            "weight": "45500000000000000",
+            "claimed": true,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          }
+        },
+        "observedHookBinding": {
+          "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+          "pool": "0x0000000000000000000000000000000000000000",
+          "metric": "0",
+          "configured": false
+        },
+        "lpMeterBinding": {
+          "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7"
+        },
+        "earningActive": false,
+        "claimWindowActive": false
+      },
+      {
+        "id": "2",
+        "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+        "start": "1789050027",
+        "end": "1789050927",
+        "claimDeadline": "1789051827",
+        "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "budget": "1000000000000000000",
+        "paid": "0",
+        "reclaimed": "1000000000000000000",
+        "totalWeight": "20020000000000000",
+        "closed": true,
+        "accounts": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "weight": "20000000000000000",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+            "weight": "20000000000000",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          }
+        },
+        "observedHookBinding": {
+          "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+          "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+          "metric": "1",
+          "configured": true
+        },
+        "lpMeterBinding": {
+          "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "pool": "0x0000000000000000000000000000000000000000"
+        },
+        "earningActive": false,
+        "claimWindowActive": false
+      }
+    ]
+  },
+  "pendingFees": {
+    "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+    "aggregateSwap": "6500000000000",
+    "aggregateYield": "0",
+    "controllerCreator": "0",
+    "controllerProtocol": "0",
+    "pendingCreator": "4500000000000",
+    "pendingProtocol": "2000000000000"
+  },
+  "remainingPoolReserves": {
+    "tokens": [
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "0x276C216D241856199A83bf27b2286659e5b877D3"
+    ],
+    "raw": [
+      "958212",
+      "1044357"
+    ]
+  },
+  "remainingCTFCollateral": "97500000958214",
+  "balanceChanges": [
+    {
+      "asset": "T",
+      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "before": "949107356864331648874",
+      "after": "1004993336601609613272",
+      "delta": "55885979737277964398"
+    },
+    {
+      "asset": "T",
+      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "before": "1495569284321655",
+      "after": "5584398388384153",
+      "delta": "4088829104062498"
+    },
+    {
+      "asset": "T",
+      "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "before": "0",
+      "after": "1000975000000000001",
+      "delta": "1000975000000000001"
+    },
+    {
+      "asset": "T",
+      "owner": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "before": "30000000000000000000",
+      "after": "97500000958214",
+      "delta": "-29999902499999041786"
+    },
+    {
+      "asset": "T",
+      "owner": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+      "before": "6000000000000000000",
+      "after": "0",
+      "delta": "-6000000000000000000"
+    },
+    {
+      "asset": "T",
+      "owner": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+      "before": "1",
+      "after": "1",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+      "before": "20887247566384029470",
+      "after": "6500001044357",
+      "delta": "-20887241066382985113"
+    },
+    {
+      "asset": "T",
+      "owner": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "before": "3900000000000000",
+      "after": "2",
+      "delta": "-3899999999999998"
+    },
+    {
+      "asset": "T",
+      "owner": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "T",
+      "owner": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "before": "10834223069590085780",
+      "after": "0",
+      "delta": "-10834223069590085780"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "before": "1063380267195408",
+      "after": "0",
+      "delta": "-1063380267195408"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "before": "0",
+      "after": "97499999999999",
+      "delta": "97499999999999"
+    },
+    {
+      "asset": "YES",
+      "owner": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+      "before": "1",
+      "after": "1",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+      "before": "19164323550142718811",
+      "after": "958212",
+      "delta": "-19164323550141760599"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "before": "390000000000000",
+      "after": "2",
+      "delta": "-389999999999998"
+    },
+    {
+      "asset": "YES",
+      "owner": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "YES",
+      "owner": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "before": "30000000000000000000",
+      "after": "0",
+      "delta": "-30000000000000000000"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "NO",
+      "owner": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "before": "18999999999998599879",
+      "after": "0",
+      "delta": "-18999999999998599879"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+      "before": "1000100000000000000",
+      "after": "0",
+      "delta": "-1000100000000000000"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    },
+    {
+      "asset": "BPT",
+      "owner": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+      "before": "0",
+      "after": "0",
+      "delta": "0"
+    }
+  ],
+  "clocks": [
+    {
+      "before": {
+        "number": 531,
+        "hash": "0x1437acf4ae5632166bafb7edcc26cfb9e6bb2a8f748b79d96adeb555d2eacb99",
+        "timestamp": 1789050658
+      },
+      "after": {
+        "number": 532,
+        "hash": "0x9d215a22f32e3949327aaad1ae69bdeb059ba569b46aa685ef9054f3734c0b74",
+        "timestamp": 1789050966
+      },
+      "mode": "test-clock setup, not browser financial action"
+    },
+    {
+      "before": {
+        "number": 548,
+        "hash": "0x8116d1e4d14d28c3255391781ed28bbb5100d02e64154c5d3c054f23ac85b316",
+        "timestamp": 1789051290
+      },
+      "after": {
+        "number": 549,
+        "hash": "0x16c95d2b00a7972dd07829ca6c28e1121e542629c64fe7c8b908416a21b2b946",
+        "timestamp": 1789051887
+      },
+      "mode": "test-clock setup, not browser financial action"
+    }
+  ],
+  "scope": "Offline comparison of captured RPC snapshots and raw receipts, independently decoded with emitter-bound minimal ABIs. Rechecks exact CI4 calldata/journal and consumes the separately recorded original/bridge historical cryptographic readback. Does not rerun RPC, prove, submit, mine, infer browser clicks from logs, or claim source-to-goal semantic validation."
+}

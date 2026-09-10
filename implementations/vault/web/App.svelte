@@ -162,7 +162,10 @@
   const short = (a, n = 6) => (a ? a.slice(0, n + 2) + '…' + a.slice(-4) : '—');
   const amount = (v, d = 3) => {
     try {
-      return Number(formatEther(v || '0')).toLocaleString('en-US', { maximumFractionDigits: d });
+      const value = Number(formatEther(v || '0'));
+      return value.toLocaleString('en-US', value !== 0 && Math.abs(value) < 10 ** -d
+        ? { maximumSignificantDigits: 3 }
+        : { maximumFractionDigits: d });
     } catch {
       return '0';
     }

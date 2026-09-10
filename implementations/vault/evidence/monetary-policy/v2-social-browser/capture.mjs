@@ -1,0 +1,35 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {Contract,Interface,JsonRpcProvider,ZeroHash} from 'ethers';
+import {EAS_ABI,SOCIAL_ABI,decodeSocial,createOnchainSocial} from '../../../sdk/social.mjs';
+const config=JSON.parse(fs.readFileSync('.state/deployment-v2.json')),abis=JSON.parse(fs.readFileSync('.state/abis-v2.json'));config.social=JSON.parse(fs.readFileSync('.state/social-deployment-v2.json'));
+const provider=new JsonRpcProvider(config.rpcUrl,undefined,{cacheTimeout:-1}),d=config.social,a=config.addresses,eas=new Contract(d.eas,EAS_ABI,provider),resolver=new Contract(d.resolver,SOCIAL_ABI,provider),iface=new Interface(SOCIAL_ABI),ei=new Interface(EAS_ABI),baseline=552,finalBlock=563;
+const alice='0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',bob='0x70997970C51812dc3A010C7d01b50e0d17dc79C8',actors=[alice,bob,'0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC','0x90F79bf6EB2c4f870365E785982E1f101E93b906'];
+const statementId='0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08',pool='0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7';
+const texts={profile:'Vault V2 test author',bio:'Local test profile for the V2 social smoke. No personal information.',comment:'V2 local smoke comment: the displayed statement is the identity implication P -> P.',reply:'V2 local smoke reply: checking that replies retain their parent and statement context.',edit:'V2 local smoke comment, revision 2: the identity implication P -> P keeps its original context and public history.',blogTitle:'V2 local social smoke',blog:'This is a short public test blog entry on the local V2 chain. It contains no personal data and publishes no Lean source package.',blogReply:'V2 local blog reply: the public discussion remains readable after a chain rebuild.'};
+const json=x=>JSON.parse(JSON.stringify(x,(_,v)=>typeof v==='bigint'?String(v):v));
+try{
+ const records=[];for(let n=553;n<=563;n++){
+  const b=await provider.getBlock(n,true);assert.equal(b.transactions.length,1);const tx=b.prefetchedTransactions[0],r=await provider.getTransactionReceipt(tx.hash);assert.equal(r.status,1);assert.equal(tx.to,d.eas);assert.equal(tx.value,0n);
+  const owner=[553,554,559,560,562,563].includes(n)?alice:bob;assert.equal(tx.from,owner);
+  const l=r.logs.filter(l=>l.address.toLowerCase()===d.resolver.toLowerCase());assert.equal(l.length,1);const event=iface.parseLog(l[0]),uid=event.args.uid,att=await eas.getAttestation(uid,{blockTag:finalBlock});assert.equal(att.attester,owner);assert.equal(att.recipient,owner);assert.equal(att.expirationTime,0n);assert.equal(att.revocationTime,0n);assert.equal(att.revocable,false);
+  const kind=event.name==='ProfileRevision'?'profile':event.name==='EntryRevision'?'entry':'vote';assert.equal(att.schema,d.schemas[kind]);const decoded=[...decodeSocial(kind,att.data)];const request=ei.decodeFunctionData('attest',tx.data)[0];assert.equal(request.data.data,att.data);assert.equal(request.data.value,0n);
+  records.push({block:n,hash:r.hash,blockHash:b.hash,timestamp:b.timestamp,from:tx.from,to:tx.to,value:tx.value,gasUsed:r.gasUsed,event:{name:event.name,args:[...event.args]},uid,kind,attestation:{uid:att.uid,schema:att.schema,attester:att.attester,recipient:att.recipient,time:att.time,refUID:att.refUID,data:att.data},decoded});
+ }
+ const by=n=>records.find(x=>x.block===n),comment=by(554).uid,reply=by(555).uid,blog=by(560).uid,blogReply=by(561).uid;
+ assert.deepEqual(by(553).decoded,[texts.profile,texts.bio,ZeroHash]);
+ for(const[n,expected]of[[554,texts.comment],[555,texts.reply],[559,texts.edit],[560,texts.blog],[561,texts.blogReply],[562,texts.blog],[563,texts.blog]])assert.equal(by(n).decoded[6],expected);
+ for(const n of[554,555,559])assert.equal(by(n).decoded[1],statementId);for(const n of[560,561,562,563])assert.equal(by(n).decoded[1],ZeroHash);
+ assert.equal(by(555).decoded[3],comment);assert.equal(by(559).decoded[2],comment);assert.equal(by(559).decoded[4],comment);assert.equal(by(561).decoded[3],blog);assert.equal(by(560).decoded[5],texts.blogTitle);
+ let prev=ZeroHash;for(const[n,v]of[[556,1n],[557,-1n],[558,0n]]){assert.deepEqual(by(n).decoded,[comment,prev,v]);assert.equal(by(n).event.args[5],v);prev=by(n).uid;}
+ assert.equal(by(562).decoded[7],true);assert.equal(by(563).decoded[7],false);assert.equal(by(562).decoded[4],blog);assert.equal(by(563).decoded[4],by(562).uid);
+ assert.equal(await resolver.latestProfile(alice,{blockTag:finalBlock}),by(553).uid);assert.equal(await resolver.scores(comment,{blockTag:finalBlock}),0n);
+ const roots={};for(const[id,ctx,parent]of[[comment,statementId,ZeroHash],[reply,statementId,comment],[blog,blog,ZeroHash],[blogReply,blog,blog]]){const e=await resolver.entries(id,{blockTag:finalBlock});assert.equal(e.context,ctx);assert.equal(e.parentUID,parent);assert.equal(e.deleted,false);roots[id]=[...e];}
+ const registry=new Contract(a.StatementRegistry,abis.StatementRegistry,provider),s0=await registry.getStatement(statementId,{blockTag:baseline}),s1=await registry.getStatement(statementId,{blockTag:finalBlock});assert.deepEqual([...s0],[...s1]);
+ const tokens=[a.TrueToken,a.Membership,s1.yes,s1.no,pool],balances=[];
+ for(const token of tokens){const c=new Contract(token,['function balanceOf(address) view returns(uint256)'],provider);for(const owner of actors){const before=await c.balanceOf(owner,{blockTag:baseline}),after=await c.balanceOf(owner,{blockTag:finalBlock});assert.equal(before,after);balances.push({token,owner,before:String(before),after:String(after)});}}
+ const social=createOnchainSocial(config,provider),rebuilt=await social.snapshot({rebuild:true});assert.equal(rebuilt.entries.length,4);assert.equal(rebuilt.profiles[alice.toLowerCase()].displayName,texts.profile);assert.equal(rebuilt.entries.find(e=>e.id===comment).history.length,1);assert.equal(rebuilt.entries.find(e=>e.id===comment).voteHistory.length,3);assert.equal(rebuilt.entries.find(e=>e.id===blog).history.length,2);
+ const top=await social.comments(statementId,'top'),newest=await social.comments(statementId,'new'),thread=await social.blogThread(blog);assert.deepEqual(top.map(x=>x.id),[comment,reply]);assert.deepEqual(newest.map(x=>x.id),[comment,reply]);assert.deepEqual(thread.map(x=>x.id),[blogReply]);
+ const output=json({format:'oncm-vault-v2-social-browser-v1',chainId:31373,baseline,finalBlock,mode:'Actual normal UI social writes only; collector has no signer',addresses:d,texts,records,roots,financialBalancesUnchanged:balances,statementUnchanged:{id:statementId,outcome:String(s1.outcome),resolvedAt:String(s1.resolvedAt)},rebuild:{block:rebuilt.block,events:rebuilt.events,entries:rebuilt.entries,profiles:rebuilt.profiles,topIds:top.map(x=>x.id),newIds:newest.map(x=>x.id),blogReplyIds:thread.map(x=>x.id)}});
+ fs.writeFileSync('evidence/monetary-policy/v2-social-browser/through-563.json',JSON.stringify(output,null,2)+'\n');console.log(JSON.stringify({records:records.length,entryRoots:4,profiles:1,unchangedActorTokenBalances:balances.length,rebuiltEvents:rebuilt.events,assertions:'PASS'}));
+}finally{provider.destroy();}

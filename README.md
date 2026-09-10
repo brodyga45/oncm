@@ -12,6 +12,8 @@ Three independent experimental implementations of mathematical prediction market
 
 ## Current state
 
+**Vault V2 completed its governed monetary browser cycle through block 552:** voted issuance and three reward programs, two traders/LPs, beneficiary income, four proportional reward claims, genuine CI4 Lean/Groth16 settlement, principal withdrawal, LP exits, redemption and fixed-recipient budget close. Supply remains 1006 test T and the reward reserve is zero. [Exact actions and balances](implementations/vault/docs/US023-BROWSER-RESULT.md). Use `VAULT_PROTOCOL_VERSION=2 npm run dev` in `implementations/vault` for an already deployed V2; see its README for first deployment and legacy selection.
+
 The local applications, native Lean/export/NanoDa checks and component tests run. The local deployment uses real cryptographic verifier contracts. Tests that substitute a verifier are confined to isolated economic tests; they do not establish Lean proof acceptance.
 
 **Real Lean/Groth16 TRUE market lifecycles have passed browser testing in all three implementations; FALSE lifecycles have passed in Exchange and Vault.** Four real perf05 certificates were generated in CI and independently verified. Agora's final FALSE settlement is awaiting a previously requested approval; the full scenario acceptance remains open. See the [scenario matrix](docs/remaining-scenarios.md) for evidence and remaining work.

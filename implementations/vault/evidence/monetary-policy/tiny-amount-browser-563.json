@@ -1,0 +1,15 @@
+{
+  "scope": "Actual read-only browser inspection after tiny-amount formatting change; no wallet connected and no transaction",
+  "browserTab": 102825451,
+  "displayedBlock": 563,
+  "journalRange": [
+    539,
+    563
+  ],
+  "action": "Opened Blocks and expanded actual close552 transaction",
+  "transactionHashPrefix": "0xe36333cdde48",
+  "actualDisplayedText": "0x525C7063E7…8417 0x276C21…77D3 -0.000000000000000001 0x9fE4673667…a6e0 0x276C21…77D3 +0.000000000000000001",
+  "nonzeroPositiveAndNegativeRawUnitVisible": true,
+  "originalTransferAndProgramClosedEventsPresent": true,
+  "ownTabClosed": true
+}

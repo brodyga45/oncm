@@ -1,6 +1,8 @@
 # Governed issuance and finite reward programs — additive V2
 
-Status at block 425: V2 has 1000 T issued through governance, an admitted perf05 profile and one market registered with a genuine external certificate. Its first YES/T pool holds 20 T + 20 YES with 50/50 weights. Three separate Governor decisions set the total swap fee to 2%, creator share to 25% and global protocol share to 10%; explicit synchronization applied that global share to the existing pool. The market is open and reward programs are still zero at this checkpoint. Legacy remains independently available with its balances and rights preserved. Trades, reward earning and resolution require their own evidence.
+**Current acceptance:** the [browser cycle through block 552](docs/US023-BROWSER-RESULT.md) completed three program budgets, two-participant earning and claims, actual CI4 settlement, LP withdrawal/exit/redemption and fixed-recipient close. Supply is 1006 T; reserved and budget balance are zero. Historical checkpoints below retain their original block scope.
+
+Historical status at block 425: V2 has 1000 T issued through governance, an admitted perf05 profile and one market registered with a genuine external certificate. Its first YES/T pool holds 20 T + 20 YES with 50/50 weights. Three separate Governor decisions set the total swap fee to 2%, creator share to 25% and global protocol share to 10%; explicit synchronization applied that global share to the existing pool. The market is open and reward programs are still zero at this checkpoint. Legacy remains independently available with its balances and rights preserved. Trades, reward earning and resolution require their own evidence.
 
 ## Version and ownership
 

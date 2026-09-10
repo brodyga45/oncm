@@ -1,0 +1,36 @@
+{
+  "scope": "One-off vectors evaluated against the actual App.svelte formatter body; no new test framework",
+  "rows": [
+    {
+      "raw": "100000000000000",
+      "d": 3,
+      "display": "0.0001"
+    },
+    {
+      "raw": "1",
+      "d": 3,
+      "display": "0.000000000000000001"
+    },
+    {
+      "raw": "-1",
+      "d": 8,
+      "display": "-0.000000000000000001"
+    },
+    {
+      "raw": "20000000000000000000",
+      "d": 3,
+      "display": "20"
+    },
+    {
+      "raw": "1234567890000000000000",
+      "d": 3,
+      "display": "1,234.568"
+    },
+    {
+      "raw": "0",
+      "d": 3,
+      "display": "0"
+    }
+  ],
+  "exactClaimFormatterPreserved": true
+}
