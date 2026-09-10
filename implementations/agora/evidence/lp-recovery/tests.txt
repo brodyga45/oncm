@@ -1,0 +1,48 @@
+✔ pool failure resumes after registration, keeps exact frozen amount and does not register twice (1.124542ms)
+✔ submitted funding with lost response is resolved by receipt and never sent twice (0.871875ms)
+✔ wrong owner/registry and unknown pending receipt never trigger another write (0.283208ms)
+✔ zero funding creates only a registry entry and an empty pool (0.727958ms)
+✔ successful replacement receipt without expected funding event is not accepted (0.33625ms)
+✔ FPMM initial and imbalanced deposit: shares, retained and returned sides use contract floor math (1.081125ms)
+✔ withdrawal returns floored conditional reserves and all accrued owner fees; never treats shares as T (0.20025ms)
+✔ complete sets require both sides, reject zero/overdraw and retain exact base units (0.115542ms)
+✔ all LP snapshot reads use the same block, including original feesWithdrawableBy (0.750166ms)
+✔ actual injected account/network handlers clear private drafts, jobs and SIWE; local switch removes listeners (9.341875ms)
+✔ actual sign-in cannot finish verification after account context was invalidated (2.730375ms)
+✔ actual job poll handles disappearance without TypeError or automatic retry (1.573791ms)
+✔ actual package application never enables registration from imported artifact or caller catalog id (1.525834ms)
+✔ website rejects certificate generation before sign-in or any job request; native checks remain usable (1.23225ms)
+Error: Source, artifact or view changed during verification; import the current bundle again.
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:137:45)
+    at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:152)
+    at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:135:317)
+    at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:60:187)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+✔ generic registration import rejects source edits while verification is pending (1.642875ms)
+Error: Selected market changed while verifying; import again.
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:138:58)
+    at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:152)
+    at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:135:317)
+    at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:66:96)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+Error: Source, artifact or view changed during verification; import the current bundle again.
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:137:45)
+    at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:54:152)
+    at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:21:12), <anonymous>:135:317)
+    at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:66:96)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+✔ generic settlement import rejects A → B → A selection and changed JSON during read-only verification (2.5015ms)
+✔ generic import keeps supplied labels separate from semantic status and never submits a transaction or job (1.117125ms)
+✔ oversized external file fails before file read and clears previous import (1.096375ms)
+✔ actual file and paste imports preserve the exact JSON bytes through the API envelope (2.272917ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 459.2205

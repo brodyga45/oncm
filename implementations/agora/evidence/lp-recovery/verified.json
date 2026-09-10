@@ -1,0 +1,319 @@
+{
+  "kind": "read-only reconstruction of actual browser UI transactions",
+  "chainId": 31371,
+  "beforeBlock": 78,
+  "afterBlock": 82,
+  "statementId": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+  "stillOpen": true,
+  "pool": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+  "snapshots": [
+    {
+      "block": "78",
+      "owners": [
+        {
+          "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "t": "100000000000000000000000",
+          "yes": "0",
+          "no": "0",
+          "lp": "0",
+          "fees": "0"
+        },
+        {
+          "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800048163265306122448",
+          "yes": "0",
+          "no": "0",
+          "lp": "100000000000000000000",
+          "fees": "192653061224489796"
+        }
+      ],
+      "balances": [
+        "107759183673469387756",
+        "92799515169879928791"
+      ],
+      "totalSupply": "100000000000000000000"
+    },
+    {
+      "block": "80",
+      "owners": [
+        {
+          "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "t": "99999000000000000000000",
+          "yes": "1000000000000000000",
+          "no": "1000000000000000000",
+          "lp": "0",
+          "fees": "0"
+        },
+        {
+          "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800048163265306122448",
+          "yes": "0",
+          "no": "0",
+          "lp": "100000000000000000000",
+          "fees": "192653061224489796"
+        }
+      ],
+      "balances": [
+        "107759183673469387756",
+        "92799515169879928791"
+      ],
+      "totalSupply": "100000000000000000000"
+    },
+    {
+      "block": "81",
+      "owners": [
+        {
+          "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "t": "100000000000000000000000",
+          "yes": "0",
+          "no": "0",
+          "lp": "0",
+          "fees": "0"
+        },
+        {
+          "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800048163265306122448",
+          "yes": "0",
+          "no": "0",
+          "lp": "100000000000000000000",
+          "fees": "192653061224489796"
+        }
+      ],
+      "balances": [
+        "107759183673469387756",
+        "92799515169879928791"
+      ],
+      "totalSupply": "100000000000000000000"
+    },
+    {
+      "block": "82",
+      "owners": [
+        {
+          "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "t": "100000000000000000000000",
+          "yes": "0",
+          "no": "0",
+          "lp": "0",
+          "fees": "0"
+        },
+        {
+          "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800240816326530612244",
+          "yes": "10775918367346938775",
+          "no": "9279951516987992879",
+          "lp": "90000000000000000000",
+          "fees": "0"
+        }
+      ],
+      "balances": [
+        "96983265306122448981",
+        "83519563652891935912"
+      ],
+      "totalSupply": "90000000000000000000"
+    }
+  ],
+  "depositPreviewAt81": {
+    "t": "10000000000000000000",
+    "shares": "9279951516987992878",
+    "retained": [
+      "10000000000000000000",
+      "8611750015764775028"
+    ],
+    "returned": [
+      "0",
+      "1388249984235224972"
+    ]
+  },
+  "withdrawalPreviewAt81": {
+    "shares": "10000000000000000000",
+    "returned": [
+      "10775918367346938775",
+      "9279951516987992879"
+    ],
+    "tFees": "192653061224489796"
+  },
+  "receipts": [
+    {
+      "block": "79",
+      "hash": "0xb831cc47419ca8fa602f8f0d7a8f77747863db10448dd342ccf6f73f94abe64c",
+      "from": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "gasUsed": "46366",
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "eventName": "Approval",
+          "args": {
+            "owner": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "spender": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+            "value": "1000000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "80",
+      "hash": "0xb381dbd30ab28d59304a329764d66f0a75b958324ac91f2857bb804e07646136",
+      "from": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "to": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+      "gasUsed": "121130",
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "eventName": "Transfer",
+          "args": {
+            "from": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+            "value": "1000000000000000000"
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "TransferBatch",
+          "args": {
+            "operator": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "from": "0x0000000000000000000000000000000000000000",
+            "to": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "ids": [
+              "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+              "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+            ],
+            "values": [
+              "1000000000000000000",
+              "1000000000000000000"
+            ]
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "PositionSplit",
+          "args": {
+            "stakeholder": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+            "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "partition": [
+              "1",
+              "2"
+            ],
+            "amount": "1000000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "81",
+      "hash": "0xca00b971f65a5677f5dd2f46be0118211d119a65a3a4d136fd9c76153ae53998",
+      "from": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "to": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+      "gasUsed": "76080",
+      "events": [
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "TransferBatch",
+          "args": {
+            "operator": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "from": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "to": "0x0000000000000000000000000000000000000000",
+            "ids": [
+              "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+              "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+            ],
+            "values": [
+              "1000000000000000000",
+              "1000000000000000000"
+            ]
+          }
+        },
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "eventName": "Transfer",
+          "args": {
+            "from": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+            "to": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "value": "1000000000000000000"
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "PositionsMerge",
+          "args": {
+            "stakeholder": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+            "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+            "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "partition": [
+              "1",
+              "2"
+            ],
+            "amount": "1000000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "82",
+      "hash": "0xa43db59963e78d2e792a7f87c316ad6ee08088041c54e7ce73f205b4f6dd2b98",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+      "gasUsed": "150364",
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "eventName": "Transfer",
+          "args": {
+            "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "value": "192653061224489796"
+          }
+        },
+        {
+          "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "eventName": "Transfer",
+          "args": {
+            "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "to": "0x0000000000000000000000000000000000000000",
+            "value": "10000000000000000000"
+          }
+        },
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "TransferBatch",
+          "args": {
+            "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+            "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "ids": [
+              "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+              "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+            ],
+            "values": [
+              "10775918367346938775",
+              "9279951516987992879"
+            ]
+          }
+        },
+        {
+          "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "eventName": "FPMMFundingRemoved",
+          "args": {
+            "funder": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "amountsRemoved": [
+              "10775918367346938775",
+              "9279951516987992879"
+            ],
+            "collateralRemovedFromFeePool": "192653061224489796",
+            "sharesBurnt": "10000000000000000000"
+          }
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "exact split/merge T and YES/NO conservation",
+    "partial LP shares 100 to90",
+    "original FPMM reserve floor amounts match actual events and balances",
+    "all accrued LP T fees released, zero left",
+    "NO remains open; no registration/settlement/proving"
+  ]
+}

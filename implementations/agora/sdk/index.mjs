@@ -1,3 +1,5 @@
+import {readLiquiditySnapshot,fundingPreview,withdrawalPreview} from './liquidity-preview.mjs';
+export {fundingPreview,withdrawalPreview,completeSetPreview,readLiquiditySnapshot} from './liquidity-preview.mjs';
 import {network} from './local-network.mjs';
 import {createSocialSDK} from './social.mjs';
 import {createSocialReader} from './social-read.mjs';
@@ -37,6 +39,7 @@ export async function createAgoraSDK({wallet,config,client,apiUrl=network.apiUrl
   removeLiquidity:(pool,shares)=>write(pool,'FixedProductMarketMaker','removeFunding',[assertBaseUnits(shares)]),
   claimLPFees:(pool,account=wallet?.account.address)=>write(pool,'FixedProductMarketMaker','withdrawFees',[account]),
   quote,
+  async previewLiquidity(pool,amount,{remove=false,owner=wallet?.account.address}={}){const snapshot=await readLiquiditySnapshot({client,pool,owner,abi:config.abis.FixedProductMarketMaker});return{snapshot,preview:remove?withdrawalPreview(snapshot,amount):fundingPreview(snapshot,amount)};},
   async buy(pool,side,amount,{slippageBps=100n,deadline}={}){if(slippageBps<0n||slippageBps>10000n)throw new Error('Invalid slippage');deadline??=(await client.getBlock()).timestamp+600n;const expected=await quote(pool,side,amount);const minimum=expected*(10000n-slippageBps)/10000n;const approval=await approveT(pool,amount);const receipt=await write(pool,'FixedProductMarketMaker','buyWithDeadline',[amount,side,minimum,deadline]);return{expected,minimum,approval,receipt};},
   async sell(pool,side,receiveT,{slippageBps=100n,deadline}={}){if(slippageBps<0n||slippageBps>10000n)throw new Error('Invalid slippage');deadline??=(await client.getBlock()).timestamp+600n;const expected=await quote(pool,side,receiveT,'sell');const maximum=(expected*(10000n+slippageBps)+9999n)/10000n;const approval=await write(config.ctf,'ConditionalTokens','setApprovalForAll',[pool,true]);const receipt=await write(pool,'FixedProductMarketMaker','sellWithDeadline',[receiveT,side,maximum,deadline]);return{expected,maximum,approval,receipt};},
   async split(conditionId,amount){const approval=await approveT(config.ctf,amount);const receipt=await write(config.ctf,'ConditionalTokens','splitPosition',[config.token,zeroHash,conditionId,[1n,2n],amount]);return{approval,receipt};},

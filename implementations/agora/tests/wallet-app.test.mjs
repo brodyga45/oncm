@@ -1,3 +1,5 @@
+import * as creation from '../src/create-flow.mjs';
+import * as liquidity from '../sdk/liquidity-preview.mjs';
 // Exercise the actual SFC setup handlers with Vue refs and a dummy EIP-1193
 // provider. No browser, chain, signature RPC or server is involved.
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {EventEmitter} from 'node:events';
@@ -11,7 +13,7 @@ function setup(extra={}){
  const provider=new EventEmitter(),timers=[],requests=[];let addresses=[chain.devAccounts[0].address],chainId='0x7a8b';
  provider.request=async({method})=>method==='eth_chainId'?chainId:method==='eth_accounts'||method==='eth_requestAccounts'?addresses:null;
  const fetch=async(url,options)=>{requests.push({url,options});const custom=await extra.fetch?.(url,options);const body=custom??(url==='/api/markets'?{markets:[],observedBlock:'54'}:url.includes('/allocations')?{recipients:[],shares:[]}:url==='/api/governance'?{proposals:[]}:url==='/api/operators'||url==='/api/jobs'?[]:{});return{ok:true,json:async()=>body};};
- const bindings={...vue,...chain,...viem,...amounts,...packages,...drafts,...selection,...scopes,...session,...markets,...external,
+ const bindings={...creation,...liquidity,...vue,...chain,...viem,...amounts,...packages,...drafts,...selection,...scopes,...session,...markets,...external,
   pc:{},fetch,window:{ethereum:provider},onMounted:()=>{},onUnmounted:()=>{},
   createWalletScope:()=>scopes.createWalletScope({setTimer:fn=>{timers.push(fn);return fn;},clearTimer:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);}}),
  };
