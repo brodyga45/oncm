@@ -13,7 +13,11 @@
     "build": "vite build",
     "test": "node tests/integration.mjs",
     "test:api": "node tests/api-smoke.mjs",
-    "test:social": "node tests/social-api.mjs"
+    "test:social": "npm run test:social:policy && npm run test:social:onchain",
+    "test:social:policy": "node --test tests/social-read-policy.test.mjs",
+    "compile:social": "node scripts/compile-social.mjs",
+    "deploy:social": "node scripts/deploy-social.mjs",
+    "test:social:onchain": "node tests/social-onchain.mjs"
   },
   "dependencies": {
     "@gnosis.pm/conditional-tokens-contracts": "1.0.3",

@@ -1,0 +1,107 @@
+{
+  "format": "oncm-exchange-social-v1",
+  "status": "ready",
+  "chainId": 31372,
+  "registry": "0xf4B146FbA71F41E0592668ffbF264F1D186b2Ca8",
+  "comments": "0x276C216D241856199A83bf27b2286659e5b877D3",
+  "channels": "0xD0141E899a65C95a556fE2B27e5982A6DE7fDD7A",
+  "hook": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+  "channelId": "45220033077527179872660650886951655311765559180725610723136923265726496873613",
+  "deploymentBlock": 144,
+  "configuredAtBlock": 157,
+  "libraries": {
+    "ecp/src/libraries/Approvals.sol:Approvals": "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877",
+    "ecp/src/libraries/Batching.sol:Batching": "0x22753E4264FDDc6181dc7cce468904A80a363E44",
+    "ecp/src/libraries/MetadataOps.sol:MetadataOps": "0xA7c59f010700930003b33aB25a7a0679C860f29c",
+    "ecp/src/libraries/CommentOps.sol:CommentOps": "0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c"
+  },
+  "owners": {
+    "comments": "0x0000000000000000000000000000000000000000",
+    "channels": "0x0000000000000000000000000000000000000000",
+    "channelToken": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659"
+  },
+  "fees": {
+    "channelCreation": "0",
+    "commentCreation": "0",
+    "hookBps": 0
+  },
+  "receipts": [
+    {
+      "operation": "deploy ChannelManager",
+      "hash": "0x7cc628525eb3ec8a59cc6de8e2de642b61a40bb0c62a912e444e03cdcac120c9",
+      "blockNumber": 144,
+      "address": "0xD0141E899a65C95a556fE2B27e5982A6DE7fDD7A"
+    },
+    {
+      "operation": "deploy Approvals",
+      "hash": "0x7182de738ca46d545f0ded7ac4018ed101f58c0b24cc4613164eb04e06d61132",
+      "blockNumber": 145,
+      "address": "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877"
+    },
+    {
+      "operation": "deploy Batching",
+      "hash": "0xf9b8d55a27a8a7266dc0371321c18b6cb82bab1c78780a3913f21c9f1e72b44b",
+      "blockNumber": 146,
+      "address": "0x22753E4264FDDc6181dc7cce468904A80a363E44"
+    },
+    {
+      "operation": "deploy MetadataOps",
+      "hash": "0x56cf0af55652befdf2defe3992bb75ebc48b10c2819ce23752630a00bd86a8b7",
+      "blockNumber": 147,
+      "address": "0xA7c59f010700930003b33aB25a7a0679C860f29c"
+    },
+    {
+      "operation": "deploy CommentOps",
+      "hash": "0xecf0ff838bf39db492895136940ecac1a56dff08842bab72668d28b71a39ef48",
+      "blockNumber": 148,
+      "address": "0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c"
+    },
+    {
+      "operation": "deploy CommentManager",
+      "hash": "0xf1e01a345515ab398d03971f1fcc46f6f5a71e51eb3b6e7e54b8942325ce8426",
+      "blockNumber": 149,
+      "address": "0x276C216D241856199A83bf27b2286659e5b877D3"
+    },
+    {
+      "operation": "zero channel creation fee",
+      "hash": "0x7ac756209151459415e7948ea4c2dc5ae5928099111516d4368966f1498eb148",
+      "blockNumber": 150
+    },
+    {
+      "operation": "zero comment creation fee",
+      "hash": "0xd4050d731a9a5a7169934480b6102070bb31b672f8ead05aad7db3a81a8158b7",
+      "blockNumber": 151
+    },
+    {
+      "operation": "zero hook transaction fee",
+      "hash": "0x914aad82733accb975691680d17682f24e56db47f1e7eeca76c7a490b0779c41",
+      "blockNumber": 152
+    },
+    {
+      "operation": "bind original channel manager",
+      "hash": "0xf16581906d8065bc62de86007a9df3d53551443974c44415602dacf091b898a0",
+      "blockNumber": 153
+    },
+    {
+      "operation": "deploy ExchangeSocialHook",
+      "hash": "0xe977596f32427aa8f3a41378de5cb8d13c356076eebf0507bac7bd3f1b82adc1",
+      "blockNumber": 154,
+      "address": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659"
+    },
+    {
+      "operation": "initialize locked app channel",
+      "hash": "0x76bd9648b7b288990685ef13408243e932841e4c500608106676ca2ad85be50d",
+      "blockNumber": 155
+    },
+    {
+      "operation": "freeze comment manager",
+      "hash": "0xe1377bef6d6e5a5de6a90d10d2feb895ca14d8d60d90829752536de0e2d83de1",
+      "blockNumber": 156
+    },
+    {
+      "operation": "freeze channel fee configuration",
+      "hash": "0xcaec11adde67dd550e45888822ea03b85661ef29ff2b73a35904fd6c57ccc867",
+      "blockNumber": 157
+    }
+  ]
+}

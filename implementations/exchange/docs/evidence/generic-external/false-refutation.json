@@ -1,0 +1,83 @@
+{
+  "format": "oncm-external-certificate-bundle-v1",
+  "artifact": {
+    "format": "oncm-real-groth16-ci-v1",
+    "profile": "perf05",
+    "case": "false-refutation",
+    "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+    "outcome": 2,
+    "journal": "0x368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b144f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb493cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000002",
+    "rawSeal": "0x0c02c2d0ae1e6f2750425bd1ab5ce12875a0e1c714109eda7142b57ba24e86e119a94aba8de4e09f98832abe45096b3ed60978176069ee5147609ac8e423b3a80cb8d1c942133bc78ed72a26d963bc68e8985d4e83a87abefc9ea8b748989ba6193ec57c69f722386ba7edc00b9edb05579cc3b6528162a54cf1e073aa7ff7690500b11c9dfdd7cb6bffc671ab68812eefdefcb1f27a9152460a9881996254b51e678271fcbdb7caede58ad3a6d77146ded928d734178348f8c156b5e4af4d33178cf1f438c34362ae1d1dc5e416b3dc7537390c4614c663921685cfa452b9bb20541d37fbddcde930dab8eb81be7f882ea37770bb27608ab16a381cb2aa5a1e",
+    "evmSeal": "0x73c457ba0c02c2d0ae1e6f2750425bd1ab5ce12875a0e1c714109eda7142b57ba24e86e119a94aba8de4e09f98832abe45096b3ed60978176069ee5147609ac8e423b3a80cb8d1c942133bc78ed72a26d963bc68e8985d4e83a87abefc9ea8b748989ba6193ec57c69f722386ba7edc00b9edb05579cc3b6528162a54cf1e073aa7ff7690500b11c9dfdd7cb6bffc671ab68812eefdefcb1f27a9152460a9881996254b51e678271fcbdb7caede58ad3a6d77146ded928d734178348f8c156b5e4af4d33178cf1f438c34362ae1d1dc5e416b3dc7537390c4614c663921685cfa452b9bb20541d37fbddcde930dab8eb81be7f882ea37770bb27608ab16a381cb2aa5a1e",
+    "certificate": "0x00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000010473c457ba0c02c2d0ae1e6f2750425bd1ab5ce12875a0e1c714109eda7142b57ba24e86e119a94aba8de4e09f98832abe45096b3ed60978176069ee5147609ac8e423b3a80cb8d1c942133bc78ed72a26d963bc68e8985d4e83a87abefc9ea8b748989ba6193ec57c69f722386ba7edc00b9edb05579cc3b6528162a54cf1e073aa7ff7690500b11c9dfdd7cb6bffc671ab68812eefdefcb1f27a9152460a9881996254b51e678271fcbdb7caede58ad3a6d77146ded928d734178348f8c156b5e4af4d33178cf1f438c34362ae1d1dc5e416b3dc7537390c4614c663921685cfa452b9bb20541d37fbddcde930dab8eb81be7f882ea37770bb27608ab16a381cb2aa5a1e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b144f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb493cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000002",
+    "verifierParameters": "0x73c457ba541936f0d907daf0c7253a39a9c5c427c225ba7709e44702d3c6eedc",
+    "receiptSha256": "007ba54a7aa8672338ba75df27e96cf5633c5500c3c44e1215b5be188b36e677",
+    "receiptKind": "Groth16",
+    "verifiedBy": "official r0vm 3.0.6 VerifyRequest / Receipt::verify",
+    "elapsedSeconds": 900.799123228,
+    "evmVerified": false,
+    "pins": {
+      "format": "oncm-proof-ci-pins-v1",
+      "r0vm": {
+        "version": "3.0.6",
+        "commit": "1cc70cf05033a79ebc90f07c679cb4bd1cd301b9",
+        "url": "https://github.com/risc0/risc0/releases/download/v3.0.6/cargo-risczero-x86_64-unknown-linux-gnu.tgz",
+        "archiveBytes": 72347320,
+        "sha256": "615d961bfb81d318db5071d7548389c850e324ac7f421c075176daf26082a60a"
+      },
+      "docker": {
+        "requestedTag": "risczero/risc0-groth16-prover:v2025-04-03.1",
+        "pinnedImage": "risczero/risc0-groth16-prover@sha256:7f173963196570b7a71816ed70565a4579264c5d2e3e0ecb028102538ad0e331",
+        "indexDigest": "sha256:a4f80ce2e0b8e2bb7637a93c37136a6776ac00ec843a3fdf1c67b1d5ffea64ee",
+        "compressedLayersBytes": 2399158367,
+        "metadataCheckedOn": "2026-09-10",
+        "memory": "9g",
+        "memorySwap": "9g",
+        "cpus": "4",
+        "pidsLimit": 128,
+        "workerThreads": 4
+      },
+      "host": {
+        "memoryMax": "12G",
+        "memorySwapMax": 0,
+        "cpuQuota": "400%",
+        "tasksMax": 128,
+        "caseTimeoutSeconds": 1800,
+        "workerThreads": 4,
+        "rustLog": "info,risc0_zkvm::host::server::prove::prover_impl=debug,risc0_zkvm::host::recursion::prove=debug,risc0_zkp::prove::prover=debug,risc0_groth16::prove::docker=debug"
+      },
+      "scope": "GitHub public Linux x64 standard runner only; CI-specific limits exceed local 2GiB target",
+      "ethereum": {
+        "selector": "0x73c457ba",
+        "risc0EthereumCommit": "32aa0b6f23ddd02dd93fc71717667606e5c7db86"
+      },
+      "sharedBudget": {
+        "memoryMax": "13G",
+        "memoryMaxBytes": 13958643712,
+        "memorySwapMax": 0,
+        "cpuQuota": "400%",
+        "tasksMax": 256,
+        "requiredDockerCgroupDriver": "systemd",
+        "requiredCgroupVersion": 2,
+        "reason": "CI1 host4G SIGKILL corrected with shared13G; CI2 fits at4.587GiB with zeroOOM but uses1195CPU-seconds and reaches600s timeout. Use existing public4CPU plus1800s, unchanged memory/crypto."
+      }
+    },
+    "sourceCommit": "ed830fe68cc94aeac6eb01049a92464182bba737",
+    "runId": "34421160265"
+  },
+  "goalExport": {
+    "base64": "eyJtZXRhIjp7ImV4cG9ydGVyIjp7Im5hbWUiOiJsZWFuNGV4cG9ydCIsInZlcnNpb24iOiIzLjEuMCJ9LCJmb3JtYXQiOnsidmVyc2lvbiI6IjMuMS4wIn0sImxlYW4iOnsiZ2l0aGFzaCI6IjgxOTgxNmIyZTBhM2JmNDA1YWY0NWFlNWM3YWYyNDkxZDhmNWJlZTYiLCJ2ZXJzaW9uIjoiNC4zMy4xIn19fQp7ImluIjoxLCJzdHIiOnsicHJlIjowLCJzdHIiOiJGYWxzZSJ9fQp7ImllIjowLCJzb3J0IjowfQp7ImluIjoyLCJzdHIiOnsicHJlIjoxLCJzdHIiOiJyZWMifX0KeyJpbiI6Mywic3RyIjp7InByZSI6MCwic3RyIjoidSJ9fQp7ImlsIjoxLCJwYXJhbSI6M30KeyJpbiI6NCwic3RyIjp7InByZSI6MCwic3RyIjoibW90aXZlIn19CnsiaW4iOjUsInN0ciI6eyJwcmUiOjAsInN0ciI6InQifX0KeyJjb25zdCI6eyJuYW1lIjoxLCJ1cyI6W119LCJpZSI6MX0KeyJpZSI6Miwic29ydCI6MX0KeyJmb3JhbGxFIjp7ImJpbmRlckluZm8iOiJkZWZhdWx0IiwiYm9keSI6MiwibmFtZSI6NSwidHlwZSI6MX0sImllIjozfQp7ImJ2YXIiOjEsImllIjo0fQp7ImJ2YXIiOjAsImllIjo1fQp7ImFwcCI6eyJhcmciOjUsImZuIjo0fSwiaWUiOjZ9CnsiZm9yYWxsRSI6eyJiaW5kZXJJbmZvIjoiZGVmYXVsdCIsImJvZHkiOjYsIm5hbWUiOjUsInR5cGUiOjF9LCJpZSI6N30KeyJmb3JhbGxFIjp7ImJpbmRlckluZm8iOiJkZWZhdWx0IiwiYm9keSI6NywibmFtZSI6NCwidHlwZSI6M30sImllIjo4fQp7ImluZHVjdGl2ZSI6eyJjdG9ycyI6W10sInJlY3MiOlt7ImFsbCI6WzFdLCJpc1Vuc2FmZSI6ZmFsc2UsImsiOmZhbHNlLCJsZXZlbFBhcmFtcyI6WzNdLCJuYW1lIjoyLCJudW1JbmRpY2VzIjowLCJudW1NaW5vcnMiOjAsIm51bU1vdGl2ZXMiOjEsIm51bVBhcmFtcyI6MCwicnVsZXMiOltdLCJ0eXBlIjo4fV0sInR5cGVzIjpbeyJhbGwiOlsxXSwiY3RvcnMiOltdLCJpc1JlYyI6ZmFsc2UsImlzUmVmbGV4aXZlIjpmYWxzZSwiaXNVbnNhZmUiOmZhbHNlLCJsZXZlbFBhcmFtcyI6W10sIm5hbWUiOjEsIm51bUluZGljZXMiOjAsIm51bU5lc3RlZCI6MCwibnVtUGFyYW1zIjowLCJ0eXBlIjowfV19fQp7ImluIjo2LCJzdHIiOnsicHJlIjowLCJzdHIiOiJPbmNtIn19CnsiaW4iOjcsInN0ciI6eyJwcmUiOjYsInN0ciI6ImdvYWwifX0KeyJpbiI6OCwic3RyIjp7InByZSI6MCwic3RyIjoiUCJ9fQp7ImZvcmFsbEUiOnsiYmluZGVySW5mbyI6ImRlZmF1bHQiLCJib2R5Ijo1LCJuYW1lIjo4LCJ0eXBlIjowfSwiaWUiOjl9CnsiZGVmIjp7ImFsbCI6WzddLCJoaW50cyI6eyJyZWd1bGFyIjoxfSwibGV2ZWxQYXJhbXMiOltdLCJuYW1lIjo3LCJzYWZldHkiOiJzYWZlIiwidHlwZSI6MCwidmFsdWUiOjl9fQo=",
+    "sha256": "f3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+    "bytes": 1358
+  },
+  "source": {
+    "text": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P\n\ntheorem solution : goal → False := fun h => h False\n\nend Oncm\n",
+    "sha256": "b855742a179058525366cc931d7da745f91ebb6ff85358e41205b44dfa1f89ad"
+  },
+  "metadata": {
+    "title": "External universal claim",
+    "description": "Author-supplied description, separate from authenticated goal export."
+  }
+}

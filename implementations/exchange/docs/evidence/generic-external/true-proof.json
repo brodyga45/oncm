@@ -1,0 +1,83 @@
+{
+  "format": "oncm-external-certificate-bundle-v1",
+  "artifact": {
+    "format": "oncm-real-groth16-ci-v1",
+    "profile": "perf05",
+    "case": "true-proof",
+    "imageId": "0x296fb3bbf5eb7df9fb7115826df31c71411ee0f8153970c7618c76ab01539feb",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "outcome": 1,
+    "journal": "0x368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b1442baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000001",
+    "rawSeal": "0x06df8cfe483bc36ebb2be38c952d294684c7f3412db845c9fc023abd2b121de31a7dc9078b3dfee51fc41c79e77f5b5147c20189e7a3b75d3c6acf481e223a4121ec571bd25ff84a72ff32c1979667f0fa997822cbcaeb3af589452396e67ab21ab5b5be41d6f93cba677c568412763b736d099c9990f16eebad2459f21b5d10105f4ccebb35056577be87699d436787572fb0f182db58388a6210b481ee446c26e71a4451017fd0f0c3818136c47e32e731831a28a710971cd741cfa84e787c2737e17db49b2642320368f59f7b32509996c37db49f597d32406614a971c694041cda763bb5c03454be72be7fe5fdc5b018aca68e12c4cb5e2f7f7bcd039b79",
+    "evmSeal": "0x73c457ba06df8cfe483bc36ebb2be38c952d294684c7f3412db845c9fc023abd2b121de31a7dc9078b3dfee51fc41c79e77f5b5147c20189e7a3b75d3c6acf481e223a4121ec571bd25ff84a72ff32c1979667f0fa997822cbcaeb3af589452396e67ab21ab5b5be41d6f93cba677c568412763b736d099c9990f16eebad2459f21b5d10105f4ccebb35056577be87699d436787572fb0f182db58388a6210b481ee446c26e71a4451017fd0f0c3818136c47e32e731831a28a710971cd741cfa84e787c2737e17db49b2642320368f59f7b32509996c37db49f597d32406614a971c694041cda763bb5c03454be72be7fe5fdc5b018aca68e12c4cb5e2f7f7bcd039b79",
+    "certificate": "0x00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000010473c457ba06df8cfe483bc36ebb2be38c952d294684c7f3412db845c9fc023abd2b121de31a7dc9078b3dfee51fc41c79e77f5b5147c20189e7a3b75d3c6acf481e223a4121ec571bd25ff84a72ff32c1979667f0fa997822cbcaeb3af589452396e67ab21ab5b5be41d6f93cba677c568412763b736d099c9990f16eebad2459f21b5d10105f4ccebb35056577be87699d436787572fb0f182db58388a6210b481ee446c26e71a4451017fd0f0c3818136c47e32e731831a28a710971cd741cfa84e787c2737e17db49b2642320368f59f7b32509996c37db49f597d32406614a971c694041cda763bb5c03454be72be7fe5fdc5b018aca68e12c4cb5e2f7f7bcd039b79000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b1442baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000001",
+    "verifierParameters": "0x73c457ba541936f0d907daf0c7253a39a9c5c427c225ba7709e44702d3c6eedc",
+    "receiptSha256": "1acdeb96c0d5b550a4a8d5953f4947b60108d1f9a941ef13e32544699b782abd",
+    "receiptKind": "Groth16",
+    "verifiedBy": "official r0vm 3.0.6 VerifyRequest / Receipt::verify",
+    "elapsedSeconds": 612.801255208,
+    "evmVerified": false,
+    "pins": {
+      "format": "oncm-proof-ci-pins-v1",
+      "r0vm": {
+        "version": "3.0.6",
+        "commit": "1cc70cf05033a79ebc90f07c679cb4bd1cd301b9",
+        "url": "https://github.com/risc0/risc0/releases/download/v3.0.6/cargo-risczero-x86_64-unknown-linux-gnu.tgz",
+        "archiveBytes": 72347320,
+        "sha256": "615d961bfb81d318db5071d7548389c850e324ac7f421c075176daf26082a60a"
+      },
+      "docker": {
+        "requestedTag": "risczero/risc0-groth16-prover:v2025-04-03.1",
+        "pinnedImage": "risczero/risc0-groth16-prover@sha256:7f173963196570b7a71816ed70565a4579264c5d2e3e0ecb028102538ad0e331",
+        "indexDigest": "sha256:a4f80ce2e0b8e2bb7637a93c37136a6776ac00ec843a3fdf1c67b1d5ffea64ee",
+        "compressedLayersBytes": 2399158367,
+        "metadataCheckedOn": "2026-09-10",
+        "memory": "9g",
+        "memorySwap": "9g",
+        "cpus": "4",
+        "pidsLimit": 128,
+        "workerThreads": 4
+      },
+      "host": {
+        "memoryMax": "12G",
+        "memorySwapMax": 0,
+        "cpuQuota": "400%",
+        "tasksMax": 128,
+        "caseTimeoutSeconds": 1800,
+        "workerThreads": 4,
+        "rustLog": "info,risc0_zkvm::host::server::prove::prover_impl=debug,risc0_zkvm::host::recursion::prove=debug,risc0_zkp::prove::prover=debug,risc0_groth16::prove::docker=debug"
+      },
+      "scope": "GitHub public Linux x64 standard runner only; CI-specific limits exceed local 2GiB target",
+      "ethereum": {
+        "selector": "0x73c457ba",
+        "risc0EthereumCommit": "32aa0b6f23ddd02dd93fc71717667606e5c7db86"
+      },
+      "sharedBudget": {
+        "memoryMax": "13G",
+        "memoryMaxBytes": 13958643712,
+        "memorySwapMax": 0,
+        "cpuQuota": "400%",
+        "tasksMax": 256,
+        "requiredDockerCgroupDriver": "systemd",
+        "requiredCgroupVersion": 2,
+        "reason": "CI1 host4G SIGKILL corrected with shared13G; CI2 fits at4.587GiB with zeroOOM but uses1195CPU-seconds and reaches600s timeout. Use existing public4CPU plus1800s, unchanged memory/crypto."
+      }
+    },
+    "sourceCommit": "d79a177f4c162eefe9e6e197fdafad09b9ab5a8d",
+    "runId": "34418238753"
+  },
+  "goalExport": {
+    "base64": "eyJtZXRhIjp7ImV4cG9ydGVyIjp7Im5hbWUiOiJsZWFuNGV4cG9ydCIsInZlcnNpb24iOiIzLjEuMCJ9LCJmb3JtYXQiOnsidmVyc2lvbiI6IjMuMS4wIn0sImxlYW4iOnsiZ2l0aGFzaCI6IjgxOTgxNmIyZTBhM2JmNDA1YWY0NWFlNWM3YWYyNDkxZDhmNWJlZTYiLCJ2ZXJzaW9uIjoiNC4zMy4xIn19fQp7ImluIjoxLCJzdHIiOnsicHJlIjowLCJzdHIiOiJGYWxzZSJ9fQp7ImllIjowLCJzb3J0IjowfQp7ImluIjoyLCJzdHIiOnsicHJlIjoxLCJzdHIiOiJyZWMifX0KeyJpbiI6Mywic3RyIjp7InByZSI6MCwic3RyIjoidSJ9fQp7ImlsIjoxLCJwYXJhbSI6M30KeyJpbiI6NCwic3RyIjp7InByZSI6MCwic3RyIjoibW90aXZlIn19CnsiaW4iOjUsInN0ciI6eyJwcmUiOjAsInN0ciI6InQifX0KeyJjb25zdCI6eyJuYW1lIjoxLCJ1cyI6W119LCJpZSI6MX0KeyJpZSI6Miwic29ydCI6MX0KeyJmb3JhbGxFIjp7ImJpbmRlckluZm8iOiJkZWZhdWx0IiwiYm9keSI6MiwibmFtZSI6NSwidHlwZSI6MX0sImllIjozfQp7ImJ2YXIiOjEsImllIjo0fQp7ImJ2YXIiOjAsImllIjo1fQp7ImFwcCI6eyJhcmciOjUsImZuIjo0fSwiaWUiOjZ9CnsiZm9yYWxsRSI6eyJiaW5kZXJJbmZvIjoiZGVmYXVsdCIsImJvZHkiOjYsIm5hbWUiOjUsInR5cGUiOjF9LCJpZSI6N30KeyJmb3JhbGxFIjp7ImJpbmRlckluZm8iOiJkZWZhdWx0IiwiYm9keSI6NywibmFtZSI6NCwidHlwZSI6M30sImllIjo4fQp7ImluZHVjdGl2ZSI6eyJjdG9ycyI6W10sInJlY3MiOlt7ImFsbCI6WzFdLCJpc1Vuc2FmZSI6ZmFsc2UsImsiOmZhbHNlLCJsZXZlbFBhcmFtcyI6WzNdLCJuYW1lIjoyLCJudW1JbmRpY2VzIjowLCJudW1NaW5vcnMiOjAsIm51bU1vdGl2ZXMiOjEsIm51bVBhcmFtcyI6MCwicnVsZXMiOltdLCJ0eXBlIjo4fV0sInR5cGVzIjpbeyJhbGwiOlsxXSwiY3RvcnMiOltdLCJpc1JlYyI6ZmFsc2UsImlzUmVmbGV4aXZlIjpmYWxzZSwiaXNVbnNhZmUiOmZhbHNlLCJsZXZlbFBhcmFtcyI6W10sIm5hbWUiOjEsIm51bUluZGljZXMiOjAsIm51bU5lc3RlZCI6MCwibnVtUGFyYW1zIjowLCJ0eXBlIjowfV19fQp7ImluIjo2LCJzdHIiOnsicHJlIjowLCJzdHIiOiJPbmNtIn19CnsiaW4iOjcsInN0ciI6eyJwcmUiOjYsInN0ciI6ImdvYWwifX0KeyJpbiI6OCwic3RyIjp7InByZSI6MCwic3RyIjoiUCJ9fQp7ImluIjo5LCJzdHIiOnsicHJlIjowLCJzdHIiOiJhIn19CnsiaW4iOjEwLCJzdHIiOnsicHJlIjo5LCJzdHIiOiJfQCJ9fQp7ImluIjoxMSwic3RyIjp7InByZSI6MTAsInN0ciI6Il9pbnRlcm5hbCJ9fQp7ImluIjoxMiwic3RyIjp7InByZSI6MTEsInN0ciI6Il9oeWcifX0KeyJpbiI6MTMsIm51bSI6eyJpIjowLCJwcmUiOjEyfX0KeyJmb3JhbGxFIjp7ImJpbmRlckluZm8iOiJkZWZhdWx0IiwiYm9keSI6NCwibmFtZSI6MTMsInR5cGUiOjV9LCJpZSI6OX0KeyJmb3JhbGxFIjp7ImJpbmRlckluZm8iOiJkZWZhdWx0IiwiYm9keSI6OSwibmFtZSI6OCwidHlwZSI6MH0sImllIjoxMH0KeyJkZWYiOnsiYWxsIjpbN10sImhpbnRzIjp7InJlZ3VsYXIiOjF9LCJsZXZlbFBhcmFtcyI6W10sIm5hbWUiOjcsInNhZmV0eSI6InNhZmUiLCJ0eXBlIjowLCJ2YWx1ZSI6MTB9fQo=",
+    "sha256": "2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "bytes": 1622
+  },
+  "source": {
+    "text": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P → P\n\ntheorem solution : goal := fun P h => h\n\nend Oncm\n",
+    "sha256": "adb0142ac2d8cef01d92fc0dce76e19e0d5b8a9184c0004cdf29ca05a1b1a0b9"
+  },
+  "metadata": {
+    "title": "External logical identity",
+    "description": "Author-supplied description, separate from authenticated goal export."
+  }
+}

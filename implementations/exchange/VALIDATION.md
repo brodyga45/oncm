@@ -139,3 +139,50 @@ python3 proof/resource-guard.py --memory-mib 768 --timeout 30 --report data/gove
 **PASS:** Vite2.04s; measured tree499,047,232B (475.93MiB), guard2.340s, exit0, no cleanup errors. Existing SIWE chunk-size warning remains. Reports preserve both attempts. Expensive proving remains disabled; no local cryptographic workload was started.
 
 Next manual verification: reopen the real proposal and inspect historical votes/ETA/quorum; confirm Mine1 can enter Active, already-voted/too-early actions are unavailable; connect injected wallet, change account/network, reject or delay SIWE, log out/reconnect and check private forms remain cleared. Only the coordinator should perform any desired new governance transactions.
+
+
+## Website scope: externally prepared certificates, four published loaders
+
+The user explicitly deferred ordering/generating certificates from the website. Create and Proof lab now offer optional native **Check Lean only** plus external load/import, verification and wallet submission. A frontend action gate rejects register/prove/prepare jobs; existing API/CLI endpoints, private job history, cancellation and disabled expensive-proving policy are unchanged. The proposed native-prepare expansion was stopped before any source/binary change or computation.
+
+All four original perf05 JSON artifacts are bundled into the standalone frontend: CI3 True registration, CI5 False registration, CI4 YES proof, CI6 NO refutation. Load fills JSON only. Original bridge verification and the registry transaction remain separate. The loaders do not depend on the legacy API download allowlist or browser file permissions. Selecting another profile/goal/outcome or editing import input clears previous readiness; delayed file/verification replies carry a selection ticket. Submit asserts the exact full journal binding before a wallet request. This additional shape check is not a replacement verifier.
+
+```sh
+node --test tests/published-certificates.test.mjs tests/proof-import.test.mjs tests/proof-import-state.test.mjs
+```
+
+**24/24 PASS, 202.976333ms.** New tests exercise both genuine registration packages and their distinct canonical hashes; exact YES/NO settlement; phase/profile/goal/outcome rejection; artifact clone isolation; malformed/trailing ABI rejection; and the frontend check-only gate. These are offline source/binding tests, not new cryptographic or browser acceptance evidence.
+
+One bounded production build:
+
+```sh
+python3 proof/resource-guard.py --memory-mib 768 --timeout 30 --report data/external-certificate-scope-build-resources.json -- node --max-old-space-size=256 node_modules/vite/bin/vite.js build
+```
+
+**PASS:** Vite 2.22s; supervisor wall 2.558s; sampled process-tree physical footprint peak **493,902,680 bytes (471.02 MiB)**; exit 0; no cleanup errors. The existing SIWE chunk-size warning remains. This pass made no chain mutation, API restart, native Lean execution or proof job. The four updated button workflows still require their own manual browser evidence; tests/build are not presented as that evidence.
+
+## Full onchain social deployment and browser QA — 2026-09-10
+
+This supersedes the earlier offchain profile/comment implementation and its5 historical API tests. Current original OSS pins, bytecode sizes, ownership/fees, ABI/event semantics and bounds are in [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md).
+
+Original ECP and an immutable Exchange hook were deployed additively to the existing Shanghai chain31372 in144–157. Registry, T balances/supply, pool reserves/supply, fee recipients and economic bytecode hashes were unchanged at143 versus157; native gas balances changed normally. All original ECP fee settings were set0, both manager owners renounced, and the application channel NFT locked in the hook. Exact receipts: `data/social-deployment.json`; preservation assertions: `data/social-deployment-preservation.json`.
+
+Original-contract tests: **9/9**,10.889s and371,801,976B sampled peak. Final Shanghai compile26.807s/296,262,208B; additive deploy3.620s/70,705,336B. Reports: `data/social-{invariants-v5,compile-v4,additive-deploy}-resources.json`. The isolated registry is clearly a market-ID fixture; no fake certificate entered the main chain. Peer review checked original ECP actual sender propagation and hook policy. Its finding that upstream reactions cannot be edited was fixed with original atomic delete+post batching and actual rollback testing. Withdrawal after a target tombstone is supported and tested.
+
+Manual actions used our dedicated Chrome tab102825262, with scoped Playwright controls, separate from coordinator tabs. Alice account0 saved profile159; blog160 and revision161; market comment162. Bob account1 voted+1/0/−1/+1 in163–166, posted nested market reply167, replied inside Alice's blog170 and tombstoned his reply173. Both complete blog versions, both reply/tombstone versions and SSTORE2 pointers were visible. Own-vote controls were disabled; Bob could not see Alice's edit controls. A permanent wallet URL reload showed profile/blog without authentication. These are actual browser passes.
+
+The explicit download produced `exchange-onchain-social.json`,20,180bytes, block173,8 entries, exactly equal to independent RPC entries/history. SHA256 `24fb4337233168f034bd6fd17259637882cd418c014a2ec1c5e5e12857c3b13f`; actual file copied to `data/manual-validation/onchain-social-browser-export.json`. Full transaction/input/receipt/decoded-event evidence and historical scores: `data/manual-validation/onchain-social.json`, reproducible by read-only `scripts/capture-social-manual.mjs`. Each of these11 social transactions preserved both wallets' T balances and the registered statement at its immediate before/after block. Coordinator finance transactions interleaved and are excluded from that assertion.
+
+One real UI defect: after profile159, `getBlock('latest')` returned cached158 and displayed the old profile despite a successful receipt. `social.block()` now uses uncached `eth_blockNumber`, an explicit numbered block and wallet-generation validation. Subsequent publication/edit/vote refreshes displayed correct new blocks. Policy/codec/fresh-block tests **6/6**,179.553ms. Guarded build after that change passed1.92s (2.240s supervisor,475,090,488B peak), `data/social-post-receipt-build-resources.json`.
+
+Public API reads returned200; old profile/vote writes return410, `data/social-live-api-checks.json`. Old JSON files were archived unchanged. API-only restart retained all six terminal jobs and identical proof-history SHA256; no job resumed. API is a derived view; SIWE cannot authorize a social contract write. Manual arbitrary direct-core bypass, profile-revision UI, hardware-wallet prompts and large-page stress are not claimed; applicable policy tests remain separate.
+
+## Local sequential transaction nonce correction — 2026-09-10
+
+Coordinator finance reported `could not coalesce error` after approval(s), before merge/redemption. The earlier UI retained only ethers' generic message, so the original nested error was unavailable. Merge retry174 has its own real receipt. Initial finance evidence through188: `data/manual-validation/perf05-true-through-188.json`, with raw receipts, exact T/YES/NO/LP balance changes, reserves, original CTF payout[1,0] and explicit unsuccessful-attempt notes.
+
+An independent tiny Ganache with a previously used wallet reproduced the same error class: default250ms ethers `_perform` caching reused nonce1 after mining. Ganache then rejected the next transaction: **“the tx doesn't have the correct nonce. account has nonce of: 2 tx has nonce of: 1”**, stored in `data/local-nonce-diagnostic.json`. Exploratory zero-start reports also showed repeated nonce0 and were preserved separately. The nonzero-start report is the relevant confirmed failure. This establishes a local cache defect; it is not a retroactive capture of the original browser's missing nested message.
+
+`sdk/local-provider.mjs` now passes `cacheTimeout:-1` at all three browser local JsonRpcProvider construction points, following installed ethers6.15.0 documentation for synchronous test chains. Injected BrowserProvider/signers and wallet nonce management are unchanged. No optimistic nonce counter or automatic transaction retry was added. `rpcErrorMessage` includes the underlying node reason and caps displayed message length without serializing transaction/signature payloads.
+
+The same isolated actual HTTP JSON-RPC test now sends/waits three distinct zero-value self-transactions with nonce1,2,3. **10/10 nonce/error/wallet tests PASS**,906.204ms; guard0.948s,131,282,072B peak, no cleanup errors. It never contacted9546. Final build **PASS1.86s**, guard2.137s,488,070,336B peak, `data/local-provider-ui-build-resources.json`. Existing SIWE chunk warning remains. No API/chain restart, profile change or proving occurred. Coordinator's browser retry after this freeze is recorded separately when its receipt exists.

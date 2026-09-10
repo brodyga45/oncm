@@ -1,0 +1,45 @@
+{
+  "scope": "Isolated ephemeral Ganache, never RPC9546. Zero-value self-transactions only.",
+  "cases": [
+    {
+      "cacheTimeout": "default250",
+      "receipts": [
+        {
+          "nonce": 1,
+          "hash": "0x41485a470832fe600c3013c4a031ffb73645ab3d3f4452809ca27cc0b897cf6a",
+          "block": 2,
+          "status": 1
+        }
+      ],
+      "error": {
+        "code": "UNKNOWN_ERROR",
+        "shortMessage": "could not coalesce error",
+        "message": "the tx doesn't have the correct nonce. account has nonce of: 2 tx has nonce of: 1"
+      }
+    },
+    {
+      "cacheTimeout": -1,
+      "receipts": [
+        {
+          "nonce": 1,
+          "hash": "0xcd4c07c6263de7c4319dea566f4fec530cf79b5c82b1e3b8dd59c0deae80bfa7",
+          "block": 4,
+          "status": 1
+        },
+        {
+          "nonce": 2,
+          "hash": "0xf2f6255fa1f3edd74f5b7be78db73b96982643ee9ccc6f774a2f63c73c665a89",
+          "block": 5,
+          "status": 1
+        },
+        {
+          "nonce": 3,
+          "hash": "0x6225645a914e688df19afa85f205e067adb2799134fb2dddc52c2e280fdc04a4",
+          "block": 6,
+          "status": 1
+        }
+      ],
+      "error": null
+    }
+  ]
+}

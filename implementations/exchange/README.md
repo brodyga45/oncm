@@ -2,6 +2,12 @@
 
 Independent local implementation B: genuine Gnosis Conditional Tokens, canonical ERC-20 wrappers, unchanged Uniswap V2 core/periphery, OpenZeppelin Governor/Timelock, and Splits V2 fee epochs. React trading terminal; Express API; ethers SDK. All funds are local test assets.
 
+## Current scope
+
+Certificates are prepared externally. The website loads or accepts the resulting certificate, checks its exact goal/profile/outcome with the immutable onchain bridge, and lets the wallet register or resolve the market. Ordering or generating certificates from the website is explicitly deferred. Optional native Lean **Check only** remains available for the installed v3 runtime; it is not a certificate and cannot resolve a market. Existing API/CLI job interfaces, private history and cancellation are preserved; expensive local proving remains disabled.
+
+The standalone app bundles all four genuine perf05 artifacts: True-goal registration (CI3), False-goal registration (CI5), YES proof (CI4), and NO refutation (CI6). **Load → Verify → Submit** are separate actions; loading requires neither a file permission nor a remote job. See [EXTERNAL-CERTIFICATES.md](EXTERNAL-CERTIFICATES.md) for the exact workflow. Bundled registration currently supports the two exact perf05 goals; a generic arbitrary-package import/proving service is not claimed.
+
 ## Run
 
 Node 22+ and npm are required. Run from this folder:
@@ -22,16 +28,16 @@ The proof toolchain has additional native dependencies and pinned paths: see `pr
 
 Choose an injected EIP-1193 wallet or **Devnet · Alice/Bob/Carol**. Devnet keys are the public Hardhat mnemonic, accepted by this UI only on localhost and chain 31372; never fund these addresses on public networks. Each initial account receives 100,000 T and local test ETH. T has fixed genesis supply; there is no protocol mint button.
 
-Connect is sufficient for onchain actions. Opening your address profile and choosing **Sign in** signs a SIWE message for profile/discussion writes; this does not approve spending. Profiles always display the underlying Ethereum address.
+Connect is sufficient for onchain actions, including profiles, wallet blogs, comments and votes. Each social write is a transaction to the original Ethereum Comments Protocol; full text and history remain onchain. SIWE sign-in is used only by private source/job tools. Profiles always display the underlying Ethereum address. See [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md).
 
 Injected account/network/disconnect events clear private forms and sign-in and require an explicit reconnect. **Log out of SIWE** revokes the server session and clears private drafts while retaining the connected wallet. Late sign-in, proof-import and SDK continuations cannot restore an earlier wallet session. Already submitted transactions remain onchain; logout does not cancel them.
 
 ## Core workflow
 
-1. **Create market:** upload Lean source/portable JSON or load the published `Nat.add_comm` package. Inspect the exact goal/profile. Run registration and wait for a genuine GoalWellFormed certificate. Sign the registry transaction; CTF, both canonical wrappers and two V2 pairs are created atomically.
+1. **Create market:** select the exact goal/profile and load or import an externally prepared GoalWellFormed certificate. Verify it against the immutable bridge, inspect the canonical goal package, then sign the registry transaction. CTF, both canonical wrappers and two V2 pairs are created atomically. Source/package import by itself is not registration approval.
 2. **Fund:** split T into equal YES/NO using the original Seer router. Add T plus one outcome into its V2 pool. Add both pools independently; LP shares and unused amounts follow original V2 rules.
 3. **Trade:** request a quote; select input, outcome and slippage; approve if needed; submit a swap. Minimum output and a chain-timestamp deadline are enforced onchain. LP calls likewise enforce minimum amounts.
-4. **Prove:** submit source containing the registered goal and a solution of that exact goal (or its negation). Check, generate the genuine certificate, then submit it with the wallet. Registry verifies the immutable profile and atomically calls CTF `reportPayouts`.
+4. **Resolve:** open Proof lab, choose YES or NO, and load or import an externally prepared certificate for that exact market goal/profile/outcome. Verify it, then submit it with the wallet. Registry rechecks the genuine certificate and atomically calls CTF `reportPayouts`. Changing the selected binding invalidates previous readiness.
 5. **Redeem:** the winning wrapped token unwraps and redeems for T through the original Seer router; the losing side redeems for zero. Liquidity is unnecessary for redemption. V2 trading remains available after resolution.
 6. **Block activity:** inspect block number/hash/time, transaction hash/from/to, decoded logs, amounts and historical balances. Balances compare the previous block end with the selected block end, not an invented intra-block trace.
 
@@ -51,21 +57,22 @@ V2’s 0.30% swap fee remains original. With `feeTo` active, approximately one s
 
 Anyone can propose a sorted table of at most 32 addresses totaling 10,000 basis points. Exactly every address with a decreased share must consent; it may revoke before activation. A proposal based on an old epoch is stale. Applied splits are ownerless. Timelock controls V2’s `feeToSetter`, so governance can redirect future upstream protocol fee flow; it cannot alter previously created ownerless splits.
 
-## Offchain research and discussion
+## Research import and onchain discussion
 
 Palomar discovery reads the real `recent.json`/versioned entry interface. Import fetches the exact GitHub commit’s challenge, solution, YAML, Comparator config, Lake config, toolchain and lockfile where available, retaining SHA-256 for each file and the full registry record. Nothing fetched is automatically accepted as a proof. The first declared theorem is selected initially; the source/profile must be supported by the installed proof pipeline. Large Mathlib/FLT imports are not promised to fit the local profile or machine.
 
 Portable JSON packages preserve source, source hash, imported files/dependencies, registry references, selected declaration, goal/profile and attached registration result. Certificates and proof job outputs can be downloaded separately. External publication is an action for the author, not an automatic API side effect.
 
-Profiles (`displayName`, `bio`), threaded replies, comment revisions and votes are stored in local JSON files. SIWE sessions derive authorship. One address has at most one `-1/+1` vote per comment and may switch/remove it; self-votes are rejected server-side. Top sorts by score descending, creation time descending, then ID ascending; New uses creation time and ID. These votes do not determine protocol truth, payouts or Governor power. Comment bodies use escaped text rendering.
+Profiles (`displayName`, `bio`), personal full-text blogs, threaded replies, revisions and votes use the pinned original ECP contracts plus a locked-channel policy hook and Solady SSTORE2 archives. Wallet signatures establish authorship; no API session can post for an address. One address has at most one current `-1/+1` vote per entry and may switch/remove it; the hook rejects self-votes. Top sorts by exact score, creation time and ID; New uses creation time and ID. These votes do not determine protocol truth, payouts or Governor power. Deletion is a tombstone and preserves historical full text. Old JSON records remain explicitly legacy, not onchain truth; old mutation endpoints return410.
 
 ## SDK
 
 ```js
-import { JsonRpcProvider, HDNodeWallet, parseEther } from "ethers";
+import { HDNodeWallet, parseEther } from "ethers";
 import fs from "node:fs";
 import { ExchangeSDK } from "./sdk/index.mjs";
-const provider = new JsonRpcProvider("http://127.0.0.1:9546");
+import { createLocalProvider } from "./sdk/local-provider.mjs";
+const provider = createLocalProvider("http://127.0.0.1:9546");
 const deployment = JSON.parse(fs.readFileSync("data/deployment.json"));
 const abis = JSON.parse(fs.readFileSync("web/generated/abis.json"));
 const signer = HDNodeWallet.fromPhrase(
@@ -77,23 +84,23 @@ const quote = await sdk.quote(market, 0, true, parseEther("1"));
 await sdk.trade(market, 0, true, parseEther("1"), (quote * 99n) / 100n);
 ```
 
-`ExchangeSDK` also implements create/split/merge/LP/redeem/resolve/operator/governance/fee actions and both extra features. `sdk/social.mjs` supplies SIWE profiles, comments, replies and votes. Proof runner JSON stdin is documented in `ARCHITECTURE.md`.
+`ExchangeSDK` also implements create/split/merge/LP/redeem/resolve/operator/governance/fee actions and both extra features. `ExchangeSocialSDK` in `sdk/social.mjs` takes this wallet-aware client, `data/social-deployment.json` and `web/generated/social-abis.json`; it supplies direct ECP profiles/blogs/comments/replies/votes and chain-state archive rebuild. Proof runner JSON stdin is documented in `ARCHITECTURE.md`.
 
 ## Verification
 
 ```sh
 npm test          # isolated in-process Ganache, real economic contracts, test-only verifier
 npm run test:api  # running local API; actual SIWE/Palomar/package/explorer checks
-npm run test:social # running local API; profiles/replies/votes/authorship persistence
+npm run test:social # current read/codec policy + isolated Shanghai ECP invariants
 npm run build
 ```
 
 Economic checks: **15 passing**, including wrapper names/symbols, separate LPs, real swaps and slippage, protocol LP mint, all losing consents/revocation/stale proposals, historical fee withdrawals, derived deadlines, CTF payout/redeem, post-resolution V2 swaps/LP exits, Governor→Timelock→operator registration, atomic arbitrage success/full revert, execution journal. This test harness is **not Lean/zk coverage**.
 
-API checks: **7 passing**, including exact live Palomar import and real SIWE signatures. Social API checks: **5 passing**. Reports are `data/{economic,api,social}-test-report.json`. Manual browser checks and proof integration status are in `docs/VERIFICATION.md`. Extra feature scenarios are in `EXTRA-FEATURES.md`; dependency provenance/licenses in `THIRD-PARTY.md`.
+Historical API checks: **7 passing**, including exact live Palomar import and real SIWE signatures. The former5 social API tests/report describe the superseded offchain design; they do not validate the active onchain social layer. Current social contract checks are **9/9**, policy/codec checks **6/6**; raw live deployment and 11 browser-initiated transactions are documented in [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md). Manual proof/economic checks remain separate. Extra feature scenarios are in `EXTRA-FEATURES.md`; dependency provenance/licenses in `THIRD-PARTY.md`.
 
-Current deployment uses the final v3 profile `0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e`, installed by the actual Governor and Timelock in block 112. Registrations under the former v2 profile are disabled. The site, API and bundled fixture select v3; original contract addresses, T balances and chain history are preserved. Installation receipts and post-installation assertions are in `data/profile-installation.json` and `data/profile-verification.json`.
+Historical v3 installation: the final v3 profile `0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e` was installed by the actual Governor and Timelock in block 112. Registrations under the former v2 profile are disabled. The additional perf05 profile has its own immutable ID and bridge; current registration/resolution availability is read from the chain. Installation receipts and post-installation assertions are in `data/profile-installation.json` and `data/profile-verification.json`.
 
-The main chain still has no markets. End-to-end published-theorem settlement remains pending until the coordinator's actual v3 zk certificates are generated and verified; no economic harness result is substituted for that requirement.
+Genuine perf05 CI certificates are bundled for both True and False goals. Their cryptographic evidence is separate from the isolated economic harness. Exact manual browser transactions and remaining scenario coverage are recorded in the project manual validation journal; this README does not treat artifact availability or unit tests as a completed browser cycle.
 
-Proof jobs now use the existing SIWE wallet login for private source/results and cancellation. A bounded p-queue scheduler deduplicates requests, allows one execution, and limits waiting work to 16 total / 4 per wallet. An outer supervisor enforces the sampled 2 GiB budget and 5/30/120-second action timeouts, waiting for descendant cleanup on cancel. Expensive generation remains disabled. Seven new scheduler/worker tests pass; see [VALIDATION.md](VALIDATION.md) for measured checks and remaining browser/proof verification.
+The preserved API/CLI job subsystem uses the existing SIWE wallet login for private source/results and cancellation. A bounded p-queue scheduler deduplicates requests, allows one execution, and limits waiting work to 16 total / 4 per wallet. An outer supervisor enforces the sampled 2 GiB budget and 5/30/120-second action timeouts, waiting for descendant cleanup on cancel. Expensive generation remains disabled. Seven new scheduler/worker tests pass; see [VALIDATION.md](VALIDATION.md) for measured checks and remaining browser/proof verification.

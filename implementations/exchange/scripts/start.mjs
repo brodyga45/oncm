@@ -54,6 +54,13 @@ if (fs.existsSync("data/deployment.json")) {
   deployed = (await provider.getCode(d.contracts.protocol)) !== "0x";
 }
 if (!deployed) await once(["scripts/deploy.mjs"]);
+if (!fs.existsSync("artifacts/social/ExchangeSocialHook.json")) await once(["scripts/compile-social.mjs"]);
+if (!fs.existsSync("data/social-deployment.json")) await once(["scripts/deploy-social.mjs"]);
+else {
+  const social=JSON.parse(fs.readFileSync("data/social-deployment.json"));
+  if(await provider.getCode(social.hook)==="0x") throw Error("Saved social deployment missing from chain; inspect persistence, do not silently replace it");
+  fs.writeFileSync("web/generated/social-deployment.json",JSON.stringify(social,null,2));
+}
 start("api", ["api/server.mjs"]);
 start("web", [
   "node_modules/vite/bin/vite.js",

@@ -1,3 +1,4 @@
+import {installOnchainSocialRoutes} from "./onchain-social.mjs";
 import express from "express";
 import fs from "node:fs";
 import path from "node:path";
@@ -5,6 +6,7 @@ import crypto from "node:crypto";
 import {createProofJobs,registerProofRoutes} from "./proof-jobs.mjs";
 import {createProofWorker} from "./proof-worker.mjs";
 import {readProofCatalog, catalogWithChain} from "./proof-catalog.mjs";
+import {validatePublishedPackage} from './package-validation.mjs';
 import {
   JsonRpcProvider,
   Interface,
@@ -43,6 +45,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json({ limit: "2mb" }));
+installOnchainSocialRoutes(app,{root,provider});
 function load(name, fallback) {
   try {
     return JSON.parse(fs.readFileSync("data/" + name + ".json"));
@@ -58,6 +61,10 @@ function context() {
   const deployment = load("deployment", null);
   if (!deployment) throw Error("Deploy contracts first");
   const abis = JSON.parse(fs.readFileSync("web/generated/abis.json"));
+  if(fs.existsSync("data/social-deployment.json")) {
+    const social=JSON.parse(fs.readFileSync("data/social-deployment.json")), extra=JSON.parse(fs.readFileSync("web/generated/social-abis.json"));
+    for(const name of ["CommentManager","ChannelManager","ExchangeSocialHook"]) abis[name]=extra[name];
+  }
   return {
     deployment,
     abis,
@@ -264,9 +271,8 @@ app.get("/api/proof/profile", (req, res) =>
   ),
 );
 function storePackage(input) {
-  const source = String(input.source || "");
-  if (!source || source.length > 1000000)
-    throw Error("Lean source required (max 1 MB)");
+  input=validatePublishedPackage(input);
+  const source = input.source;
   const payload = { schema: "exchange-lean-package-v1", ...input, source };
   const profile = readProofCatalog(root).profiles.find(p => p.profileId.toLowerCase() === input.profileId?.toLowerCase());
   if (profile) payload.proofProfile = profile;
@@ -276,7 +282,7 @@ function storePackage(input) {
     id = crypto.createHash("sha256").update(serialized).digest("hex"),
     dir = "data/packages/" + id;
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(dir + "/Challenge.lean", source);
+  if(source)fs.writeFileSync(dir + "/Challenge.lean", source);
   const pkg = {
     ...payload,
     id,

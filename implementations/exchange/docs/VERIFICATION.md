@@ -1,5 +1,7 @@
 # Exchange verification log
 
+Historical log below. The subsequent onchain social replacement, original ECP deployment and real Alice/Bob browser transactions are documented in [ONCHAIN-SOCIAL.md](../ONCHAIN-SOCIAL.md) and [VALIDATION.md](../VALIDATION.md). The five offchain social API tests below do not validate the current social authority model.
+
 Date: 2026-09-09. Local-only chain 31372. Economic harness uses an independent in-process Ganache and cannot satisfy the genuine proof requirement.
 
 ## Automated

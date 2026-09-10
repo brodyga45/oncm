@@ -8,6 +8,7 @@ import {
   toUtf8Bytes,
 } from "ethers";
 import { verifyExternalCertificate } from "./proof-import.mjs";
+import { verifyExternalBundle } from "./external-registration.mjs";
 import { readGovernance } from "./governance.mjs";
 export { decodeExternalCertificate, fixtureForCertificate } from "./proof-import.mjs";
 export { parseEther, formatEther };
@@ -17,6 +18,9 @@ export class ExchangeSDK {
   }
   verifyExternalCertificate(artifact, profile, expected) {
     return verifyExternalCertificate(this, artifact, profile, expected);
+  }
+  verifyExternalBundle(input, expected) {
+    return verifyExternalBundle(this,input,expected);
   }
   contract(key) {
     const names = {

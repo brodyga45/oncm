@@ -1,7 +1,10 @@
+import socialDeployment from "./generated/social-deployment.json";
+import socialAbis from "./generated/social-abis.json";
+import {ExchangeSocialSDK} from "../sdk/social.mjs";
+import {OnchainComments as Comments, OnchainProfile as ProfileModal} from "./onchain-social.jsx";
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  JsonRpcProvider,
   BrowserProvider,
   HDNodeWallet,
   formatEther,
@@ -15,6 +18,9 @@ import {
 } from "ethers";
 import { SiweMessage } from "siwe";
 import { ExchangeSDK, fixtureForCertificate } from "../sdk/index.mjs";
+import { createLocalProvider, rpcErrorMessage } from "../sdk/local-provider.mjs";
+import { externalInput, genericRegistrationDraft, EXTERNAL_BUNDLE_LIMITS,parseBoundedJSON } from "./external-import.mjs";
+import { ExternalBundleReview } from "./external-bundle-review.jsx";
 import { createProofImportGuard } from "./proof-import-state.mjs";
 import { publishedChoices, loadPublishedCertificate, assertWebJobAction } from "./published-certificates.mjs";
 import { assertCertificateClaim, certificateClaimMatches } from "../sdk/proof-import.mjs";
@@ -102,7 +108,7 @@ function App() {
   const [walletEpoch, setWalletEpoch] = useState(0);
   const renderTicket = lifecycle.ticket();
   const [deployment, setDeployment] = useState(null),
-    [provider, setProvider] = useState(() => new JsonRpcProvider(RPC)),
+    [provider, setProvider] = useState(() => createLocalProvider(RPC)),
     [signer, setSigner] = useState(null),
     [address, setAddress] = useState(""),
     [account, setAccount] = useState(""),
@@ -118,7 +124,7 @@ function App() {
     [search, setSearch] = useState(""),
     [session, setSession] = useState(null),
     [draft, setDraft] = useState(null),
-    [profileAddress, setProfileAddress] = useState(""),
+    [profileAddress, setProfileAddress] = useState(() => {const v=new URLSearchParams(window.location.search).get("wallet");return /^0x[0-9a-fA-F]{40}$/.test(v||"")?v:"";}),
     [inspectHash, setInspectHash] = useState("");
   sessionRef.current = session;
   const sdk = useMemo(() => {
@@ -132,6 +138,7 @@ function App() {
     client.assertCurrent = () => lifecycle.assert(ticket);
     return client;
   }, [provider, signer, deployment, walletEpoch]);
+  const social = useMemo(() => sdk && socialDeployment.status === "ready" ? new ExchangeSocialSDK(sdk, socialDeployment, socialAbis) : null, [sdk]);
   const selectedMarket = markets.find((m) => m.id === selected) || markets[0];
   async function refresh() {
     try {
@@ -160,7 +167,7 @@ function App() {
     if (keepWallet && connection) lifecycle.activate(ticket, connection.choice);
     else {
       connectionRef.current = null;
-      setAccount(""); setSigner(null); setAddress(""); setProvider(new JsonRpcProvider(RPC));
+      setAccount(""); setSigner(null); setAddress(""); setProvider(createLocalProvider(RPC));
     }
     if (oldSession?.token) revokeSession(oldSession.token).catch(() => {
       if (lifecycle.current(ticket)) setError("Local session cleared; server logout could not be confirmed. Retry sign-in when the API is available.");
@@ -183,7 +190,7 @@ function App() {
     } catch (e) {
       if (!lifecycle.current(ticket)) return null;
       if (e.status === 401) clearIdentity({ keepWallet: true, reason: "Session expired. Sign in again." });
-      else setError(e.shortMessage || e.reason || e.message || String(e));
+      else setError(rpcErrorMessage(e));
       return null;
     } finally {
       if (lifecycle.current(ticket)) setBusy("");
@@ -220,7 +227,7 @@ function App() {
       } else {
         if (!["localhost", "127.0.0.1"].includes(location.hostname) || !["0", "1", "2"].includes(choice))
           throw Error("Devnet wallets only work on localhost with an explicit test account");
-        p = new JsonRpcProvider(RPC);
+        p = createLocalProvider(RPC);
         if (Number((await p.getNetwork()).chainId) !== 31372) throw Error("Wrong local chain");
         lifecycle.assert(ticket);
         s = HDNodeWallet.fromPhrase(MNEMONIC, undefined, `m/44'/60'/0'/0/${Number(choice)}`).connect(p);
@@ -231,7 +238,7 @@ function App() {
       lifecycle.activate(ticket, choice);
       setProvider(p); setSigner(s); setAddress(connectedAddress); setAccount(choice);
     } catch (e) {
-      if (lifecycle.current(ticket)) setError(e.shortMessage || e.message);
+      if (lifecycle.current(ticket)) setError(rpcErrorMessage(e));
     } finally {
       if (lifecycle.current(ticket)) setBusy("");
     }
@@ -244,7 +251,7 @@ function App() {
       verify: (message, signature) => api("auth/verify", { message, signature }),
       revoke: revokeSession,
       makeMessage: c => new SiweMessage({ domain: c.domain, address,
-        statement: "Sign in to Exchange comments and private proof jobs. This does not authorize token spending.",
+        statement: "Sign in to Exchange private tools and existing job history. This does not authorize token spending.",
         uri: c.uri, version: "1", chainId: 31372, nonce: c.nonce }).prepareMessage(),
     });
     lifecycle.assert(renderTicket);
@@ -484,6 +491,7 @@ function App() {
                     session={session}
                     signIn={signIn}
                     onProfile={setProfileAddress}
+                    social={social}
                   />
                 ) : (
                   <section className="intro-card">
@@ -558,9 +566,11 @@ function App() {
       )}
       {profileAddress && (
         <ProfileModal
-          key={walletEpoch}
+          key={walletEpoch+":"+profileAddress}
+          onProfile={setProfileAddress}
           address={profileAddress}
           currentAddress={address}
+          social={social}
           error={error}
           session={session}
           signIn={signIn}
@@ -592,6 +602,7 @@ function MarketView({
   session,
   signIn,
   onProfile,
+  social,
   ...props
 }) {
   const [tab, setTab] = useState("trade"),
@@ -766,6 +777,8 @@ function MarketView({
       {tab === "comments" && (
         <Comments
           id={m.id}
+          social={social}
+          address={address}
           session={session}
           signIn={signIn}
           run={run}
@@ -1178,6 +1191,7 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
     [catalog, setCatalog] = useState(null),
     [importStatus, setImportStatus] = useState(""),
     [externalJSON, setExternalJSON] = useState(""),
+    [genericReview,setGenericReview] = useState(null),
     [job, start, cancelJob] = useProofJob({ session, signIn, address });
   const importGuard = useRef(createProofImportGuard());
   importGuard.current.select(JSON.stringify([m.id, m.goal, m.profile, outcome, source, fixture, target, address, externalJSON]), sdk);
@@ -1185,12 +1199,14 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
   useEffect(() => { api("proof/catalog").then(setCatalog); }, [m.profile]);
   const selectedProfile = catalog?.profiles.find(p => p.profileId.toLowerCase() === m.profile.toLowerCase());
   async function verifyImportedProof(artifact, ticket = importGuard.current.begin()) {
-    setCertificate(""); setImportStatus("");
+    setCertificate(""); setImportStatus("");setGenericReview(null);
     if (!importGuard.current.current(ticket)) throw Error("The proof form changed while reading the file; import it again.");
-    const result = await sdk.verifyExternalCertificate(artifact, selectedProfile, {statementId: m.id, goalHash: m.goal, profileId: m.profile, outcome});
+    const input=externalInput(artifact),expected={statementId:m.id,goalHash:m.goal,profileId:m.profile,outcome};
+    const result = input.generic ? await sdk.verifyExternalBundle(input.raw,expected) : await sdk.verifyExternalCertificate(input.artifact, selectedProfile, expected);
     if (!importGuard.current.current(ticket)) throw Error("The selected market or proof form changed during verification; verify the certificate again.");
     if (!result.available) throw Error("This profile is not enabled for resolution by governance");
     setCertificate(result.certificate);
+    if(input.generic)setGenericReview(result);
     setImportStatus(`Original onchain verifier accepted ${outcome === 1 ? "YES" : "NO"} proof at block ${result.verifiedAtBlock}. Submit below to settle this market.`);
   }
   useEffect(() => { if (!certificate) setImportStatus(""); }, [certificate]);
@@ -1298,13 +1314,13 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
             run("Read proof file", async () => {
               const file = e.target.files[0];
               if (!file) return;
-              if (file.size > 128 * 1024) throw Error("Proof import exceeds 128 KB");
+              if (file.size > EXTERNAL_BUNDLE_LIMITS.wrapper) throw Error("External bundle exceeds2MiB");
               const ticket = importGuard.current.begin();
               setCertificate(""); setImportStatus("");
               const text = await file.text();
               if (!importGuard.current.current(ticket)) throw Error("Proof form changed while reading the file; import again");
               if (file.name.endsWith(".json")) {
-                await verifyImportedProof(JSON.parse(text), ticket);
+                await verifyImportedProof(text, ticket);
               } else {
                 setSource(text);
                 setCertificate("");
@@ -1315,10 +1331,11 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
         />
       </label>
       <label className="field">
-        <span>OR PASTE EXTERNAL CI PROOF JSON</span>
+        <span>OR PASTE EXTERNAL PROOF JSON / BUNDLE</span>
         <textarea value={externalJSON} onChange={e => { importGuard.current.invalidate(); setExternalJSON(e.target.value); setCertificate(""); setImportStatus(""); }} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
       </label>
-      <Button secondary disabled={busy || !externalJSON || externalJSON.length > 128 * 1024} onClick={() => run("Verify pasted external proof certificate", () => verifyImportedProof(JSON.parse(externalJSON)))}>Verify pasted proof certificate</Button>
+      <Button secondary disabled={busy || !externalJSON || new TextEncoder().encode(externalJSON).length > EXTERNAL_BUNDLE_LIMITS.wrapper} onClick={() => run("Verify pasted external proof certificate", () => verifyImportedProof(externalJSON))}>Verify pasted proof certificate</Button>
+      {certificate&&certificate===genericReview?.certificate&&<ExternalBundleReview review={genericReview}/>}
       <textarea
         className="code-editor"
         value={source}
@@ -1423,7 +1440,8 @@ function CreateMarket({
     [fixtures, setFixtures] = useState([]),
     [profiles, setProfiles] = useState([]),
     [importStatus, setImportStatus] = useState(""),
-    [externalJSON, setExternalJSON] = useState("");
+    [externalJSON, setExternalJSON] = useState(""),
+    [genericReview,setGenericReview] = useState(null);
   const registrationGuard = useRef(createProofImportGuard());
   registrationGuard.current.select(JSON.stringify([kind, profile, source, goal, fixture, target, address, externalJSON]), sdk);
   useEffect(() => () => registrationGuard.current.invalidate(), []);
@@ -1468,14 +1486,14 @@ function CreateMarket({
   }, [initialDraft]);
   async function upload(file) {
     if (!file) return;
-    if (file.size > 1024 * 1024) throw Error("Package exceeds 1 MB");
+    if (file.size > EXTERNAL_BUNDLE_LIMITS.wrapper) throw Error("Package exceeds2MiB");
     const ticket = registrationGuard.current.begin();
     setCertificate(""); setImportStatus("");
     const text = await file.text();
     if (!registrationGuard.current.current(ticket)) throw Error("Registration form changed while reading the package; import again");
     if (file.name.endsWith(".json")) {
-      const p = JSON.parse(text);
-      if (p.format === "oncm-real-groth16-ci-v1") return importCertificate(p, ticket);
+      const p = parseBoundedJSON(text);
+      if (["oncm-real-groth16-ci-v1","oncm-external-certificate-bundle-v1"].includes(p.format)) return importCertificate(text, ticket);
       setPackageDraft(p);
       setFixture(p.fixtureId || "");
       setSource(p.source || p.leanSource || "");
@@ -1496,17 +1514,19 @@ function CreateMarket({
   }
   async function importCertificate(artifact, ticket = registrationGuard.current.begin()) {
     if (!registrationGuard.current.current(ticket)) throw Error("Registration form changed; import again");
-    setCertificate(""); setImportStatus("");
+    setCertificate(""); setImportStatus("");setGenericReview(null);
+    const input=externalInput(artifact);
     const catalog = await refreshProfiles();
-    const candidate = catalog.profiles.find(p => p.profileId.toLowerCase() === artifact.profileId?.toLowerCase());
-    const result = await sdk.verifyExternalCertificate(artifact, candidate, { outcome: 0 });
-    const f = fixtureForCertificate(catalog.fixtures, result);
+    const candidate = catalog.profiles.find(p => p.profileId.toLowerCase() === input.artifact.profileId?.toLowerCase());
+    const result = input.generic ? await sdk.verifyExternalBundle(input.raw,{profileId:profile,outcome:0}) : await sdk.verifyExternalCertificate(input.artifact, candidate, { outcome: 0 });
+    const f = input.generic ? genericRegistrationDraft(result,input.raw) : fixtureForCertificate(catalog.fixtures, result);
     if (!registrationGuard.current.current(ticket)) throw Error("Registration form or wallet changed during verification; import again");
     setKind(0); setSource(f.source); setTitle(f.title); setDescription(f.description);
-    setGoal(f.goalHash); setProfile(f.profileId); setFixture(f.id); setTarget(f.targetDeclaration);
-    setPackageDraft({ ...f, fixtureId: f.id, externalCertificate: artifact });
+    setGoal(f.goalHash); setProfile(f.profileId); setFixture(f.id||''); setTarget(f.targetDeclaration);
+    setPackageDraft({ ...f, fixtureId: f.id||'', externalCertificate: input.artifact });
     setCertificate(result.certificate);
-    setImportStatus(`Exact ${candidate.label} goal imported. Original onchain verifier accepted registration at block ${result.verifiedAtBlock}. ${result.available ? "Ready to create the market." : "Governance must enable this profile before market creation."}`);
+    if(input.generic)setGenericReview(result);
+    setImportStatus(`Exact ${candidate?.label||profile} goal imported. Original onchain verifier accepted registration at block ${result.verifiedAtBlock}. ${result.available ? "Ready to create the market." : "Governance must enable this profile before market creation."}`);
   }
   return (
     <div className="modal-overlay">
@@ -1587,24 +1607,26 @@ function CreateMarket({
               </button>
             ))}
             <label className="file">
-              Import external CI registration certificate JSON
+              Import external registration certificate / goal bundle
               <input type="file" accept=".json" onChange={e => {
                 const file = e.target.files[0];
                 e.target.value = "";
                 if (file) run("Verify external registration certificate", async () => {
-                  if (file.size > 128 * 1024) throw Error("Certificate exceeds 128 KB");
+                  if (file.size > EXTERNAL_BUNDLE_LIMITS.wrapper) throw Error("External bundle exceeds2MiB");
                   const ticket = registrationGuard.current.begin();
                   setCertificate(""); setImportStatus("");
-                  await importCertificate(JSON.parse(await file.text()), ticket);
+                  await importCertificate(await file.text(), ticket);
                 });
               }} />
             </label>
             <label className="field">
-              <span>OR PASTE EXTERNAL CI REGISTRATION JSON</span>
+              <span>OR PASTE EXTERNAL REGISTRATION JSON / BUNDLE</span>
               <textarea value={externalJSON} onChange={e => { registrationGuard.current.invalidate(); setExternalJSON(e.target.value); setCertificate(""); setImportStatus(""); }} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
             </label>
-            <Button secondary disabled={busy || !externalJSON || externalJSON.length > 128 * 1024} onClick={() => run("Verify pasted registration certificate", () => importCertificate(JSON.parse(externalJSON)))}>Verify pasted registration certificate</Button>
+            <p className="note">New goals use oncm-external-certificate-bundle-v1: artifact + exact goalExport (base64/SHA256/bytes), optional source and metadata. No theorem allowlist; select a supported immutable profile first. Limits:2MiB bundle,1MiB goal,512KiB source.</p>
+            <Button secondary disabled={busy || !externalJSON || new TextEncoder().encode(externalJSON).length > EXTERNAL_BUNDLE_LIMITS.wrapper} onClick={() => run("Verify pasted registration certificate", () => importCertificate(externalJSON))}>Verify pasted registration certificate</Button>
             {importStatus && <p className="note" role="status">{importStatus}</p>}
+            {certificate&&certificate===genericReview?.certificate&&<ExternalBundleReview review={genericReview}/>}
             <label className="file">
               Upload Lean source or portable JSON package
               <input
@@ -1784,9 +1806,10 @@ function CreateMarket({
             }
             onClick={() =>
               run("Create market", async () => {
+                const ticket=registrationGuard.current.begin();
                 if (kind === 0) assertCertificateClaim(certificate, {goalHash: goal, profileId: profile, outcome: 0});
                 let packageId;
-                if (source) {
+                if (kind===0&&(source||packageDraft?.canonicalGoalExport)) {
                   const p = await api("packages", {
                     ...packageDraft,
                     source,
@@ -1801,6 +1824,7 @@ function CreateMarket({
                   });
                   packageId = p.id;
                 }
+                if(!registrationGuard.current.current(ticket))throw Error('Registration form changed before the wallet request; review and submit again');
                 const metadata = {
                   title,
                   description,
@@ -1808,6 +1832,8 @@ function CreateMarket({
                   externalRef: packageDraft?.externalRef,
                   fixtureId: fixture,
                   targetDeclaration: target,
+                  sourceGoalRelation:packageDraft?.canonicalGoalExport?'not-verified':undefined,
+                  canonicalGoalExportSha256:packageDraft?.canonicalGoalExport?.sha256,
                 };
                 if (kind === 0)
                   await sdk.createMath(goal, profile, metadata, certificate);
@@ -1823,321 +1849,13 @@ function CreateMarket({
                     kind === 1 ? 0 : targetOutcome,
                     metadata,
                   );
-                onClose();
+                if(registrationGuard.current.current(ticket))onClose();
               })
             }
           >
             Create market onchain ↗
           </Button>
         </div>
-      </div>
-    </div>
-  );
-}
-function Comments({ id, session, signIn, run, onProfile }) {
-  const [items, setItems] = useState([]),
-    [text, setText] = useState(""),
-    [sort, setSort] = useState("top"),
-    [reply, setReply] = useState(null);
-  const refresh = () =>
-    api("comments/" + id + "?sort=" + sort, undefined, session?.token).then(
-      setItems,
-    );
-  useEffect(() => {
-    refresh();
-    const timer = setInterval(refresh, 8000);
-    return () => clearInterval(timer);
-  }, [id, sort, session]);
-  async function vote(c, value) {
-    await api(
-      "comments/" + c.id + "/vote",
-      { vote: c.myVote === value ? 0 : value },
-      session.token,
-    );
-    refresh();
-  }
-  function renderComment(c, depth = 0) {
-    return (
-      <div
-        key={c.id}
-        className={"comment-thread " + (depth ? "reply-thread" : "")}
-      >
-        <article className="comment">
-          <div className="comment-votes">
-            <button
-              className={c.myVote === 1 ? "voted" : ""}
-              disabled={
-                !session ||
-                session.address.toLowerCase() === c.address.toLowerCase()
-              }
-              aria-label={"Upvote comment " + c.id}
-              onClick={() => run("Upvote comment", () => vote(c, 1))}
-            >
-              ▲
-            </button>
-            <strong>{c.score}</strong>
-            <button
-              className={c.myVote === -1 ? "voted" : ""}
-              disabled={
-                !session ||
-                session.address.toLowerCase() === c.address.toLowerCase()
-              }
-              aria-label={"Downvote comment " + c.id}
-              onClick={() => run("Downvote comment", () => vote(c, -1))}
-            >
-              ▼
-            </button>
-          </div>
-          <div className="comment-body">
-            <div className="comment-byline">
-              <button className="author" onClick={() => onProfile(c.address)}>
-                <span className="avatar-small">
-                  {(c.profile.displayName || c.address.slice(2, 4))
-                    .slice(0, 2)
-                    .toUpperCase()}
-                </span>
-                <b>{c.profile.displayName || short(c.address)}</b>
-                <code>{short(c.address)}</code>
-              </button>
-              <time>{new Date(c.createdAt).toLocaleString()}</time>
-            </div>
-            <p>{c.text}</p>
-            <div className="comment-actions">
-              <button className="link" onClick={() => setReply(c)}>
-                Reply
-              </button>
-              {c.history.length > 0 && (
-                <details>
-                  <summary>Edited · {c.history.length} revisions</summary>
-                  {c.history.map((h, i) => (
-                    <p key={i}>{h.text}</p>
-                  ))}
-                </details>
-              )}
-              {session?.address.toLowerCase() === c.address.toLowerCase() && (
-                <button
-                  className="link"
-                  onClick={() => {
-                    const edited = prompt("Edit comment", c.text);
-                    if (edited)
-                      run("Edit comment", async () => {
-                        const r = await fetch(API + "/api/comments/" + c.id, {
-                          method: "PATCH",
-                          headers: {
-                            "Content-Type": "application/json",
-                            Authorization: "Bearer " + session.token,
-                          },
-                          body: JSON.stringify({ text: edited }),
-                        });
-                        if (!r.ok) throw Error("Could not edit comment");
-                        refresh();
-                      });
-                  }}
-                >
-                  Edit
-                </button>
-              )}
-            </div>
-          </div>
-        </article>
-        {items
-          .filter((x) => x.parentId === c.id)
-          .map((x) => renderComment(x, depth + 1))}
-      </div>
-    );
-  }
-  return (
-    <div className="panel">
-      <div className="section-head">
-        <div>
-          <h3>Research discussion</h3>
-          <p className="note">
-            Wallet profiles identify participants. Discussion votes rank
-            comments and carry no protocol voting power.
-          </p>
-        </div>
-        <div className="segmented small">
-          <button
-            className={sort === "top" ? "active" : ""}
-            onClick={() => setSort("top")}
-          >
-            Top
-          </button>
-          <button
-            className={sort === "new" ? "active" : ""}
-            onClick={() => setSort("new")}
-          >
-            New
-          </button>
-        </div>
-      </div>
-      {items.filter((c) => !c.parentId).map((c) => renderComment(c))}
-      {!items.length && (
-        <p className="note">Be the first to add a mathematical observation.</p>
-      )}
-      {session ? (
-        <div className="comment-composer">
-          {reply && (
-            <div className="reply-label">
-              Replying to {reply.profile.displayName || short(reply.address)}
-              <button className="link" onClick={() => setReply(null)}>
-                Cancel reply
-              </button>
-            </div>
-          )}
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={
-              reply ? "Write a reply…" : "Add a mathematical observation…"
-            }
-          />
-          <Button
-            disabled={!text.trim()}
-            onClick={() =>
-              run("Post comment", async () => {
-                await api(
-                  "comments/" + id,
-                  { text, parentId: reply?.id || null },
-                  session.token,
-                );
-                setText("");
-                setReply(null);
-                refresh();
-              })
-            }
-          >
-            {reply ? "Post reply" : "Post comment"} · no gas
-          </Button>
-        </div>
-      ) : (
-        <Button secondary onClick={() => run("Sign in with Ethereum", signIn)}>
-          Sign in to discuss & vote
-        </Button>
-      )}
-    </div>
-  );
-}
-function ProfileModal({
-  address,
-  currentAddress,
-  session,
-  signIn,
-  run,
-  sdk,
-  markets,
-  onClose,
-  error,
-}) {
-  const [profile, setProfile] = useState(null),
-    [name, setName] = useState(""),
-    [bio, setBio] = useState(""),
-    [balance, setBalance] = useState("0");
-  const own = address.toLowerCase() === currentAddress?.toLowerCase();
-  useEffect(() => {
-    api("profiles/" + address).then((p) => {
-      setProfile(p);
-      setName(p.displayName);
-      setBio(p.bio);
-    });
-    if (sdk)
-      sdk
-        .contract("token")
-        .balanceOf(address)
-        .then((b) => setBalance(String(b)));
-  }, [address, sdk?.deployment.contracts.token]);
-  return (
-    <div className="modal-overlay">
-      <div className="modal profile-modal">
-        {error && (
-          <div className="alert" role="alert">
-            {error}
-          </div>
-        )}
-        <div className="section-head">
-          <span className="eyebrow">WALLET IDENTITY</span>
-          <button className="close" onClick={onClose}>
-            ×
-          </button>
-        </div>
-        <div className="profile-banner">
-          <span className="avatar">
-            {(profile?.displayName || address.slice(2, 4))
-              .slice(0, 2)
-              .toUpperCase()}
-          </span>
-          <div>
-            <h2>{profile?.displayName || "Anonymous researcher"}</h2>
-            <code>{address}</code>
-          </div>
-        </div>
-        <p className="profile-bio">
-          {profile?.bio || "This address has not added a bio yet."}
-        </p>
-        <div className="stats-grid">
-          <Stat
-            label="AVAILABLE T"
-            value={fmt(balance)}
-            hint="Public onchain balance"
-          />
-          <Stat
-            label="CREATED MARKETS"
-            value={
-              markets.filter(
-                (m) => m.creator.toLowerCase() === address.toLowerCase(),
-              ).length
-            }
-            hint="From protocol events"
-          />
-        </div>
-        {own && (
-          <>
-            <div className="rule" />
-            <h3>Edit your profile</h3>
-            <p className="note">
-              Your Ethereum address always remains visible. Names and bios are
-              offchain presentation fields.
-            </p>
-            <Field
-              label="Display name"
-              value={name}
-              onChange={setName}
-              maxLength={50}
-            />
-            <label className="field">
-              <span>BIO</span>
-              <textarea
-                value={bio}
-                maxLength={1000}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Research interests, mathematical background…"
-              />
-            </label>
-            {session?.address.toLowerCase() === address.toLowerCase() ? (
-              <Button
-                onClick={() =>
-                  run("Save wallet profile", async () => {
-                    const p = await api(
-                      "profile",
-                      { displayName: name, bio },
-                      session.token,
-                    );
-                    setProfile(p);
-                  })
-                }
-              >
-                Save profile · no gas
-              </Button>
-            ) : (
-              <Button
-                secondary
-                onClick={() => run("Sign in to edit profile", signIn)}
-              >
-                Sign in with your wallet
-              </Button>
-            )}
-          </>
-        )}
       </div>
     </div>
   );
