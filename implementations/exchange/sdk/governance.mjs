@@ -2,7 +2,7 @@
 import { Interface, ZeroAddress, keccak256, toUtf8Bytes } from 'ethers';
 
 export const GOVERNOR_STATES = ['Pending', 'Active', 'Canceled', 'Defeated', 'Succeeded', 'Queued', 'Expired', 'Executed'];
-const aliases = { governor: 'ExchangeGovernor', timelock: 'TimelockController', protocol: 'ExchangeProtocol', token: 'TrueToken', allocation: 'AllocationController', factory: 'UniswapV2Factory' };
+const aliases = { governor: 'ExchangeGovernor', timelock: 'TimelockController', protocol: 'ExchangeProtocol', token: 'TrueToken', allocation: 'AllocationController', warehouse: 'SplitsWarehouse', factory: 'UniswapV2Factory' };
 const asJson = (value) => JSON.parse(JSON.stringify(value, (_, v) => typeof v === 'bigint' ? String(v) : v));
 
 // Decode only an ABI associated with this target, never guess using a selector

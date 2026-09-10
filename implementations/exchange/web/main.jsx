@@ -31,6 +31,9 @@ import { createProofImportGuard } from "./proof-import-state.mjs";
 import { publishedChoices, loadPublishedCertificate, assertWebJobAction } from "./published-certificates.mjs";
 import { assertCertificateClaim, certificateClaimMatches } from "../sdk/proof-import.mjs";
 import { createWalletLifecycle, authenticateWallet } from "./wallet-lifecycle.mjs";
+import { DaoTreasury } from './treasury.jsx';
+import { allocationWithGovernance, parseAllocationRows } from '../sdk/treasury.mjs';
+import { seedAllocationText, assertAllocationReview } from './allocation-editor.mjs';
 import abis from "./generated/abis.json";
 import "./style.css";
 const endpoints = localEndpoints(import.meta.env.VITE_EXCHANGE_PORT_OFFSET || '0');
@@ -2128,7 +2131,7 @@ function Heading({ eyebrow, title, text, children }) {
     </div>
   );
 }
-function Governance({ sdk, address, run, busy, deployment }) {
+function Governance({ sdk, address, run, busy, deployment, markets }) {
   const [snapshot, setSnapshot] = useState(null), [viewError, setViewError] = useState(""),
     [description, setDescription] = useState(""),
     [target, setTarget] = useState(deployment?.contracts.protocol || ""),
@@ -2227,6 +2230,7 @@ function Governance({ sdk, address, run, busy, deployment }) {
           <Button secondary disabled={!!busy || !snapshot} onClick={() => run("Advance local timelock", () => advance(1, Number(snapshot.timelockDelay) + 1))}>Advance timelock delay + 1s</Button>
         </div>
       </div>
+      <DaoTreasury sdk={sdk} address={address} markets={markets} run={run} busy={busy} onProposed={refresh}/>
       <div className="section-label">ONCHAIN PROPOSALS · {snapshot ? `BLOCK ${snapshot.blockNumber}` : "LOADING"}</div>
       {items.map(p => <div key={p.id} className="panel proposal">
         <div className="section-head"><h3>{p.description}</h3><span className="tag">{p.stateName}</span></div>
@@ -2259,12 +2263,16 @@ function Governance({ sdk, address, run, busy, deployment }) {
   );
 }
 
-function Fees({ sdk, address, markets, run, busy, deployment }) {
+function Fees({ sdk, address, markets, run, busy, deployment, setPage }) {
   const [epochs, setEpochs] = useState([]),
     [proposals, setProposals] = useState([]),
-    [rows, setRows] = useState(""),
+    [rows, setRows] = useState(null),
     [asset, setAsset] = useState(""),
-    [balances, setBalances] = useState({});
+    [balances, setBalances] = useState({}),
+    [daoReview,setDaoReview]=useState(null),[daoReviewError,setDaoReviewError]=useState('');
+  const requests=useRef(0),draftGuard=useRef(createProofImportGuard()).current,daoReviewRef=useRef(null);
+  daoReviewRef.current=daoReview;
+  draftGuard.select(JSON.stringify([rows,address,asset]),sdk);
   const assets = markets.flatMap((m) =>
     m.pairs.map((address, i) => ({
       address,
@@ -2277,11 +2285,13 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
   );
   async function refresh() {
     if (!sdk) return;
+    const ticket=++requests.current;
     const a = sdk.contract("allocation"),
       blockTag = Number(await sdk.provider.send("eth_blockNumber", [])),
       snapshot = { blockTag },
       count = Number(await a.currentEpoch(snapshot)),
-      pc = Number(await a.proposalCount(snapshot));
+      pc = Number(await a.proposalCount(snapshot)),
+      treasury=await sdk.contract('governor').timelock(snapshot);
     const es = [];
     for (let i = 1; i <= count; i++) {
       const e = await a.epoch(i, snapshot);
@@ -2292,7 +2302,6 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
         shares: [...e.shares].map(Number),
       });
     }
-    setEpochs(es);
     const ps = [];
     for (let i = 1; i <= pc; i++) {
       const p = await a.proposal(i, snapshot);
@@ -2317,39 +2326,39 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
         blockTag,
       });
     }
-    setProposals(ps);
-    if (!rows)
-      setRows(
-        es
-          .at(-1)
-          ?.recipients.map((r, i) => r + "," + es.at(-1).shares[i] / 100)
-          .join("\n") || "",
-      );
+    sdk.assertCurrent?.();if(requests.current!==ticket)return;
+    const existingReview=daoReviewRef.current;
+    if(existingReview&&(existingReview.baseEpoch!==String(count)||existingReview.treasury.toLowerCase()!==treasury.toLowerCase())){
+      draftGuard.invalidate();setDaoReview(null);setDaoReviewError('DAO recipient or allocation epoch changed. Your text is preserved; prepare the DAO table again.');
+    }
+    setEpochs(es);setProposals(ps);
+    if(es.length)setRows(current=>seedAllocationText(current,es.at(-1).recipients,es.at(-1).shares));
     if (asset) {
       const b = {
         collector: String(
-          await sdk.erc20(asset).balanceOf(deployment.contracts.allocation),
+          await sdk.erc20(asset).balanceOf(deployment.contracts.allocation,snapshot),
         ),
         epochs: {},
       };
       for (const e of es)
-        b.epochs[e.id] = String(await sdk.erc20(asset).balanceOf(e.split));
+        b.epochs[e.id] = String(await sdk.erc20(asset).balanceOf(e.split,snapshot));
       if (address)
         b.warehouse = String(
-          (await sdk.contract("warehouse").balanceOf(address, BigInt(asset))) >
+          (await sdk.contract("warehouse").balanceOf(address, BigInt(asset),snapshot)) >
             0n
             ? (await sdk
                 .contract("warehouse")
-                .balanceOf(address, BigInt(asset))) - 1n
+                .balanceOf(address, BigInt(asset),snapshot)) - 1n
             : 0n,
         );
-      setBalances(b);
+      sdk.assertCurrent?.();if(requests.current===ticket)setBalances(b);
     }
   }
   useEffect(() => {
+    setBalances({});
     refresh().catch(console.error);
     const i = setInterval(() => refresh().catch(console.error), 7000);
-    return () => clearInterval(i);
+    return () => {requests.current++;draftGuard.invalidate();clearInterval(i);};
   }, [sdk, address, asset]);
   return (
     <>
@@ -2426,25 +2435,34 @@ function Fees({ sdk, address, markets, run, busy, deployment }) {
           </p>
           <textarea
             className="code-editor"
-            value={rows}
-            onChange={(e) => setRows(e.target.value)}
+            value={rows??''}
+            aria-label="Top-level beneficiary allocation"
+            onChange={(e) => {draftGuard.invalidate();setDaoReview(null);setDaoReviewError('');setRows(e.target.value);}}
             placeholder="0xAddress,60\n0xAddress,40"
           />
+          <Button secondary disabled={!sdk||!!busy||!rows} onClick={()=>run('Prepare DAO allocation draft',async()=>{
+            const ticket=draftGuard.begin(),client=sdk,input=rows,s=await client.treasurySnapshot([]);client.assertCurrent?.();
+            if(!draftGuard.current(ticket))return;
+            const prepared=allocationWithGovernance(parseAllocationRows(input),s.treasury,2000);
+            setRows(prepared.map(r=>`${r.address},${r.share/100}`).join('\n'));
+            setDaoReviewError('');
+            setDaoReview({treasury:s.treasury,block:s.blockNumber,baseEpoch:s.currentEpoch,rows:prepared});
+          })}>Prepare DAO 20% table</Button>
+          {daoReviewError&&<p className="alert">{daoReviewError}</p>}
+          {daoReview&&<div className="note"><p>Draft only: DAO recipient <code>{daoReview.treasury}</code> receives20%; other shares are proportionally reduced. Read block #{daoReview.block}, current epoch {daoReview.baseEpoch}. No allocation has been submitted or applied.</p>
+            <table><tbody>{daoReview.rows.map(r=><tr key={r.address}><td><code>{r.address}</code>{r.address.toLowerCase()===daoReview.treasury.toLowerCase()?' · DAO Timelock':''}</td><td>{r.share/100}%</td></tr>)}</tbody></table></div>}
+          <p className="note">DAO share reductions require a Governor proposal executed by the Timelock. Its received LP/T belongs to the DAO; internal transfers are separate decisions.</p>
+          <Button secondary disabled={!!busy} onClick={()=>setPage('governance')}>Open DAO consent & treasury</Button>
           <Button
-            disabled={!address || busy}
+            disabled={!address || busy || !rows || !!daoReviewError}
             onClick={() =>
               run("Propose allocation", async () => {
-                const parsed = rows
-                  .trim()
-                  .split("\n")
-                  .map((line) => {
-                    const [a, s] = line.split(",");
-                    return {
-                      address: a.trim(),
-                      share: Math.round(Number(s) * 100),
-                    };
-                  });
-                await sdk.proposeAllocation(parsed);
+                const parsed = parseAllocationRows(rows),client=sdk,ticket=draftGuard.begin();
+                assertAllocationReview(parsed,daoReview);
+                const current=()=>{if(!draftGuard.current(ticket))throw Error('Allocation draft changed; review it again');};
+                if(daoReview){const fresh=await client.treasurySnapshot([]);client.assertCurrent?.();
+                  if(fresh.currentEpoch!==daoReview.baseEpoch||fresh.treasury.toLowerCase()!==daoReview.treasury.toLowerCase())throw Error('DAO recipient or epoch changed; prepare the allocation table again');}
+                current();await client.proposeAllocation(parsed,current);
                 refresh();
               })
             }

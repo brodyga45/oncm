@@ -59,6 +59,8 @@ V2’s 0.30% swap fee remains original. With `feeTo` active, approximately one s
 
 Anyone can propose a sorted table of at most 32 addresses totaling 10,000 basis points. Exactly every address with a decreased share must consent; it may revoke before activation. A proposal based on an old epoch is stale. Applied splits are ownerless. Timelock controls V2’s `feeToSetter`, so governance can redirect future upstream protocol fee flow; it cannot alter previously created ownerless splits.
 
+The existing Timelock can itself be a top-level beneficiary. **Prepare DAO20% table** fills an explicit draft, requiring the ordinary consent of every losing recipient before application. A later reduction of the DAO's share needs a Governor/Timelock consent transaction; revocation uses the same governance path. **DAO beneficiary & treasury** displays actual per-asset holdings/credits and prepares governed Warehouse claims and exact ERC20 transfers to separately chosen internal recipients. LP units remain distinct from T, and voters receive no automatic payout. See [DAO-TREASURY.md](docs/DAO-TREASURY.md) for exact calls, guards and current validation status.
+
 ## Research import and onchain discussion
 
 Palomar discovery reads the real `recent.json`/versioned entry interface. Import fetches the exact GitHub commit’s challenge, solution, YAML, Comparator config, Lake config, toolchain and lockfile where available, retaining SHA-256 for each file and the full registry record. Nothing fetched is automatically accepted as a proof. The first declared theorem is selected initially; the source/profile must be supported by the installed proof pipeline. Large Mathlib/FLT imports are not promised to fit the local profile or machine.

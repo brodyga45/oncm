@@ -11,6 +11,7 @@ import { verifyExternalCertificate } from "./proof-import.mjs";
 import { verifyExternalBundle } from "./external-registration.mjs";
 import { readGovernance } from "./governance.mjs";
 import { readDerivedReadiness } from "./derived-readiness.mjs";
+import { readTreasury, treasuryCall, refreshTreasuryCall } from "./treasury.mjs";
 export { decodeExternalCertificate, fixtureForCertificate } from "./proof-import.mjs";
 export { parseEther, formatEther };
 export class ExchangeSDK {
@@ -439,6 +440,18 @@ export class ExchangeSDK {
       timelockAt: address => new Contract(address, this.abis.TimelockController, this.provider),
     }, account);
   }
+  treasurySnapshot(assets = []) { return readTreasury(this,assets); }
+  async prepareTreasuryCall(input,assets = []) {
+    return treasuryCall(await this.treasurySnapshot(assets),input,this.abis);
+  }
+  async proposeTreasuryCall(previous,input,assets = [],assertFormCurrent = () => {}) {
+    const snapshot=await this.treasurySnapshot(assets),fresh=refreshTreasuryCall(previous,snapshot,input,this.abis);
+    this.assertCurrent?.();assertFormCurrent();
+    return this.tx('Create DAO treasury proposal',()=>{
+      assertFormCurrent();
+      return this.contract('governor').propose(fresh.targets,fresh.values,fresh.calldatas,previous.description);
+    });
+  }
   async cancelProposal(p) {
     return this.tx("Cancel pending proposal", () => this.contract("governor").cancel(
       p.targets, p.values, p.calldatas, keccak256(toUtf8Bytes(p.description)),
@@ -479,15 +492,16 @@ export class ExchangeSDK {
       ),
     );
   }
-  async proposeAllocation(rows) {
+  async proposeAllocation(rows,assertFormCurrent = () => {}) {
     const sorted = [...rows].sort((a, b) =>
       a.address.toLowerCase().localeCompare(b.address.toLowerCase()),
     );
-    return this.tx("Propose fee allocation", async () =>
-      this.contract("allocation").propose(
+    return this.tx("Propose fee allocation", async () => {
+      assertFormCurrent();
+      return this.contract("allocation").propose(
         sorted.map((r) => r.address),
         sorted.map((r) => r.share),
-      ),
+      );},
     );
   }
   async consent(id, value) {

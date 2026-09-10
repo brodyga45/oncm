@@ -1,0 +1,272 @@
+{
+  "kind": "read-only-actual-sdk",
+  "before": 265,
+  "after": 265,
+  "snapshot": {
+    "chainId": 31372,
+    "blockNumber": 265,
+    "blockHash": "0x6e1262b168edb32d298ac18911f3b5c8c74e1cbf8b14547d21b5003d0634f8f3",
+    "blockTimestamp": 1789035679,
+    "treasury": "0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5",
+    "governor": "0xfbC22278A96299D91d41C453234d97b4F5Eb9B2d",
+    "allocation": "0x0355B7B8cb128fA5692729Ab3AAa199C1753f726",
+    "warehouse": "0x36b58F5C1969B7b6591D752ea6F5486D069010AB",
+    "currentEpoch": "2",
+    "recipients": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "shares": [
+      "5000",
+      "5000"
+    ],
+    "share": "0",
+    "withdrawalPaused": false,
+    "withdrawalIncentive": "0",
+    "proposals": [
+      {
+        "id": 1,
+        "baseEpoch": "1",
+        "applied": true,
+        "losing": false,
+        "consent": false,
+        "current": false,
+        "recipients": [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "shares": [
+          "5000",
+          "5000"
+        ]
+      }
+    ],
+    "assets": [
+      {
+        "address": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "label": "T · collateral",
+        "kind": "T",
+        "decimals": 18,
+        "symbol": "T",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xdA88e887F0a12c8424f27461f4d4A6365eFFac35",
+        "label": "Для любого P: Prop, P → P · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xaeD167A7897C36fc2Af91d62425aB5c1dC038eCA",
+        "label": "Для любого P: Prop, P → P · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x20B7122E013ebCABf6778B9C82844aa4eF0D6689",
+        "label": "External universal claim · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xa64E88d745eF7BF9522d7E02AE591B7fefCD1c40",
+        "label": "External universal claim · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x27D6D59C6093a7F76b7EAA0cBf762411056e0dCa",
+        "label": "Deadline QA · parent records TRUE · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x79C880fEce44A90FDE4b761594e97F8ce703d01E",
+        "label": "Deadline QA · parent records TRUE · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x7eF41b200921BA2ecCcc6F8164F8A3E25C291400",
+        "label": "Deadline QA · resolved by 2030 · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x7d87F53d2b0d0c3C6dfbAF7a421716201E8e3fDc",
+        "label": "Deadline QA · resolved by 2030 · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xEd62e6b471BdC5290F437B5EcD9E3897024B3dDd",
+        "label": "Deadline QA · expired in 2020 · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x52A31819A8F1430a93DeeAB811cD6CB528dcf3f9",
+        "label": "Deadline QA · expired in 2020 · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x56d42d267529c7Fa3239dE2F5b09e43B132bdBC2",
+        "label": "Deadline QA · FALSE by 2030 · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x6435154ACc7F03fa4FBE25d60A00BD7c48bf1090",
+        "label": "Deadline QA · FALSE by 2030 · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xDcd9751249301f7A86e64F8693b78157D6f29B35",
+        "label": "Deadline QA · TRUE by 2030 · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x8D8bfAE1E88B8df6d2E638Adf07F54d86D176ae3",
+        "label": "Deadline QA · TRUE by 2030 · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x953E3A35cf894359778e8aB7160eD7d061F23899",
+        "label": "Arbitrage QA · False theorem recorded as FALSE · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x0D90773e4e9Dd71942D48250694654A94156A1d9",
+        "label": "Arbitrage QA · False theorem recorded as FALSE · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xF31e3eDCf4828F88917e3Cfd6175e7fE78533eAf",
+        "label": "Arbitrage QA · parent resolved by 2030 · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0x12cAF42684A8294a1D8147d73d07e544266570F9",
+        "label": "Arbitrage QA · parent resolved by 2030 · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xBbA328CEeaB62d90066153771EBcc00b6EFb25BB",
+        "label": "Operator QA · identity unresolved by 2030 UTC · YES/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      },
+      {
+        "address": "0xCf39df70919515D52B052101E868662f0DF08e60",
+        "label": "Operator QA · identity unresolved by 2030 UTC · NO/T LP",
+        "kind": "LP",
+        "decimals": 18,
+        "symbol": "UNI-V2",
+        "balance": "0",
+        "warehouseBalance": "0",
+        "claimable": "0"
+      }
+    ]
+  },
+  "draftOnlyDAO20": [
+    {
+      "address": "0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5",
+      "share": 2000
+    },
+    {
+      "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "share": 4000
+    },
+    {
+      "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "share": 4000
+    }
+  ],
+  "transactionsSent": 0
+}
