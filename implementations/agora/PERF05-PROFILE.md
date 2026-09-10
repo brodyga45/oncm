@@ -52,8 +52,9 @@ settlement certificates.
    separate wallet transaction. Registration outcome0 cannot settle a market.
 
 An import does not modify onchain state. The manual hex settlement path remains
-available and the actual contract verifies it. Local generation buttons are
-disabled on a perf05 market because the installed native runner is v3.
+available and the actual contract verifies it. As of 2026-09-10 the website has
+no certificate-generation actions for any profile. Users prepare certificates
+externally. The optional native check remains v3-only; API/CLI/history are retained.
 
 Exact governance calldata prepared for step2:
 
@@ -126,3 +127,46 @@ Reports: `/private/tmp/agora-import-race-http-validation.json` and
 loaded the API change; no restart, chain transaction, profile change or local
 proving was needed. Browser reproduction of the navigation race is not claimed
 by these automated checks.
+
+### Four published CI artifacts: explicit Load → Verify → wallet
+
+The independent Agora bundle now contains all four genuine CI JSON artifacts:
+`registration.json` (true-registration), `false-registration.json`,
+`true-proof.json`, `false-refutation.json`. Exact filenames, case/outcome,
+goal/profile and SHA256 pins live in `published-certificates.json`.
+`server/published-certificates.mjs` allowlists those four IDs/filenames and
+checks pins/envelope bindings before returning JSON. It does not run a prover,
+call the verifier, preaccept a proof or submit a transaction.
+
+Current registration UI steps (supersede the older one-click published
+registration shortcut): **Create a market → Import an externally generated
+certificate → PUBLISHED CI REGISTRATION**. Choose either
+**Register ∀ P : Prop, P → P** or **Register ∀ P : Prop, P**, then click
+**Load published registration JSON**. The expanded review field receives the
+artifact. Click **Verify & use registration** for the existing original-bridge
+verification, then use the ordinary wallet registration/create flow.
+
+For settlement: market **Proof → PUBLISHED CI SETTLEMENT**, choose
+**Prove ∀ P : Prop, P → P (TRUE)** or **Refute ∀ P : Prop, P (FALSE)**, then
+**Load published settlement JSON → Verify & load settlement certificate →
+Verify & settle onchain**. Choices for a different selected goal/profile are
+disabled. Navigation resets the choice. Loading clears the previous accepted
+certificate so it cannot be mistaken for the newly loaded, unverified JSON.
+Existing server canonical checks, onchain verification and selection binding
+remain required. This path avoids browser file-upload permissions while
+retaining separate explicit user actions.
+
+Validation:9/9 lightweight tests passed (four exact cases, wrong-case/goal
+rejection, altered pinned file/catalog rejection, allowlist rejection, and
+existing certificate/selection regressions). Read-only live GETs for all four
+returned200 `loaded-unverified`; an unknown ID returned400. No verifier call
+or transaction was performed by those reads. Final Vite build passed under
+1GiB/30s guard:1.484s, peak304,031,712bytes (~289.9MiB), no cleanup errors.
+Reports: `/private/tmp/agora-published-certificate-http-validation.json` and
+`/private/tmp/agora-published-certificate-vite-resources.json`.
+
+The earlier genuine CI verification remains separate evidence; a UI load
+does not rely on an artifact's success flag. Parent-owned manual browser
+registration/settlement through these new selectors is not yet claimed by
+this implementation check. No explicit API restart, local proving, chain
+mutation or new paid service was used.

@@ -1,0 +1,61 @@
+{
+  "readOnly": true,
+  "block": "73",
+  "markets": [
+    {
+      "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+      "kind": 0,
+      "outcome": 1,
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    },
+    {
+      "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+      "kind": 0,
+      "outcome": 0,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    }
+  ],
+  "derivedCount": 0,
+  "allocations": [
+    {
+      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "observedBlock": "73",
+      "epoch": 1,
+      "epochs": [
+        {
+          "epoch": 0,
+          "split": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "claimable": "0"
+        },
+        {
+          "epoch": 1,
+          "split": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "96326530612244896",
+          "claimable": "48163265306122448"
+        }
+      ]
+    },
+    {
+      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "observedBlock": "73",
+      "epoch": 1,
+      "epochs": [
+        {
+          "epoch": 0,
+          "split": "0x75537828f2ce51be7289709686A69CbFDbB714F1",
+          "balance": "0",
+          "claimable": "0"
+        },
+        {
+          "epoch": 1,
+          "split": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+          "balance": "96326530612244896",
+          "claimable": "48163265306122448"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+[
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "packages/protocol/src/CommentManager.sol",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/packages/protocol/src/CommentManager.sol",
+    "bytes": 28538,
+    "sha256": "346b12ffd64e9e85e00e06ed9acb35222981b45bd1453d5ec4ea6c061539f1a7"
+  },
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "packages/protocol/src/ChannelManager.sol",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/packages/protocol/src/ChannelManager.sol",
+    "bytes": 12924,
+    "sha256": "ba6dc9b00a8816d5309e1732ddd5a880672600b1ac6991daab4d475df8e908f6"
+  },
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "packages/protocol/src/types/Comments.sol",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/packages/protocol/src/types/Comments.sol",
+    "bytes": 5168,
+    "sha256": "26ce8ba70cacbceff1d6e3518586974bda0ee33fbdd6b15de47b97e7449f749f"
+  },
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "LICENSE.md",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/LICENSE.md",
+    "bytes": 1089,
+    "sha256": "8c8e4102b68c5e3dfc705d680fc08b6af6efc9fdd5367abf219774dba6d43757"
+  },
+  {
+    "repo": "ethereum-attestation-service/eas-contracts",
+    "commit": "e6e970286ff18bbdfc5d8eff2742c5ece46040e4",
+    "path": "contracts/EAS.sol",
+    "url": "https://raw.githubusercontent.com/ethereum-attestation-service/eas-contracts/e6e970286ff18bbdfc5d8eff2742c5ece46040e4/contracts/EAS.sol",
+    "bytes": 29265,
+    "sha256": "751bf7ab2f5e8b9036560dfe9fc1984cf10de2925fafe6cc71e2ea6aa97a2da4"
+  },
+  {
+    "repo": "ethereum-attestation-service/eas-contracts",
+    "commit": "e6e970286ff18bbdfc5d8eff2742c5ece46040e4",
+    "path": "contracts/IEAS.sol",
+    "url": "https://raw.githubusercontent.com/ethereum-attestation-service/eas-contracts/e6e970286ff18bbdfc5d8eff2742c5ece46040e4/contracts/IEAS.sol",
+    "bytes": 16921,
+    "sha256": "2db305cf4bcbf48c65dfa5ad89bbde51813555c2e7bba7d04d17a6b7ade297bc"
+  },
+  {
+    "repo": "ethereum-attestation-service/eas-contracts",
+    "commit": "e6e970286ff18bbdfc5d8eff2742c5ece46040e4",
+    "path": "contracts/resolver/SchemaResolver.sol",
+    "url": "https://raw.githubusercontent.com/ethereum-attestation-service/eas-contracts/e6e970286ff18bbdfc5d8eff2742c5ece46040e4/contracts/resolver/SchemaResolver.sol",
+    "bytes": 6125,
+    "sha256": "7a8b429dd14a029266159803a3c9c0ca356267e14e57cd4a81f8db95783e1db4"
+  },
+  {
+    "repo": "ethereum-attestation-service/eas-contracts",
+    "commit": "e6e970286ff18bbdfc5d8eff2742c5ece46040e4",
+    "path": "LICENSE",
+    "url": "https://raw.githubusercontent.com/ethereum-attestation-service/eas-contracts/e6e970286ff18bbdfc5d8eff2742c5ece46040e4/LICENSE",
+    "bytes": 1070,
+    "sha256": "2737477c1d2dfa4ed0ee0e1f8e810d1d2fae0265a31ebdcd9c9eb6a3ce65b46f"
+  },
+  {
+    "repo": "Vectorized/solady",
+    "commit": "2afba69bf67b78dd4abeadcc696052b3a6f71499",
+    "path": "src/utils/SSTORE2.sol",
+    "url": "https://raw.githubusercontent.com/Vectorized/solady/2afba69bf67b78dd4abeadcc696052b3a6f71499/src/utils/SSTORE2.sol",
+    "bytes": 12633,
+    "sha256": "23011882e5f3d548971ca9b0554d3bdd182eb46762d02864d5009823e73716a3"
+  },
+  {
+    "repo": "Vectorized/solady",
+    "commit": "2afba69bf67b78dd4abeadcc696052b3a6f71499",
+    "path": "LICENSE.txt",
+    "url": "https://raw.githubusercontent.com/Vectorized/solady/2afba69bf67b78dd4abeadcc696052b3a6f71499/LICENSE.txt",
+    "bytes": 1069,
+    "sha256": "627432254a6c7a01368c6b72ad662a925aeb6370c53ce1139e183824f4bcecdc"
+  },
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "packages/protocol/src/libraries/CommentSigning.sol",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/packages/protocol/src/libraries/CommentSigning.sol",
+    "bytes": 7777,
+    "sha256": "e5896a956dbba67da7e4ded3e10c124ba07b657a77f1876a94d0aa53191013ec"
+  },
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "packages/protocol/src/libraries/CommentOps.sol",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/packages/protocol/src/libraries/CommentOps.sol",
+    "bytes": 14532,
+    "sha256": "68ecc65469742a57c391a050c781f67934c17672ef3b3f01b78228895b3160ed"
+  },
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95",
+    "path": "packages/protocol/src/ProtocolFees.sol",
+    "url": "https://raw.githubusercontent.com/ecp-eth/comments-monorepo/c301d76fa56b6b807f135c98273ac9eb5ddebe95/packages/protocol/src/ProtocolFees.sol",
+    "bytes": 5338,
+    "sha256": "7d346bc6f9d36a3b78cc879297bf42425f54ce6275da3eadcd7a535ac76c0cac"
+  }
+]

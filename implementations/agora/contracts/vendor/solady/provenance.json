@@ -1,0 +1,11 @@
+{
+  "repo": "Vectorized/solady",
+  "version": "0.1.26",
+  "commit": "acd959aa4bd04720d640bf4e6a5c71037510cc4b",
+  "path": "src/utils/SSTORE2.sol",
+  "url": "https://raw.githubusercontent.com/Vectorized/solady/acd959aa4bd04720d640bf4e6a5c71037510cc4b/src/utils/SSTORE2.sol",
+  "bytes": 12633,
+  "sha256": "23011882e5f3d548971ca9b0554d3bdd182eb46762d02864d5009823e73716a3",
+  "matchesExistingInstalledBytes": true,
+  "assemblyReview": "write/read use CREATE/CODECOPY/EXTCODECOPY; no explicit MCOPY/TSTORE/TLOAD/BLOB opcodes found; Shanghai compile target required; runtime trial pending"
+}

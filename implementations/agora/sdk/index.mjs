@@ -1,13 +1,20 @@
+import {network} from './local-network.mjs';
+import {createSocialSDK} from './social.mjs';
+import {createSocialReader} from './social-read.mjs';
+export {createSocialSDK,createSocialReader};
 import {parseTokenAmount as parseEther,assertBaseUnits} from './amounts.mjs';
+import {parseBoundedJSON} from './external-bundle.mjs';
+export {inspectExternalBundle,parseBoundedJSON,EXTERNAL_BUNDLE_LIMITS} from './external-bundle.mjs';
+export {validateSourcePackage} from './source-package.mjs';
 export {parseTokenAmount,parseFeePercent,parseSlippagePercent,parseAllocationPercent} from './amounts.mjs';
 import {createPublicClient,http,zeroHash,decodeEventLog} from 'viem';
 import {chain,assertLocalChain,stringify} from './chain.mjs';
 
 /** All amounts are bigint base units; positions are YES=0 and NO=1.
  * Callers may supply config+ABIs and a public client to work without the API.
- * Only jobs, comments, discovery and metadata require the offchain service.
+ * Only private research, jobs, discovery and metadata require the offchain service; social has an RPC fallback.
  */
-export async function createAgoraSDK({wallet,config,client,apiUrl='http://127.0.0.1:4171/api'}={}){
+export async function createAgoraSDK({wallet,config,client,apiUrl=network.apiUrl+'/api'}={}){
  client??=createPublicClient({chain,transport:http(chain.rpcUrls.default.http[0]),pollingInterval:400});
  let token;
  const api=async(route,options={})=>{const r=await fetch(apiUrl+route,{...options,headers:{...options.body!==undefined&&{'content-type':'application/json'},...token&&{authorization:`Bearer ${token}`},...options.headers},body:options.body===undefined?undefined:stringify(options.body)});const data=await r.json();if(!r.ok)throw new Error(data.error??r.statusText);return data;};
@@ -16,8 +23,10 @@ export async function createAgoraSDK({wallet,config,client,apiUrl='http://127.0.
  const write=async(address,contract,fn,args=[])=>{if(!wallet)throw new Error('A signing wallet is required');await assertLocalChain(client);await assertLocalChain(wallet);const {request}=await client.simulateContract({address,abi:config.abis[contract],functionName:fn,args,account:wallet.account});const hash=await wallet.writeContract(request);const receipt=await client.waitForTransactionReceipt({hash});if(receipt.status!=='success')throw new Error('Transaction reverted');return receipt;};
  const approveT=(spender,amount)=>write(config.token,'TrueToken','approve',[spender,assertBaseUnits(amount)]);
  const quote=async(pool,side,amount,mode='buy')=>{if(side!==0&&side!==1)throw new Error('Outcome is 0=YES or 1=NO');return read(pool,'FixedProductMarketMaker',mode==='buy'?'calcBuyAmount':'calcSellAmount',[assertBaseUnits(amount),side]);};
+ const social=config.social?createSocialSDK({client,wallet,address:config.social,abi:config.abis.AgoraSocial}):null;
+ const requireSocial=()=>{if(!social)throw Error('Onchain social unavailable');return social;};
  return{
-  config,client,read,write,api,approveT,
+  social,socialReader:social?createSocialReader(social):null,config,client,read,write,api,approveT,
   statement:id=>read(config.registry,'AgoraRegistry','getStatement',[id]),
   pools:id=>read(config.registry,'AgoraRegistry','getPools',[id]),
   registerGoal:(goalHash,profileId,metadataURI,certificate)=>write(config.registry,'AgoraRegistry','register',[goalHash,profileId,metadataURI,certificate]),
@@ -46,13 +55,14 @@ export async function createAgoraSDK({wallet,config,client,apiUrl='http://127.0.
   removeBookmark:id=>api(`/shelf/${id}`,{method:'DELETE'}),
   notebook:()=>api('/notebook'),
   saveRevision:revision=>api('/notebook',{method:'POST',body:revision}),
-  profile:address=>api(`/profiles/${address}`),
-  updateProfile:data=>api('/profiles/me',{method:'PUT',body:data}),
-  voteComment:(id,value)=>api(`/comments/${id}/vote`,{method:'POST',body:{value}}),
-  postComment:(id,text,parentId=null)=>api(`/comments/${id}`,{method:'POST',body:{text,parentId}}),
+  profile:address=>requireSocial().profile(address),
+  updateProfile:data=>requireSocial().publishProfile(data),
+  voteComment:(id,value)=>requireSocial().vote(id,value),
+  postComment:(id,text,parentId=null)=>requireSocial().publishComment(id,text,parentId),
   runJob:input=>api('/jobs',{method:'POST',body:input}),
   additionalProfile:()=>api('/additional-profile'),
-  importCertificate:(artifact,statementId)=>api('/certificates/import',{method:'POST',body:{artifact,statementId}}),
+  importCertificate:(input,statementId)=>{const artifact=typeof input==='string'?parseBoundedJSON(input):input;return artifact?.format==='oncm-external-certificate-bundle-v1'?api('/certificates/import-bundle',{method:'POST',body:{bundle:input,statementId}}):api('/certificates/import',{method:'POST',body:{artifact,statementId}});},
+  certificateProfile:id=>api(`/certificate-profiles/${id}`),
   jobs:()=>api('/jobs'),
   package:id=>api(`/package/${id}`),
   events:receipt=>receipt.logs.flatMap(log=>{for(const abi of Object.values(config.abis)){try{return[decodeEventLog({abi,data:log.data,topics:log.topics})];}catch{}}return[];}),

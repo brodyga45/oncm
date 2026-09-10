@@ -1,0 +1,57 @@
+[
+  {
+    "path": "sdk/local-network.mjs",
+    "sha256": "af59e8668b50395c1183a313fe8dff69cf325dbcbc83a2a474e44cabbace5c3a",
+    "copyMatches": true
+  },
+  {
+    "path": "sdk/chain.mjs",
+    "sha256": "6462390cb7cb933aaea84b33b9193fa729096f51a6caf9eddce0ac255c2f6e4a",
+    "copyMatches": true
+  },
+  {
+    "path": "sdk/index.mjs",
+    "sha256": "1db128d0a4f72c11dcdcc3d3e50f0d020a6926509d739cca62e07f948a3735bb",
+    "copyMatches": true
+  },
+  {
+    "path": "server/index.mjs",
+    "sha256": "2db9d969d9a75750dda83cff43e3661cd1e3b88bbb0cc0802de70af37437150d",
+    "copyMatches": true
+  },
+  {
+    "path": "server/governance-view.mjs",
+    "sha256": "66b9ef65a7732137d7a89c26d849776e31ec87adecf16dc2313d6ebbcbe1754e",
+    "copyMatches": true
+  },
+  {
+    "path": "scripts/start.mjs",
+    "sha256": "8cc4a2a8409d72ac67a7afef9f8aa940cf0f0a11d5fcb4cee5bb6603ec71d340",
+    "copyMatches": true
+  },
+  {
+    "path": "scripts/deploy.mjs",
+    "sha256": "f5c47abcc21bd9cdddeede192fd27db8f690e4c5fd44db8d815645cfbb8c7242",
+    "copyMatches": true
+  },
+  {
+    "path": "scripts/proof-bootstrap.mjs",
+    "sha256": "b1df4836f7ecfa330ba2b55acb24ec2f83bd4d2d3120eb58dca09b02d93ad3d8",
+    "copyMatches": true
+  },
+  {
+    "path": "vite.config.js",
+    "sha256": "0dabaee3ffa026d58f6d4bba89c187504736b820e793e507dcf721e4a95f342d",
+    "copyMatches": true
+  },
+  {
+    "path": "proof/bootstrap-deployment.json",
+    "sha256": "a5f16414ce2c5e943c1de5dc49e93fe423059c5fa55e78a35eb7e3c7a84596a5",
+    "copyMatches": true
+  },
+  {
+    "path": "proof/bootstrap/LeanProofBridge.json",
+    "sha256": "8cd96a8eaa81417b8c696d1aa142fac60d6f1e53220457823d3770a221fa6916",
+    "copyMatches": true
+  }
+]

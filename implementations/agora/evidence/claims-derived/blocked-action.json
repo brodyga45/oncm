@@ -1,0 +1,20 @@
+{
+  "action": "Create matching-outcome derived predicate and empty pool",
+  "status": "not-submitted-after-auto-review-rejection",
+  "reason": "This combines a read with an onchain derivative-market registration, but the dependency/profile and liquidity settings are not verified before submission, so the consequential irreversible write is not sufficiently bounded.",
+  "draftReadInBrowser": true,
+  "tabId": "102825277",
+  "chainId": 31371,
+  "block": "78",
+  "wallet": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "title": "Audit derivative · TRUE base resolves TRUE",
+  "kind": 2,
+  "dependency": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+  "expectedOutcome": 1,
+  "deadline": "0",
+  "profile": "not-applicable-derived-zero",
+  "initialLiquidityT": "0",
+  "feePercent": "2",
+  "submitClickedAgain": false,
+  "originalNOSettlementRetried": false
+}

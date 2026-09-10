@@ -1,0 +1,18 @@
+{
+  "tabId": "102825288",
+  "url": "http://127.0.0.1:15171/",
+  "chainId": 31371,
+  "block": "12",
+  "publicCatalogEmpty": true,
+  "onchainProfileRead": true,
+  "profileVersions": 0,
+  "comments": 0,
+  "blogs": 0,
+  "privateShelfSIWESignInPassed": true,
+  "privateShelfEmpty": true,
+  "signOutPassed": true,
+  "browserTransactions": 0,
+  "socialWrites": 0,
+  "freshSourceStartupDeploymentOnly": true,
+  "observedReporterIssue": "readonly.json socialProfileInitiallyEmpty used absence of displayName; SDK supplies an address label for unpublished profiles. Actual browser reported zero profile versions; source reporter corrected afterward."
+}

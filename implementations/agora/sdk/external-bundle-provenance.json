@@ -1,0 +1,9 @@
+{
+  "format": "oncm-shared-validator-copy-v1",
+  "sharedSource": "implementations/vault/sdk/external-bundle.mjs",
+  "sharedSourceSha256": "6b77b42541f39391f79cf9c145c3930bc66f49ebc5a5165aada780911b8acc50",
+  "independentCopySha256": "5cda3e420e50a138f98ab81004652383ab431f90ca5fc9a978689495172b03c4",
+  "bindingLogicAfterDomainDeclarationByteIdentical": true,
+  "adapterOnly": "ethers v6 AbiCoder/base64/sha256 \u2192 existing viem 2.31.0 + @scure/base 1.2.6",
+  "runtimeCrossAppImports": false
+}

@@ -1,0 +1,81 @@
+{
+  "blockBefore": "73",
+  "blockAfter": "73",
+  "mode": "read-only eth_call; no market registration/settlement",
+  "results": [
+    {
+      "file": "registration.json",
+      "accepted": true,
+      "outcome": 0,
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "cryptographicStatus": "verified-original-evm-and-bridge",
+      "sourceGoalRelation": "not-verified",
+      "fixtureCatalogueEmpty": true,
+      "exactUploadedJSONDigestPreserved": true,
+      "settlementState": "not applicable",
+      "originalVerifier": "0x553BED26A78b94862e53945941e4ad6E4F2497da"
+    },
+    {
+      "file": "true-proof.json",
+      "accepted": true,
+      "outcome": 1,
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "cryptographicStatus": "verified-original-evm-and-bridge",
+      "sourceGoalRelation": "not-verified",
+      "fixtureCatalogueEmpty": true,
+      "exactUploadedJSONDigestPreserved": true,
+      "settlementState": "synthetic open object only for independent crypto-call test",
+      "originalVerifier": "0x553BED26A78b94862e53945941e4ad6E4F2497da"
+    },
+    {
+      "file": "false-registration.json",
+      "accepted": true,
+      "outcome": 0,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "cryptographicStatus": "verified-original-evm-and-bridge",
+      "sourceGoalRelation": "not-verified",
+      "fixtureCatalogueEmpty": true,
+      "exactUploadedJSONDigestPreserved": true,
+      "settlementState": "not applicable",
+      "originalVerifier": "0x553BED26A78b94862e53945941e4ad6E4F2497da"
+    },
+    {
+      "file": "false-refutation.json",
+      "accepted": true,
+      "outcome": 2,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "cryptographicStatus": "verified-original-evm-and-bridge",
+      "sourceGoalRelation": "not-verified",
+      "fixtureCatalogueEmpty": true,
+      "exactUploadedJSONDigestPreserved": true,
+      "settlementState": "synthetic open object only for independent crypto-call test",
+      "originalVerifier": "0x553BED26A78b94862e53945941e4ad6E4F2497da"
+    }
+  ],
+  "unknownSelfConsistentGoalWithRetainedSealRejected": true,
+  "apiResults": [
+    {
+      "file": "registration.json",
+      "status": 200,
+      "exactUploadedJSONDigestPreserved": true,
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "sourceGoalRelation": "not-verified"
+    },
+    {
+      "file": "false-registration.json",
+      "status": 200,
+      "exactUploadedJSONDigestPreserved": true,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "sourceGoalRelation": "not-verified"
+    },
+    {
+      "file": "false-refutation.json",
+      "status": 200,
+      "exactUploadedJSONDigestPreserved": true,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "sourceGoalRelation": "not-verified"
+    }
+  ],
+  "duplicateAPIKeysRejected": true,
+  "newTheoremCertificateStillMissing": true
+}

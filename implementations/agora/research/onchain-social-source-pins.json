@@ -1,0 +1,17 @@
+[
+  {
+    "repo": "ecp-eth/comments-monorepo",
+    "branch": "main",
+    "commit": "c301d76fa56b6b807f135c98273ac9eb5ddebe95"
+  },
+  {
+    "repo": "ethereum-attestation-service/eas-contracts",
+    "branch": "master",
+    "commit": "e6e970286ff18bbdfc5d8eff2742c5ece46040e4"
+  },
+  {
+    "repo": "Vectorized/solady",
+    "branch": "main",
+    "commit": "2afba69bf67b78dd4abeadcc696052b3a6f71499"
+  }
+]

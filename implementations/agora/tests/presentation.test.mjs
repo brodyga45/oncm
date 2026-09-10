@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {allocationProposalView} from '../server/allocation-view.mjs';
-import {marketProbability,marketProbabilityLabel} from '../src/market-view.mjs';
+import {marketProbability,marketProbabilityLabel,derivedRuleText} from '../src/market-view.mjs';
 
 const baseline={payees:['0xA','0xB'],shares:[600000n,400000n]};
 const proposal={baseVersion:0n,expiresAt:100n,executed:false,payees:['0xa','0xB'],shares:[500000n,500000n]};
@@ -35,4 +35,9 @@ test('unfunded pools have no invented price; huge funded amounts stay finite',()
   assert.equal(marketProbability(market(10n**400n,10n**400n)),50);
   assert.equal(marketProbabilityLabel(market(1n,3n)), '75%');
   assert.equal(marketProbabilityLabel(market(1n,3n),1), '25%');
+});
+
+test('derived display renders registry predicates and never inherited Lean source',()=>{
+ for(const kind of [1,2,3,4]){const s={kind,dependency:'dependency-id',deadline:'123',expectedOutcome:2,metadata:{source:'unrelated Nat draft'}};const text=derivedRuleText(s);assert.match(text,/dependency-id/);assert.doesNotMatch(text,/Nat draft/);if(kind===2||kind===3)assert.match(text,/FALSE/);}
+ assert.match(derivedRuleText({kind:1,dependency:'d',deadline:123}),/exact deadline/);
 });

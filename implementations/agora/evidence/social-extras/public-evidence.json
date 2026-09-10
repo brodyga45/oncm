@@ -1,0 +1,122 @@
+{
+  "recordedAt": "2026-09-10T01:46:15.490Z",
+  "scope": "read-only public API evidence after actual Chrome UI social/extras smoke",
+  "browserTab": 102825250,
+  "chainBefore": {
+    "chainId": 31371,
+    "block": "54"
+  },
+  "chainAfter": {
+    "ok": true,
+    "chainId": 31371,
+    "block": "54"
+  },
+  "statementId": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+  "profiles": [
+    {
+      "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "displayName": "Agora Thread Author",
+      "bio": "Local social smoke: statements, replies and private research notes.",
+      "updatedAt": "2026-09-10T01:38:47.699Z",
+      "commentCount": 1
+    },
+    {
+      "address": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "displayName": "Agora Thread Reviewer",
+      "bio": "Local second-wallet smoke: public replies and reversible votes.",
+      "updatedAt": "2026-09-10T01:41:06.250Z",
+      "commentCount": 3
+    }
+  ],
+  "comments": [
+    {
+      "id": "7ddb49e2-78fc-4964-93a2-04c9af587ba4",
+      "author": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "parentId": null,
+      "depth": 0,
+      "text": "Thread smoke, edited: instantiate the universal hypothesis at False; this is a refutation, not a proof of the goal.",
+      "createdAt": "2026-09-10T01:39:18.428Z",
+      "editedAt": "2026-09-10T01:39:38.644Z",
+      "history": [
+        {
+          "text": "Thread smoke: the goal quantifies over every proposition; the refutation should instantiate False.",
+          "at": "2026-09-10T01:39:18.428Z"
+        }
+      ],
+      "score": 1
+    },
+    {
+      "id": "4827f3f3-60a4-42fd-8348-e29c17dc323e",
+      "author": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "parentId": "7ddb49e2-78fc-4964-93a2-04c9af587ba4",
+      "depth": 1,
+      "text": "Reviewer reply: agreed; applying the universal hypothesis to False supplies the contradiction.",
+      "createdAt": "2026-09-10T01:41:51.970Z",
+      "history": [],
+      "score": 0
+    },
+    {
+      "id": "429a2eec-f573-4964-a2ce-8a45ba5f17bc",
+      "author": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "parentId": "7ddb49e2-78fc-4964-93a2-04c9af587ba4",
+      "depth": 1,
+      "text": "Second reviewer reply: keep sibling replies chronological so the reasoning reads in order.",
+      "createdAt": "2026-09-10T01:44:01.768Z",
+      "history": [],
+      "score": 0
+    },
+    {
+      "id": "8b7b0fdf-657e-42c5-bed6-28222b09c29e",
+      "author": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "parentId": null,
+      "depth": 0,
+      "text": "Separate thread: distinguish the informal description from the exact profile-bound goal.",
+      "createdAt": "2026-09-10T01:42:15.167Z",
+      "history": [],
+      "score": 0
+    }
+  ],
+  "orders": {
+    "top": [
+      "7ddb49e2-78fc-4964-93a2-04c9af587ba4",
+      "4827f3f3-60a4-42fd-8348-e29c17dc323e",
+      "429a2eec-f573-4964-a2ce-8a45ba5f17bc",
+      "8b7b0fdf-657e-42c5-bed6-28222b09c29e"
+    ],
+    "new": [
+      "8b7b0fdf-657e-42c5-bed6-28222b09c29e",
+      "7ddb49e2-78fc-4964-93a2-04c9af587ba4",
+      "4827f3f3-60a4-42fd-8348-e29c17dc323e",
+      "429a2eec-f573-4964-a2ce-8a45ba5f17bc"
+    ]
+  },
+  "jobs": {
+    "before": 5,
+    "after": 5,
+    "active": 0
+  },
+  "manualChecks": {
+    "profilesBothSavedAndRead": true,
+    "authorEditAndHistory": true,
+    "selfVoteDisabled": true,
+    "otherWalletVoteSequence": [
+      1,
+      0,
+      -1,
+      1
+    ],
+    "replyPublished": true,
+    "twoRootsTopNew": true,
+    "siblingChronology": "failed before targeted comparator fix; passed Top and New after fix",
+    "shelfSaveReopen": true,
+    "notebookSaveLoadRestore": true,
+    "otherWalletShelfAndNotebookEmpty": true,
+    "logoutPrivateDraftClear": true,
+    "privateShelfAndNotebookPersistedAcrossApiReload": true
+  },
+  "limitations": [
+    "No injected extension account/network event smoke in this pass; these are covered by earlier mocked-handler tests.",
+    "No proof/native/CI computation or financial transaction.",
+    "Private notes/source and session material are deliberately excluded from this evidence."
+  ]
+}

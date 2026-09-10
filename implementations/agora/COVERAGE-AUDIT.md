@@ -1,98 +1,67 @@
-# Agora: аудит двадцати пользовательских сценариев
+# Agora: current scope audit
 
-Дата: 2026-09-10. Основание — текущие US-001…US-020 из
-`../../docs/user-scenarios.md`, прочитанные вместе с исходниками этой реализации.
-Это аудит существующих путей и недостающих шагов, **не журнал ручного smoke**.
+Updated **2026-09-10, chain31371, block78**. Later claims and derivative evidence: [claims-derived](evidence/claims-derived/README.md). This replaces the early block22 audit. It reads the current requirements in `docs/user-scenarios.md` (now **21** scenarios) and treats `docs/remaining-scenarios.md` as a historical checklist where later evidence supersedes its gaps. **The entire product is not yet fully accepted.**
 
-На момент проверки read-only `GET /api/health` и `GET /api/markets` вернули
-chainId 31371, block 22, **0 рынков**. Наличие установленного настоящего verifier
-(`proofStatus: real`) не означает, что получен Lean certificate или пройден рынок.
-Локальная политика `allowExpensiveProving: false` сохранена. Облачное доказывание
-ведёт координатор; его незавершённый запуск не считается результатом этого аудита.
-Ни одного proof, сборки, транзакции, перезапуска цепи или ручного браузерного
-сценария в ходе этого аудита не выполнялось.
+Current scope: users prepare certificates externally; website generation/ordering US017 is deferred, so no missing remote queue is reported as a blocker. Public social is now full-content onchain, including profiles and blogs; the old offchain social archive is not its source of truth. Private shelf/notebook remain personal application data. File/source integrity does not establish semantic goal equivalence.
 
-## Как читать доказательства готовности
+## Evidence keys
 
-- **Код:** путь найден и прочитан; это не подтверждение исполнения.
-- **Ранее:** конкретная проверка описана в `VALIDATION.md`; повторно здесь не запускалась.
-- **Сейчас:** перечисленные ниже лёгкие unit/API-injection тесты действительно выполнены.
-- **Нужен smoke:** необходимые клики и транзакции остаются открытыми до отдельного
-  журнала с результатами. Для экономических тестов используется настоящий CTF/FPMM,
-  но `TestProofVerifier`; их успех не заменяет настоящую регистрацию и резолв.
+- **TRUE-web:** `../../docs/manual-validation.md`, “Agora: завершённый допуск perf05 и настоящий рыночный цикл”, and `.local/manual-perf05-market.json`: browser governance29–31, genuine registration32/pool33/funding35, second LP37, buy39/sell41, original verifier settlement42, trader redeem43, LP fees44/exit45/redeem46.
+- **Allocation-web:** same root journal, “Agora, согласия выгодополучателей”, and `.local/manual-beneficiary-epochs.json`: propose23, consent24/revoke25/reconsent26/apply27; only decreased Curator share required consent.
+- **NO-partial:** [evidence/no-cycle/README.md](evidence/no-cycle/README.md), public receipt data beside it: registration/pool/funding47–50, trade51–54. CI6 import verified, **final settlement refused by automatic approval review**. No resolve/redemption pass and no retry or workaround in this audit.
+- **Social-web:** [evidence/onchain-social/README.md](evidence/onchain-social/README.md), public events and invariant comparison: new contract55; 18 actual browser social transactions56–73; two authors, profile/blog/comment versions, votes, nested replies, root Top/New, hide/restore with descendants, decoded events and reload. Market state preserved.
+- **Generic-checks:** [GENERIC-CERTIFICATE-IMPORT.md](GENERIC-CERTIFICATE-IMPORT.md): arbitrary compatible goal import v3/perf05, four genuine original-EVM+bridge checks with empty fixture catalog, altered goal rejected; 32 handler/parser/binding tests. These are not a new nonfixture browser market.
+- **Package/lifecycle-checks:** [PACKAGE-WALLET-VALIDATION.md](PACKAGE-WALLET-VALIDATION.md): schema/hash validation, private artifact isolation, injected identity/network handling, logout and missing-job polling regressions. Browser file reimport and actual extension events remain distinct from these tests.
+- **Extras-web:** [evidence/social-extras/README.md](evidence/social-extras/README.md) preserves earlier private shelf/notebook observations (its public social section is historical). [evidence/final-scope-audit/README.md](evidence/final-scope-audit/README.md) adds actual Remove/re-add, child revision, downloaded JSON verification, second-wallet isolation, current public balances and corrected package export.
 
-Общие файлы: веб — [src/App.vue](src/App.vue), SDK —
-[sdk/index.mjs](sdk/index.mjs), RPC/кошелёк — [sdk/chain.mjs](sdk/chain.mjs),
-API — [server/index.mjs](server/index.mjs), реестр/доли —
-[contracts/Agora.sol](contracts/Agora.sol). Названия функций ниже позволяют найти
-каждый путь независимо от изменения номеров строк.
+## User → implementation → observed coverage → remaining action
 
-## Сценарии: пользователь → код → исполнение → пробел
+All web paths below are in `src/App.vue`, except social in `src/components/OnchainSocial.vue`. SDK entry points are in `sdk/index.mjs`; economic contracts in `contracts/Agora.sol` and original CTF/FPMM sources. Tests with `TestProofVerifier` remain economic logic evidence, never genuine Lean proof evidence.
 
-| US | Существующий веб и SDK | Реальное исполнение в коде | Проверка и оставшийся пробел |
-| --- | --- | --- | --- |
-| US-001 Создать математический рынок | Create → `startJob('register')` → `createMarket`; SDK `registerGoal`, `createPool`, `provideLiquidity` | `/metadata`, `/jobs`; `AgoraRegistry.register` требует `verifyGoal`, создаёт CTF condition; отдельно `createPool`, approve T, FPMM `addFunding` | Ранее economic registration/duplicate/invalid cert. Настоящий сертификат и полный browser path не подтверждены. Веб выбирает один deployment profile, не каталог поддерживаемых профилей. Нет явного пошагового receipt/resume: после успешной регистрации и сбоя создания пула форма может остаться на Create, а повтор снова попробует регистрацию. |
-| US-002 Внести ликвидность | Detail → Liquidity → `liquidity(false)`; SDK `provideLiquidity` | approve T → FPMM `addFunding(amount, [])`; обновление portfolio читает LP/YES/NO | Ранее second-LP integration. Нет предварительного расчёта получаемых LP shares и остаточных outcome tokens; нет отдельного результата по каждому возврату. Веб управляет только первым пулом утверждения, SDK принимает любой адрес пула. Нужен ручной второй LP. |
-| US-003 Купить/продать за T | Trade, `getQuote`, `executeTrade`; SDK `quote`, `buy`, `sell` | FPMM `calcBuyAmount/calcSellAmount`; approve → `buyWithDeadline/sellWithDeadline`; минимальный output / максимальный input, 10-minute deadline | Ранее buy/sell/slippage/deadline tests. Веб показывает quote, fee и обновляет balances, но не представляет фактические суммы receipt как отдельную карточку сделки; SDK возвращает receipt и `events`. Продажа задаёт T к получению. Нужен ручной успешный и отклонённый обмен. |
-| US-004 Доказать P и разрешить | Proof → Check / Generate certificate / `submitProof`; SDK `runJob`, `submitProof` | `/jobs` → собственный `proof/runner.mjs`; `AgoraRegistry.submitProof(id,1,cert)` → [LeanProofBridge](proof/contracts/LeanProofBridge.sol) → настоящий RISC Zero verifier → CTF payout | Проверка bridge в коде связывает goal/profile/outcome/image/journal. Economic settlement использует test verifier. Локальный uncached proving выключен; реальное Lean proving→receipt→EVM settlement ещё не подтверждено. |
-| US-005 Опровергнуть P | Тот же Proof экран, FALSE outcome=2; SDK `runJob({outcome:2,…})`, `submitProof(id,2,cert)` | Тот же pinned checker/bridge, отдельный outcome; реестр выставляет payout NO=1, YES=0 | Положительные native refutation trials ранее зафиксированы в exporter evidence, это не zk и не ончейн-резолв. Нужен настоящий refutation certificate и ручное погашение обеих сторон. |
-| US-006 Резолв к сроку | Create → kind 1 либо kind 3 → dependency/deadline; Overview → Resolve from chain state; SDK `registerDerived`, `resolveDerived` | `registerDerived`, `derivedOutcome`: включительная граница `resolvedAt <= deadline`; нерешённая база становится FALSE только при `block.timestamp > deadline` | Ранее boundary/expiry economic tests. Есть 3 фиксированных вида, не общий AST. Нет предпросмотра детального правила/границы в форме, detail показывает числовой kind. Нужен smoke вокруг срока на настоящем базовом рынке. |
-| US-007 Определённая сторона резолва | Create → kind 2, outcome; kind 3 добавляет deadline; SDK те же методы | `derivedOutcome`: pending base остаётся 0; после резолва сравнивает сторону; kind 3 также срок | Ранее economic tests. Веб не переводит dependency/outcome в полноценную читаемую формулу на detail. Нужен ручной opposite-outcome и pending case. |
-| US-008 Получить T | Overview после settlement → `redeem`; My positions → открыть рынок; SDK `redeem` | Оригинальный ConditionalTokens `redeemPositions(T, zeroHash, conditionId,[1,2])`; payout и сжигание conditional balances | Ранее CTF payout/redemption tests. Нет предварительной численной суммы T по обеим сторонам; обновлённый баланс и explorer доступны. Нужен настоящий winner/loser/repeated-redeem browser smoke. |
-| US-009 Расширить протокол | Governance → `createGovernance`, `signGovernance`, `scheduleGovernance`, `executeGovernance`; SDK generic `api`, `read`, `write` | Offchain proposal + Safe 2/2 signatures → Safe `execTransaction` schedules OZ Timelock → Registry `configureProfile`, `setProfileEnabled`, `configureOperator` | Ранее Safe/Timelock authorization and immutable operator tests; в старом ручном журнале подтверждены создание и 2 подписи. Новые verifier/operator ID immutable; отключение профиля ограничивает новые регистрации. Нет общего UI arbitrary protocol changes и специальных SDK lifecycle helpers. Хэш manifest не доказывает корректность исходников. |
-| US-010 Перераспределить комиссии | Revenue → `proposeAllocation`, consent/revoke/apply; SDK `proposeAllocation`, `consent`, `applyAllocation` | `AllocationController` требует base epoch, сумму 1,000,000, sorted unique payees, согласия только теряющих; removal=0; execute создаёт новый PaymentSplitter | Ранее missing/revoked/stale consent и history tests. Исправлено после аудита: UI показывает каждого теряющего, старое→новое и consent; Apply disabled до всех согласий, а consent доступен только теряющему активного предложения. API snapshot на одном блоке, перед apply повторное чтение; см. UX-VALIDATION.md. Нужен ручной сценарий A-only и A+B. |
-| US-011 Доход выгодополучателя | Revenue → epoch → Claim T; SDK `claimEpoch`, generic `read` | [FPMM fork](contracts/legacy/FixedProductMarketMaker.sol) `_sendProtocolFee`: 20% торговой комиссии прямо в текущий split; 80% LP. OZ `PaymentSplitter.release(T, account)` по каждому immutable epoch | Ранее history/claim tests. Все комиссии уже в T, отдельная конвертация не нужна. Веб показывает claimable и splitter balance, но не полную таблицу фактически выплаченного по адресу/эпохе. Нужны direct-AMM fee и повторное получение через UI. |
-| US-012 Внешняя формализация | Create → Search live Palomar / Import snapshot / `applyPackage`; SDK generic `api('/palomar')`, `api('/import/palomar')`, `api('/import/snapshot')` | [server/imports.mjs](server/imports.mjs): live recent registry, exact GitHub commit, bounded files, no imported code execution | Ранее live Palomar retrieval; сейчас immutable URL restrictions test прошёл. Импорт — draft: dependency install, автоматический выбор theorem и адаптация чужого Challenge к `Oncm.goal` не реализованы. Совместимость Lean/environment не проверяется до runner. Нет гарантии, что произвольная Palomar работа подходит текущему профилю. |
-| US-013 Переносимый пакет | Detail → `exportPackage`; Create → `importPackage/applyPackage`; SDK `package(id)` | `/package/:id`: schemaVersion 2, source/files/hash/profile, собственные completed job artifacts; browser JSON import | В этом аудите исправлена приватность job artifacts, 3 теста PASS (см. ниже). Клиент импортирует JSON без проверки schema/fileHashes; набор внешних Challenge/Solution сохраняется в files, но не превращается в воспроизводимое Lake workspace/Comparator run. Нет команды независимой полной проверки пакета и автоматической подачи Palomar. |
-| US-014 Вход и кабинет | Injected wallet Connect / явные local test wallets; `signin`, My profile, My positions; SDK `signIn`, `signOut`, `profile`, `updateProfile` | Viem EIP-1193 signing, SIWE nonce/expiry + HTTP-only cookie/Bearer; onchain balances отдельно от сессии | Ранее API nonce/replay/logout/profile smoke; сейчас owner service tests PASS. Нет обработчика injected `accountsChanged/chainChanged`, нет отдельной кнопки logout, профиль и positions не включают полную историю authored markets/claims. Смена роли очищает session/shelf/notebook, но jobs очищаются не сразу; poll не обрабатывает исчезнувший job после смены роли. |
-| US-015 Смотреть задачи | Explore search/topic filter → `openMarket`, Overview/proof/profile; SDK `statement`, `pools`, generic `api('/markets')` | API читает Registry/CTF/FPMM по RPC, metadata из локального store; Chain activity `/activity` декодирует blocks, logs и balances | Сейчас API200, chain31371/block22, markets=0. Нужен ручной populated catalog. Нет статуса/полнотекстовой индексации/pagination; Исправлено после аудита: `totalSupply` подписан как LP shares, без оценки в T; пустой пул показывает No quote, расчёт через bigint не даёт NaN/Infinity. Activity UI показывает последние примерно 50 blocks без управления диапазоном, API принимает `from`. |
-| US-016 Обсуждения | Discussion → `postComment`, reply, top/new, `voteComment`, edit/moderate, `openProfile`; SDK `postComment`, `voteComment`, `profile` | [server/social.mjs](server/social.mjs) SIWE author, same-statement parent, one vote/address, no self-vote, history, persistence | Сейчас social invariants test PASS; ранее API profile smoke. Нужен реальный market UI: reply/vote change/remove/order/role switch. Модератор — локально назначенный первый адрес, не governance moderation. Социальные записи локальны и не влияют на payout. |
-| US-017 Lean / certificate из приложения | Workbench `startJob('check'/'register')`, detail `prove`, cancel/download; SDK `runJob`, `jobs`, generic `api` для cancel | [server/proof-jobs.mjs](server/proof-jobs.mjs): p-queue1, dedupe owner+input,16 всего/4 owner, outer guard2GiB; check5/register30/prove120; single export + pinned native checker | Сейчас 6 scheduler/API-injection tests PASS; native trials ранее отдельно. UI допускает регистрацию/proving, хотя current policy запрещает новый expensive proof; `proofAvailable` означает установленный bridge, не готовность генератора. Нет remote CI provider submit/download flow в UI. Исправлено после аудита: legacy job без owner не ломает list/cancel, сохраняется в DB и не назначается произвольному кошельку; API-injection regression PASS. |
-| US-018 Governance через сайт | Governance Sign/Schedule/Execute; Revenue consent/revoke/apply | Safe owner signatures и allocation approvals — разные механизмы, проверяемые соответствующими контрактами; SIWE сама не даёт прав | Ранее UI2 signatures и contract tests; это не полный browser lifecycle. Кнопки действий не фильтруются полностью по правам; Timelock delay в UI захардкожен5s вместо chain-read. Stale Safe nonce не имеет UI rebuild; status не различает scheduled-waiting от collecting. |
-| US-019 Вывести ликвидность | Liquidity → `liquidity(true)`, Claim LP fees; затем Overview Merge/Redeem либо Trade; SDK `removeLiquidity`, `claimLPFees`, `merge`, `redeem`, `sell` | FPMM `removeFunding` возвращает composition conditional reserves; последующая конвертация — отдельные CTF/AMM tx | Ранее economic exit after settlement. Нет quote каждого возвращаемого актива, итогового receipt breakdown и guided conversion/resume. Сам текст честно предупреждает, что LP exit не гарантирует весь капитал в T. Нужен частичный/full withdrawal browser smoke. |
-| US-020 Полный набор | Overview Split T / Merge set → `completeSet`; SDK `split`, `merge` | Оригинальный CTF `splitPosition/mergePositions` с одним condition и partition[1,2]; approve T только при split | Ранее conservation test. UI описывает 1T↔1YES+1NO, но не показывает недостающую сторону/лимит до отправки; нет split→LP wizard. Нужны ручные split, merge, insufficient-side rejection и balances. |
+| US | Existing web / SDK / contract path | Actually established | Still missing or limited |
+|---|---|---|---|
+|001 Mathematical market|Create → external JSON verify → `createMarket`; SDK `importCertificate/registerGoal/createPool/provideLiquidity`; registry `register` + CTF prepare + FPMM|TRUE-web and NO-partial real registration/funding; generic importer no longer limited to two goals|New nonfixture genuine receipt and browser cycle. Composite register→pool→fund lacks explicit recovery/resume after partial success; per-step receipts are not a guided checklist.|
+|002 LP funding|Liquidity → `liquidity(false)`; `provideLiquidity`; FPMM `addFunding`|TRUE-web second LP37, initial funding35|Pre-deposit LP-share/returned-token preview and detailed result; multi-pool selection in web; SDK accepts explicit pool.|
+|003 Trading|Trade → quote/buy/sell; SDK `quote/buy/sell`; deadline/slippage FPMM methods|TRUE-web buy39/sell41 and NO-partial buys/sales51–54|Manual wallet refusal, expired quote and slippage rejection; factual per-trade receipt breakdown could be clearer.|
+|004 TRUE resolution|Proof → imported cert verify → wallet settle; SDK `submitProof`; real bridge→original verifier→CTF payout|TRUE-web42, exact CI4 certificate|New-goal certificate cycle, invalid-binding browser rejection. No website prover is required.|
+|005 FALSE resolution|Same path outcome2; NO wins in CTF|Genuine CI6 accepted read-only and imported in NO browser pass|**NO settlement and subsequent trader/LP redemption not performed. Auto-review handoff remains.**|
+|006 Deadline resolution|Create kinds1/3; `registerDerived/resolveDerived`; `derivedOutcome`|Historical economy tests, source rules; current public chain has **zero derived statements**|Actual pending, timely, expired and boundary scenarios. Inclusive base `resolvedAt <= deadline`; unresolved at exact deadline stays pending, expires only when now>deadline.|
+|007 Outcome derivative|Create kind2 or kind3; expected outcome and dependency|Source and economic tests|**Later PASS:** kind2 opposite outcome registered76/pool77/resolvedFALSE78. Matching outcome next submission was auto-review rejected; pending/deadline branches remain. Readable onchain predicate display fixed and browser verified.|
+|008 T redemption|Overview Redeem; SDK `redeem`; original CTF `redeemPositions`|TRUE-web trader43 and LP46|NO winner/loser and repeat-redeem handling; numerical preview before submission.|
+|009 Protocol extension|Governance Safe2/2→OZ Timelock→registry profile/operator methods|TRUE-web new immutable perf05 bridge admission29–31; old v3 retained|New operator browser lifecycle; profile-disable and permission/stale proposal branches. Not arbitrary protocol upgrade UI.|
+|010 Fee reallocation|Revenue propose/consent/revoke/apply; AllocationController→new PaymentSplitter|Allocation-web23–27 including revoked-consent gate, immutable old split|Two simultaneous losing beneficiaries, removal, stale/expired proposal browser cases; covered only in applicable tests/code.|
+|011 Beneficiary income|Revenue Claim T; SDK `claimEpoch`; original PaymentSplitter `release`|Current read-only epoch1 holds **0.096326530612244896 T**, each beneficiary claimable **0.048163265306122448 T**. Epoch0 holds0|**Later PASS:** both beneficiary releases74/75, exact conservation and repeat UI disabled; see claims-derived. Nonzero historical-epoch entitlement branch remains. LP fee44 is not protocol income.|
+|012 External sources|Create Palomar/exact snapshot/Ix picker; `server/imports.mjs`, own Ix catalog|All3 Ix source drafts manually imported; wrappers native-checked separately; hash/schema checks in source adapter|General arbitrary repository dependency closure/Lean-version compatibility and fresh reproduction; no implication that imported source has ZK certificate.|
+|013 Portable package|Detail Export package; import JSON→`sourceDraft`; SDK `package/validateSourcePackage`|Actual true-market download, exact file/source hashes validated, tampering rejected. **Fixed embedded v3 descriptor on perf05 export**; fresh browser export verifies exact correct manifest bytes/SHA and known goal hash|Browser file reimport not performed; no one-command fresh Lake/Comparator/dependency reconstruction. Package contains source/commitments/descriptor, not automatically all external receipt/export assets. See current size limits below.|
+|014 Wallet/cabinet|Injected Connect/events; explicit test roles; SIWE private data; onchain profile/positions|Local role changes/signout/private clear and two-wallet isolation browser passes; injected events/stale promises/missing poll job targeted tests|Real injected-extension network/account switching during async import/sign-in/job; rejected-signature browser branch. No stale missing-handler claim.|
+|015 Browsing|Explore filter/search, detail source/provenance, positions, decoded Activity|Populated two-market catalog and real resolution42/social events/reload browsed|Catalog pagination/status navigation and user-selectable activity block range; activity UI remains recent window.|
+|016 Discussion|OnchainSocial → direct wallet; SDK social; AgoraSocial SSTORE2 bytes/version/vote/context|Social-web full thread/vote/edit/history/tombstone matrix, author restrictions, reload; global root-header Top/New then paged bodies|Large-history/page-boundary behavior measured only by tests, not large browser data. Depth6 limit is explicit UI policy; no claim of unlimited replies.|
+|017 Website proof generation|Run Lean check retained; prepared certificate import replaces generation buttons|Native v3 checks previously manually passed; no local prover started here|**Deferred by user. Not current blocker.** API/CLI/history retained; expensive proving stays false.|
+|018 Governance UI|Sign/Schedule/Execute and separately allocation consent|Safe delay/scheduled/ready/executed state read from same chain block; browser schedule29/advance30/execute31|Rejected signature/nonowner/stale Safe nonce and premature execute browser branches; explicit proposal rebuild still absent.|
+|019 LP exit|Liquidity Remove / Claim LP fees → separate merge/redeem|TRUE-web full second LP20shares exit45 + redemption46, all that LP's positions zero|Partial exit before settlement, remaining curator exit; per-asset preview and resume after removal.|
+|020 Complete sets|Overview Split T / Merge set; SDK split/merge; original CTF|Economic conservation tests; internal AMM splitting is not separate UI pass|Dedicated browser split→merge, unequal-side maximum/insufficient-side rejection and balances. No financial writes in this audit.|
+|021 Public profile/blog|OnchainSocial public author page; AgoraSocial/SSTORE2; direct wallet author|Social-web profiles56/57/60; blog58/edit59; vote72/reply73; versions and genuine reload|Large pagination/chunk scenarios tested rather than browser-populated. Old offchain profiles are an archive, not forged onchain authors.|
 
-## Исправление в этом аудите: экспорт только собственных job artifacts
+## Extras and new export correction
 
-Публичный `/api/package/:id` раньше фильтровал все успешные задания только по
-statement/goalHash. Это раскрывало неопубликованный source/result другого автора,
-хотя `/api/jobs` требует SIWE owner. Теперь [server/package-artifacts.mjs](server/package-artifacts.mjs)
-берёт owner исключительно из существующей проверенной сессии. Публичный пакет
-сохраняет опубликованные statement metadata/files; собственные успешные job artifacts
-добавляются только подписанному владельцу. Подставить owner через query/body нельзя.
-Ownerless history не удаляется и не назначается произвольному владельцу.
-Invalid/expired переданный session token получает обычный отказ существующего SIWE.
-Наличие onchain proof bytes само по себе не публикует приватный исходник задания.
+Research shelf: browser save/edit/reopen, then this pass Remove→empty→re-add→restore notes. Second wallet's shelf was empty; switching/logout clears loaded private drafts. No market or chain write.
 
-Выполнено из `implementations/agora`:
+Notebook: browser restored prior immutable revision, saved changed source with `basedOn`, exported `agora-notebook.json`; independent read of the downloaded file found2 revisions, exact source keccak hashes, valid parent link and distinct source bytes. Second wallet saw no revisions. Source texts, notebook IDs and private notes are not copied into public evidence. This is storage, not Lean or ZK validation.
 
-```sh
-node --test tests/package-artifacts.test.mjs tests/imports.test.mjs tests/social.test.mjs tests/research.test.mjs tests/proof-jobs.test.mjs
-node --check server/index.mjs
-```
+Package defect retained in `package-export-check.json`: true-market top-level perf05 ID was correct, embedded descriptor incorrectly read v3 `proof/deployment.json`. `server/package-profile.mjs` now selects by actual statement profile from supported pinned descriptors, emits exact original manifest JSON and SHA, fails pin mismatch, and labels unknown local profile unavailable rather than substituting v3. `tests/package-profile.test.mjs` covers both profiles, unknown and changed pin. Browser-exported fixed result is independently checked in `package-export-fixed.json`; no automatic cert acceptance. **9/9** lightweight package/privacy/research tests passed in0.249s; no frontend changes or rebuild needed. Existing API watcher applied the server change; no manual process restart or chain reset.
 
-**12/12 PASS, 0 failures, около0.40s**; syntax check PASS. Три новых проверки:
-anonymous ничего приватного не получает; wallet получает только свои completed
-matching jobs (включая registration по goalHash); legacy/history не изменяется.
-Остальные проверки — queue/API injection, imports, social и research. Ни одна
-не вызывает prover. Package helper проверен unit-тестами; полноценный HTTP package
-export с настоящим зарегистрированным рынком пока не проверен из-за отсутствия рынка.
-API lifecycle/цепь вручную не перезапускались.
+The generic/package size mismatch is now corrected: source and each file512KiB UTF-8, title180UTF8bytes, files total1MiB/64, package envelope16MiB to cover source duplication and JSON escaping. Metadata route alone3MiB, global API cap unchanged. Full boundary and escaped-source roundtrips passed; source integrity remains separate from semantic verification. See PACKAGE-WALLET-VALIDATION.md.
 
-## Дополнительные функции и порядок завершения
 
-Две самостоятельные функции уже существуют: приватная Research shelf и immutable
-Lean notebook; [EXTRA-FEATURES.md](EXTRA-FEATURES.md), `server/research.mjs`, SDK
-`shelf/saveBookmark/removeBookmark/notebook/saveRevision`. Их owner/persistence тест
-сейчас PASS; market→shelf browser path всё ещё не пройден.
+## Exact next actions
 
-1. Получить проверенные настоящие registration/proof/refutation receipts нужного
-   профиля и выполнить create→LP→trade→resolve→redeem с block/tx журналом.
-2. Закрыть представленные выше существенные UX gaps: create recovery, owner/session
-   poll, artifact validation; allocation consents, LP labels/empty-pool quote и ownerless history исправлены кодом и лёгкими проверками в UX-VALIDATION.md, но требуют populated browser smoke.
-3. Пройти вручную остальные роли, производные, split/merge, epochs, governance,
-   discussion/shelf/notebook с реальными balances и ссылками на события.
+1. Restore the NO settlement handoff to the user; do not repeat the auto-review-refused click. After legitimate completion, record real resolution/redeem/LP exit events and balances.
+2. Beneficiary epoch1 claims are now paid74/75 with exact conservation. Only a nonzero historical-epoch branch remains.
+3. Create and resolve derived predicates around pending/timely/expired/opposite states; exact timestamp equality can use a separate deterministic test without mislabelling it browser evidence.
+4. Separate split/merge, partial LP exit and error/permission branches; no heavy computation needed.
+5. Complete portable package browser reimport and fresh externally prepared environment/goal comparison; Obtain a real new nonfixture certificate for the generic market cycle.
+6. Injected-wallet async lifecycle browser checks and governance failure paths. Existing mocked-handler tests remain useful but do not replace extension interaction.
 
-Прежний `VALIDATION.md` полезен как датированный журнал; упоминания там ожидаемого v2
-не являются текущим состоянием профиля. Этот аудит не меняет root документацию и
-не объявляет какой-либо из двадцати полных browser сценариев завершённым.
+Audit did not change proving policy, mathematical profiles, contracts, social content, financial balances, or chain block73. Only one notebook child and reversible shelf changes were saved through authorized private UX; the corrected package export is read-only.
+
+Later continuation changed only authorized financial claims and the zero-funded outcome derivative through browser transactions74–78. No additional NO settlement or rejected derivative retry occurred. Final blocked draft and exact reason are in evidence/claims-derived/blocked-action.json; original block73 audit observations above remain historical where explicitly labelled.

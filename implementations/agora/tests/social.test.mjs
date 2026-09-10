@@ -15,3 +15,10 @@ test('SIWE principal owns profile/comments; votes change or remove without dupli
  // Deterministic tie-breaker: identical timestamps and scores order by UUID.
  db.comments[0].createdAt=db.comments[1].createdAt;store.vote(carol,a.id,{value:0});const top=store.comments('goal',{sort:'top'}).filter(c=>!c.parentId);assert.deepEqual(top.map(c=>c.id),[a.id,b.id].sort());
 });
+test('Top/New rank roots only; sibling replies stay chronological even with higher scores',()=>{
+ const row=(id,minute,parentId=null)=>({id,statementId:'goal',author:alice,text:id,parentId,createdAt:`2026-09-10T00:0${minute}:00Z`,history:[]});
+ const db={comments:[row('old-root',0),row('late-reply',4,'old-root'),row('early-reply-b',1,'old-root'),row('early-reply-a',1,'old-root'),row('nested',3,'early-reply-a'),row('new-root',2)]};
+ const store=createSocialStore(db,()=>{});store.vote(bob,'old-root',{value:1});store.vote(bob,'late-reply',{value:1});store.vote(carol,'late-reply',{value:1});
+ assert.deepEqual(store.comments('goal',{sort:'top'}).map(c=>c.id),['old-root','early-reply-a','nested','early-reply-b','late-reply','new-root']);
+ assert.deepEqual(store.comments('goal',{sort:'new'}).map(c=>c.id),['new-root','old-root','early-reply-a','nested','early-reply-b','late-reply']);
+});

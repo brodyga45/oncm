@@ -1,0 +1,679 @@
+{
+  "status": "partial-browser-smoke-settlement-handoff",
+  "chainId": 31371,
+  "rpc": "http://127.0.0.1:9545",
+  "clientVersion": "Ganache/v7.9.2/EthereumJS TestRPC/v7.9.2/ethereum-js",
+  "browserTab": "102825243",
+  "market": {
+    "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+    "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+    "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "deadline": "0",
+    "resolvedAt": "0",
+    "kind": 0,
+    "expectedOutcome": 0,
+    "outcome": 0,
+    "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3",
+    "metadata": {
+      "title": "Every proposition holds · Agora NO smoke",
+      "source": "prelude\n\ninductive False : Prop\n\nnamespace Oncm\n\ndef goal : Prop := ∀ P : Prop, P\n\ntheorem solution : goal → False := fun h => h False\n\nend Oncm\n",
+      "description": "For every proposition P, P holds (∀ P : Prop, P). A refutation proves that this universal assertion implies False; distinct perf05 profile.",
+      "tag": "Foundations",
+      "externalRef": null,
+      "files": {},
+      "fixtureId": null,
+      "provenance": null,
+      "sourceHash": "0xf39c151eb9660f48f9c9bf90b1b36eb26f4921dd9ef4a4ef784df571c34f75ac",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "createdAt": "2026-09-10T01:05:20.376Z"
+    },
+    "positionIds": [
+      "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+      "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+    ],
+    "pools": [
+      {
+        "address": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+        "balances": [
+          "107759183673469387756",
+          "92799515169879928791"
+        ],
+        "totalSupply": "100000000000000000000",
+        "fee": "20000000000000000"
+      }
+    ]
+  },
+  "actors": {
+    "creatorLP": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+    "trader": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+    "resolver": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
+  },
+  "records": [
+    {
+      "number": "47",
+      "hash": "0xa1c941c9905086e0b62085fb4229e490b6d1304d67288276638beaabe913ae97",
+      "timestamp": "1789002331",
+      "transactions": [
+        {
+          "hash": "0xa3b7f9ef03e6ec7f9fd96bd7bde2c04e34b1317f92a2bfa6be9e48dae1d0f54f",
+          "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "status": "success",
+          "gasUsed": "542073",
+          "events": [
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "ConditionPreparation",
+              "args": {
+                "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+                "oracle": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                "questionId": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+                "outcomeSlotCount": "2"
+              }
+            },
+            {
+              "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+              "contract": "AgoraRegistry",
+              "eventName": "StatementRegistered",
+              "args": {
+                "statementId": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+                "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+                "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "kind": 0,
+                "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "48",
+      "hash": "0xd4af84b8fee1b69cb3364980610ca81dbe032e4c552e4adb75148cdd1fad8eaa",
+      "timestamp": "1789002332",
+      "transactions": [
+        {
+          "hash": "0xf5cb69df2b46231068a3eb31ca6c6ba659f95b0103f8622c8532ec280c13b454",
+          "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "status": "success",
+          "gasUsed": "3555740",
+          "events": [
+            {
+              "address": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+              "topics": [
+                "0xec5dc6309c83a50f60f4a1fae9422b2c406da78c579b9b12b92d033db37c7194",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000006d544390eb535d61e196c87d6b9c80dcd8628acd",
+                "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff"
+              ]
+            },
+            {
+              "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+              "contract": "AgoraRegistry",
+              "eventName": "MarketCreated",
+              "args": {
+                "statementId": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+                "pool": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "fee": "20000000000000000"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "49",
+      "hash": "0xbe6a8ae57a131a1f05f7bb68c3497a43ead44555e184ad47f88654aa7eceecc4",
+      "timestamp": "1789002333",
+      "transactions": [
+        {
+          "hash": "0x8f5f15e8d2b1f63e43a534ea54cd50c6514eb36b441df79f9233a5e98500d669",
+          "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "status": "success",
+          "gasUsed": "46378",
+          "events": [
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Approval",
+              "args": {
+                "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "spender": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "value": "100000000000000000000"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "50",
+      "hash": "0x000ba7f62ce2314fb6da03d6e58b8fa91b0985a66e42ee164d0930c9346b356b",
+      "timestamp": "1789002333",
+      "transactions": [
+        {
+          "hash": "0xad9e7d74edbc4d51b138a42ad979d1d7613451d22a8167cede8e0556d35b81b1",
+          "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "to": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "status": "success",
+          "gasUsed": "299672",
+          "events": [
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "value": "100000000000000000000"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Approval",
+              "args": {
+                "owner": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "spender": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                "value": "100000000000000000000"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                "value": "100000000000000000000"
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "TransferBatch",
+              "args": {
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "from": "0x0000000000000000000000000000000000000000",
+                "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "ids": [
+                  "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+                  "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+                ],
+                "values": [
+                  "100000000000000000000",
+                  "100000000000000000000"
+                ]
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "PositionSplit",
+              "args": {
+                "stakeholder": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+                "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                "partition": [
+                  "1",
+                  "2"
+                ],
+                "amount": "100000000000000000000"
+              }
+            },
+            {
+              "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x0000000000000000000000000000000000000000",
+                "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "value": "100000000000000000000"
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "TransferBatch",
+              "args": {
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "ids": [
+                  "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+                  "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+                ],
+                "values": [
+                  "0",
+                  "0"
+                ]
+              }
+            },
+            {
+              "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "FPMMFundingAdded",
+              "args": {
+                "funder": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                "amountsAdded": [
+                  "100000000000000000000",
+                  "100000000000000000000"
+                ],
+                "sharesMinted": "100000000000000000000"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "51",
+      "hash": "0x3df5c0ff8d9bc6c446237541e099de506f19f8dcb90a57b42488bfcce8e69d98",
+      "timestamp": "1789002367",
+      "transactions": [
+        {
+          "hash": "0x8ffd8549d9d22d5171b9794b71b93ee284ec22c12448a626e0028b93b8399f39",
+          "from": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "status": "success",
+          "gasUsed": "46366",
+          "events": [
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Approval",
+              "args": {
+                "owner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "spender": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "value": "10000000000000000000"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "52",
+      "hash": "0x072354fd1fabaeaec2861bcd612cc44300d281d4a6519dd4ba5cf3ab2003bc18",
+      "timestamp": "1789002367",
+      "transactions": [
+        {
+          "hash": "0x12a92e46d1ef150ea61734d73a0cc3669820f573d2ac571a292c710137f05172",
+          "from": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "to": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "status": "success",
+          "gasUsed": "221515",
+          "events": [
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "value": "10000000000000000000"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Approval",
+              "args": {
+                "owner": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "spender": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                "value": "9800000000000000000"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                "value": "9800000000000000000"
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "TransferBatch",
+              "args": {
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "from": "0x0000000000000000000000000000000000000000",
+                "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "ids": [
+                  "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+                  "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+                ],
+                "values": [
+                  "9800000000000000000",
+                  "9800000000000000000"
+                ]
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "PositionSplit",
+              "args": {
+                "stakeholder": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+                "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                "partition": [
+                  "1",
+                  "2"
+                ],
+                "amount": "9800000000000000000"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+                "value": "40000000000000000"
+              }
+            },
+            {
+              "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "ProtocolFeePaid",
+              "args": {
+                "epoch": "1",
+                "split": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+                "amount": "40000000000000000"
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "TransferSingle",
+              "args": {
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "id": "41740846788121194625506683636016940527623543740245805126308041698374451080170",
+                "value": "18725318761384335154"
+              }
+            },
+            {
+              "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "FPMMBuy",
+              "args": {
+                "buyer": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "outcomeIndex": "1",
+                "investmentAmount": "10000000000000000000",
+                "feeAmount": "200000000000000000",
+                "outcomeTokensBought": "18725318761384335154"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "53",
+      "hash": "0xcff7b5cfdd875a3bc77172787115cae6b88e475a1a27966733812c4ce590381d",
+      "timestamp": "1789002400",
+      "transactions": [
+        {
+          "hash": "0x06c7c1a35b0118606003448f701888c1e0bb1b6a594d8c1590ea5b2ec21866a8",
+          "from": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "to": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "status": "success",
+          "gasUsed": "45996",
+          "events": [
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "ApprovalForAll",
+              "args": {
+                "owner": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "approved": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": "54",
+      "hash": "0x125e89a6ed78e93b1185c408e3fd06983369592cf431bf476f3d42fd1d16f04a",
+      "timestamp": "1789002400",
+      "transactions": [
+        {
+          "hash": "0xd9983b19b120f6a56331f69ee894116a9e5fcbf65f776aa193a76f3e18299808",
+          "from": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "to": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+          "status": "success",
+          "gasUsed": "181392",
+          "events": [
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "TransferSingle",
+              "args": {
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "from": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "id": "41740846788121194625506683636016940527623543740245805126308041698374451080170",
+                "value": "3765650257794876189"
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "TransferBatch",
+              "args": {
+                "operator": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0x0000000000000000000000000000000000000000",
+                "ids": [
+                  "24592829659179301680342680176589537252246961448526782459435037870405043811580",
+                  "41740846788121194625506683636016940527623543740245805126308041698374451080170"
+                ],
+                "values": [
+                  "2040816326530612244",
+                  "2040816326530612244"
+                ]
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+                "to": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "value": "2040816326530612244"
+              }
+            },
+            {
+              "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+              "contract": "ConditionalTokens",
+              "eventName": "PositionsMerge",
+              "args": {
+                "stakeholder": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+                "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+                "partition": [
+                  "1",
+                  "2"
+                ],
+                "amount": "2040816326530612244"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+                "value": "8163265306122448"
+              }
+            },
+            {
+              "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "ProtocolFeePaid",
+              "args": {
+                "epoch": "1",
+                "split": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+                "amount": "8163265306122448"
+              }
+            },
+            {
+              "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "Transfer",
+              "args": {
+                "from": "0x6D544390Eb535d61e196c87d6B9c80dCD8628Acd",
+                "to": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "value": "2000000000000000000"
+              }
+            },
+            {
+              "address": "0x6d544390eb535d61e196c87d6b9c80dcd8628acd",
+              "contract": "FixedProductMarketMaker",
+              "eventName": "FPMMSell",
+              "args": {
+                "seller": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                "outcomeIndex": "1",
+                "returnAmount": "2000000000000000000",
+                "feeAmount": "40816326530612244",
+                "outcomeTokensSold": "3765650257794876189"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "balances": [
+    {
+      "blockNumber": "46",
+      "actors": {
+        "creatorLP": {
+          "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "t": "99900000000000000000000",
+          "tFormatted": "99900"
+        },
+        "trader": {
+          "address": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "t": "100007047129745479866654",
+          "tFormatted": "100007.047129745479866654"
+        },
+        "resolver": {
+          "address": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+          "t": "100000000000000000000000",
+          "tFormatted": "100000"
+        }
+      }
+    },
+    {
+      "blockNumber": "50",
+      "actors": {
+        "creatorLP": {
+          "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "t": "99800000000000000000000",
+          "tFormatted": "99800",
+          "yes": "0",
+          "no": "0",
+          "lp": "100000000000000000000"
+        },
+        "trader": {
+          "address": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "t": "100007047129745479866654",
+          "tFormatted": "100007.047129745479866654",
+          "yes": "0",
+          "no": "0",
+          "lp": "0"
+        },
+        "resolver": {
+          "address": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+          "t": "100000000000000000000000",
+          "tFormatted": "100000",
+          "yes": "0",
+          "no": "0",
+          "lp": "0"
+        }
+      }
+    },
+    {
+      "blockNumber": "52",
+      "actors": {
+        "creatorLP": {
+          "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "t": "99800000000000000000000",
+          "tFormatted": "99800",
+          "yes": "0",
+          "no": "0",
+          "lp": "100000000000000000000"
+        },
+        "trader": {
+          "address": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "t": "99997047129745479866654",
+          "tFormatted": "99997.047129745479866654",
+          "yes": "0",
+          "no": "18725318761384335154",
+          "lp": "0"
+        },
+        "resolver": {
+          "address": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+          "t": "100000000000000000000000",
+          "tFormatted": "100000",
+          "yes": "0",
+          "no": "0",
+          "lp": "0"
+        }
+      }
+    },
+    {
+      "blockNumber": "54",
+      "actors": {
+        "creatorLP": {
+          "address": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+          "t": "99800000000000000000000",
+          "tFormatted": "99800",
+          "yes": "0",
+          "no": "0",
+          "lp": "100000000000000000000"
+        },
+        "trader": {
+          "address": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+          "t": "99999047129745479866654",
+          "tFormatted": "99999.047129745479866654",
+          "yes": "0",
+          "no": "14959668503589458965",
+          "lp": "0"
+        },
+        "resolver": {
+          "address": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+          "t": "100000000000000000000000",
+          "tFormatted": "100000",
+          "yes": "0",
+          "no": "0",
+          "lp": "0"
+        }
+      }
+    }
+  ],
+  "blockedAction": "Automatic approval review rejected the final UI settlement click; no alternate transaction path used.",
+  "head": "54"
+}

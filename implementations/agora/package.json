@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/start.mjs",
-    "build": "node scripts/compile.mjs && vite build",
+    "build": "node scripts/compile.mjs && node scripts/compile-social.mjs && vite build",
     "compile": "node scripts/compile.mjs",
     "test": "node --test tests/*.test.mjs",
     "api": "node server/index.mjs",
     "web": "vite --host 127.0.0.1 --port 5171",
     "deploy": "node scripts/deploy.mjs",
-    "test:economy": "node --test tests/economy.test.mjs"
+    "test:economy": "node --test tests/economy.test.mjs",
+    "compile:social": "node scripts/compile-social.mjs",
+    "deploy:social": "node scripts/deploy-social.mjs",
+    "test:social": "node --test tests/onchain-social.test.mjs"
   },
   "dependencies": {
     "@fastify/cors": "10.0.1",
@@ -25,7 +28,9 @@
     "solc": "0.8.28",
     "solc-legacy": "npm:solc@0.5.17",
     "viem": "2.31.0",
-    "vue": "3.5.16"
+    "vue": "3.5.16",
+    "ajv": "8.20.0",
+    "@scure/base": "1.2.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "5.2.4",

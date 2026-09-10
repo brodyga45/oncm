@@ -1,0 +1,1167 @@
+{
+  "kind": "git tracked plus intended untracked nonignored source; no state or runtime artifacts copied",
+  "destination": "/private/tmp/agora-fresh-source-20260910",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 39
+    },
+    {
+      "path": "AMOUNT-VALIDATION.md",
+      "bytes": 2230
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "bytes": 11759
+    },
+    {
+      "path": "CERTIFICATE-WEB-SCOPE.md",
+      "bytes": 2792
+    },
+    {
+      "path": "COVERAGE-AUDIT.md",
+      "bytes": 13986
+    },
+    {
+      "path": "EXTRA-FEATURES.md",
+      "bytes": 4460
+    },
+    {
+      "path": "GENERIC-CERTIFICATE-IMPORT.md",
+      "bytes": 9158
+    },
+    {
+      "path": "GOVERNANCE-VALIDATION.md",
+      "bytes": 4716
+    },
+    {
+      "path": "IX-IMPORT.md",
+      "bytes": 4702
+    },
+    {
+      "path": "ONCHAIN-SOCIAL.md",
+      "bytes": 9299
+    },
+    {
+      "path": "PACKAGE-WALLET-VALIDATION.md",
+      "bytes": 6962
+    },
+    {
+      "path": "PERF05-PROFILE.md",
+      "bytes": 10570
+    },
+    {
+      "path": "README.md",
+      "bytes": 10907
+    },
+    {
+      "path": "UX-VALIDATION.md",
+      "bytes": 5371
+    },
+    {
+      "path": "VALIDATION.md",
+      "bytes": 5681
+    },
+    {
+      "path": "contracts/Agora.sol",
+      "bytes": 15116
+    },
+    {
+      "path": "contracts/AgoraSocial.sol",
+      "bytes": 10989
+    },
+    {
+      "path": "contracts/TestProofVerifier.sol",
+      "bytes": 523
+    },
+    {
+      "path": "contracts/legacy/AgoraFPMMFactory.sol",
+      "bytes": 575
+    },
+    {
+      "path": "contracts/legacy/ERC20.sol",
+      "bytes": 8819
+    },
+    {
+      "path": "contracts/legacy/FixedProductMarketMaker.sol",
+      "bytes": 15190
+    },
+    {
+      "path": "contracts/vendor/solady/LICENSE.txt",
+      "bytes": 1069
+    },
+    {
+      "path": "contracts/vendor/solady/SSTORE2.sol",
+      "bytes": 12633
+    },
+    {
+      "path": "contracts/vendor/solady/provenance.json",
+      "bytes": 588
+    },
+    {
+      "path": "evidence/claims-derived/README.md",
+      "bytes": 4395
+    },
+    {
+      "path": "evidence/claims-derived/blocked-action.json",
+      "bytes": 884
+    },
+    {
+      "path": "evidence/claims-derived/verified.json",
+      "bytes": 10487
+    },
+    {
+      "path": "evidence/external-certificate-web/build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/final-scope-audit/README.md",
+      "bytes": 2719
+    },
+    {
+      "path": "evidence/final-scope-audit/notebook-export-check.json",
+      "bytes": 200
+    },
+    {
+      "path": "evidence/final-scope-audit/package-export-check.json",
+      "bytes": 800
+    },
+    {
+      "path": "evidence/final-scope-audit/package-export-fixed.json",
+      "bytes": 809
+    },
+    {
+      "path": "evidence/final-scope-audit/package-size-build.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/final-scope-audit/package-size-tests.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/final-scope-audit/public-state.json",
+      "bytes": 1723
+    },
+    {
+      "path": "evidence/generic-external-import/build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/generic-external-import/final-build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/generic-external-import/original-evm-verification.json",
+      "bytes": 3102
+    },
+    {
+      "path": "evidence/generic-external-import/raw-json-build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/generic-external-import/raw-json-test-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/generic-external-import/reviewed-build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/generic-external-import/route-limits.json",
+      "bytes": 182
+    },
+    {
+      "path": "evidence/generic-external-import/test-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/generic-external-import/true-registration-bundle.json",
+      "bytes": 8113
+    },
+    {
+      "path": "evidence/no-cycle/README.md",
+      "bytes": 3364
+    },
+    {
+      "path": "evidence/no-cycle/partial-rpc-evidence.json",
+      "bytes": 26756
+    },
+    {
+      "path": "evidence/onchain-social/README.md",
+      "bytes": 7319
+    },
+    {
+      "path": "evidence/onchain-social/build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/onchain-social/compile-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/onchain-social/final-build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/onchain-social/final-tests-corrected.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/onchain-social/final-tests.json",
+      "bytes": 372
+    },
+    {
+      "path": "evidence/onchain-social/market-invariants.json",
+      "bytes": 107
+    },
+    {
+      "path": "evidence/onchain-social/markets-after-deploy.json",
+      "bytes": 2436
+    },
+    {
+      "path": "evidence/onchain-social/markets-before-deploy.json",
+      "bytes": 2436
+    },
+    {
+      "path": "evidence/onchain-social/phase1-initial-test-error.json",
+      "bytes": 372
+    },
+    {
+      "path": "evidence/onchain-social/phase1-tests.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/onchain-social/phase2-tests.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/onchain-social/public-evidence.json",
+      "bytes": 20037
+    },
+    {
+      "path": "evidence/onchain-social/reviewed-build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/package-wallet/build-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "evidence/social-extras/README.md",
+      "bytes": 4754
+    },
+    {
+      "path": "evidence/social-extras/public-evidence.json",
+      "bytes": 4116
+    },
+    {
+      "path": "imports/ix-starter/catalog.json",
+      "bytes": 11476
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-check.json",
+      "bytes": 0
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-goal.ndjson",
+      "bytes": 31690
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-proof.ndjson",
+      "bytes": 32873
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-repaired-check.json",
+      "bytes": 442
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-repaired-resources.json",
+      "bytes": 368
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-resources.json",
+      "bytes": 246
+    },
+    {
+      "path": "imports/ix-starter/evidence/nat-reflexivity-stderr.txt",
+      "bytes": 207
+    },
+    {
+      "path": "imports/ix-starter/evidence/native-manifest.json",
+      "bytes": 1496
+    },
+    {
+      "path": "imports/ix-starter/evidence/native-v3-profile.json",
+      "bytes": 2593
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-succ-add-goal.ndjson",
+      "bytes": 36006
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-succ-add-proof.ndjson",
+      "bytes": 37472
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-succ-add-repaired-check.json",
+      "bytes": 442
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-succ-add-repaired-resources.json",
+      "bytes": 367
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-zero-add-goal.ndjson",
+      "bytes": 35816
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-zero-add-proof.ndjson",
+      "bytes": 37169
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-zero-add-repaired-check.json",
+      "bytes": 442
+    },
+    {
+      "path": "imports/ix-starter/evidence/peano-zero-add-repaired-resources.json",
+      "bytes": 367
+    },
+    {
+      "path": "imports/ix-starter/evidence/repaired-native-invocations.json",
+      "bytes": 2680
+    },
+    {
+      "path": "imports/ix-starter/evidence/repaired-native-pins.json",
+      "bytes": 1607
+    },
+    {
+      "path": "imports/ix-starter/packages/nat-reflexivity/Oncm.lean",
+      "bytes": 197
+    },
+    {
+      "path": "imports/ix-starter/packages/nat-reflexivity/Source.lean",
+      "bytes": 98
+    },
+    {
+      "path": "imports/ix-starter/packages/nat-reflexivity/lean-toolchain",
+      "bytes": 25
+    },
+    {
+      "path": "imports/ix-starter/packages/peano-succ-add/Oncm.lean",
+      "bytes": 636
+    },
+    {
+      "path": "imports/ix-starter/packages/peano-succ-add/Source.lean",
+      "bytes": 385
+    },
+    {
+      "path": "imports/ix-starter/packages/peano-succ-add/lean-toolchain",
+      "bytes": 25
+    },
+    {
+      "path": "imports/ix-starter/packages/peano-zero-add/Oncm.lean",
+      "bytes": 493
+    },
+    {
+      "path": "imports/ix-starter/packages/peano-zero-add/Source.lean",
+      "bytes": 294
+    },
+    {
+      "path": "imports/ix-starter/packages/peano-zero-add/lean-toolchain",
+      "bytes": 25
+    },
+    {
+      "path": "imports/ix-starter/upstream/LICENSE-APACHE",
+      "bytes": 11359
+    },
+    {
+      "path": "imports/ix-starter/upstream/LICENSE-MIT",
+      "bytes": 1085
+    },
+    {
+      "path": "imports/ix-starter/upstream/Tests/Ix/Kernel/TutorialDefs.lean",
+      "bytes": 50573
+    },
+    {
+      "path": "imports/ix-starter/upstream/Tests/MinimalDefs.lean",
+      "bytes": 98
+    },
+    {
+      "path": "imports/ix-starter/upstream/lake-manifest.json",
+      "bytes": 2104
+    },
+    {
+      "path": "imports/ix-starter/upstream/lakefile.lean",
+      "bytes": 15032
+    },
+    {
+      "path": "imports/ix-starter/upstream/lean-toolchain",
+      "bytes": 25
+    },
+    {
+      "path": "index.html",
+      "bytes": 323
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 278667
+    },
+    {
+      "path": "package.json",
+      "bytes": 1271
+    },
+    {
+      "path": "proof/Cargo.lock",
+      "bytes": 91498
+    },
+    {
+      "path": "proof/Cargo.toml",
+      "bytes": 140
+    },
+    {
+      "path": "proof/README.md",
+      "bytes": 4301
+    },
+    {
+      "path": "proof/SETUP.md",
+      "bytes": 24258
+    },
+    {
+      "path": "proof/additional-profiles/perf05/bundle-pins.json",
+      "bytes": 672
+    },
+    {
+      "path": "proof/additional-profiles/perf05/false-refutation.json",
+      "bytes": 5205
+    },
+    {
+      "path": "proof/additional-profiles/perf05/false-registration.json",
+      "bytes": 5211
+    },
+    {
+      "path": "proof/additional-profiles/perf05/fixtures/OncmFalse.lean",
+      "bytes": 149
+    },
+    {
+      "path": "proof/additional-profiles/perf05/fixtures/OncmTrue.lean",
+      "bytes": 141
+    },
+    {
+      "path": "proof/additional-profiles/perf05/fixtures/false-goal.ndjson",
+      "bytes": 1358
+    },
+    {
+      "path": "proof/additional-profiles/perf05/fixtures/foundation.ndjson",
+      "bytes": 1073
+    },
+    {
+      "path": "proof/additional-profiles/perf05/fixtures/true-goal.ndjson",
+      "bytes": 1622
+    },
+    {
+      "path": "proof/additional-profiles/perf05/profile.json",
+      "bytes": 3231
+    },
+    {
+      "path": "proof/additional-profiles/perf05/published-certificates.json",
+      "bytes": 1949
+    },
+    {
+      "path": "proof/additional-profiles/perf05/registration.json",
+      "bytes": 5206
+    },
+    {
+      "path": "proof/additional-profiles/perf05/true-proof.json",
+      "bytes": 5199
+    },
+    {
+      "path": "proof/axiom-policy-regression.json",
+      "bytes": 416
+    },
+    {
+      "path": "proof/bootstrap-deployment.json",
+      "bytes": 472
+    },
+    {
+      "path": "proof/bootstrap/LeanProofBridge.json",
+      "bytes": 30294
+    },
+    {
+      "path": "proof/checker/Cargo.toml",
+      "bytes": 216
+    },
+    {
+      "path": "proof/checker/src/lib.rs",
+      "bytes": 3078
+    },
+    {
+      "path": "proof/checker/src/main.rs",
+      "bytes": 381
+    },
+    {
+      "path": "proof/compile.mjs",
+      "bytes": 1294
+    },
+    {
+      "path": "proof/configure-runtime.mjs",
+      "bytes": 13707
+    },
+    {
+      "path": "proof/contracts/LeanProofBridge.sol",
+      "bytes": 2166
+    },
+    {
+      "path": "proof/contracts/risc0/IRiscZeroSelectable.sol",
+      "bytes": 1671
+    },
+    {
+      "path": "proof/contracts/risc0/IRiscZeroVerifier.sol",
+      "bytes": 9572
+    },
+    {
+      "path": "proof/contracts/risc0/StructHash.sol",
+      "bytes": 3162
+    },
+    {
+      "path": "proof/contracts/risc0/Util.sol",
+      "bytes": 2835
+    },
+    {
+      "path": "proof/contracts/risc0/groth16/ControlID.sol",
+      "bytes": 1076
+    },
+    {
+      "path": "proof/contracts/risc0/groth16/Groth16Verifier.sol",
+      "bytes": 8436
+    },
+    {
+      "path": "proof/contracts/risc0/groth16/RiscZeroGroth16Verifier.sol",
+      "bytes": 8236
+    },
+    {
+      "path": "proof/exporter/LICENSE",
+      "bytes": 11357
+    },
+    {
+      "path": "proof/exporter/README.md",
+      "bytes": 3832
+    },
+    {
+      "path": "proof/exporter/build.py",
+      "bytes": 3141
+    },
+    {
+      "path": "proof/exporter/commands.template.json",
+      "bytes": 1781
+    },
+    {
+      "path": "proof/exporter/link.rsp.template",
+      "bytes": 332
+    },
+    {
+      "path": "proof/exporter/pins.json",
+      "bytes": 1464
+    },
+    {
+      "path": "proof/exporter/std-default-capacity.patch",
+      "bytes": 517
+    },
+    {
+      "path": "proof/exporter/upstream/Export.lean",
+      "bytes": 15994
+    },
+    {
+      "path": "proof/exporter/upstream/Main.lean",
+      "bytes": 751
+    },
+    {
+      "path": "proof/fixtures.json",
+      "bytes": 1886
+    },
+    {
+      "path": "proof/goal-prefix.mjs",
+      "bytes": 2006
+    },
+    {
+      "path": "proof/guest/Cargo.lock",
+      "bytes": 37679
+    },
+    {
+      "path": "proof/guest/Cargo.toml",
+      "bytes": 287
+    },
+    {
+      "path": "proof/guest/src/main.rs",
+      "bytes": 310
+    },
+    {
+      "path": "proof/host/Cargo.toml",
+      "bytes": 239
+    },
+    {
+      "path": "proof/host/src/main.rs",
+      "bytes": 2430
+    },
+    {
+      "path": "proof/kernel-validation.json",
+      "bytes": 1776
+    },
+    {
+      "path": "proof/lean/Arithmetic.lean",
+      "bytes": 102
+    },
+    {
+      "path": "proof/lean/AxiomAlias.lean",
+      "bytes": 151
+    },
+    {
+      "path": "proof/lean/Refutation.lean",
+      "bytes": 163
+    },
+    {
+      "path": "proof/lean/Smoke.lean",
+      "bytes": 241
+    },
+    {
+      "path": "proof/lean/arithmetic-forged-goal.ndjson",
+      "bytes": 39353
+    },
+    {
+      "path": "proof/lean/arithmetic-forged-proof.ndjson",
+      "bytes": 40306
+    },
+    {
+      "path": "proof/lean/arithmetic-goal.ndjson",
+      "bytes": 39353
+    },
+    {
+      "path": "proof/lean/arithmetic-proof.ndjson",
+      "bytes": 40306
+    },
+    {
+      "path": "proof/lean/axiom-alias-goal.ndjson",
+      "bytes": 31501
+    },
+    {
+      "path": "proof/lean/axiom-alias-proof.ndjson",
+      "bytes": 31820
+    },
+    {
+      "path": "proof/lean/foundation.ndjson",
+      "bytes": 31310
+    },
+    {
+      "path": "proof/lean/goal.ndjson",
+      "bytes": 41968
+    },
+    {
+      "path": "proof/lean/proof.ndjson",
+      "bytes": 71338
+    },
+    {
+      "path": "proof/lean/refutation-goal.ndjson",
+      "bytes": 35930
+    },
+    {
+      "path": "proof/lean/refutation-proof.ndjson",
+      "bytes": 44051
+    },
+    {
+      "path": "proof/licenses/GPL-3.0.txt",
+      "bytes": 35130
+    },
+    {
+      "path": "proof/licenses/RISC-Zero-Apache-2.0.txt",
+      "bytes": 10174
+    },
+    {
+      "path": "proof/licenses/lean4export-Apache-2.0.txt",
+      "bytes": 11357
+    },
+    {
+      "path": "proof/manifest.json",
+      "bytes": 1496
+    },
+    {
+      "path": "proof/native-adapter/docker",
+      "bytes": 1334
+    },
+    {
+      "path": "proof/native-arithmetic-regression.json",
+      "bytes": 528
+    },
+    {
+      "path": "proof/package-lock.json",
+      "bytes": 4356
+    },
+    {
+      "path": "proof/package.json",
+      "bytes": 195
+    },
+    {
+      "path": "proof/resource-guard-lifecycle-validation.json",
+      "bytes": 7751
+    },
+    {
+      "path": "proof/resource-guard-provenance.json",
+      "bytes": 678
+    },
+    {
+      "path": "proof/resource-guard-validation.json",
+      "bytes": 1069
+    },
+    {
+      "path": "proof/resource-guard.py",
+      "bytes": 16939
+    },
+    {
+      "path": "proof/runner.mjs",
+      "bytes": 8759
+    },
+    {
+      "path": "proof/runtime-artifacts.json",
+      "bytes": 490
+    },
+    {
+      "path": "proof/setup-pins.json",
+      "bytes": 3509
+    },
+    {
+      "path": "proof/setup-runtime.local.example.json",
+      "bytes": 886
+    },
+    {
+      "path": "proof/vendor/nanoda/.github/workflows/release.yml",
+      "bytes": 710
+    },
+    {
+      "path": "proof/vendor/nanoda/.gitignore",
+      "bytes": 27
+    },
+    {
+      "path": "proof/vendor/nanoda/Cargo.lock",
+      "bytes": 6442
+    },
+    {
+      "path": "proof/vendor/nanoda/Cargo.toml",
+      "bytes": 853
+    },
+    {
+      "path": "proof/vendor/nanoda/LICENSE",
+      "bytes": 10141
+    },
+    {
+      "path": "proof/vendor/nanoda/ONCM-PATCHES.md",
+      "bytes": 2022
+    },
+    {
+      "path": "proof/vendor/nanoda/README.md",
+      "bytes": 6517
+    },
+    {
+      "path": "proof/vendor/nanoda/rustfmt.toml",
+      "bytes": 248
+    },
+    {
+      "path": "proof/vendor/nanoda/src/debug_printer.rs",
+      "bytes": 8921
+    },
+    {
+      "path": "proof/vendor/nanoda/src/env.rs",
+      "bytes": 12757
+    },
+    {
+      "path": "proof/vendor/nanoda/src/expr.rs",
+      "bytes": 33675
+    },
+    {
+      "path": "proof/vendor/nanoda/src/inductive.rs",
+      "bytes": 85499
+    },
+    {
+      "path": "proof/vendor/nanoda/src/level.rs",
+      "bytes": 11272
+    },
+    {
+      "path": "proof/vendor/nanoda/src/lib.rs",
+      "bytes": 434
+    },
+    {
+      "path": "proof/vendor/nanoda/src/main.rs",
+      "bytes": 2524
+    },
+    {
+      "path": "proof/vendor/nanoda/src/name.rs",
+      "bytes": 2823
+    },
+    {
+      "path": "proof/vendor/nanoda/src/oncm.rs",
+      "bytes": 2293
+    },
+    {
+      "path": "proof/vendor/nanoda/src/parser.rs",
+      "bytes": 35923
+    },
+    {
+      "path": "proof/vendor/nanoda/src/pretty_printer.rs",
+      "bytes": 36954
+    },
+    {
+      "path": "proof/vendor/nanoda/src/quot.rs",
+      "bytes": 10612
+    },
+    {
+      "path": "proof/vendor/nanoda/src/tc.rs",
+      "bytes": 58990
+    },
+    {
+      "path": "proof/vendor/nanoda/src/tests.rs",
+      "bytes": 43
+    },
+    {
+      "path": "proof/vendor/nanoda/src/tests/level.rs",
+      "bytes": 6209
+    },
+    {
+      "path": "proof/vendor/nanoda/src/tests/name.rs",
+      "bytes": 1099
+    },
+    {
+      "path": "proof/vendor/nanoda/src/tests/natlit.rs",
+      "bytes": 27965
+    },
+    {
+      "path": "proof/vendor/nanoda/src/tests/util.rs",
+      "bytes": 4345
+    },
+    {
+      "path": "proof/vendor/nanoda/src/union_find.rs",
+      "bytes": 5571
+    },
+    {
+      "path": "proof/vendor/nanoda/src/unique_hasher.rs",
+      "bytes": 881
+    },
+    {
+      "path": "proof/vendor/nanoda/src/util.rs",
+      "bytes": 41997
+    },
+    {
+      "path": "proof/vendor/nanoda/test_resources/Empty/export",
+      "bytes": 176
+    },
+    {
+      "path": "proof/vendor/nanoda/test_resources/ProjFromProp/config.json",
+      "bytes": 186
+    },
+    {
+      "path": "proof/vendor/nanoda/test_resources/ProjFromProp/export",
+      "bytes": 4509
+    },
+    {
+      "path": "research/onchain-social-source-manifest.json",
+      "bytes": 5283
+    },
+    {
+      "path": "research/onchain-social-source-pins.json",
+      "bytes": 401
+    },
+    {
+      "path": "run.sh",
+      "bytes": 127
+    },
+    {
+      "path": "scripts/api-smoke.mjs",
+      "bytes": 1799
+    },
+    {
+      "path": "scripts/compile-social.mjs",
+      "bytes": 1521
+    },
+    {
+      "path": "scripts/compile.mjs",
+      "bytes": 2265
+    },
+    {
+      "path": "scripts/deploy-social.mjs",
+      "bytes": 2119
+    },
+    {
+      "path": "scripts/deploy.mjs",
+      "bytes": 5834
+    },
+    {
+      "path": "scripts/install-proof.mjs",
+      "bytes": 4249
+    },
+    {
+      "path": "scripts/pack-external-certificate.mjs",
+      "bytes": 2385
+    },
+    {
+      "path": "scripts/prepare-additional-profile.mjs",
+      "bytes": 2505
+    },
+    {
+      "path": "scripts/prepare-legacy.mjs",
+      "bytes": 4404
+    },
+    {
+      "path": "scripts/proof-bootstrap.mjs",
+      "bytes": 2236
+    },
+    {
+      "path": "scripts/social-evidence.mjs",
+      "bytes": 2738
+    },
+    {
+      "path": "scripts/social-market-snapshot.mjs",
+      "bytes": 1618
+    },
+    {
+      "path": "scripts/start.mjs",
+      "bytes": 2525
+    },
+    {
+      "path": "scripts/verify-claims-derived-readonly.mjs",
+      "bytes": 3068
+    },
+    {
+      "path": "scripts/verify-generic-certificates-readonly.mjs",
+      "bytes": 5541
+    },
+    {
+      "path": "sdk/amounts.mjs",
+      "bytes": 1707
+    },
+    {
+      "path": "sdk/chain.mjs",
+      "bytes": 2591
+    },
+    {
+      "path": "sdk/external-bundle-provenance.json",
+      "bytes": 497
+    },
+    {
+      "path": "sdk/external-bundle.mjs",
+      "bytes": 10199
+    },
+    {
+      "path": "sdk/index.mjs",
+      "bytes": 8309
+    },
+    {
+      "path": "sdk/local-network.mjs",
+      "bytes": 746
+    },
+    {
+      "path": "sdk/social-read.mjs",
+      "bytes": 3759
+    },
+    {
+      "path": "sdk/social.mjs",
+      "bytes": 6811
+    },
+    {
+      "path": "sdk/source-package.mjs",
+      "bytes": 4108
+    },
+    {
+      "path": "server/allocation-view.mjs",
+      "bytes": 1017
+    },
+    {
+      "path": "server/external-certificates.mjs",
+      "bytes": 5239
+    },
+    {
+      "path": "server/generic-certificates.mjs",
+      "bytes": 5258
+    },
+    {
+      "path": "server/governance-view.mjs",
+      "bytes": 3042
+    },
+    {
+      "path": "server/imports.mjs",
+      "bytes": 5425
+    },
+    {
+      "path": "server/index.mjs",
+      "bytes": 23406
+    },
+    {
+      "path": "server/ix-starter.mjs",
+      "bytes": 2985
+    },
+    {
+      "path": "server/package-artifacts.mjs",
+      "bytes": 612
+    },
+    {
+      "path": "server/package-profile.mjs",
+      "bytes": 1079
+    },
+    {
+      "path": "server/proof-jobs.mjs",
+      "bytes": 7889
+    },
+    {
+      "path": "server/published-certificates.mjs",
+      "bytes": 2377
+    },
+    {
+      "path": "server/research.mjs",
+      "bytes": 2055
+    },
+    {
+      "path": "server/social.mjs",
+      "bytes": 3354
+    },
+    {
+      "path": "src/App.vue",
+      "bytes": 68615
+    },
+    {
+      "path": "src/components/OnchainSocial.vue",
+      "bytes": 12597
+    },
+    {
+      "path": "src/import-draft.mjs",
+      "bytes": 601
+    },
+    {
+      "path": "src/main.js",
+      "bytes": 109
+    },
+    {
+      "path": "src/market-view.mjs",
+      "bytes": 1666
+    },
+    {
+      "path": "src/proof-selection.mjs",
+      "bytes": 731
+    },
+    {
+      "path": "src/session-client.mjs",
+      "bytes": 726
+    },
+    {
+      "path": "src/style.css",
+      "bytes": 19162
+    },
+    {
+      "path": "src/wallet-scope.mjs",
+      "bytes": 1945
+    },
+    {
+      "path": "tests/amounts.test.mjs",
+      "bytes": 1781
+    },
+    {
+      "path": "tests/bootstrap.test.mjs",
+      "bytes": 2317
+    },
+    {
+      "path": "tests/economy.test.mjs",
+      "bytes": 12758
+    },
+    {
+      "path": "tests/external-bundle.test.mjs",
+      "bytes": 9095
+    },
+    {
+      "path": "tests/external-certificates.test.mjs",
+      "bytes": 2030
+    },
+    {
+      "path": "tests/generic-certificates.test.mjs",
+      "bytes": 4365
+    },
+    {
+      "path": "tests/governance-view.test.mjs",
+      "bytes": 3697
+    },
+    {
+      "path": "tests/imports.test.mjs",
+      "bytes": 635
+    },
+    {
+      "path": "tests/ix-starter.test.mjs",
+      "bytes": 2178
+    },
+    {
+      "path": "tests/onchain-social.test.mjs",
+      "bytes": 9690
+    },
+    {
+      "path": "tests/package-artifacts.test.mjs",
+      "bytes": 1510
+    },
+    {
+      "path": "tests/package-profile.test.mjs",
+      "bytes": 1558
+    },
+    {
+      "path": "tests/presentation.test.mjs",
+      "bytes": 3044
+    },
+    {
+      "path": "tests/proof-jobs.test.mjs",
+      "bytes": 5813
+    },
+    {
+      "path": "tests/proof-selection.test.mjs",
+      "bytes": 1521
+    },
+    {
+      "path": "tests/proof-worker.test.mjs",
+      "bytes": 2137
+    },
+    {
+      "path": "tests/published-certificates.test.mjs",
+      "bytes": 2376
+    },
+    {
+      "path": "tests/research.test.mjs",
+      "bytes": 1344
+    },
+    {
+      "path": "tests/social.test.mjs",
+      "bytes": 3515
+    },
+    {
+      "path": "tests/source-package.test.mjs",
+      "bytes": 3501
+    },
+    {
+      "path": "tests/wallet-app.test.mjs",
+      "bytes": 10670
+    },
+    {
+      "path": "tests/wallet-scope.test.mjs",
+      "bytes": 3832
+    },
+    {
+      "path": "vendor/gnosis/ERC20.sol",
+      "bytes": 8819
+    },
+    {
+      "path": "vendor/gnosis/FixedProductMarketMaker.sol",
+      "bytes": 14468
+    },
+    {
+      "path": "vendor/gnosis/LICENSE",
+      "bytes": 7651
+    },
+    {
+      "path": "vite.config.js",
+      "bytes": 368
+    }
+  ],
+  "dependencyMode": "reuse installed exact app node_modules via symlink; npm ci network/install not exercised",
+  "excludedRuntimeDescriptorInitiallyAbsent": true,
+  "excludedAppArtifactsInitiallyAbsent": true,
+  "excludedProofArtifactsInitiallyAbsent": true,
+  "excludedLocalStateInitiallyAbsent": true
+}

@@ -8,7 +8,7 @@
 
 Web: `src/App.vue` detail/shelf. SDK: `signIn()`, `saveBookmark(statementId,notes?)`, `shelf()`, `removeBookmark(statementId)`. API GET `/api/shelf`, PUT/DELETE `/api/shelf/:id`. Owner берётся исключительно из SIWE; statement проверяется по Registry. Повторное сохранение не создаёт дубликат и без указанных notes сохраняет старые заметки. Ни один public profile endpoint не раскрывает shelf.
 
-Механика: `.local/app.json` → shelves[address][statementId]; приватные заметки до10000символов, timestamp. Chain balances/fees/outcomes не изменяются. Unit tests проверяют отсутствие чужого доступа через service owner, author spoof rejection, upsert/remove и persistence. Ручной полный market→shelf путь ждёт регистрации настоящего fixture.
+Механика: `.local/app.json` → shelves[address][statementId]; приватные заметки до10000символов, timestamp. Chain balances/fees/outcomes не изменяются. Unit tests проверяют отсутствие чужого доступа через service owner, author spoof rejection, upsert/remove и persistence. Ручной путь save/edit/reopen/isolation пройден; дополнительный Remove→empty→re-add пройден 2026-09-10 на block73. См. evidence/final-scope-audit/README.md.
 
 Компромисс: это личное offchain состояние доверенного локального сервера, без E2E encryption и без ончейн-replication. Удаление локальной `.local/` удаляет заметки. Автоматических уведомлений и публичного рейтинга полок нет.
 
@@ -21,3 +21,5 @@ Web: workbench → Save source revision / Load my revisions / Restore into edito
 Механика: append-only revision records с UUID, exact source, keccak sourceHash, profileId, timestamp и optional parent revision принадлежащей тому же кошельку. Restore изменяет клиентский редактор и сбрасывает старый registration certificate; ранняя ревизия не перезаписывается. Это хранение текста, не успешная Lean/zk-проверка. Проверки: неизменность старой версии, owner isolation, отвергание чужого parent, hash changes, persistence после повторного чтения JSON.
 
 Компромисс: до256ревизий по100KB на кошелёк, локальный single-process JSON store. Нет collaborative editor и авто-merge. Proof artifacts формируются отдельным реальным runner и не выводятся из наличия notebook revision.
+
+Актуальная ручная проверка notebook: restore→child revision с basedOn→Export notebook; скачанный JSON независимо проверен на hashes/parent, второй кошелёк не видит записи. Это не выполнение Lean. Подробности: [final-scope-audit](evidence/final-scope-audit/README.md).

@@ -1,0 +1,32 @@
+{
+  "mode": "actual clean-source start; API/RPC/SDK read-only",
+  "health": {
+    "ok": true,
+    "chainId": 31371,
+    "block": "12"
+  },
+  "rpc": "http://127.0.0.1:19545",
+  "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+  "imageId": "0x3ba46e4e43724929a3b160c49e75ea89d1ea529f357d8ba07cf55054cb3f2deb",
+  "originalVerifier": "0x94099942864EA81cCF197E9D71ac53310b1468D8",
+  "codes": {
+    "token": 3572,
+    "ctf": 29544,
+    "registry": 22280,
+    "safe": 344,
+    "timelock": 13102,
+    "verifier": 3812,
+    "social": 20470
+  },
+  "sourceFixtures": 5,
+  "additionalProfileInstalled": false,
+  "realOriginalVerifierAcceptsExistingCI": true,
+  "initialBridgeRejectsDifferentPerf05": true,
+  "socialProfileReadable": true,
+  "socialProfileInitiallyEmpty": false,
+  "markets": 0,
+  "productionChainUntouched": true,
+  "productionBlock": "78",
+  "nativeOrZkComputation": false,
+  "dependencyInstallTested": false
+}

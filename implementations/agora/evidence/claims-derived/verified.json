@@ -1,0 +1,282 @@
+{
+  "mode": "read-only reconstruction of actual browser transactions",
+  "chainId": 31371,
+  "finalBlock": "78",
+  "eachBeneficiaryPaid": "48163265306122448",
+  "snapshots": [
+    {
+      "block": "73",
+      "splitBalance": "96326530612244896",
+      "accounts": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800000000000000000000",
+          "released": "0",
+          "claimable": "48163265306122448"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "t": "100000000000000000000000",
+          "released": "0",
+          "claimable": "48163265306122448"
+        }
+      ]
+    },
+    {
+      "block": "74",
+      "splitBalance": "48163265306122448",
+      "accounts": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800048163265306122448",
+          "released": "48163265306122448",
+          "claimable": "0"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "t": "100000000000000000000000",
+          "released": "0",
+          "claimable": "48163265306122448"
+        }
+      ]
+    },
+    {
+      "block": "75",
+      "splitBalance": "0",
+      "accounts": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800048163265306122448",
+          "released": "48163265306122448",
+          "claimable": "0"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "t": "100000048163265306122448",
+          "released": "48163265306122448",
+          "claimable": "0"
+        }
+      ]
+    },
+    {
+      "block": "78",
+      "splitBalance": "0",
+      "accounts": [
+        {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "t": "99800048163265306122448",
+          "released": "48163265306122448",
+          "claimable": "0"
+        },
+        {
+          "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "t": "100000048163265306122448",
+          "released": "48163265306122448",
+          "claimable": "0"
+        }
+      ]
+    }
+  ],
+  "receipts": [
+    {
+      "block": "74",
+      "blockHash": "0x28cd30de3db720433c7a91b61f807224a23feffbab1a6c1ffa02d5e1e4aa1c24",
+      "timestamp": "1789009387",
+      "hash": "0x495ec5f92498209225d37aa3b29948a664bb420775a85447a21bf2e683335850",
+      "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "to": "0xe451980132e65465d0a498c53f0b5227326dd73f",
+      "status": "success",
+      "gasUsed": "91683",
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "eventName": "Transfer",
+          "args": {
+            "from": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+            "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "value": "48163265306122448"
+          }
+        },
+        {
+          "address": "0xe451980132e65465d0a498c53f0b5227326dd73f",
+          "eventName": "ERC20PaymentReleased",
+          "args": {
+            "token": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+            "amount": "48163265306122448"
+          }
+        }
+      ]
+    },
+    {
+      "block": "75",
+      "blockHash": "0xeafd91fea3c77cfda5626317ce229d6c910a4ea807ce54c75f381d2668cad775",
+      "timestamp": "1789009416",
+      "hash": "0x0a62204c579f8f2f03f6c3d1b3ffe9c1e62df7d142a58bb02dd628384dba1e50",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0xe451980132e65465d0a498c53f0b5227326dd73f",
+      "status": "success",
+      "gasUsed": "69783",
+      "events": [
+        {
+          "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+          "eventName": "Transfer",
+          "args": {
+            "from": "0xE451980132E65465d0a498c53f0b5227326Dd73F",
+            "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "value": "48163265306122448"
+          }
+        },
+        {
+          "address": "0xe451980132e65465d0a498c53f0b5227326dd73f",
+          "eventName": "ERC20PaymentReleased",
+          "args": {
+            "token": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+            "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "amount": "48163265306122448"
+          }
+        }
+      ]
+    },
+    {
+      "block": "76",
+      "blockHash": "0xb75510a3e62d1d3e4585537beeb5c38df6875a8a1a6779d7847a4e39553cc72f",
+      "timestamp": "1789009446",
+      "hash": "0x475b2574216d5f59ee8290b55c290301965e75a12d5a23505aa5cd5d3f7a6169",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "status": "success",
+      "gasUsed": "297966",
+      "events": [
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "ConditionPreparation",
+          "args": {
+            "conditionId": "0x1f8655ee3174b2e90d304ac1e130178458904cdd6ea89d069f846419b31c7ddb",
+            "oracle": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+            "questionId": "0x666f7904cbb139ddb68b31fb76588216dafe913ab750671ea969754ac64e403e",
+            "outcomeSlotCount": "2"
+          }
+        },
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "StatementRegistered",
+          "args": {
+            "statementId": "0x666f7904cbb139ddb68b31fb76588216dafe913ab750671ea969754ac64e403e",
+            "conditionId": "0x1f8655ee3174b2e90d304ac1e130178458904cdd6ea89d069f846419b31c7ddb",
+            "creator": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "kind": 2,
+            "metadataURI": "agora:0x40780b100d486209caf58435f445187b3a11a5fb298f5e6edfff3a034a9d6aea"
+          }
+        }
+      ]
+    },
+    {
+      "block": "77",
+      "blockHash": "0x00009c1cd6a4579b571bba5c97cd1201e8582ba8c95a2361f65a0e9090fc24a6",
+      "timestamp": "1789009447",
+      "hash": "0x507d0cff8762264889dcb46b05f1dae36eb160f0e7d190ef2fda2c55b9cb45b7",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "status": "success",
+      "gasUsed": "3555760",
+      "events": [
+        {
+          "address": "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9",
+          "unparsed": true
+        },
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "MarketCreated",
+          "args": {
+            "statementId": "0x666f7904cbb139ddb68b31fb76588216dafe913ab750671ea969754ac64e403e",
+            "pool": "0xB1eDe3F5AC8654124Cb5124aDf0Fd3885CbDD1F7",
+            "creator": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+            "fee": "20000000000000000"
+          }
+        }
+      ]
+    },
+    {
+      "block": "78",
+      "blockHash": "0xd2f77063c36547ce58039904edb7b15a93fa8a1a73a91d49269a59317f898e94",
+      "timestamp": "1789009460",
+      "hash": "0x304b185d73387fac605fc2c75ba7fce465164336ad069da09ef16f57d8760b30",
+      "from": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "to": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+      "status": "success",
+      "gasUsed": "98195",
+      "events": [
+        {
+          "address": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
+          "eventName": "ConditionResolution",
+          "args": {
+            "conditionId": "0x1f8655ee3174b2e90d304ac1e130178458904cdd6ea89d069f846419b31c7ddb",
+            "oracle": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+            "questionId": "0x666f7904cbb139ddb68b31fb76588216dafe913ab750671ea969754ac64e403e",
+            "outcomeSlotCount": "2",
+            "payoutNumerators": [
+              "0",
+              "1"
+            ]
+          }
+        },
+        {
+          "address": "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+          "eventName": "StatementResolved",
+          "args": {
+            "statementId": "0x666f7904cbb139ddb68b31fb76588216dafe913ab750671ea969754ac64e403e",
+            "outcome": 2,
+            "resolvedAt": "1789009460",
+            "evidenceHash": "0x4e49116fac8ae0c8b0c5f67e48ac556cd4a4404e46faf8dfa5d56cc960badfe3"
+          }
+        }
+      ]
+    }
+  ],
+  "statements": [
+    {
+      "id": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "conditionId": "0x5aac6ca55a9c68432da5e1bfda1aaef2c3c4ff0ba996cb76bbc2bcd7ba904c7b",
+      "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "deadline": "0",
+      "resolvedAt": "1789001094",
+      "kind": 0,
+      "expectedOutcome": 0,
+      "outcome": 1,
+      "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "metadataURI": "agora:0x966a78ac94a217cfe7d0fa11b38a9fe24accdf9ca9e5c26b3c9197ddaf3597d7"
+    },
+    {
+      "id": "0xf99268c5feca503310a5e715a06ac97184747585713ea1c5f94e0f5c1092cd41",
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+      "conditionId": "0x3bf0d87361fad62a45f433c32f1f5b463f3061f82ada10eb418de5655334baff",
+      "dependency": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "deadline": "0",
+      "resolvedAt": "0",
+      "kind": 0,
+      "expectedOutcome": 0,
+      "outcome": 0,
+      "creator": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "metadataURI": "agora:0xacf1965b4d78076a2fee7fafada51e98ec2b82b970c5ea1d94ca1104b37835f3"
+    },
+    {
+      "id": "0x666f7904cbb139ddb68b31fb76588216dafe913ab750671ea969754ac64e403e",
+      "goalHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "profileId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "conditionId": "0x1f8655ee3174b2e90d304ac1e130178458904cdd6ea89d069f846419b31c7ddb",
+      "dependency": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+      "deadline": "0",
+      "resolvedAt": "1789009460",
+      "kind": 2,
+      "expectedOutcome": 2,
+      "outcome": 2,
+      "creator": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "metadataURI": "agora:0x40780b100d486209caf58435f445187b3a11a5fb298f5e6edfff3a034a9d6aea"
+    }
+  ],
+  "originalNOStillOpen": true
+}

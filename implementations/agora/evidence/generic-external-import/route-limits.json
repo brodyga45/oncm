@@ -1,0 +1,7 @@
+{
+  "ordinaryGlobalCap": 2000000,
+  "dedicatedRouteCap": 3145728,
+  "validPaddedOuterEnvelopeBytes": 2057512,
+  "aboveOrdinaryCapAccepted": 200,
+  "aboveDedicatedCapRejected": 413
+}

@@ -1,0 +1,49 @@
+{
+  "format": "oncm-published-certificate-catalog-v1",
+  "entries": [
+    {
+      "id": "true-registration",
+      "file": "registration.json",
+      "label": "Register \u2200 P : Prop, P \u2192 P",
+      "sha256": "773a9b8bcf797a2e226b398b07ab53c1cba345549689c9c59d625bdf21923144",
+      "bytes": 5206,
+      "case": "true-registration",
+      "outcome": 0,
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    },
+    {
+      "id": "false-registration",
+      "file": "false-registration.json",
+      "label": "Register \u2200 P : Prop, P",
+      "sha256": "cc1648d5dfa6ccd3693adfd2c5f6f93000d3528f96faa49eb90a706f25075aaa",
+      "bytes": 5211,
+      "case": "false-registration",
+      "outcome": 0,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    },
+    {
+      "id": "true-proof",
+      "file": "true-proof.json",
+      "label": "Prove \u2200 P : Prop, P \u2192 P (TRUE)",
+      "sha256": "65a54ad884fad55139b830cbeb83f551191c1d954382036c03a5006b3c5683b1",
+      "bytes": 5199,
+      "case": "true-proof",
+      "outcome": 1,
+      "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    },
+    {
+      "id": "false-refutation",
+      "file": "false-refutation.json",
+      "label": "Refute \u2200 P : Prop, P (FALSE)",
+      "sha256": "3f6e79745765b11ab9267282399115685cbd58cc5760af11e8d639722308313b",
+      "bytes": 5205,
+      "case": "false-refutation",
+      "outcome": 2,
+      "goalHash": "0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4",
+      "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10"
+    }
+  ]
+}

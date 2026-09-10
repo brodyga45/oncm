@@ -1,3 +1,9 @@
+Generic external certificate bundles are now supported for arbitrary compatible v3/perf05 goals, with original EVM/bridge verification and explicit unverified source-to-goal correspondence. See [GENERIC-CERTIFICATE-IMPORT.md](GENERIC-CERTIFICATE-IMPORT.md). Website proof generation remains deferred.
+
+# Full-content onchain social update (2026-09-10)
+
+Profiles, discussions, replies, votes, immutable revision history and public blogs now use AgoraSocial + pinned MIT Solady SSTORE2. Read/write through the independent SDK or web; every publish is a direct wallet transaction. Old offchain records remain an unmigrated archive. See [ONCHAIN-SOCIAL.md](ONCHAIN-SOCIAL.md) for exact limits, source pins and [manual evidence](evidence/onchain-social/README.md). `npm run dev` compiles/reuses the additive social deployment; `npm run compile:social` and `npm run deploy:social` also work independently against the existing local chain. No chain reset is required.
+
 # Agora
 
 Самостоятельное приложение математических рынков: Vue, оригинальные Gnosis Conditional Tokens и FPMM, неизменяемые эпохи комиссий OpenZeppelin PaymentSplitter, настоящий Safe 2/2 и Timelock. Активы локальной сети тестовые.
@@ -8,6 +14,8 @@
 cd implementations/agora
 ./run.sh
 ```
+
+Чистый checkout восстанавливает pinned настоящий v3 proof bridge из опубликованного bootstrap; локальный prover для этого не нужен. Подробности и отдельные порты: [FRESH-START.md](FRESH-START.md).
 
 Первый запуск устанавливает pinned npm-зависимости через `npm ci`, компилирует контракты, запускает свою Ganache EVM, выполняет deploy и поднимает API/веб. Нужен Node.js 22+. В этой рабочей среде локальные сокеты доступны процессу, запущенному с разрешением sandbox на localhost. Не нужно запускать соседние реализации.
 
@@ -39,9 +47,11 @@ node scripts/install-proof.mjs
 
 ## Как пройти приложение
 
-1. Create a market → загрузить компактный опубликованный `Nat.add_comm` из списка → Check & seal the goal → дождаться реального registration certificate → Register statement & create market. Создание condition, FPMM, approval и funding — отдельные подтверждённые транзакции.
+Актуальная граница веба (2026-09-10): сайт не заказывает и не вычисляет ZK-сертификаты. Пользователь готовит их самостоятельно вне сайта; генерация из веба отложена. Native Lean check без ZK, работа с исходниками/ноутбуком, импорт и проверка готовых сертификатов доступны. API, SDK, CLI и история прежних jobs сохранены для дальнейшего развития; существующий запрет локального expensive proving не снят. См. [CERTIFICATE-WEB-SCOPE.md](CERTIFICATE-WEB-SCOPE.md).
+
+1. Подготовить registration certificate вне сайта. Create a market → импортировать совместимый JSON или выбрать один из двух published CI registration → Load published registration JSON → Verify & use registration → Register statement & create market. Текущий JSON-импорт поддерживает закреплённые perf05 goals; импорт исходников Ix/Palomar сам по себе сертификат не создаёт. Создание condition, FPMM, approval и funding — отдельные подтверждённые транзакции.
 2. Переключить devnet роль на LP или Trader. В Liquidity внести T; в Trade получить quote и купить/продать YES/NO со slippage/deadline. Overview позволяет split/merge полного набора.
-3. Proof → проверить Lean → Generate certificate → Verify & settle onchain. После payout FPMM запрещает buy/sell/addFunding, но LP exit, fee claim и CTF redemption доступны.
+3. Подготовить proof/refutation certificate вне сайта. Proof → импорт JSON или published true-proof/false-refutation → Load published settlement JSON → Verify & load settlement certificate → Verify & settle onchain. После payout FPMM запрещает buy/sell/addFunding, но LP exit, fee claim и CTF redemption доступны.
 4. Governance → Available extension example → подготовить `ResolvedAfterOperator` → создать предложение → обе роли совета Sign → Schedule via Safe → Execute после Timelock. Новые операторы доступны как immutable версии при создании рынка.
 5. Protocol revenue → предложить отсортированное распределение с суммой100%; каждый теряющий долю отдельно даёт согласие; любой исполняет. Claim T для старых эпох сохраняется.
 6. Профиль и обсуждения: вход SIWE, display name/bio, ответы, Top/New, up/down/change/remove голоса. Самоголосование запрещает сервер. Математический outcome и governance-вес от голосов комментариев не зависят.

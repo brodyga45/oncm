@@ -1,3 +1,4 @@
+import {network} from '../sdk/local-network.mjs';
 export function proposalView(proposal,{timestamp,nonce,threshold,owners},operationTimestamp){
  const when=BigInt(operationTimestamp),done=when===1n,scheduled=when>1n;
  const ready=scheduled&&BigInt(timestamp)>=when;
@@ -16,7 +17,7 @@ export function isLocalDevnet(rpcUrl,chainId){
 }
 
 export function authorizeDevTime(request,session){
- if(request.headers.origin!=='http://127.0.0.1:5171')throw Object.assign(Error('Local time control requires the Agora web origin'),{statusCode:403});
+ if(request.headers.origin!==network.webOrigin)throw Object.assign(Error('Local time control requires the Agora web origin'),{statusCode:403});
  return session(request); // Existing verified wallet/SIWE session, no new auth scheme.
 }
 

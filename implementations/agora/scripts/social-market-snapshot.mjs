@@ -1,0 +1,8 @@
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
+import {publicClient as pc,stringify} from '../sdk/chain.mjs';
+const root=fileURLToPath(new URL('..',import.meta.url)),manifest=JSON.parse(fs.readFileSync(path.join(root,'.local/deployment.json')));
+const abi=n=>JSON.parse(fs.readFileSync(path.join(root,'artifacts',n+'.json'))).abi;
+export async function snapshotMarkets(){const block=await pc.getBlockNumber(),read=(address,n,functionName,args=[])=>pc.readContract({address,abi:abi(n),functionName,args,blockNumber:block});const count=await read(manifest.registry,'AgoraRegistry','count'),markets=[];
+for(let i=0n;i<count;i++){const id=await read(manifest.registry,'AgoraRegistry','statementIds',[i]),statement=await read(manifest.registry,'AgoraRegistry','getStatement',[id]),pools=[];for(const address of await read(manifest.registry,'AgoraRegistry','getPools',[id]))pools.push({address,balances:await read(address,'FixedProductMarketMaker','getPoolBalances'),totalSupply:await read(address,'FixedProductMarketMaker','totalSupply')});markets.push({id,statement,pools});}
+const tokens=[];for(const address of manifest.accounts)tokens.push({address,balance:await read(manifest.token,'TrueToken','balanceOf',[address])});return{block:String(block),chainId:await pc.getChainId(),registry:manifest.registry,count:String(count),markets,tokens};}
+if(process.argv[1]===fileURLToPath(import.meta.url)){const s=await snapshotMarkets();if(process.argv[2])fs.writeFileSync(process.argv[2],stringify(s)+'\n');console.log(stringify({block:s.block,count:s.count,chainId:s.chainId}));}

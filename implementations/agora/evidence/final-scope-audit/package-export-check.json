@@ -1,0 +1,18 @@
+{
+  "actualBrowserDownload": true,
+  "schemaVersion": 2,
+  "statementId": "0x73fa8ef632b54063d2ad7902620a0ba9d225fde5021f6fddb2ade08997aa3c92",
+  "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+  "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+  "embeddedProfileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+  "embeddedProfileMatches": false,
+  "sourceHash": "0x0f1b485ed6a4bcd95643b348ee38baca303ec5266b19535d17b327c8191412dd",
+  "files": 1,
+  "fileIntegrityPassed": true,
+  "tamperedFileRejected": true,
+  "sourceGoalRelation": "not-verified",
+  "importedCertificateNotAccepted": true,
+  "anonymousPrivateArtifacts": 0,
+  "freshLeanRebuildPerformed": false,
+  "browserFileReimportPerformed": false
+}
