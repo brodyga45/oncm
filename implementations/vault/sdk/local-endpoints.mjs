@@ -7,6 +7,7 @@ export function localEndpoints(value=0){
  return {offset,chainId:31373,rpcPort,apiPort,webPort,rpcUrl:`http://127.0.0.1:${rpcPort}`,apiUrl:`http://127.0.0.1:${apiPort}`,webUrl:`http://127.0.0.1:${webPort}`};
 }
 export function assertLocalConfig(config){
+ if(config.publicMode)throw Error('Local development wallets and mining are disabled in public mode');
  const endpoints=localEndpoints(config.localPortOffset??0);
  if(config.chainId!==31373||![endpoints.rpcUrl,`http://localhost:${endpoints.rpcPort}`].includes(config.rpcUrl))throw Error('Vault test wallet/setup requires its explicit loopback RPC and chain31373');
  return endpoints;

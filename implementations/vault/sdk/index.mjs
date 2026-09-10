@@ -1,4 +1,6 @@
 import {assertLocalConfig} from './local-endpoints.mjs';
+import {selectWalletChain, publicWalletProvider} from './public-transport.mjs';
+import {withPublicLogs} from './public-logs.mjs';
 import { settlementInventory } from './capital.mjs';
 import { executeBoundedSwap } from './swap-limits.mjs';
 import { liquidityLimits, validateLiquidityQuote } from './liquidity.mjs';
@@ -27,10 +29,10 @@ import {
 export const CHAIN_ID = 31373;
 export const LOCAL_RPC = 'http://127.0.0.1:9547';
 export function createSDK(config, abis, runner) {
-  const provider =
+  const provider = withPublicLogs(
     runner?.provider ||
     runner ||
-    new JsonRpcProvider(config.rpcUrl, undefined, { cacheTimeout: -1 });
+    new JsonRpcProvider(config.rpcUrl, undefined, { cacheTimeout: -1 }), config);
   const write = runner || provider;
   const c = (key, name = key) => new Contract(config.addresses[key] || key, abis[name], write);
   const erc20 = (address) => new Contract(address, abis.TrueToken, write);
@@ -534,12 +536,26 @@ export async function localWallet(config, index = 0) {
     `m/44'/60'/0'/0/${index}`,
   ).connect(provider);
 }
-export async function injectedWallet(ethereum) {
+export async function injectedWallet(ethereum, config) {
   if (!ethereum) throw Error('Install an EIP-1193 wallet');
-  const provider = new BrowserProvider(ethereum, undefined, { cacheTimeout: -1 });
+  if (config) await selectWalletChain(ethereum, config);
+  const provider = new BrowserProvider(publicWalletProvider(ethereum, config), undefined, { cacheTimeout: -1 });
   await provider.send('eth_requestAccounts', []);
   if ((await provider.getNetwork()).chainId !== 31373n)
     throw Error('Switch to chain31373 using the RPC of this Vault instance');
+  await verifyInjectedDeployment(provider, config);
   return provider.getSigner();
+}
+export async function verifyInjectedDeployment(provider, config) {
+  if (config?.publicMode) {
+    for (const key of ['StatementRegistry', 'TrueToken']) {
+      const address = config.addresses[key];
+      const expected = Object.entries(config.monetaryPolicy?.runtimeHashes || {})
+        .find(([a]) => a.toLowerCase() === address.toLowerCase())?.[1];
+      const code = await provider.getCode(address);
+      if (!expected || code === '0x' || keccak256(code).toLowerCase() !== expected.toLowerCase())
+        throw Error('Wallet RPC does not match this Vault V2 deployment: ' + key);
+    }
+  }
 }
 export { parseEther, formatEther, keccak256, toUtf8Bytes, AbiCoder };

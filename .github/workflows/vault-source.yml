@@ -1,0 +1,85 @@
+name: Vault source
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'implementations/vault/**'
+      - '.github/workflows/vault-source.yml'
+      - '.github/pull_request_template.md'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# PR updates replace only the same PR's inexpensive validation. Proving has its
+# own existing serial group and is never dispatched by this workflow.
+concurrency:
+  group: vault-source-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source:
+    name: Source, runtime policy and web build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+        working-directory: implementations/vault
+    env:
+      CI: 'true'
+      NODE_OPTIONS: '--max-old-space-size=512'
+      UV_THREADPOOL_SIZE: '2'
+      MAKEFLAGS: '-j2'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: implementations/vault/.node-version
+          package-manager-cache: false
+      - name: Check tracked-file publication boundary
+        working-directory: .
+        run: |
+          python3 - <<'PY'
+          import pathlib, subprocess
+          files = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+          forbidden_dirs = {'.state', '.local', '.jobs', '.toolchain', '.toolchains', 'node_modules'}
+          forbidden_names = {'runtime.local.json', 'execution-policy.local.json', 'anvil-state.json', 'anvil-state.last-good.json'}
+          bad = []
+          for name in filter(None, files):
+              p = pathlib.PurePosixPath(name)
+              secret_env = p.name == '.env' or (p.name.startswith('.env.') and p.name not in {'.env.example', '.env.sample'})
+              ignored_proof_descriptor = name == 'tools/lean-zk/deployment.json' or name.startswith('implementations/') and name.endswith('/proof/deployment.json')
+              if set(p.parts) & forbidden_dirs or p.name in forbidden_names or secret_env or ignored_proof_descriptor:
+                  bad.append(name)
+          if bad:
+              raise SystemExit('Local runtime files must not be committed:\n' + '\n'.join(bad))
+          print('Tracked-file boundary passed; this path check is not a content secret scanner.')
+          PY
+      - name: Install only locked Vault npm dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Verify tracked bootstrap and restore the constructor descriptor
+        run: |
+          test ! -e .state/deployment.json
+          test ! -e .state/deployment-v2.json
+          node --input-type=module - <<'JS'
+          import {ensureProofDescriptor} from './scripts/proof-bootstrap.mjs';
+          import {loadMonetaryBootstrap} from './scripts/monetary-bootstrap.mjs';
+          console.log(ensureProofDescriptor(process.cwd()).mode);
+          console.log('Verified V2 production contracts:', Object.keys(loadMonetaryBootstrap(process.cwd()).artifacts).length);
+          JS
+      - name: Source, runtime and monetary policy regressions (sequential)
+        run: node --test --test-concurrency=1 test/*.test.mjs
+      - name: Production Svelte build
+        run: npm run build
+      - name: Confirm no deployment was created and tracked inputs stayed unchanged
+        run: |
+          test ! -e .state/deployment.json
+          test ! -e .state/deployment-v2.json
+          git diff --exit-code -- .

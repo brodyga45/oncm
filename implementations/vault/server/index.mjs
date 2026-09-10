@@ -1,4 +1,6 @@
 import {runtimeFiles,readRuntimeDeployment} from './runtime-version.mjs';
+import {createPublicPolicy,browserConfig,publicMiddleware,publicRouteWrapper,validSiweBinding} from './public-surface.mjs';
+import {createRpcGateway,PUBLIC_DEV_SENDERS,RPC_LIMITS} from './rpc-gateway.mjs';
 import {localEndpoints} from '../sdk/local-endpoints.mjs';
 const endpoints=localEndpoints(process.env.VAULT_PORT_OFFSET??0);
 import { palomarRecent, palomarSnapshot } from './palomar.mjs';
@@ -22,8 +24,14 @@ process.chdir(root);
 const files=runtimeFiles(root,process.env.VAULT_PROTOCOL_VERSION??'legacy');
 const app = express();
 const PORT=endpoints.apiPort;
-const ALLOWED=new Set([endpoints.webUrl,`http://localhost:${endpoints.webPort}`]);
+// Fail closed until a separately reviewed onchain administrator migration
+// verifier is supplied here. Environment flags alone do not enable writes.
+const publicPolicy=createPublicPolicy(process.env);
+const ALLOWED=new Set(publicPolicy.enabled?[publicPolicy.origin]:[endpoints.webUrl,`http://localhost:${endpoints.webPort}`]);
+app.disable('x-powered-by');
+app.use(publicMiddleware(publicPolicy));
 app.use((req, res, next) => {
+  if(publicPolicy.enabled&&req.path==='/rpc')return next();
   const origin = req.headers.origin;
   if (origin && !ALLOWED.has(origin)) return res.status(403).json({ error: 'Origin denied' });
   if (origin) {
@@ -36,7 +44,17 @@ app.use((req, res, next) => {
   if (req.method === 'OPTIONS') return res.sendStatus(204);
   next();
 });
-app.use(express.json({ limit: '1mb' }));
+if(publicPolicy.enabled){
+  const gateway=createRpcGateway({upstream:endpoints.rpcUrl,writesEnabled:()=>publicPolicy.writeEnabled()});
+  app.post('/rpc',express.raw({type:'application/json',limit:RPC_LIMITS.body,inflate:false}),async(req,res,next)=>{
+    try{
+      if(!Buffer.isBuffer(req.body))return res.status(415).json({error:'JSON Content-Type required'});
+      const raw=new TextDecoder('utf-8',{fatal:true}).decode(req.body);
+      const result=await gateway(raw);res.status(result.status).json(result.body);
+    }catch(e){next(e);}
+  });
+}
+app.use(express.json({ limit: publicPolicy.enabled?'16kb':'1mb',inflate:!publicPolicy.enabled }));
 app.use(cookieParser());
 const dbFile = files.community;
 fs.mkdirSync('.state', { recursive: true });
@@ -47,7 +65,7 @@ function save() {
   fs.writeFileSync(dbFile + '.tmp', JSON.stringify(db, null, 2));
   fs.renameSync(dbFile + '.tmp', dbFile);
 }
-const proofJobs = createProofJobs({ db, save, execute: createProofWorker(root) });
+const proofJobs = publicPolicy.enabled?{close:async()=>{}}:createProofJobs({ db, save, execute: createProofWorker(root) });
 const social = community(db, save);
 const publicationFile = files.publications;
 const publicationDB = fs.existsSync(publicationFile) ? JSON.parse(fs.readFileSync(publicationFile)) : { records: [] };
@@ -85,7 +103,7 @@ async function packageContext(statementId, requestedProfileId) {
     sourceGoalRelation: 'not-verified',
   };
 }
-const route = (fn) => (req, res, next) => Promise.resolve(fn(req, res)).catch(next);
+const route=publicRouteWrapper(publicPolicy);
 function auth(req, res, next) {
   const session = sessions.get(req.cookies.vault_session);
   if (!session || session.expires < Date.now())
@@ -109,13 +127,17 @@ app.get(
   '/api/config',
   route(async (req, res) => {
     const { config, abis } = ctx();
-    res.json({ config, abis });
+    res.json({ config:await browserConfig(config,publicPolicy), abis });
   }),
 );
 app.get(
   '/api/snapshot',
   route(async (req, res) => {
     const { sdk, config } = ctx();
+    if(publicPolicy.enabled){
+      const bounds=await Promise.all([sdk.registry.count(),sdk.coordinator.count(),sdk.allocation.epoch(),sdk.allocation.proposalCount()]);
+      if(bounds.some(n=>n>1000n))return res.status(503).json({error:'Public snapshot requires pagination beyond this pilot limit'});
+    }
     const [statements, pools, block, epoch] = await Promise.all([
       sdk.statements(),
       sdk.pools(),
@@ -159,7 +181,7 @@ app.get(
         : {};
     res.json(
       json({
-        config,
+        config:await browserConfig(config,publicPolicy),
         statements,
         pools,
         allocations,
@@ -171,6 +193,9 @@ app.get(
   }),
 );
 app.get('/api/auth/nonce', (req, res) => {
+  for(const [key,value]of nonces)if(value<Date.now())nonces.delete(key);
+  for(const [key,value]of sessions)if(value.expires<Date.now())sessions.delete(key);
+  if(publicPolicy.enabled&&(nonces.size>=1024||sessions.size>=1024))return res.status(429).json({error:'Wallet session capacity exceeded'});
   const nonce = crypto.randomBytes(16).toString('hex');
   nonces.set(nonce, Date.now() + 300000);
   res.json({ nonce });
@@ -187,17 +212,18 @@ app.post(
     if (
       !expiry ||
       expiry < Date.now() ||
-      siwe.chainId !== 31373 ||
-      ![`127.0.0.1:${endpoints.webPort}`,`localhost:${endpoints.webPort}`].includes(siwe.domain) ||
-      !ALLOWED.has(new URL(siwe.uri).origin)
+      !validSiweBinding(siwe,publicPolicy,ALLOWED) ||
+      publicPolicy.enabled&&PUBLIC_DEV_SENDERS.has(siwe.address.toLowerCase())
     )
       return res.status(400).json({ error: 'SIWE nonce, domain or chain mismatch' });
     await siwe.verify({ signature, nonce: siwe.nonce, domain: siwe.domain });
+    if(publicPolicy.enabled&&sessions.size>=1024)return res.status(429).json({error:'Wallet session capacity exceeded'});
     const sid = crypto.randomBytes(32).toString('hex');
     sessions.set(sid, { address: siwe.address, expires: Date.now() + 3600000 });
     res
       .cookie('vault_session', sid, {
         httpOnly: true,
+        secure: publicPolicy.enabled,
         sameSite: 'strict',
         maxAge: 3600000,
         path: '/',
@@ -211,7 +237,7 @@ app.get('/api/auth/me', (req, res) => {
 });
 app.post('/api/auth/logout', (req, res) => {
   sessions.delete(req.cookies.vault_session);
-  res.clearCookie('vault_session').json({ ok: true });
+  res.clearCookie('vault_session',{httpOnly:true,sameSite:'strict',secure:publicPolicy.enabled,path:'/'}).json({ ok: true });
 });
 function chainSocial() {
   const client = ctx().sdk.social;
@@ -250,6 +276,7 @@ app.get(
   '/api/fixtures',
   route(async (req, res) => {
     const f = 'proof/fixtures.json';
+    if(publicPolicy.enabled&&fs.existsSync(f)&&fs.statSync(f).size>256*1024)throw Error('Public fixture catalog exceeds byte limit');
     res.json(fs.existsSync(f) ? JSON.parse(fs.readFileSync(f)) : []);
   }),
 );
@@ -517,9 +544,12 @@ app.get(
 );
 app.use((err, req, res, next) => {
   console.error(err.shortMessage || err.message);
-  res.status(err.statusCode || 400).json({ error: err.shortMessage || err.message || 'Request failed' });
+  if(res.headersSent)return next(err);
+  res.status(err.statusCode || err.status || 400).json({ error: publicPolicy.enabled?'Public request failed':err.shortMessage || err.message || 'Request failed' });
 });
 const server = app.listen(PORT, '127.0.0.1', () => console.log(`Vault API http://127.0.0.1:${PORT}`));
+server.requestTimeout=publicPolicy.enabled?15_000:300_000;
+server.headersTimeout=publicPolicy.enabled?10_000:60_000;
 let stopping = false;
 async function shutdown() {
   if (stopping) return;

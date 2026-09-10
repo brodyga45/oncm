@@ -1228,7 +1228,7 @@
     },
     {
       "path": "package-lock.json",
-      "sha256": "e49d4fb033bc3cbf5f7ce9ce2f3df6f881b1f84cb08b498e0b24d1ff9fab219f"
+      "sha256": "fab521cb6d036180f6e15d13d364ba61cbec60ce3bc1ae80ca2d0d133471bd8c"
     },
     {
       "path": "scripts/compile.mjs",

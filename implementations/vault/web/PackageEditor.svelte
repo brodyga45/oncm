@@ -2,7 +2,7 @@
   import { onDestroy } from 'svelte';
   import { createPackageEditor } from './package-editor.mjs';
   export let api, account, statement = null, currentSource = '', onUseSource,
-    client, chainId, chainInstance, registry, selectedProfileId;
+    client, chainId, chainInstance, registry, selectedProfileId, allowPublication = true;
   let challengeSource = '', solutionSource = '', description = '', lakefile = '', lakeManifest = '',
     leanVersion = '', outcome = '1', records = [], selected = '', prepared = null,
     error = '', working = false, publicConsent = false;
@@ -78,10 +78,11 @@
       <button class="secondary" onclick={() => useSource(prepared)}>Загрузить пакет в Lean Lab для проверки</button>
       <p class="footnote">Загрузка не запускает вычисление. Native-проверка доступна только для установленного локального профиля; внешние сертификаты импортируются отдельно. Сам пакет не восстанавливает готовность сертификата.</p>
     {/if}
-    {#if isAuthor}
+    {#if isAuthor && allowPublication}
       <label class="checkbox"><input type="checkbox" checked={publicConsent} onchange={(event) => editor.setConsent(event.currentTarget.checked)} />Я публикую показанные тексты Challenge, Solution, описание и конфигурацию. Они станут доступны всем.</label>
       <button class="primary" disabled={working || !publicConsent || !challengeSource.trim()} onclick={() => editor.publish()}>Опубликовать новую ревизию исходника</button>
     {/if}
+    {#if !allowPublication}<p class="footnote">Публикация исходников через сервер отключена в публичном режиме. Готовый сертификат импортируется отдельно.</p>{/if}
     <p class="footnote">Пакет содержит отдельные Challenge/Solution, Runner, lean-toolchain, Lake config, метаданные и инструкции. Внешние зависимости не скачиваются; принятие в Palomar не гарантируется.</p>
   </details>
 </article>

@@ -1,0 +1,19 @@
+{
+  "wallSeconds": 0.532,
+  "peakTreeFootprintBytes": 164804744,
+  "memoryLimitBytes": 536870912,
+  "reason": "completed",
+  "exitCode": 0,
+  "accounting": "darwin-phys-footprint",
+  "sampleIntervalSeconds": 0.1,
+  "kernelHardLimit": false,
+  "inventory": "darwin-libproc-in-process",
+  "failure": null,
+  "identity": "darwin-bsd-start-time",
+  "cleanupErrors": [],
+  "format": "vault-public-api-tests-v1",
+  "tests": 15,
+  "passed": 15,
+  "scope": "offline signature validation and ephemeral loopback HTTP; no main chain, public tunnel, or transaction",
+  "command": "node --max-old-space-size=128 --test test/public-rpc.test.mjs test/public-surface.test.mjs"
+}

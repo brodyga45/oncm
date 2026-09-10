@@ -1,4 +1,6 @@
 <script>
+  import {browserConfig, publicOrigin, assertPublicWrites} from '../sdk/public-transport.mjs';
+  import {assertLocalConfig} from '../sdk/local-endpoints.mjs';
   import {derivedReview,derivedArguments} from './derived-review.mjs';
   import {createSnapshotImport} from './snapshot-draft.mjs';
   import nativeManifest from '../proof/manifest.json';
@@ -15,7 +17,7 @@
   import SocialPanel from './SocialPanel.svelte';
   import {createSettlementScenario,scenarioMatches} from './settlement-scenario.mjs';
   import {genericRegistrationFields} from './generic-registration.mjs';
-  let profileEpoch = 0;
+  let profileEpoch = 0, launchPublicUrl = '';
   import { quotedSwapLimits } from '../sdk/swap-limits.mjs';
   import { onMount } from 'svelte';
   import {
@@ -191,11 +193,14 @@
     if (
       data.config.proof.profileId !== config.proof.profileId ||
       data.config.addresses.PoolCoordinator !== config.addresses.PoolCoordinator ||
-      data.config.social?.resolver !== config.social?.resolver
+      data.config.social?.resolver !== config.social?.resolver ||
+      data.config.publicMode !== config.publicMode ||
+      data.config.publicWriteEnabled !== config.publicWriteEnabled
     ) {
       const current = await api('/config');
-      config = current.config;
+      config = browserConfig(current.config, location.origin);
       abis = current.abis;
+      clearWalletState();
       profileId = config.proof.profileId;
       sdk = createSDK(config, abis, signer || sdk.provider);
     }
@@ -221,7 +226,7 @@
       }
       if (next === 'lab') {
         fixtures = await api('/fixtures');
-        jobs = account ? await api('/jobs') : [];
+        jobs = account && !config.publicMode ? await api('/jobs') : [];
       }
       if (next === 'revenue') await loadClaims();
     } catch (e) {
@@ -306,7 +311,7 @@
       await api('/auth/logout', { method: 'POST' });
       const connectedSigner = local
         ? await localWallet(config, Number(devIndex))
-        : await injectedWallet(window.ethereum);
+        : await injectedWallet(window.ethereum, config);
       const connectedAccount = await connectedSigner.getAddress();
       try { await login(connectedSigner, connectedAccount); }
       catch { notice = 'Кошелёк подключается для ончейн действий. SIWE для приватных инструментов недоступен.'; }
@@ -322,12 +327,13 @@
       account = connectedAccount;
       walletKind = local ? 'local' : 'injected';
       sdk = createSDK(config, abis, signer);
-      if (page === 'lab') jobs = await api('/jobs');
+      if (page === 'lab' && !config.publicMode) jobs = await api('/jobs');
       walletOpen = false;
     });
   }
   async function tx(label, fn) {
     return task(label, async () => {
+      assertPublicWrites(config);
       if (!signer) throw Error('Подключите кошелёк');
       await sdk.ensureChain();
       return fn();
@@ -353,6 +359,7 @@
     });
   }
   async function checkLean() {
+    if (config.publicMode) { error = 'В публичном режиме Lean выполняется вне сайта; импортируйте готовый сертификат.'; return; }
     const action = 'check';
     const capturedEpoch = proofEpoch, owner = account;
     const submitted = await tx('Lean / ' + action, async () => {
@@ -757,7 +764,7 @@
   async function mine(count) {
     await task(count === 1 ? '1 локальный блок + 1 секунда' : '10 локальных блоков + 10 секунд', async () => {
       if (![1, 10].includes(count)) throw Error('Only 1 or 10 local blocks are supported');
-      if (config.chainId !== 31373) throw Error('Local chain only');
+      assertLocalConfig(config);
       await sdk.ensureChain();
       await sdk.provider.send('evm_increaseTime', [count]);
       await sdk.provider.send('hardhat_mine', ['0x' + count.toString(16)]);
@@ -795,7 +802,13 @@
     let timer;
     (async () => {
       try {
-        ({ config, abis } = await api('/config'));
+        const loaded = await api('/config');
+        abis = loaded.abis;
+        try { config = browserConfig(loaded.config, location.origin); }
+        catch (e) {
+          if (loaded.config.publicMode) launchPublicUrl = publicOrigin(loaded.config.publicOrigin);
+          throw e;
+        }
         sdk = createSDK(config, abis);
         profileId = config.proof.profileId || '';
         newProfile = config.proof.profileId || '';
@@ -855,14 +868,16 @@
       </div>
     </header>
     {#if config}<section class="panel" aria-label="Выбранная версия протокола"><p><strong>{selectedProtocolIdentity.label}</strong> · {selectedProtocolIdentity.notice}</p><details><summary>Адреса выбранной версии</summary><p>T: <code>{config.addresses.TrueToken}</code><br />Реестр: <code>{config.addresses.StatementRegistry}</code></p><a href="/api/config" target="_blank">Deployment и ABI ↗</a></details></section>{/if}
-    {#if walletOpen}<div class="wallet-panel">
+    {#if launchPublicUrl}<section class="panel" role="alert"><p>Этот экземпляр настроен на публичный HTTPS-адрес. Откройте его для чтения блокчейна и подключения кошелька.</p><a class="primary" href={launchPublicUrl}>Открыть публичный Vault ↗</a></section>{/if}
+    {#if walletOpen && config}<div class="wallet-panel">
         <h3>Ваш кошелёк</h3>
         <p>Профиль, блог и обсуждения записываются в блокчейн транзакциями кошелька. Подпись SIWE используется для личных инструментов.</p>
         <button class="primary full" onclick={() => connect(false)} disabled={busy}
           >Browser wallet ↗</button
         >
+        {#if config?.publicMode}<p>Сеть Vault 31373 · тестовый ETH нужен для газа, T — для торговли и ликвидности. Начальные тестовые средства распределяет владелец со своего кошелька.</p><code>{config.rpcUrl}</code><p>Кошелёк попросит подтвердить добавление или переключение сети, если это необходимо.</p>{#if config.publicOwnerAddress}<p>Адрес владельца: <code>{config.publicOwnerAddress}</code></p>{/if}{/if}
         {#if account}<button class="secondary full" disabled={busy} onclick={() => disconnectWallet()}>Отключить кошелёк и выйти</button>{/if}
-        <div class="divider"></div>
+        {#if !config?.publicMode}<div class="divider"></div>
         <label
           >Публичный devnet-кошелёк<select bind:value={devIndex}
             ><option value="0">Account 0 · LP / member</option><option value="1"
@@ -873,8 +888,9 @@
           ></label
         ><button class="secondary full" onclick={() => connect(true)} disabled={busy}
           >Подключить локальный</button
-        ><small>Только {config?.rpcUrl || "локальный RPC"} / chain 31373. Тестовые T без стоимости.</small>
+        ><small>Только {config?.rpcUrl || "локальный RPC"} / chain 31373. Тестовые T без стоимости.</small>{/if}
       </div>{/if}
+    {#if config?.publicMode}<section class="panel" aria-label="Публичный режим"><strong>{config.publicWriteEnabled && config.capabilities?.walletTransactions ? "Публичный Vault · транзакции подтверждаются вашим кошельком" : "Публичный Vault · только чтение, отправка транзакций пока отключена"}</strong><p>Готовые сертификаты можно импортировать и проверить. Локальные кошельки, ускорение времени и вычисление Lean на сервере недоступны.</p></section>{/if}
     <div class="content">
       {#if error}<div class="banner error" role="alert">
           <b>Действие не выполнено</b><span>{error}</span><button onclick={() => (error = '')}
@@ -1581,9 +1597,9 @@
           <div>
             <div class="eyebrow">REPRODUCIBLE MATHEMATICS</div>
             <h1>Lean Lab</h1>
-            <p>Проверка Lean и импорт готовых сертификатов для действий ончейн.</p>
+            <p>{config.publicMode ? 'Импорт и проверка готовых сертификатов для действий ончейн. Lean и переносимые пакеты подготовьте вне сайта.' : 'Проверка Lean и импорт готовых сертификатов для действий ончейн.'}</p>
           </div>
-          <span class="pill">Native Lean check · внешний сертификат</span>
+          <span class="pill">{config.publicMode ? "Импорт внешнего сертификата" : "Native Lean check · внешний сертификат"}</span>
         </section>
         {#key sourceImportEpoch}<ExternalCertificate {sdk} onuse={useExternalCertificate} onproposal={proposeExternalProfile} />{/key}
         <div class="two-columns lab-layout">
@@ -1618,10 +1634,10 @@
               {#if snapshotInfo.edited}<p>Редактор изменён после импорта. Хэш выше относится к исходному snapshot.</p>{/if}
               {#if snapshotInfo.compatibility==='incompatible'}<p role="alert">Версия snapshot {snapshotInfo.version} несовместима с локальным runner {snapshotInfo.localLean}. Автоматический запуск этого профиля отключён; нужен подходящий immutable profile или явная адаптация исходника.</p>
               {:else}<p>{snapshotInfo.compatibility==='unknown'?'Совместимость неизвестна: версия Lean не получена.':'Совпала только версия Lean.'} Зависимости, foundation и декларации Oncm.goal/Oncm.solution не проверялись. Импорт не выбирает proof profile автоматически.</p>
-              <button class="secondary" disabled={busy} onclick={()=>{profileId=config.proof.profileId;}}>Выбрать v3 для отдельной native-проверки</button>{/if}
+              {#if !config.publicMode}<button class="secondary" disabled={busy} onclick={()=>{profileId=config.proof.profileId;}}>Выбрать v3 для отдельной native-проверки</button>{/if}{/if}
               <p class="footnote">Импорт сохраняется локальным API как запись публичного источника с автором импорта. Публикация вашего изменённого Lean-пакета — отдельное явное действие.</p>
             </div>{/if}
-            <div class="button-row">
+            {#if !config.publicMode}<div class="button-row">
               <button class="secondary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={checkLean}
                 >Проверить Lean</button
               >
@@ -1634,13 +1650,13 @@
               доказательство Oncm.solution. Декларацию импортированного пакета нужно связать с ними
               в Lean source.
             </p>
-            <p class="footnote">Сертификаты регистрации и исхода подготовьте вне сайта, затем загрузите и проверьте выше.
+            {/if}<p class="footnote">Сертификаты регистрации и исхода подготовьте вне сайта, затем загрузите и проверьте выше.
               Сайт не запускает и не заказывает их вычисление.</p>
-            <p class="footnote">Проверка Lean: до 5 с и 2 GiB. Одна задача за раз;
-              до 4 задач на кошелёк и 16 всего, включая выполняемую.</p>
+            {#if !config.publicMode}<p class="footnote">Проверка Lean: до 5 с и 2 GiB. Одна задача за раз;
+              до 4 задач на кошелёк и 16 всего, включая выполняемую.</p>{/if}
             <button class="text-button" onclick={() => go('create')}
               >Продолжить регистрацию ↗</button
-            >{#if latestJob}<div class="job-result">
+            >{#if latestJob && !config.publicMode}<div class="job-result">
                 <span class="status">{latestJob.status}</span><code>{latestJob.id}</code>
                 <div class="button-row">
                   <button class="secondary" onclick={downloadJob}>Скачать задачу JSON</button>
@@ -1692,7 +1708,7 @@
               >
               {#if certificate && !proofReady}<p class="footnote">Journal сертификата должен точно совпадать с открытым утверждением, профилем и исходом. Проверка кодировки не заменяет криптографическую проверку EVM.</p>{/if}
             </article>
-            <article class="panel">
+            {#if !config.publicMode}<article class="panel">
               <h2>Импорт snapshot</h2>
               <button class="secondary full" disabled={busy} onclick={browsePalomar}
                 >Открыть публикации Palomar ↗</button
@@ -1729,10 +1745,10 @@
                 disabled={busy}
                 onclick={importPackage}>Импортировать Lean source</button
               >
-            </article>
+            </article>{/if}
           </div>
         </div>
-        <article class="panel">
+        {#if !config.publicMode}<article class="panel">
           <h2>История задач</h2>
           {#if !jobs.length}<p>Здесь появятся проверки Lean. Ранее сохранённые задачи остаются в истории.</p>{/if}{#each jobs
             .slice()
@@ -1743,7 +1759,7 @@
                 >{short(j.id, 12)}</code
               ><small>{new Date(j.createdAt).toLocaleString()}</small></button
             >{/each}
-        </article>
+        </article>{/if}
       {:else if page === 'governance'}
         <section class="page-heading compact">
           <div>
@@ -1755,8 +1771,8 @@
             </p>
           </div>
           <div class="button-row"><button class="secondary" disabled={busy} onclick={() => task('Обновление Governor', refreshGovernance)}>Обновить состояние</button>
-          <button class="secondary" disabled={busy} onclick={() => mine(1)}>+1 local block</button>
-          <button class="secondary" disabled={busy} onclick={() => mine(10)}>+10 local blocks</button></div>
+          {#if !config?.publicMode}<button class="secondary" disabled={busy} onclick={() => mine(1)}>+1 local block</button>
+          <button class="secondary" disabled={busy} onclick={() => mine(10)}>+10 local blocks</button>{/if}</div>
         </section>
         {#key sdk}{#key account}<MonetaryPolicyPanel {sdk} {config} {account} {busy} onPrepared={reviewMonetaryPlan} onClaim={claimMonetary} onStake={stakeMonetary} onWithdraw={withdrawMonetary} onClose={closeMonetary} onSyncFees={syncMonetaryFees} />{/key}{/key}
         <div class="two-columns">
@@ -2059,9 +2075,10 @@
               )}>Ранее: до блока {activity.previous} ↓</button
           >{/if}
       {/if}
-      {#if page === 'lab' || (page === 'detail' && statement?.kind === 0)}
+      {#if !config?.publicMode && (page === 'lab' || (page === 'detail' && statement?.kind === 0))}
         {#key account + ':' + (statement?.id || '') + ':' + sourceImportEpoch}
           <PackageEditor {api} {account} statement={statement?.kind === 0 ? statement : null}
+            allowPublication={!config?.publicMode}
             client={sdk} chainId={config?.chainId} chainInstance={config?.chainInstance?.id}
             registry={config?.addresses.StatementRegistry} selectedProfileId={profileId || config?.proof.profileId}
             currentSource={source} onUseSource={(text, packageContext) => {
