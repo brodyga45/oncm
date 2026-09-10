@@ -33,9 +33,17 @@
 | [Ethereum Attestation Service](https://github.com/ethereum-attestation-service/eas-contracts) | EAS, SchemaRegistry, resolvers и [SDK](https://github.com/ethereum-attestation-service/eas-sdk); полные onchain attestation payloads | Тонкие правила профиля/поста/версии/голоса, стоимость хранения и UX без смешения социальной записи с доказательством теоремы |
 | [SSTORE2](https://github.com/0xsequence/sstore2) / существующие Solidity библиотеки | Хранение текста в runtime bytecode с onchain-чтением | Это storage primitive, не готовая социальная сеть; использовать только если готовый protocol не покрывает нужную модель проще |
 
-Пины и исследование: Agora Solady0.1.26 `acd959aa4bd04720d640bf4e6a5c71037510cc4b`, ECP1.1.3 `c301d76fa56b6b807f135c98273ac9eb5ddebe95`, EAS npm1.9.0 `3683c3ec9383091eebd6f183e67b485e09a53dd7` (версия пакета и contract Semver различаются). Все три основы MIT. [Exchange research](../implementations/exchange/docs/research/onchain-social.md), [Lens/EAS comparison](research/social-lens-eas.md). У ECP полный текущий content есть в state, но edit/delete меняет его: history hook обязан сохранять старые полные версии. Deployment явно задаёт нулевые social protocol fees; стандартную ненулевую плату создания канала не выдаём за zero default. Production import graph ECP проверен на Shanghai compatibility по исходникам; компиляция и исполнение ещё отдельные проверки.
+Пины и исследование: Agora Solady0.1.26 `acd959aa4bd04720d640bf4e6a5c71037510cc4b`, ECP1.1.3 `c301d76fa56b6b807f135c98273ac9eb5ddebe95`, EAS npm1.9.0 `3683c3ec9383091eebd6f183e67b485e09a53dd7` (версия пакета и contract Semver различаются). Все три основы MIT. [Exchange research](../implementations/exchange/docs/research/onchain-social.md), [Lens/EAS comparison](research/social-lens-eas.md). У ECP полный текущий content есть в state, но edit/delete меняет его: history hook обязан сохранять старые полные версии. Deployment явно задаёт нулевые social protocol fees; стандартную ненулевую плату создания канала не выдаём за zero default. Production import graph ECP проверен, полный набор оригинальных managers/libraries с hook скомпилирован под Shanghai; изолированные проверки9/9 прошли.
 
-Сейчас новые социальные контракты не развёрнуты; существующая social DB остаётся историей предыдущей версии. Локальный черновик до явного действия публикации не становится ончейн-записью.
+Новые контракты развёрнуты additively в существующих локальных цепях, без сброса рынков. Прежняя social DB остаётся явно обозначенной историей офчейн-версии; старые HTTP social writes возвращают410. Локальный черновик до явного действия публикации не становится ончейн-записью.
+
+| Реализация | Deploy | Проверка на текущий момент |
+| --- | --- | --- |
+| Agora /31371 | AgoraSocial `0xe6e340d132b5f46d1e472debcd681b2abc16e57e`, блок55 | Изолированные проверки10/10; agent browser до73: профили, блог, ветки, версии, голоса, tombstone/restore. Финальные logout и настоящий reload пройдены,18/18 тестов. |
+| Exchange /31372 | ECP deployment144–157; CommentManager `0x276C216D241856199A83bf27b2286659e5b877D3`, hook `0x3aAde2dCD2Df6a8cAc689EE797591b2913658659` | Полные ECP invariants9/9. Agent browser159–173: профиль/блог/правки, комментарий, ответы, +1/0/−1/+1, tombstone и публичное чтение. Read-after-write исправлен и проверен; скачанный export совпал с независимым RPC173. Подробности и границы в app ONCHAIN-SOCIAL.md. |
+| Vault /31373 | SchemaRegistry126, EAS127, Resolver128 `0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc` | EAS checks24/24. Root browser129–147: два профиля, блог/правки, две ветки, ответ, голос+1/0/−1/+1, hide/restore. Gap скрытого блога исправлен и перепроверен146–147; rebuild/logout/public reload пройдены;26/26 тестов. |
+
+Это локальные testchain deployments, не публичная сеть и не mainnet release. Источники evidence находятся в папках реализаций; [root browser log Vault](evidence/vault-onchain-social-browser-2026-09-10.md).
 
 ## Новая приёмка
 

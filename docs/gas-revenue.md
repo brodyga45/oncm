@@ -40,3 +40,15 @@ Gas revenue зависит от вычислений и данных, а не н
 - [OP Stack fees](https://docs.optimism.io/op-stack/transactions/fees): operator fee, vaults; deposit transactions не платят operator fee.
 - [OP Stack fee vault operations](https://docs.optimism.io/chain-operators/guides/management/fee-vaults): получатель, сеть вывода, конфигурация через op-deployer.
 - [Arbitrum launch chain](https://arbitrum.io/launch-chain): custom gas token и собственные fee markets; [AEP terms](https://docs.arbitrum.foundation/aep/ArbitrumExpansionProgramTerms.pdf) требуют отдельного юридического/экономического рассмотрения при выборе стека.
+
+## Выбор быстрой сети — обсуждение 2026-09-10
+
+Пользователь предложил рассмотреть быстрый L2 с небольшими комиссиями. Предварительная рекомендация: сравнить Base и Arbitrum One на одинаковых фактических вызовах наших готовых контрактов. Sonic остаётся отдельным L1-кандидатом, если газовый доход важнее выбора Ethereum L2. Это shortlist, не решение о публичном deployment.
+
+Сравнивать необходимо end-to-end задержку кошелёк/RPC/receipt/UI, execution fee, плату за данные, ограничения transaction gas/размеров, поддержку оригинального verifier и используемых EVM opcodes, а также способы финальности/выхода и доступность данных. Base Flashblocks (~200 ms) — предварительное подтверждение, не Ethereum-finality; аналогично sequencer confirmation Arbitrum не равно всем уровням окончательного расчёта.
+
+Набор замеров: профиль, голос, комментарий, полный блог + правка, регистрация цели, proof resolution, swap, LP entry/exit. Фиксировать размер UTF-8, calldata, gasUsed, L1/DA fee, block/time и текущие сетевые условия. Не обещать постоянную цену в долларах по одному измерению. Все три реализации желательно сначала сравнить на одной выбранной публичной сети, чтобы не смешивать эффект архитектуры и сети. Локальный Ganache/Anvil не моделирует экономику L2 DA.
+
+Переход на дешёвый L2 не сокращает offchain время zk proving: меняется доставка/проверка сертификата, а не вычисление самого сертификата.
+
+Источники: [Base Flashblocks](https://docs.base.org/base-chain/api-reference/flashblocks-api/flashblocks-api-overview), [Base fees](https://docs.base.org/specifications/transactions/network-fees), [Arbitrum finality](https://docs.arbitrum.io/how-arbitrum-works/deep-dives/finality).
