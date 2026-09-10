@@ -1,0 +1,17 @@
+# Agora generic certificate: actual browser read-only verification
+
+2026-09-10, own Chrome tab102825335, Agora127.0.0.1:5171, chain31371 **unchanged block90**. No registration, resolution, financial transaction or proof computation was sent.
+
+The normal Create → certificate JSON textarea → **Verify & use registration** received an `oncm-external-certificate-bundle-v1`, not a curated-loader record. `registration-bundle.json` contains the existing genuine CI3 cryptographic fields, complete canonical1622-byte goal export, source withSHA256 and clearly supplementary metadata. It omits fixture lookup identifiers, case/profile labels, CI pins and claimed verified flags. The underlying statement is the already registered identity implication, goal2baf…3f4b, perf05 profile93cf…7e10, statement73fa…3c92. No new theorem receipt is claimed.
+
+Exact browser UTF8 JSON:5582bytes, SHA256 `14970d01c15fbc14b092c026bf836f0fce9ab46baccaed523afe138c924dc994`. Independently compared with the saved file and API-returned exact bundle digest.
+
+1. Pasted the generic bundle into the normal anonymous certificate field and clicked Verify & use registration. UI showed success, perf05 zero-axiom profile, immutable bridge verification and registration certificate ready. It showed exact goal SHA/1622bytes and source SHA `adb0142ac2d8cef01d92fc0dce76e19e0d5b8a9184c0004cdf29ca05a1b1a0b9`, with **Source-to-goal relation: not verified**.
+2. Replaced only artifact.goalHash with false-goal `0xf3970d998f81087ef438303d55b460425ccf4622df367ae485e09deab064afb4`, retaining original goal bytes/journal/seal. Verification refused and cleared accepted readiness/disabled Register. Initial error text was opaque **Internal Server Error**; this was recorded as a UX defect, not a clear-validation pass.
+3. Fixed Fastify handler ordering: the generic route is an encapsulated plugin registered before the previous root error handler, so it inherited Fastify's default500 response. Moved the same existing handler before route/plugin registration. No verifier/parser/policy logic changed.
+4. No active proof jobs existed. The API watcher restarted only Agora4171 (PID87955→37341). Read-only health remained chain31371/block90; SHA256 of app DB, deployment descriptor and proving policy remained byte-identical. Chain processes were not restarted.
+5. Clicked the same normal Verify action on the still-mutated bundle. It now showed **Goal bytes differ from claim**, with no certificate ready. Restored the original JSON and clicked Verify again: success/profile/source-integrity boundary restored at unchanged90. No Create/Submit action followed.
+
+`verified.json` includes an additional independent read-only API record: `cryptographicStatus: verified-original-evm-and-bridge`, both verifier addresses, block90 and exact-upload digest. This supports the cryptographic claim; the separately described CUA actions establish browser behavior. Wrong-goal refusal is a binding check before pairing, not a claim that a forged proof passed parsing then failed pairing; earlier genuine mutation EVM tests remain separate.
+
+`tests/http-errors.test.mjs` exercises the actual error-handler line before encapsulated Fastify registration, with injection of claim and duplicate-key errors:400/clear reason/no stack,1test passed. No frontend build was needed for this server-only ordering change. No mock verifier or prover was used. Curated four loaders and existing market state are preserved; earlier blocked NO settlement and matching-derived actions were not retried.

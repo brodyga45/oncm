@@ -64,3 +64,7 @@ This bounded helper refuses to overwrite the output, validates transport only an
 **Still missing:** a genuine certificate for a new nonfixture theorem (for example the imported Ix goal), and its complete browser registration/settlement cycle. The new route supports that compatible certificate when externally supplied; these tests do not pretend to have produced one. Generic browser form behavior was exercised through actual SFC handlers plus production build, not a newly claimed manual market cycle. Social contracts/content/state were not modified.
 
 Reproduce existing real read-only checks with `node scripts/verify-generic-certificates-readonly.mjs`; it writes only public evidence files and sends `eth_call`/read-only import requests. It checks current local profile/statement availability and verifies block number does not move. No proof computation is performed.
+
+## Actual generic browser check, 2026-09-10
+
+[Evidence](evidence/generic-browser/README.md): existing genuine CI3 minimal generic wrapper through normal JSON input, accepted at90, wrong-goal rejected with a clear reason, original restored. Original EVM+bridge and exact bundleSHA confirmed, source-to-goal remains not verified. No newmarket/settlement/prover. An error-handler ordering bug initially hid validation reasons; server ordering regression and subsequent browser repeat passed.

@@ -1,0 +1,55 @@
+✔ strict calendar rejects normalization and preserves exact local UTC Unix review (23.262792ms)
+✔ Agora reviewed args normalize ResolvedBy expected0 and preserve exact deadline bigint (0.929125ms)
+✔ outcome-only and outcome-with-deadline have distinct canonical arguments (0.264ms)
+✔ actual injected account/network handlers clear private drafts, jobs and SIWE; local switch removes listeners (19.394417ms)
+✔ actual sign-in cannot finish verification after account context was invalidated (2.489292ms)
+✔ actual job poll handles disappearance without TypeError or automatic retry (1.161125ms)
+✔ actual package application never enables registration from imported artifact or caller catalog id (1.580875ms)
+✔ website rejects certificate generation before sign-in or any job request; native checks remain usable (2.573709ms)
+Error: Source, artifact or view changed during verification; import the current bundle again.
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:140:45)
+    at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:55:152)
+    at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:138:317)
+    at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:61:187)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+✔ generic registration import rejects source edits while verification is pending (1.97225ms)
+Error: Selected market changed while verifying; import again.
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:141:58)
+    at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:55:152)
+    at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:138:317)
+    at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:67:96)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+Error: Source, artifact or view changed during verification; import the current bundle again.
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:140:45)
+    at async act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:55:152)
+    at async Object.importExternalCertificate (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:138:317)
+    at async TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:67:96)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+Error: Package file hash mismatch: Statement.lean
+    at validateSourcePackage (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/sdk/source-package.mjs:39:87)
+    at sourceDraft (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/src/import-draft.mjs:5:6)
+    at applyPackage (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:151:40)
+    at applyPackageJSON (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:152:161)
+    at eval (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:154:88)
+    at act (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:55:158)
+    at Object.importPastedPackage (eval at setup (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:22:12), <anonymous>:154:44)
+    at TestContext.<anonymous> (file:///Users/ignatignat/Documents/ChatGPT/oncm/implementations/agora/tests/wallet-app.test.mjs:92:162)
+    at async Test.run (node:internal/test_runner/test:1054:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+✔ generic settlement import rejects A → B → A selection and changed JSON during read-only verification (2.156167ms)
+✔ generic import keeps supplied labels separate from semantic status and never submits a transaction or job (1.008708ms)
+✔ oversized external file fails before file read and clears previous import (1.154125ms)
+✔ actual file and paste imports preserve the exact JSON bytes through the API envelope (2.23525ms)
+✔ actual pasted and file package handlers use identical strict validation and never trust certificates (2.211334ms)
+✔ derived resolve preflight reports pending without write and rejects changed wallet while reading (2.039625ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 505.712083

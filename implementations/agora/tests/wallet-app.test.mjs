@@ -1,3 +1,4 @@
+import * as derived from '../src/derived-review.mjs';
 import * as creation from '../src/create-flow.mjs';
 import * as liquidity from '../sdk/liquidity-preview.mjs';
 // Exercise the actual SFC setup handlers with Vue refs and a dummy EIP-1193
@@ -13,12 +14,12 @@ function setup(extra={}){
  const provider=new EventEmitter(),timers=[],requests=[];let addresses=[chain.devAccounts[0].address],chainId='0x7a8b';
  provider.request=async({method})=>method==='eth_chainId'?chainId:method==='eth_accounts'||method==='eth_requestAccounts'?addresses:null;
  const fetch=async(url,options)=>{requests.push({url,options});const custom=await extra.fetch?.(url,options);const body=custom??(url==='/api/markets'?{markets:[],observedBlock:'54'}:url.includes('/allocations')?{recipients:[],shares:[]}:url==='/api/governance'?{proposals:[]}:url==='/api/operators'||url==='/api/jobs'?[]:{});return{ok:true,json:async()=>body};};
- const bindings={...creation,...liquidity,...vue,...chain,...viem,...amounts,...packages,...drafts,...selection,...scopes,...session,...markets,...external,
-  pc:{},fetch,window:{ethereum:provider},onMounted:()=>{},onUnmounted:()=>{},
+ const bindings={...derived,...creation,...liquidity,...vue,...chain,...viem,...amounts,...packages,...drafts,...selection,...scopes,...session,...markets,...external,
+  pc:extra.pc??{},fetch,window:{ethereum:provider},onMounted:()=>{},onUnmounted:()=>{},
   createWalletScope:()=>scopes.createWalletScope({setTimer:fn=>{timers.push(fn);return fn;},clearTimer:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);}}),
  };
  const names=Object.keys(bindings).filter(k=>/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(k)&&k!=='default');
- const app=Function(...names,script+'\nreturn {connect,signin,clearPrivateContext,switchRole,startJob,applyPackage,wallet,account,role,sessionAddress,sessionToken,form,registration,proofSource,proofCertificate,jobs,shelf,notebook,profileDraft,error,notice,config,importedPackage,published,socialContextEpoch,importExternalCertificate,externalArtifactText,selectedId,list,page,proofOutcome,proofBinding,importExternalFile,importExternalText,packageJSON,importPackage,importPastedPackage};')(...names.map(k=>bindings[k]));
+ const app=Function(...names,script+'\nreturn {connect,signin,clearPrivateContext,switchRole,startJob,applyPackage,wallet,account,role,sessionAddress,sessionToken,form,registration,proofSource,proofCertificate,jobs,shelf,notebook,profileDraft,error,notice,config,importedPackage,published,socialContextEpoch,importExternalCertificate,externalArtifactText,selectedId,list,page,proofOutcome,proofBinding,importExternalFile,importExternalText,packageJSON,importPackage,importPastedPackage,resolveDerivedFromState};')(...names.map(k=>bindings[k]));
  app.config.value={profileId:'0x'+'11'.repeat(32)};
  return {app,provider,timers,requests,setAccounts:a=>{addresses=a;provider.emit('accountsChanged',a);},setChain:c=>{chainId=c;provider.emit('chainChanged',c);}};
 }
@@ -90,4 +91,9 @@ test('actual pasted and file package handlers use identical strict validation an
  assert.deepEqual(pasted.importedPackage.value,file.importedPackage.value);assert.equal(pasted.registration.value,null);assert.equal(file.registration.value,null);assert.equal(pasted.importedPackage.value.profileId,p.profileId);
  pasted.registration.value={registrationCertificate:'previous'};pasted.packageJSON.value=JSON.stringify({...p,files:{'Statement.lean':'tampered'}});await pasted.importPastedPackage();assert.match(pasted.error.value,/file hash mismatch/);assert.equal(pasted.registration.value,null);assert.equal(pasted.form.value.source,'theorem');
  pasted.clearPrivateContext();assert.equal(pasted.packageJSON.value,'');
+});
+
+test('derived resolve preflight reports pending without write and rejects changed wallet while reading',async()=>{
+ const d=deferred(),h=setup({pc:{readContract:()=>d.promise}}),a=h.app;a.selectedId.value='predicate';a.config.value.abis={AgoraRegistry:[]};const pending=a.resolveDerivedFromState();a.clearPrivateContext();d.resolve(1);await assert.rejects(pending,scopes.StaleWalletContext);assert.equal(h.requests.length,0);
+ const h2=setup({pc:{readContract:async()=>0}});h2.app.selectedId.value='pending';h2.app.config.value.abis={AgoraRegistry:[]};await assert.rejects(h2.app.resolveDerivedFromState(),/Pending:.*No resolution transaction/);assert.equal(h2.requests.length,0);
 });
