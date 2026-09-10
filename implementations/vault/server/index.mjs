@@ -1,3 +1,4 @@
+import {runtimeFiles,readRuntimeDeployment} from './runtime-version.mjs';
 import {localEndpoints} from '../sdk/local-endpoints.mjs';
 const endpoints=localEndpoints(process.env.VAULT_PORT_OFFSET??0);
 import { palomarRecent, palomarSnapshot } from './palomar.mjs';
@@ -18,6 +19,7 @@ import { Interface, isAddress, formatEther, ZeroAddress } from 'ethers';
 import { createSDK } from '../sdk/index.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 process.chdir(root);
+const files=runtimeFiles(root,process.env.VAULT_PROTOCOL_VERSION??'legacy');
 const app = express();
 const PORT=endpoints.apiPort;
 const ALLOWED=new Set([endpoints.webUrl,`http://localhost:${endpoints.webPort}`]);
@@ -36,7 +38,7 @@ app.use((req, res, next) => {
 });
 app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
-const dbFile = '.state/community.json';
+const dbFile = files.community;
 fs.mkdirSync('.state', { recursive: true });
 const db = fs.existsSync(dbFile)
   ? JSON.parse(fs.readFileSync(dbFile))
@@ -47,7 +49,7 @@ function save() {
 }
 const proofJobs = createProofJobs({ db, save, execute: createProofWorker(root) });
 const social = community(db, save);
-const publicationFile = '.state/publications.json';
+const publicationFile = files.publications;
 const publicationDB = fs.existsSync(publicationFile) ? JSON.parse(fs.readFileSync(publicationFile)) : { records: [] };
 const publicSources = publications(publicationDB, () => {
   fs.writeFileSync(publicationFile + '.tmp', JSON.stringify(publicationDB, null, 2));
@@ -58,10 +60,10 @@ const sessions = new Map(),
 const json = (x) =>
   JSON.parse(JSON.stringify(x, (_, v) => (typeof v === 'bigint' ? v.toString() : v)));
 function ctx() {
-  const config = JSON.parse(fs.readFileSync('.state/deployment.json'));
-  const abis = JSON.parse(fs.readFileSync('.state/abis.json'));
-  if (fs.existsSync('.state/social-deployment.json')) {
-    const social = JSON.parse(fs.readFileSync('.state/social-deployment.json'));
+  const config = readRuntimeDeployment(files);
+  const abis = JSON.parse(fs.readFileSync(files.abis));
+  if (fs.existsSync(files.social)) {
+    const social = JSON.parse(fs.readFileSync(files.social));
     if (social.chainInstance !== config.chainInstance.id || social.statementRegistry.toLowerCase() !== config.addresses.StatementRegistry.toLowerCase())
       throw Error('Social deployment belongs to another chain instance');
     config.social = social;

@@ -1,3 +1,4 @@
+import {runtimeFiles} from '../server/runtime-version.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {Interface,isAddress,keccak256} from 'ethers';
@@ -15,7 +16,7 @@ function descriptorBinding(d,config){
  * Existing records are verified and preserved; missing contracts are not reset. */
 export async function ensureSocialSetup({root,config,rpc,runDeployment}){
  assertLocalConfig(config);
- const file=path.join(root,'.state/social-deployment.json'),existed=fs.existsSync(file);
+ const file=runtimeFiles(root,config.protocolVersion??'legacy').social,existed=fs.existsSync(file);
  if(existed)descriptorBinding(JSON.parse(fs.readFileSync(file)),config);
  else for(const name of ['EAS','SchemaRegistry','VaultSocialResolver']){
   const p=path.join(root,'social/artifacts',name+'.json');if(!fs.existsSync(p))throw Error('Missing '+name+' social artifact; run node social/compile.mjs explicitly (dev never compiles)');

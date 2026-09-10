@@ -39,3 +39,13 @@ test('post-deploy schema policy mismatch is a startup error',async()=>{
   return rpc(m,a);
  };await assert.rejects(()=>ensureSocialSetup(h.args),/schema policy differs/);}finally{h.close();}
 });
+test('V2 social setup verifies its own descriptor and leaves legacy social bytes intact',async()=>{
+ const h=harness();try{
+  h.config.protocolVersion='2';const legacy=JSON.stringify({...h.descriptor,statementRegistry:address(9)});fs.writeFileSync(h.file,legacy);
+  const v2file=path.join(h.root,'.state/social-deployment-v2.json');
+  h.args.runDeployment=async()=>{fs.writeFileSync(v2file,JSON.stringify(h.descriptor));};
+  const result=await ensureSocialSetup(h.args);
+  assert.equal(result.mode,'deployed-new');assert.equal(result.descriptor.statementRegistry,address(1));
+  assert.equal(fs.readFileSync(h.file,'utf8'),legacy);
+ }finally{h.close();}
+});

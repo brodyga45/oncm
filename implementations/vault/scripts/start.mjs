@@ -1,3 +1,4 @@
+import {runtimeFiles,readRuntimeDeployment,assertSameRuntime} from '../server/runtime-version.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
@@ -9,6 +10,7 @@ import {localEndpoints} from '../sdk/local-endpoints.mjs';
 const endpoints=localEndpoints(process.env.VAULT_PORT_OFFSET??0);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 process.chdir(root);
+const files=runtimeFiles(root,process.env.VAULT_PROTOCOL_VERSION??'legacy');
 const children = new Map();
 let stopping = false;
 function start(name, relative, args = []) {
@@ -53,6 +55,7 @@ async function stop() {
 process.on('SIGINT', () => stop().catch(console.error));
 process.on('SIGTERM', () => stop().catch(console.error));
 try {
+  if(files.version==='2')readRuntimeDeployment(files); // No implicit V2 deployment or legacy fallback.
   ensureProductionArtifacts(root);
   ensureProofDescriptor(root);
   if (!(await chainReady())) {
@@ -69,7 +72,7 @@ try {
   if (!version.toLowerCase().includes('anvil')) throw Error('Existing RPC is not Anvil; refusing to replace a running node');
   await rpc('anvil_setLoggingEnabled', [false]);
   let deployment;
-  if (fs.existsSync('.state/deployment.json')) deployment = JSON.parse(fs.readFileSync('.state/deployment.json'));
+  if (fs.existsSync(files.deployment)) deployment = readRuntimeDeployment(files);
   if (deployment) {
     if(deployment.rpcUrl!==endpoints.rpcUrl||deployment.localPortOffset!==undefined&&deployment.localPortOffset!==endpoints.offset)throw Error('Saved deployment uses another explicit local port offset');
     if ((await rpc('eth_getCode', [deployment.addresses.PoolCoordinator, 'latest'])) === '0x')
@@ -78,7 +81,7 @@ try {
     const child = start('deploy', 'scripts/deploy.mjs');
     if ((await child.closed) !== 0) throw Error('Deployment failed');
   }
-  deployment=JSON.parse(fs.readFileSync('.state/deployment.json'));
+  deployment=readRuntimeDeployment(files);
   const social=await ensureSocialSetup({root,config:deployment,rpc,runDeployment:async()=>{
     const child=start('social-deploy','social/deploy.mjs');
     if((await child.closed)!==0)throw Error('Additive social setup/runtime verification failed');
@@ -92,7 +95,8 @@ try {
     try{
       const response=await fetch(endpoints.apiUrl+'/api/config',{signal:AbortSignal.timeout(1500)});
       if(response.ok){const {config}=await response.json();
-        if(config.chainId!==deployment.chainId||config.chainInstance?.id!==deployment.chainInstance.id||config.social?.resolver!==social.descriptor.resolver)
+        assertSameRuntime(config,deployment);
+        if(config.social?.resolver!==social.descriptor.resolver)
           throw Error('Running API belongs to another deployment or lacks the verified social setup');
         ready=await reachable(endpoints.webUrl);
       }

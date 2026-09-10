@@ -1,3 +1,4 @@
+import {runtimeFiles,readRuntimeDeployment} from '../server/runtime-version.mjs';
 import {assertLocalConfig} from '../sdk/local-endpoints.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -5,13 +6,14 @@ import {fileURLToPath} from 'node:url';
 import {ContractFactory,Contract,JsonRpcProvider,HDNodeWallet,NonceManager,keccak256,toUtf8Bytes} from 'ethers';
 import {createSDK} from '../sdk/index.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const config=JSON.parse(fs.readFileSync(path.join(root,'.state/deployment.json')));
+const files=runtimeFiles(root,process.env.VAULT_PROTOCOL_VERSION??'legacy');
+const config=readRuntimeDeployment(files);
 assertLocalConfig(config);
 const provider=new JsonRpcProvider(config.rpcUrl,undefined,{cacheTimeout:-1});provider.pollingInterval=50;
-const file=path.join(root,'.state/social-deployment.json');
+const file=files.social;
 const artifact=n=>JSON.parse(fs.readFileSync(path.join(root,'social/artifacts',n+'.json')));
 async function protectedState() {
-  const abis=JSON.parse(fs.readFileSync(path.join(root,'.state/abis.json'))),sdk=createSDK(config,abis,provider);
+  const abis=JSON.parse(fs.readFileSync(files.abis)),sdk=createSDK(config,abis,provider);
   const statements=await sdk.statements(),pools=await sdk.pools();
   const profiles=Object.fromEntries(await Promise.all([...new Set([config.proof.profileId,...statements.filter(s=>s.kind===0).map(s=>s.profileId)])].map(async id=>[id,[...await sdk.registry.profiles(id)]])));
   const codeHashes=Object.fromEntries(await Promise.all(Object.entries(config.addresses).map(async([name,a])=>[name,keccak256(await provider.getCode(a))])));
