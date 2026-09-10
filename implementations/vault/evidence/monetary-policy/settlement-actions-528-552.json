@@ -1,0 +1,4120 @@
+{
+  "format": "vault-v2-monetary-action-receipts-v1",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "protocolVersion": "2",
+  "beforeBlock": 527,
+  "afterBlock": 552,
+  "spec": {
+    "path": "evidence/monetary-policy/settlement-actions-528-552-spec.json",
+    "sha256": "df208dddba4000b27a263a87a6be88bedfbe3f48ef748cc1f98a3f2eabeed838"
+  },
+  "abiSha256": "7fabed561ab224ee4e88d9a1d320cc9ab43cc032deed0dd4863aa5a4e262676c",
+  "snapshots": {
+    "before": {
+      "path": "evidence/monetary-policy/earning-actions-508-527.after.json",
+      "sha256": "fd81a34153cb6f4dc3ad63451ecdeb1e27fa4e1e2f88b9dcdb9cc584c5579a96",
+      "bytes": 26897,
+      "block": {
+        "number": 527,
+        "hash": "0x9e09db98c645ff8b02ea9d81eb696a9872df219483f27ec4355505ec9d9296b1",
+        "timestamp": 1789050472
+      },
+      "reusedExisting": true,
+      "collectorSourceSha256": "0x6f9f0eb4af32daa7a97f93976830e23e49bc7a03459e4f870199437a490b20c3"
+    },
+    "after": {
+      "path": "evidence/monetary-policy/settlement-actions-528-552.after.json",
+      "sha256": "f5d579be9adb604cb23101e49fe4f16e58b6c758c7788199b491e39451e6ec7d",
+      "bytes": 26590,
+      "block": {
+        "number": 552,
+        "hash": "0x24e2d290c48bcc5821821bb49e55bc8ba7e3a442d59398873b6f2fff203b3bc5",
+        "timestamp": 1789051973
+      },
+      "reusedExisting": false,
+      "collectorSourceSha256": "0x6f9f0eb4af32daa7a97f93976830e23e49bc7a03459e4f870199437a490b20c3"
+    }
+  },
+  "actions": [
+    {
+      "label": "Alice: SplitsWarehouse withdraw own T credit to self",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 528,
+        "hash": "0xf137728cb50fccaee86c8a7c64b990671653acedbea6436633759a7701b3e03c",
+        "timestamp": 1789050604
+      },
+      "transactions": [
+        {
+          "hash": "0x2aab3ff2ac6bb1c08a0c2cfa58968af2e12a71580ecdc642a6d13c6c3d423743",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+          "nonce": 170,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "48215",
+          "calldata": "0xe0889029000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb922660000000000000000000000000000000000000000000000000000000000000001000000000000000000000000276c216d241856199a83bf27b2286659e5b877d30000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000a6445a1f7cfff",
+          "decoded": {
+            "variants": [
+              {
+                "name": "withdraw",
+                "signature": "withdraw(address,address[],uint256[],address)",
+                "args": {
+                  "_owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                  "_tokens": [
+                    "0x276C216D241856199A83bf27b2286659e5b877D3"
+                  ],
+                  "_amounts": [
+                    "2924999999999999"
+                  ],
+                  "_withdrawer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+                },
+                "matchedABIs": [
+                  "SplitsWarehouse"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 0,
+              "transactionHash": "0x2aab3ff2ac6bb1c08a0c2cfa58968af2e12a71580ecdc642a6d13c6c3d423743",
+              "topics": [
+                "0x1b3d7edb2e9c0b0e7c525b20aaaef0f5940d2ed71663c7d39266ecafac728859",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x000000000000000000000000276c216d241856199a83bf27b2286659e5b877d3"
+              ],
+              "data": "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000000a6445a1f7cfff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256,uint256)",
+                    "args": {
+                      "caller": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "receiver": "0x0000000000000000000000000000000000000000",
+                      "id": "225062032387763360503422072591085270599665743827",
+                      "amount": "2924999999999999"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 1,
+              "transactionHash": "0x2aab3ff2ac6bb1c08a0c2cfa58968af2e12a71580ecdc642a6d13c6c3d423743",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000c6e7df5e7b4f2a278906862b61205850344d4e7d",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000a6445a1f7cfff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "2924999999999999"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "2924999999999999"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 2,
+              "transactionHash": "0x2aab3ff2ac6bb1c08a0c2cfa58968af2e12a71580ecdc642a6d13c6c3d423743",
+              "topics": [
+                "0xfbde797d201c681b91056529119e0b02407c7bb96a4a2c75c01fc9667232c8db",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x000000000000000000000000276c216d241856199a83bf27b2286659e5b877d3",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000a6445a1f7cfff0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Withdraw",
+                    "signature": "Withdraw(address,address,address,uint256,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+                      "withdrawer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "2924999999999999",
+                      "reward": "0"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: SplitsWarehouse withdraw own YES credit to self",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 529,
+        "hash": "0xf734638a813a45aab7a893be9403f66e8d1896e453a185fdf04e0f8934a33cdd",
+        "timestamp": 1789050623
+      },
+      "transactions": [
+        {
+          "hash": "0xf7d3eb8c521bf2f770fdf95e79ff91878a674b5c069f0d3107e9cfbb89a6bbec",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+          "nonce": 171,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "51324",
+          "calldata": "0xe0889029000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000ea9551ea331d2c11e3274cbecdcc47c8b35e44000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000010a06f698c7ff",
+          "decoded": {
+            "variants": [
+              {
+                "name": "withdraw",
+                "signature": "withdraw(address,address[],uint256[],address)",
+                "args": {
+                  "_owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                  "_tokens": [
+                    "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44"
+                  ],
+                  "_amounts": [
+                    "292499999999999"
+                  ],
+                  "_withdrawer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+                },
+                "matchedABIs": [
+                  "SplitsWarehouse"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 0,
+              "transactionHash": "0xf7d3eb8c521bf2f770fdf95e79ff91878a674b5c069f0d3107e9cfbb89a6bbec",
+              "topics": [
+                "0x1b3d7edb2e9c0b0e7c525b20aaaef0f5940d2ed71663c7d39266ecafac728859",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x00000000000000000000000000ea9551ea331d2c11e3274cbecdcc47c8b35e44"
+              ],
+              "data": "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb9226600000000000000000000000000000000000000000000000000010a06f698c7ff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256,uint256)",
+                    "args": {
+                      "caller": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "sender": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "receiver": "0x0000000000000000000000000000000000000000",
+                      "id": "5231381981236468522794349480797490292077059652",
+                      "amount": "292499999999999"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 1,
+              "transactionHash": "0xf7d3eb8c521bf2f770fdf95e79ff91878a674b5c069f0d3107e9cfbb89a6bbec",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000c6e7df5e7b4f2a278906862b61205850344d4e7d",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000010a06f698c7ff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "292499999999999"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "292499999999999"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 2,
+              "transactionHash": "0xf7d3eb8c521bf2f770fdf95e79ff91878a674b5c069f0d3107e9cfbb89a6bbec",
+              "topics": [
+                "0xfbde797d201c681b91056529119e0b02407c7bb96a4a2c75c01fc9667232c8db",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x00000000000000000000000000ea9551ea331d2c11e3274cbecdcc47c8b35e44",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000010a06f698c7ff0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Withdraw",
+                    "signature": "Withdraw(address,address,address,uint256,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "token": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+                      "withdrawer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "292499999999999",
+                      "reward": "0"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: permissionless SplitsWarehouse withdraw fixed Timelock T credit to Timelock",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 530,
+        "hash": "0x7abdebae0f92f32c587949fd843237aecc66967cc9d54a3c281532febd7d95fc",
+        "timestamp": 1789050651
+      },
+      "transactions": [
+        {
+          "hash": "0x0e741af97c3373adbe0345dfdb607b8885ce5a31cd1e3bc5c980e828c5fe764a",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+          "nonce": 172,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "65315",
+          "calldata": "0xe08890290000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000276c216d241856199a83bf27b2286659e5b877d30000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000376c1e0a7efff",
+          "decoded": {
+            "variants": [
+              {
+                "name": "withdraw",
+                "signature": "withdraw(address,address[],uint256[],address)",
+                "args": {
+                  "_owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                  "_tokens": [
+                    "0x276C216D241856199A83bf27b2286659e5b877D3"
+                  ],
+                  "_amounts": [
+                    "974999999999999"
+                  ],
+                  "_withdrawer": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+                },
+                "matchedABIs": [
+                  "SplitsWarehouse"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 0,
+              "transactionHash": "0x0e741af97c3373adbe0345dfdb607b8885ce5a31cd1e3bc5c980e828c5fe764a",
+              "topics": [
+                "0x1b3d7edb2e9c0b0e7c525b20aaaef0f5940d2ed71663c7d39266ecafac728859",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x000000000000000000000000276c216d241856199a83bf27b2286659e5b877d3"
+              ],
+              "data": "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000000376c1e0a7efff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256,uint256)",
+                    "args": {
+                      "caller": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "sender": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "receiver": "0x0000000000000000000000000000000000000000",
+                      "id": "225062032387763360503422072591085270599665743827",
+                      "amount": "974999999999999"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 1,
+              "transactionHash": "0x0e741af97c3373adbe0345dfdb607b8885ce5a31cd1e3bc5c980e828c5fe764a",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000c6e7df5e7b4f2a278906862b61205850344d4e7d",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000376c1e0a7efff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "value": "974999999999999"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "974999999999999"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 2,
+              "transactionHash": "0x0e741af97c3373adbe0345dfdb607b8885ce5a31cd1e3bc5c980e828c5fe764a",
+              "topics": [
+                "0xfbde797d201c681b91056529119e0b02407c7bb96a4a2c75c01fc9667232c8db",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+                "0x000000000000000000000000276c216d241856199a83bf27b2286659e5b877d3",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000376c1e0a7efff0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Withdraw",
+                    "signature": "Withdraw(address,address,address,uint256,uint256)",
+                    "args": {
+                      "owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+                      "withdrawer": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "974999999999999",
+                      "reward": "0"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: permissionless SplitsWarehouse withdraw fixed Timelock YES credit to Timelock",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 531,
+        "hash": "0x1437acf4ae5632166bafb7edcc26cfb9e6bb2a8f748b79d96adeb555d2eacb99",
+        "timestamp": 1789050658
+      },
+      "transactions": [
+        {
+          "hash": "0x7abd78ada7fef21fc0d0669a22611270510f68dc46f530ccd3757db5f6880c7e",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+          "nonce": 173,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "68412",
+          "calldata": "0xe08890290000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000ea9551ea331d2c11e3274cbecdcc47c8b35e440000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000058acfcdd97ff",
+          "decoded": {
+            "variants": [
+              {
+                "name": "withdraw",
+                "signature": "withdraw(address,address[],uint256[],address)",
+                "args": {
+                  "_owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                  "_tokens": [
+                    "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44"
+                  ],
+                  "_amounts": [
+                    "97499999999999"
+                  ],
+                  "_withdrawer": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+                },
+                "matchedABIs": [
+                  "SplitsWarehouse"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 0,
+              "transactionHash": "0x7abd78ada7fef21fc0d0669a22611270510f68dc46f530ccd3757db5f6880c7e",
+              "topics": [
+                "0x1b3d7edb2e9c0b0e7c525b20aaaef0f5940d2ed71663c7d39266ecafac728859",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x00000000000000000000000000ea9551ea331d2c11e3274cbecdcc47c8b35e44"
+              ],
+              "data": "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266000000000000000000000000000000000000000000000000000058acfcdd97ff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256,uint256)",
+                    "args": {
+                      "caller": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "sender": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "receiver": "0x0000000000000000000000000000000000000000",
+                      "id": "5231381981236468522794349480797490292077059652",
+                      "amount": "97499999999999"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 1,
+              "transactionHash": "0x7abd78ada7fef21fc0d0669a22611270510f68dc46f530ccd3757db5f6880c7e",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000c6e7df5e7b4f2a278906862b61205850344d4e7d",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000058acfcdd97ff",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "value": "97499999999999"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "97499999999999"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+              "index": 2,
+              "transactionHash": "0x7abd78ada7fef21fc0d0669a22611270510f68dc46f530ccd3757db5f6880c7e",
+              "topics": [
+                "0xfbde797d201c681b91056529119e0b02407c7bb96a4a2c75c01fc9667232c8db",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+                "0x00000000000000000000000000ea9551ea331d2c11e3274cbecdcc47c8b35e44",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000058acfcdd97ff0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Withdraw",
+                    "signature": "Withdraw(address,address,address,uint256,uint256)",
+                    "args": {
+                      "owner": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "token": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+                      "withdrawer": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "97499999999999",
+                      "reward": "0"
+                    },
+                    "matchedABIs": [
+                      "SplitsWarehouse"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: V2 StatementRegistry submitProof TRUE with existing genuine perf05 CI4 certificate",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 533,
+        "hash": "0x2847ec7b690c1c1278b2b4e6b01c1269158f7ff33017c410e5a6b9be2b6a6018",
+        "timestamp": 1789051037
+      },
+      "transactions": [
+        {
+          "hash": "0xd9c3aabdbc6170379ceeee82b3f021e9c586f7b9c9c51448fb8f6d2d49fef7fb",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+          "nonce": 174,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "412952",
+          "calldata": "0xb1081b18390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd0800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000022000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000010473c457ba06df8cfe483bc36ebb2be38c952d294684c7f3412db845c9fc023abd2b121de31a7dc9078b3dfee51fc41c79e77f5b5147c20189e7a3b75d3c6acf481e223a4121ec571bd25ff84a72ff32c1979667f0fa997822cbcaeb3af589452396e67ab21ab5b5be41d6f93cba677c568412763b736d099c9990f16eebad2459f21b5d10105f4ccebb35056577be87699d436787572fb0f182db58388a6210b481ee446c26e71a4451017fd0f0c3818136c47e32e731831a28a710971cd741cfa84e787c2737e17db49b2642320368f59f7b32509996c37db49f597d32406614a971c694041cda763bb5c03454be72be7fe5fdc5b018aca68e12c4cb5e2f7f7bcd039b79000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b1442baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000001",
+          "decoded": {
+            "variants": [
+              {
+                "name": "submitProof",
+                "signature": "submitProof(bytes32,uint8,bytes)",
+                "args": {
+                  "id": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                  "outcome": "1",
+                  "certificate": "0x00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000010473c457ba06df8cfe483bc36ebb2be38c952d294684c7f3412db845c9fc023abd2b121de31a7dc9078b3dfee51fc41c79e77f5b5147c20189e7a3b75d3c6acf481e223a4121ec571bd25ff84a72ff32c1979667f0fa997822cbcaeb3af589452396e67ab21ab5b5be41d6f93cba677c568412763b736d099c9990f16eebad2459f21b5d10105f4ccebb35056577be87699d436787572fb0f182db58388a6210b481ee446c26e71a4451017fd0f0c3818136c47e32e731831a28a710971cd741cfa84e787c2737e17db49b2642320368f59f7b32509996c37db49f597d32406614a971c694041cda763bb5c03454be72be7fe5fdc5b018aca68e12c4cb5e2f7f7bcd039b79000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080368320acc9c7a0dc20f072f3fc7f6ddcae4f7585c39fbb28d54b69c7d602b1442baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e100000000000000000000000000000000000000000000000000000000000000001"
+                },
+                "matchedABIs": [
+                  "StatementRegistry"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 0,
+              "transactionHash": "0xd9c3aabdbc6170379ceeee82b3f021e9c586f7b9c9c51448fb8f6d2d49fef7fb",
+              "topics": [
+                "0xb44d84d3289691f71497564b85d4233648d9dbae8cbdbb4329f301c3a0185894",
+                "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f",
+                "0x0000000000000000000000003347b4d90ebe72befb30444c9966b2b990ae9fcb",
+                "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "ConditionResolution",
+                    "signature": "ConditionResolution(bytes32,address,bytes32,uint256,uint256[])",
+                    "args": {
+                      "conditionId": "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f",
+                      "oracle": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+                      "questionId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                      "outcomeSlotCount": "2",
+                      "payoutNumerators": [
+                        "1",
+                        "0"
+                      ]
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+              "index": 1,
+              "transactionHash": "0xd9c3aabdbc6170379ceeee82b3f021e9c586f7b9c9c51448fb8f6d2d49fef7fb",
+              "topics": [
+                "0x7592b6c6351ce4856caa26340bf87dbb1e3a71741aa373879cc3d718a5b5ef74",
+                "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000006aa2c09daea7c7cadb0ca685314e1815a17cd2db3012f55c38d61c8afa8522353e60a2ef",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "StatementResolved",
+                    "signature": "StatementResolved(bytes32,uint8,uint64,bytes32,address)",
+                    "args": {
+                      "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                      "outcome": "1",
+                      "resolvedAt": "1789051037",
+                      "evidenceHash": "0xaea7c7cadb0ca685314e1815a17cd2db3012f55c38d61c8afa8522353e60a2ef",
+                      "submitter": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+                    },
+                    "matchedABIs": [
+                      "StatementRegistry"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: RewardBudget claim program 0",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 534,
+        "hash": "0x2062dc4fca96aeb914c1320a55c53ee282907ba53bf9a76a0a908b6dc6baf732",
+        "timestamp": 1789051062
+      },
+      "transactions": [
+        {
+          "hash": "0x5b6ad2062edbfd76481bca2319df6bbe760b10c7037e227e09c18d69fe5af3f1",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 175,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "104957",
+          "calldata": "0x379607f50000000000000000000000000000000000000000000000000000000000000000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "claim",
+                "signature": "claim(uint256)",
+                "args": {
+                  "id": "0"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0x5b6ad2062edbfd76481bca2319df6bbe760b10c7037e227e09c18d69fe5af3f1",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000002998865e0ed282c6",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "2997293290548789958"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "2997293290548789958"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0x5b6ad2062edbfd76481bca2319df6bbe760b10c7037e227e09c18d69fe5af3f1",
+              "topics": [
+                "0xfc6ecd966b430510beae9124efe7dd517ed5286d7ed0ae258f8556c7a9765a44",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000f5e1f337a140f6a0000000000000000000000000000000000000000000000002998865e0ed282c6",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "RewardClaimed",
+                    "signature": "RewardClaimed(uint256,address,uint256,uint256)",
+                    "args": {
+                      "programId": "0",
+                      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "weight": "1107356864331648874",
+                      "amount": "2997293290548789958"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: RewardBudget claim program 1",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 535,
+        "hash": "0x1195fe894873b5a701a91146adc36b4eed7aa5d5addb94aab4d755513f4a047f",
+        "timestamp": 1789051073
+      },
+      "transactions": [
+        {
+          "hash": "0x5aa96a37c63161695b783150a38ff4b05811e36a968c6219c27b6126ebff8473",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 176,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "104969",
+          "calldata": "0x379607f50000000000000000000000000000000000000000000000000000000000000001",
+          "decoded": {
+            "variants": [
+              {
+                "name": "claim",
+                "signature": "claim(uint256)",
+                "args": {
+                  "id": "1"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0x5aa96a37c63161695b783150a38ff4b05811e36a968c6219c27b6126ebff8473",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000001bc101a4efa67fa6",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "1999881517436141478"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "1999881517436141478"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0x5aa96a37c63161695b783150a38ff4b05811e36a968c6219c27b6126ebff8473",
+              "topics": [
+                "0xfc6ecd966b430510beae9124efe7dd517ed5286d7ed0ae258f8556c7a9765a44",
+                "0x0000000000000000000000000000000000000000000000000000000000000001",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000029a2241af62c0000000000000000000000000000000000000000000000000000001bc101a4efa67fa6",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "RewardClaimed",
+                    "signature": "RewardClaimed(uint256,address,uint256,uint256)",
+                    "args": {
+                      "programId": "1",
+                      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "weight": "768000000000000000000",
+                      "amount": "1999881517436141478"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: BptLockMeter withdraw program 1 principal",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 536,
+        "hash": "0xcd569d5f76209890781dbf2811bcbc31b603c94d713f479e1d8c03f4d4480caa",
+        "timestamp": 1789051092
+      },
+      "transactions": [
+        {
+          "hash": "0xed5f1bb4f9a87827fbb773671ef0e62f5ebe216d152022248e8ddbad1759db19",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "nonce": 177,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "72622",
+          "calldata": "0x2e1a7d4d0000000000000000000000000000000000000000000000000000000000000001",
+          "decoded": {
+            "variants": [
+              {
+                "name": "withdraw",
+                "signature": "withdraw(uint256)",
+                "args": {
+                  "amount": "1"
+                },
+                "matchedABIs": [
+                  "WETH"
+                ]
+              },
+              {
+                "name": "withdraw",
+                "signature": "withdraw(uint256)",
+                "args": {
+                  "id": "1"
+                },
+                "matchedABIs": [
+                  "BptLockMeter"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 0,
+              "transactionHash": "0xed5f1bb4f9a87827fbb773671ef0e62f5ebe216d152022248e8ddbad1759db19",
+              "topics": [
+                "0xd1398bee19313d6bf672ccb116e51f4a1a947e91c757907f51fbb5b5e56c698f",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x0000000000000000000000002a810409872afc346f9b5b26571fd6ec42ea4849",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "from": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 1,
+              "transactionHash": "0xed5f1bb4f9a87827fbb773671ef0e62f5ebe216d152022248e8ddbad1759db19",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000002a810409872afc346f9b5b26571fd6ec42ea4849",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+              "index": 2,
+              "transactionHash": "0xed5f1bb4f9a87827fbb773671ef0e62f5ebe216d152022248e8ddbad1759db19",
+              "topics": [
+                "0xcf7d23a3cbe4e8b36ff82fd1b05b1b17373dc7804b4ebbd6e2356716ef202372",
+                "0x0000000000000000000000000000000000000000000000000000000000000001",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Withdrawn",
+                    "signature": "Withdrawn(uint256,address,uint256)",
+                    "args": {
+                      "programId": "1",
+                      "account": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "bptAmount": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "BptLockMeter"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: RewardBudget claim program 0",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 537,
+        "hash": "0xcd438ad3fb39e3ba54ce8c243bf39218bf155a681e03e40d2b37504a2e3c5915",
+        "timestamp": 1789051117
+      },
+      "transactions": [
+        {
+          "hash": "0x7f2608bae86e050b187403413c6abcdfaac56dbacd4fa433a767910984d80900",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 92,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "87857",
+          "calldata": "0x379607f50000000000000000000000000000000000000000000000000000000000000000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "claim",
+                "signature": "claim(uint256)",
+                "args": {
+                  "id": "0"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0x7f2608bae86e050b187403413c6abcdfaac56dbacd4fa433a767910984d80900",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000099dbce7597d39",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "2706709451210041"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "amount": "2706709451210041"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0x7f2608bae86e050b187403413c6abcdfaac56dbacd4fa433a767910984d80900",
+              "topics": [
+                "0xfc6ecd966b430510beae9124efe7dd517ed5286d7ed0ae258f8556c7a9765a44",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000038d7ea4c6800000000000000000000000000000000000000000000000000000099dbce7597d39",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "RewardClaimed",
+                    "signature": "RewardClaimed(uint256,address,uint256,uint256)",
+                    "args": {
+                      "programId": "0",
+                      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "weight": "1000000000000000",
+                      "amount": "2706709451210041"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: RewardBudget claim program 1",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 538,
+        "hash": "0x1bc8c0514ff565d232b7f5e4499a36d7bee5e5e5cc68c495cdd2e35bac9dfbb7",
+        "timestamp": 1789051129
+      },
+      "transactions": [
+        {
+          "hash": "0xacf38ff0a8d86413a326e54ddb71598d06a49130da2f2af5cb6fae9900ffcbee",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 93,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "87869",
+          "calldata": "0x379607f50000000000000000000000000000000000000000000000000000000000000001",
+          "decoded": {
+            "variants": [
+              {
+                "name": "claim",
+                "signature": "claim(uint256)",
+                "args": {
+                  "id": "1"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0xacf38ff0a8d86413a326e54ddb71598d06a49130da2f2af5cb6fae9900ffcbee",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000006bc25f218059",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "118482563858521"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "amount": "118482563858521"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0xacf38ff0a8d86413a326e54ddb71598d06a49130da2f2af5cb6fae9900ffcbee",
+              "topics": [
+                "0xfc6ecd966b430510beae9124efe7dd517ed5286d7ed0ae258f8556c7a9765a44",
+                "0x0000000000000000000000000000000000000000000000000000000000000001",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000a1a6024947c00000000000000000000000000000000000000000000000000000006bc25f218059",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "RewardClaimed",
+                    "signature": "RewardClaimed(uint256,address,uint256,uint256)",
+                    "args": {
+                      "programId": "1",
+                      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "weight": "45500000000000000",
+                      "amount": "118482563858521"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: BptLockMeter withdraw program 1 principal",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 539,
+        "hash": "0x11b33ed909f1d350337a00cf6b7d8fb0c3d768a8a2b0f4b11f532cdf6caee6c5",
+        "timestamp": 1789051144
+      },
+      "transactions": [
+        {
+          "hash": "0xe0631f594cc90a49636478ad1f668bc454846d73e37f07e69587b610417cbf52",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "nonce": 94,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "84922",
+          "calldata": "0x2e1a7d4d0000000000000000000000000000000000000000000000000000000000000001",
+          "decoded": {
+            "variants": [
+              {
+                "name": "withdraw",
+                "signature": "withdraw(uint256)",
+                "args": {
+                  "amount": "1"
+                },
+                "matchedABIs": [
+                  "WETH"
+                ]
+              },
+              {
+                "name": "withdraw",
+                "signature": "withdraw(uint256)",
+                "args": {
+                  "id": "1"
+                },
+                "matchedABIs": [
+                  "BptLockMeter"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 0,
+              "transactionHash": "0xe0631f594cc90a49636478ad1f668bc454846d73e37f07e69587b610417cbf52",
+              "topics": [
+                "0xd1398bee19313d6bf672ccb116e51f4a1a947e91c757907f51fbb5b5e56c698f",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x0000000000000000000000002a810409872afc346f9b5b26571fd6ec42ea4849",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "from": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 1,
+              "transactionHash": "0xe0631f594cc90a49636478ad1f668bc454846d73e37f07e69587b610417cbf52",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000002a810409872afc346f9b5b26571fd6ec42ea4849",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "amount": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+              "index": 2,
+              "transactionHash": "0xe0631f594cc90a49636478ad1f668bc454846d73e37f07e69587b610417cbf52",
+              "topics": [
+                "0xcf7d23a3cbe4e8b36ff82fd1b05b1b17373dc7804b4ebbd6e2356716ef202372",
+                "0x0000000000000000000000000000000000000000000000000000000000000001",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Withdrawn",
+                    "signature": "Withdrawn(uint256,address,uint256)",
+                    "args": {
+                      "programId": "1",
+                      "account": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "bptAmount": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "BptLockMeter"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: ERC20 approve 0.0001 BPT to original Router for exit",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 540,
+        "hash": "0xe1de467d645c99c6fd474a3c2bbfa4a499a6a98bbc4c58e749f1e5312892ee2e",
+        "timestamp": 1789051200
+      },
+      "transactions": [
+        {
+          "hash": "0x14699d67ae19007e60b6bc8c2cdbbacb2d240dff2485e99822ea496ccf220caa",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+          "nonce": 95,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "56861",
+          "calldata": "0x095ea7b30000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e8200000000000000000000000000000000000000000000000000005af3107a4000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                  "value": "100000000000000"
+                },
+                "matchedABIs": [
+                  "TrueToken",
+                  "Membership",
+                  "TrueTokenV2"
+                ]
+              },
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                  "amount": "100000000000000"
+                },
+                "matchedABIs": [
+                  "WETH",
+                  "WeightedPool",
+                  "Wrapped1155"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 0,
+              "transactionHash": "0x14699d67ae19007e60b6bc8c2cdbbacb2d240dff2485e99822ea496ccf220caa",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "amount": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 1,
+              "transactionHash": "0x14699d67ae19007e60b6bc8c2cdbbacb2d240dff2485e99822ea496ccf220caa",
+              "topics": [
+                "0xa0175360a15bca328baf7ea85c7b784d58b222a50d0ce760b10dba336d226a61",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: original Router proportional exit 0.0001 BPT",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 541,
+        "hash": "0x999640b6e53e1e81aa631880620c3219d9d2c2cf9cc2f9f791f663508c0589e3",
+        "timestamp": 1789051201
+      },
+      "transactions": [
+        {
+          "hash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+          "nonce": 96,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "179750",
+          "calldata": "0x5168275000000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f700000000000000000000000000000000000000000000000000005af3107a400000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000005646ff14e3cb00000000000000000000000000000000000000000000000000005e08ab473d320000000000000000000000000000000000000000000000000000000000000000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "removeLiquidityProportional",
+                "signature": "removeLiquidityProportional(address,uint256,uint256[],bool,bytes)",
+                "args": {
+                  "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                  "exactBptAmountIn": "100000000000000",
+                  "minAmountsOut": [
+                    "94862927258571",
+                    "103391326321970"
+                  ],
+                  "wethIsEth": false,
+                  "userData": "0x"
+                },
+                "matchedABIs": [
+                  "Router"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 0,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "amount": "0"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 1,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0xa0175360a15bca328baf7ea85c7b784d58b222a50d0ce760b10dba336d226a61",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 2,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "amount": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 3,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0xd1398bee19313d6bf672ccb116e51f4a1a947e91c757907f51fbb5b5e56c698f",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005af3107a4000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "100000000000000"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 4,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0xfbe5b0d79fb94f1e81c0a92bf86ae9d3a19e9d1bf6202c0d3e75120f65d5d8a5",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001158e460913c9e507000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000572618ee501e00000000000000000000000000000000000000000000000000005efbd3cbd662000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "LiquidityRemoved",
+                    "signature": "LiquidityRemoved(address,address,uint8,uint256,uint256[],uint256[])",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "liquidityProvider": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "kind": "0",
+                      "totalSupply": "19999999999999599879",
+                      "amountsRemovedRaw": [
+                        "95821138645022",
+                        "104435683153506"
+                      ],
+                      "swapFeeAmountsRaw": [
+                        "0",
+                        "0"
+                      ]
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 5,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000009d18d91254512963415da3c530b0a367e8329a2b",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000572618ee501e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "95821138645022"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "amount": "95821138645022"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 6,
+              "transactionHash": "0x9e3d92bf52f5a050e370cb7b71fcbb3bbbaa1e7c1fb73bfdb163d4e355287e69",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000009d18d91254512963415da3c530b0a367e8329a2b",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000005efbd3cbd662",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "104435683153506"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "amount": "104435683153506"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: ERC20 YES approve PositionRouter for redemption",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 542,
+        "hash": "0xc5b8df51b0d15888d29768e08aee26993996730b4855f63eef505f996eecc771",
+        "timestamp": 1789051231
+      },
+      "transactions": [
+        {
+          "hash": "0xc2274571b1bdba870032499e4f270d47158dba872421c2ebe2b9d55dfb59dd74",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+          "nonce": 97,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "48977",
+          "calldata": "0x095ea7b30000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f900000000000000000000000000000000000000000000000000041e499c04ac2e",
+          "decoded": {
+            "variants": [
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                  "value": "1159201405840430"
+                },
+                "matchedABIs": [
+                  "TrueToken",
+                  "Membership",
+                  "TrueTokenV2"
+                ]
+              },
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                  "amount": "1159201405840430"
+                },
+                "matchedABIs": [
+                  "WETH",
+                  "WeightedPool",
+                  "Wrapped1155"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 0,
+              "transactionHash": "0xc2274571b1bdba870032499e4f270d47158dba872421c2ebe2b9d55dfb59dd74",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Bob: PositionRouter redeem all owned YES and zero NO",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 543,
+        "hash": "0xf6afd1e26bd68d5eb839cc4b0705c4c8b6b4479183c0726bc64fd4b568097563",
+        "timestamp": 1789051231
+      },
+      "transactions": [
+        {
+          "hash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+          "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+          "nonce": 98,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "280858",
+          "calldata": "0xd2b29d70390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd0800000000000000000000000000000000000000000000000000041e499c04ac2e0000000000000000000000000000000000000000000000000000000000000000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "redeem",
+                "signature": "redeem(bytes32,uint256,uint256)",
+                "args": {
+                  "id": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                  "yesAmount": "1159201405840430",
+                  "noAmount": "0"
+                },
+                "matchedABIs": [
+                  "PositionRouter"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 0,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 1,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "0"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 2,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "amount": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 3,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0xd7beb151248b57998e37ce94e42cb18f9c7ba41fabaadbf22a38adf1e48cfc5800000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "TransferSingle",
+                    "signature": "TransferSingle(address,address,address,uint256,uint256)",
+                    "args": {
+                      "operator": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                      "from": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "id": "97584187184417793042806282076877559087421181206926651356202361159939250781272",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 4,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0xd7beb151248b57998e37ce94e42cb18f9c7ba41fabaadbf22a38adf1e48cfc5800000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "TransferSingle",
+                    "signature": "TransferSingle(address,address,address,uint256,uint256)",
+                    "args": {
+                      "operator": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "id": "97584187184417793042806282076877559087421181206926651356202361159939250781272",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 5,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000002279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 6,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0x2682012a4a4f1973119f1c9b90745d1bd91fa2bab387344f044cb3586864d18d",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x000000000000000000000000276c216d241856199a83bf27b2286659e5b877d3",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000041e499c04ac2e000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "PayoutRedemption",
+                    "signature": "PayoutRedemption(address,address,bytes32,bytes32,uint256[],uint256)",
+                    "args": {
+                      "redeemer": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "collateralToken": "0x276C216D241856199A83bf27b2286659e5b877D3",
+                      "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                      "conditionId": "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f",
+                      "indexSets": [
+                        "1",
+                        "2"
+                      ],
+                      "payout": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 7,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "value": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "amount": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+              "index": 8,
+              "transactionHash": "0x8e732ad12dfa76f10f701f1864920f545160b70d08705623ef99659cb9f30957",
+              "topics": [
+                "0x8a374c944c19408a089fdb4d0e38406bad218925eb439af333cf8646aa658c20",
+                "0x00000000000000000000000070997970c51812dc3a010c7d01b50e0d17dc79c8",
+                "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000041e499c04ac2e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041e499c04ac2e",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Redeemed",
+                    "signature": "Redeemed(address,bytes32,uint256,uint256,uint256)",
+                    "args": {
+                      "user": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                      "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                      "yesAmount": "1159201405840430",
+                      "noAmount": "0",
+                      "collateral": "1159201405840430"
+                    },
+                    "matchedABIs": [
+                      "PositionRouter"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: ERC20 approve 19.999999999998599879 BPT to original Router for exit",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 544,
+        "hash": "0x260e64a110c193bd5dd736ee9ff230d9192beb6362827d18e306162c942e43d6",
+        "timestamp": 1789051271
+      },
+      "transactions": [
+        {
+          "hash": "0xa7634c8aa49be18b9ec81033c0f4c359726e35b88f9078297b2d796619751458",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+          "nonce": 178,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "56909",
+          "calldata": "0x095ea7b30000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82000000000000000000000000000000000000000000000001158e460913baa2c7",
+          "decoded": {
+            "variants": [
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                  "value": "19999999999998599879"
+                },
+                "matchedABIs": [
+                  "TrueToken",
+                  "Membership",
+                  "TrueTokenV2"
+                ]
+              },
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                  "amount": "19999999999998599879"
+                },
+                "matchedABIs": [
+                  "WETH",
+                  "WeightedPool",
+                  "Wrapped1155"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 0,
+              "transactionHash": "0xa7634c8aa49be18b9ec81033c0f4c359726e35b88f9078297b2d796619751458",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001158e460913baa2c7",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "19999999999998599879"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "amount": "19999999999998599879"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 1,
+              "transactionHash": "0xa7634c8aa49be18b9ec81033c0f4c359726e35b88f9078297b2d796619751458",
+              "topics": [
+                "0xa0175360a15bca328baf7ea85c7b784d58b222a50d0ce760b10dba336d226a61",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001158e460913baa2c7",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "19999999999998599879"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: original Router proportional exit remaining 19.999999999998599879 BPT",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 545,
+        "hash": "0x28626840594ed6e4db583fde26c241356c10827d64004a4198a1b1c31d1b4c9f",
+        "timestamp": 1789051272
+      },
+      "transactions": [
+        {
+          "hash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+          "nonce": 179,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "179870",
+          "calldata": "0x5168275000000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7000000000000000000000000000000000000000000000001158e460913baa2c700000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000001074c29f2801a3c050000000000000000000000000000000000000000000000011ef7f4b3276f090a0000000000000000000000000000000000000000000000000000000000000000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "removeLiquidityProportional",
+                "signature": "removeLiquidityProportional(address,uint256,uint256[],bool,bytes)",
+                "args": {
+                  "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                  "exactBptAmountIn": "19999999999998599879",
+                  "minAmountsOut": [
+                    "18972585451713084421",
+                    "20678265264392833290"
+                  ],
+                  "wethIsEth": false,
+                  "userData": "0x"
+                },
+                "matchedABIs": [
+                  "Router"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 0,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "amount": "0"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 1,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0xa0175360a15bca328baf7ea85c7b784d58b222a50d0ce760b10dba336d226a61",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000001f10f3ba7acb61b2f50b9d6ddcf91a6f787c0e82"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+              "index": 2,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001158e460913baa2c7",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "19999999999998599879"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "amount": "19999999999998599879"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 3,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0xd1398bee19313d6bf672ccb116e51f4a1a947e91c757907f51fbb5b5e56c698f",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001158e460913baa2c7",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,address,uint256)",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "19999999999998599879"
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 4,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0xfbe5b0d79fb94f1e81c0a92bf86ae9d3a19e9d1bf6202c0d3e75120f65d5d8a5",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000000000000f4240000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000109f5039545ebf43900000000000000000000000000000000000000000000000121de0419cfe9b137000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "LiquidityRemoved",
+                    "signature": "LiquidityRemoved(address,address,uint8,uint256,uint256[],uint256[])",
+                    "args": {
+                      "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                      "liquidityProvider": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "kind": "0",
+                      "totalSupply": "1000000",
+                      "amountsRemovedRaw": [
+                        "19164227729003115577",
+                        "20887136630699831607"
+                      ],
+                      "swapFeeAmountsRaw": [
+                        "0",
+                        "0"
+                      ]
+                    },
+                    "matchedABIs": [
+                      "Vault",
+                      "VaultExtension",
+                      "VaultAdmin"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 5,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000009d18d91254512963415da3c530b0a367e8329a2b",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000109f5039545ebf439",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "19164227729003115577"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "19164227729003115577"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 6,
+              "transactionHash": "0xbacaa3874733cbc89d0e36ed2c9d9390a48fe62770c0c46cd993d7250ef72d5a",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000009d18d91254512963415da3c530b0a367e8329a2b",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000121de0419cfe9b137",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "20887136630699831607"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "20887136630699831607"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: ERC20 YES approve PositionRouter for redemption",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 546,
+        "hash": "0xdb13caabff1cab7051ca15fdb4eb27f3d967ccca487e8f76f30e8d7f1001a5ce",
+        "timestamp": 1789051289
+      },
+      "transactions": [
+        {
+          "hash": "0x6b611ab9f7c7e979e1e84dbed1803d290b2440d7931a2b1dc4601fbf48a64eb6",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+          "nonce": 180,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "49001",
+          "calldata": "0x095ea7b30000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9000000000000000000000000000000000000000000000001a050f21704c71ccc",
+          "decoded": {
+            "variants": [
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                  "value": "29998743298593201356"
+                },
+                "matchedABIs": [
+                  "TrueToken",
+                  "Membership",
+                  "TrueTokenV2"
+                ]
+              },
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                  "amount": "29998743298593201356"
+                },
+                "matchedABIs": [
+                  "WETH",
+                  "WeightedPool",
+                  "Wrapped1155"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 0,
+              "transactionHash": "0x6b611ab9f7c7e979e1e84dbed1803d290b2440d7931a2b1dc4601fbf48a64eb6",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: ERC20 NO approve PositionRouter for redemption",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 547,
+        "hash": "0x4b2e9e99680efdee6acdd1aeba2cc88112b7d25130425f2ede392132dc02cf69",
+        "timestamp": 1789051289
+      },
+      "transactions": [
+        {
+          "hash": "0x1594914a9e7924f5c4720828738bcad6e1465c32260ce56fd45c8bc29da44527",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+          "nonce": 181,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "48977",
+          "calldata": "0x095ea7b30000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9000000000000000000000000000000000000000000000001a055690d9db80000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                  "value": "30000000000000000000"
+                },
+                "matchedABIs": [
+                  "TrueToken",
+                  "Membership",
+                  "TrueTokenV2"
+                ]
+              },
+              {
+                "name": "approve",
+                "signature": "approve(address,uint256)",
+                "args": {
+                  "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                  "amount": "30000000000000000000"
+                },
+                "matchedABIs": [
+                  "WETH",
+                  "WeightedPool",
+                  "Wrapped1155"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": true
+          },
+          "logs": [
+            {
+              "address": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+              "index": 0,
+              "transactionHash": "0x1594914a9e7924f5c4720828738bcad6e1465c32260ce56fd45c8bc29da44527",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a055690d9db80000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: PositionRouter redeem all owned YES and NO after TRUE settlement",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 548,
+        "hash": "0x8116d1e4d14d28c3255391781ed28bbb5100d02e64154c5d3c054f23ac85b316",
+        "timestamp": 1789051290
+      },
+      "transactions": [
+        {
+          "hash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+          "nonce": 182,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "388188",
+          "calldata": "0xd2b29d70390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08000000000000000000000000000000000000000000000001a050f21704c71ccc000000000000000000000000000000000000000000000001a055690d9db80000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "redeem",
+                "signature": "redeem(bytes32,uint256,uint256)",
+                "args": {
+                  "id": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                  "yesAmount": "29998743298593201356",
+                  "noAmount": "30000000000000000000"
+                },
+                "matchedABIs": [
+                  "PositionRouter"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 0,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 1,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "0"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+              "index": 2,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "amount": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 3,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0xd7beb151248b57998e37ce94e42cb18f9c7ba41fabaadbf22a38adf1e48cfc58000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "TransferSingle",
+                    "signature": "TransferSingle(address,address,address,uint256,uint256)",
+                    "args": {
+                      "operator": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                      "from": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "id": "97584187184417793042806282076877559087421181206926651356202361159939250781272",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+              "index": 4,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a055690d9db80000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+              "index": 5,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "0"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Approval",
+                    "signature": "Approval(address,address,uint256)",
+                    "args": {
+                      "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "spender": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "0"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+              "index": 6,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a055690d9db80000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "value": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "amount": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 7,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000008a791620dd6260079bf849dc5567adc3f2fdc318",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0xeb19404ac426cc5e48e91d77d37fbf0ea794b85b60ce699b0d619230598d8d01000000000000000000000000000000000000000000000001a055690d9db80000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "TransferSingle",
+                    "signature": "TransferSingle(address,address,address,uint256,uint256)",
+                    "args": {
+                      "operator": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                      "from": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "id": "106338134321146478708728615577209120787270222117115741687919904863948379098369",
+                      "value": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 8,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0xd7beb151248b57998e37ce94e42cb18f9c7ba41fabaadbf22a38adf1e48cfc58000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "TransferSingle",
+                    "signature": "TransferSingle(address,address,address,uint256,uint256)",
+                    "args": {
+                      "operator": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "id": "97584187184417793042806282076877559087421181206926651356202361159939250781272",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 9,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xc3d58168c5ae7397731d063d5bbf3d657854427343f4c083240f7aacaa2d0f62",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0xeb19404ac426cc5e48e91d77d37fbf0ea794b85b60ce699b0d619230598d8d01000000000000000000000000000000000000000000000001a055690d9db80000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "TransferSingle",
+                    "signature": "TransferSingle(address,address,address,uint256,uint256)",
+                    "args": {
+                      "operator": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0x0000000000000000000000000000000000000000",
+                      "id": "106338134321146478708728615577209120787270222117115741687919904863948379098369",
+                      "value": "30000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 10,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000002279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+                      "to": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "amount": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+              "index": 11,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0x2682012a4a4f1973119f1c9b90745d1bd91fa2bab387344f044cb3586864d18d",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x000000000000000000000000276c216d241856199a83bf27b2286659e5b877d3",
+                "0x0000000000000000000000000000000000000000000000000000000000000000"
+              ],
+              "data": "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f0000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000001a050f21704c71ccc000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "PayoutRedemption",
+                    "signature": "PayoutRedemption(address,address,bytes32,bytes32,uint256[],uint256)",
+                    "args": {
+                      "redeemer": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "collateralToken": "0x276C216D241856199A83bf27b2286659e5b877D3",
+                      "parentCollectionId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                      "conditionId": "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f",
+                      "indexSets": [
+                        "1",
+                        "2"
+                      ],
+                      "payout": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "ConditionalTokens"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            },
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 12,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x0000000000000000000000003155755b79aa083bd953911c92705b7aa82a18f9",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "value": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+                      "to": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "amount": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+              "index": 13,
+              "transactionHash": "0x0b9788c1735f3a50731df2621a979d4f0c23dab4056f2076a0cb7d80677e5d57",
+              "topics": [
+                "0x8a374c944c19408a089fdb4d0e38406bad218925eb439af333cf8646aa658c20",
+                "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000001a050f21704c71ccc000000000000000000000000000000000000000000000001a055690d9db80000000000000000000000000000000000000000000000000001a050f21704c71ccc",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Redeemed",
+                    "signature": "Redeemed(address,bytes32,uint256,uint256,uint256)",
+                    "args": {
+                      "user": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                      "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+                      "yesAmount": "29998743298593201356",
+                      "noAmount": "30000000000000000000",
+                      "collateral": "29998743298593201356"
+                    },
+                    "matchedABIs": [
+                      "PositionRouter"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: permissionless RewardBudget close program 2 to its fixed voted remainder recipient",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 550,
+        "hash": "0xc2dcce5bb008d00ac8f7edbd543572a7c54f45d508f544c643714b6abb14a02a",
+        "timestamp": 1789051926
+      },
+      "transactions": [
+        {
+          "hash": "0x097cc3eff4250d90c78cdb7db5d592563adb9cf501161dda1c3c6ab026423da8",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 183,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "101375",
+          "calldata": "0x0aebeb4e0000000000000000000000000000000000000000000000000000000000000002",
+          "decoded": {
+            "variants": [
+              {
+                "name": "close",
+                "signature": "close(uint256)",
+                "args": {
+                  "id": "2"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0x097cc3eff4250d90c78cdb7db5d592563adb9cf501161dda1c3c6ab026423da8",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "value": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0x097cc3eff4250d90c78cdb7db5d592563adb9cf501161dda1c3c6ab026423da8",
+              "topics": [
+                "0x0f4435cbafd0b010ae05aecf16fa158f9997f8e5144294a96b02fd1277971ca7",
+                "0x0000000000000000000000000000000000000000000000000000000000000002",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "ProgramClosed",
+                    "signature": "ProgramClosed(uint256,address,uint256)",
+                    "args": {
+                      "programId": "2",
+                      "recipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "remainder": "1000000000000000000"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: permissionless RewardBudget close program 0 to its fixed voted remainder recipient",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 551,
+        "hash": "0x6566ed44a1c5fa68f5a828a37cc3e95c6ee15099f8c72efa9ba9f9468385bb09",
+        "timestamp": 1789051949
+      },
+      "transactions": [
+        {
+          "hash": "0x68b88a025167e6e3b9e4ef210583b664ae7db29ba52d7548690b68e87a232391",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 184,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "101363",
+          "calldata": "0x0aebeb4e0000000000000000000000000000000000000000000000000000000000000000",
+          "decoded": {
+            "variants": [
+              {
+                "name": "close",
+                "signature": "close(uint256)",
+                "args": {
+                  "id": "0"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0x68b88a025167e6e3b9e4ef210583b664ae7db29ba52d7548690b68e87a232391",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "value": "1"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "1"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0x68b88a025167e6e3b9e4ef210583b664ae7db29ba52d7548690b68e87a232391",
+              "topics": [
+                "0x0f4435cbafd0b010ae05aecf16fa158f9997f8e5144294a96b02fd1277971ca7",
+                "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "ProgramClosed",
+                    "signature": "ProgramClosed(uint256,address,uint256)",
+                    "args": {
+                      "programId": "0",
+                      "recipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "remainder": "1"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Alice: permissionless RewardBudget close program 1 to its fixed voted remainder recipient",
+      "labelAuthority": "Caller-provided browser annotation, not independently observed by this collector",
+      "block": {
+        "number": 552,
+        "hash": "0x24e2d290c48bcc5821821bb49e55bc8ba7e3a442d59398873b6f2fff203b3bc5",
+        "timestamp": 1789051973
+      },
+      "transactions": [
+        {
+          "hash": "0xe36333cdde48e2b7286c75c4023d9ecfd56d6753cb9d85a95c4effab77e73664",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+          "nonce": 185,
+          "value": "0",
+          "status": 1,
+          "gasUsed": "91775",
+          "calldata": "0x0aebeb4e0000000000000000000000000000000000000000000000000000000000000001",
+          "decoded": {
+            "variants": [
+              {
+                "name": "close",
+                "signature": "close(uint256)",
+                "args": {
+                  "id": "1"
+                },
+                "matchedABIs": [
+                  "RewardBudget"
+                ]
+              }
+            ],
+            "unknown": false,
+            "ambiguous": false
+          },
+          "logs": [
+            {
+              "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+              "index": 0,
+              "transactionHash": "0xe36333cdde48e2b7286c75c4023d9ecfd56d6753cb9d85a95c4effab77e73664",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000525c7063e7c20997baae9bda922159152d0e8417",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "value": "1"
+                    },
+                    "matchedABIs": [
+                      "TrueToken",
+                      "Membership",
+                      "WeightedPool",
+                      "Wrapped1155",
+                      "TrueTokenV2"
+                    ]
+                  },
+                  {
+                    "name": "Transfer",
+                    "signature": "Transfer(address,address,uint256)",
+                    "args": {
+                      "from": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+                      "to": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "amount": "1"
+                    },
+                    "matchedABIs": [
+                      "WETH"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": true
+              }
+            },
+            {
+              "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+              "index": 1,
+              "transactionHash": "0xe36333cdde48e2b7286c75c4023d9ecfd56d6753cb9d85a95c4effab77e73664",
+              "topics": [
+                "0x0f4435cbafd0b010ae05aecf16fa158f9997f8e5144294a96b02fd1277971ca7",
+                "0x0000000000000000000000000000000000000000000000000000000000000001",
+                "0x0000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+              "decoded": {
+                "variants": [
+                  {
+                    "name": "ProgramClosed",
+                    "signature": "ProgramClosed(uint256,address,uint256)",
+                    "args": {
+                      "programId": "1",
+                      "recipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                      "remainder": "1"
+                    },
+                    "matchedABIs": [
+                      "RewardBudget"
+                    ]
+                  }
+                ],
+                "unknown": false,
+                "ambiguous": false
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "observedCounts": {
+    "transactions": 23,
+    "status1": 23,
+    "status0": 0,
+    "logs": 78
+  },
+  "capture": {
+    "mode": "Read-only receipt and historical state collection; not browser execution",
+    "coverage": "Only listed transaction hashes/blocks. Other activity between endpoints is not excluded.",
+    "result": "Observed receipts and snapshot binding checks only; action labels do not assert semantic success.",
+    "abiDecoding": "All matching selected deployment ABI interpretations are retained. ABI signature matching alone is not proof of an unpinned emitter identity.",
+    "governanceExcluded": true,
+    "rpcCounts": {
+      "eth_getBlockByNumber": 50,
+      "eth_chainId": 72,
+      "eth_getTransactionByHash": 23,
+      "eth_getTransactionReceipt": 23
+    },
+    "sourceSha256": "b7f90a8337079f28f56a22502fab845f6a3c9a794b14040384007fb91927f96d"
+  }
+}

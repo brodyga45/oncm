@@ -1,0 +1,32 @@
+{
+  "format": "vault-v2-monetary-actions-spec-v1",
+  "beforeBlock": 507,
+  "afterBlock": 527,
+  "actions": [
+    {"block":508,"label":"Alice: ERC20 BPT approve 1 BPT to BptLockMeter"},
+    {"block":509,"label":"Alice: stake 1 BPT in program 1"},
+    {"block":510,"label":"Alice: ERC20 T approve 1 T to Permit2 before buy"},
+    {"block":511,"label":"Alice: original Router EXACT_IN buy with 1 T"},
+    {"block":512,"label":"Alice: ERC20 YES approve 0.1 YES to Permit2 before sell"},
+    {"block":513,"label":"Alice: original Router EXACT_IN sell 0.1 YES for T"},
+    {"block":514,"label":"Alice: AllocationController collectAll official pool fees to current Split"},
+    {"block":515,"label":"Alice: distribute allocation epoch 1 T through original Splits"},
+    {"block":516,"label":"Alice: distribute allocation epoch 1 YES through original Splits"},
+    {"block":517,"label":"Bob: original SplitsWarehouse withdraw own T credit to self"},
+    {"block":518,"label":"Bob: original SplitsWarehouse withdraw own YES credit to self"},
+    {"block":519,"label":"Bob: ERC20 YES approve Permit2 for proportional join"},
+    {"block":520,"label":"Bob: Permit2 approve YES allowance to original Router"},
+    {"block":521,"label":"Bob: ERC20 T approve Permit2 for proportional join"},
+    {"block":522,"label":"Bob: Permit2 approve T allowance to original Router"},
+    {"block":523,"label":"Bob: original Router proportional join for exactly 0.0001 BPT"},
+    {"block":524,"label":"Bob: ERC20 T approve 0.001 T to Permit2 before buy"},
+    {"block":525,"label":"Bob: original Router EXACT_IN buy with 0.001 T"},
+    {"block":526,"label":"Bob: ERC20 BPT approve 0.0001 BPT to BptLockMeter"},
+    {"block":527,"label":"Bob: stake 0.0001 BPT in program 1"}
+  ],
+  "out": "evidence/monetary-policy/earning-actions-508-527.json",
+  "snapshots": {
+    "before": "evidence/monetary-policy/clock-start-506.after.json",
+    "after": "evidence/monetary-policy/earning-actions-508-527.after.json"
+  }
+}

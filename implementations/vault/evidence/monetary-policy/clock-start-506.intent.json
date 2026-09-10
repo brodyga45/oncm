@@ -1,0 +1,29 @@
+{
+  "format": "vault-v2-program-clock-intent-v1",
+  "planSha256": "0x2ba39f05371f0e84eb37f7575631f9fcb727e804710edd1d56452415443d4973",
+  "before": {
+    "number": 506,
+    "hash": "0x8db1564d21e252b7e86c0fe172e3f083fc6a6d4c07b718a1290e8807b50d02d3",
+    "timestamp": 1789043644
+  },
+  "phase": "start",
+  "targetTimestamp": "1789050027",
+  "positiveDeltaSeconds": "6383",
+  "operations": [
+    {
+      "method": "evm_increaseTime",
+      "params": [
+        6383
+      ],
+      "status": "response-received",
+      "result": 6186
+    },
+    {
+      "method": "evm_mine",
+      "params": [],
+      "status": "response-received",
+      "result": "0x0"
+    }
+  ],
+  "state": "completed"
+}

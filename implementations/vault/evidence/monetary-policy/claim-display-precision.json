@@ -1,0 +1,44 @@
+{
+  "status": "reviewed one-line patch applied after root checkpoint527; source frozen",
+  "cause": "amount(b) converts the exact decimal string to Number and rounds to at most3 fractional digits; claim enabled gate uses exact BigInt independently",
+  "patch": "claim-display-precision.patch",
+  "rows": [
+    {
+      "raw": "2600000000000000",
+      "oldRounded": "0.003",
+      "proposedExact": "0.0026",
+      "currentClaimEnabled": true
+    },
+    {
+      "raw": "260000000000000",
+      "oldRounded": "0",
+      "proposedExact": "0.00026",
+      "currentClaimEnabled": true
+    },
+    {
+      "raw": "1",
+      "oldRounded": "0",
+      "proposedExact": "0.000000000000000001",
+      "currentClaimEnabled": true
+    },
+    {
+      "raw": "0",
+      "oldRounded": "0",
+      "proposedExact": "0.0",
+      "currentClaimEnabled": false
+    },
+    {
+      "raw": "9007199254740993123456789012345678",
+      "oldRounded": "9,007,199,254,740,994",
+      "proposedExact": "9007199254740993.123456789012345678",
+      "currentClaimEnabled": true
+    }
+  ],
+  "build": {
+    "viteSeconds": 1.67,
+    "resourceReport": "claim-display-build-resources.json",
+    "result": "PASS"
+  },
+  "appSha256": "f0f9594e5e57976ab213fbc2e980642ce69a680c510ef706e65d18ba7bc5f4d9",
+  "browserAcceptance": "root will reopen Income and verify actual tiny claim amounts; not performed by patch agent"
+}

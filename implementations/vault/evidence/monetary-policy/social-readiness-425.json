@@ -1,0 +1,25 @@
+{
+  "format": "vault-v2-social-readiness-v1",
+  "historicalBlock": 425,
+  "runtimeChecks": {
+    "schemaRegistry": {
+      "address": "0x40918Ba7f132E0aCba2CE4de4c4baF9BD2D7D849",
+      "runtimeHash": "0x27eb23ea2be2e448d2b93e67e44952629b09b8695af6fae7783b76df8c476322"
+    },
+    "eas": {
+      "address": "0xF32D39ff9f6Aa7a7A64d7a4F00a54826Ef791a55",
+      "runtimeHash": "0x7b45933476096a2ef4a9a14f4c8273a91ab2d5e1d90f4456e870333a3866120e"
+    },
+    "resolver": {
+      "address": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+      "runtimeHash": "0xe2cb3bf287c95329a86e740bb3228d1e1c68780aa29bce4975d4c5f7ac4b6ea3"
+    }
+  },
+  "schemaAndRegistryBindingsPassed": true,
+  "socialRevisionLogsThrough425": 0,
+  "liveApiStatus": 200,
+  "liveApiVersion": "2",
+  "liveApiResolver": "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
+  "scope": "Read-only runtime/schema/config checks; no browser write or social content claim.",
+  "diagnostic": "First temporary read harness used flattened SchemaRecord return ABI and failed decoding; corrected to original tuple return. Application ABI/source unchanged."
+}

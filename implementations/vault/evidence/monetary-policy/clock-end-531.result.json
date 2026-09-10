@@ -1,0 +1,115 @@
+{
+  "format": "vault-v2-program-clock-result-v1",
+  "status": "clock-only transition verified",
+  "mode": "test-clock setup, not browser financial action",
+  "planSha256": "0xfdfc7a19cb1187ee6ec75a09f083588226ebde717b08c9bde5b14ef599d9e640",
+  "before": {
+    "number": 531,
+    "hash": "0x1437acf4ae5632166bafb7edcc26cfb9e6bb2a8f748b79d96adeb555d2eacb99",
+    "timestamp": 1789050658
+  },
+  "after": {
+    "number": 532,
+    "hash": "0x9d215a22f32e3949327aaad1ae69bdeb059ba569b46aa685ef9054f3734c0b74",
+    "timestamp": 1789050966
+  },
+  "requestedTarget": "1789050927",
+  "actualTimestampDelta": "308",
+  "targetReached": true,
+  "phaseWindowOkay": true,
+  "onlyOneEmptyBlock": true,
+  "rawStateUnchanged": true,
+  "changedStorageSections": [],
+  "timeDerivedBefore": [
+    {
+      "id": "0",
+      "earningActive": true,
+      "claimWindowActive": false,
+      "claimable": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0"
+      }
+    },
+    {
+      "id": "1",
+      "earningActive": true,
+      "claimWindowActive": false,
+      "claimable": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0"
+      }
+    },
+    {
+      "id": "2",
+      "earningActive": true,
+      "claimWindowActive": false,
+      "claimable": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0"
+      }
+    }
+  ],
+  "timeDerivedAfter": [
+    {
+      "id": "0",
+      "earningActive": false,
+      "claimWindowActive": true,
+      "claimable": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2997293290548789958",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "2706709451210041",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0"
+      }
+    },
+    {
+      "id": "1",
+      "earningActive": false,
+      "claimWindowActive": true,
+      "claimable": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1999881517436141478",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "118482563858521",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0"
+      }
+    },
+    {
+      "id": "2",
+      "earningActive": false,
+      "claimWindowActive": true,
+      "claimable": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "999000999000999000",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "999000999000999",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0"
+      }
+    }
+  ],
+  "beforeSnapshot": "evidence/monetary-policy/clock-end-531.before.json",
+  "afterSnapshot": "evidence/monetary-policy/clock-end-531.after.json",
+  "afterSnapshotSha256": "0xef895ebd1628c7fc4b3b6ad0cf2d2741612deb51ff69a98e20f687bd2949de13",
+  "rpcCounts": {
+    "eth_getBlockByNumber": 3,
+    "eth_chainId": 5,
+    "eth_call": 3,
+    "evm_increaseTime": 1,
+    "evm_mine": 1
+  }
+}

@@ -1896,7 +1896,7 @@
             >
             <div class="divider"></div>
             {#each Object.entries(claimables) as [t, b]}<div class="claim-row">
-                <span>{t === config.addresses.TrueToken ? 'T' : short(t)} <b>{amount(b)}</b></span
+                <span>{t === config.addresses.TrueToken ? 'T' : short(t)} <b>{formatEther(b)}</b></span
                 ><button
                   class="text-button"
                   disabled={busy || BigInt(b) === 0n}

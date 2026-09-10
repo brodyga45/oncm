@@ -1,0 +1,35 @@
+{
+  "format": "vault-v2-monetary-actions-spec-v1",
+  "beforeBlock": 527,
+  "afterBlock": 552,
+  "actions": [
+    {"block":528,"label":"Alice: SplitsWarehouse withdraw own T credit to self"},
+    {"block":529,"label":"Alice: SplitsWarehouse withdraw own YES credit to self"},
+    {"block":530,"label":"Alice: permissionless SplitsWarehouse withdraw fixed Timelock T credit to Timelock"},
+    {"block":531,"label":"Alice: permissionless SplitsWarehouse withdraw fixed Timelock YES credit to Timelock"},
+    {"block":533,"label":"Alice: V2 StatementRegistry submitProof TRUE with existing genuine perf05 CI4 certificate"},
+    {"block":534,"label":"Alice: RewardBudget claim program 0"},
+    {"block":535,"label":"Alice: RewardBudget claim program 1"},
+    {"block":536,"label":"Alice: BptLockMeter withdraw program 1 principal"},
+    {"block":537,"label":"Bob: RewardBudget claim program 0"},
+    {"block":538,"label":"Bob: RewardBudget claim program 1"},
+    {"block":539,"label":"Bob: BptLockMeter withdraw program 1 principal"},
+    {"block":540,"label":"Bob: ERC20 approve 0.0001 BPT to original Router for exit"},
+    {"block":541,"label":"Bob: original Router proportional exit 0.0001 BPT"},
+    {"block":542,"label":"Bob: ERC20 YES approve PositionRouter for redemption"},
+    {"block":543,"label":"Bob: PositionRouter redeem all owned YES and zero NO"},
+    {"block":544,"label":"Alice: ERC20 approve 19.999999999998599879 BPT to original Router for exit"},
+    {"block":545,"label":"Alice: original Router proportional exit remaining 19.999999999998599879 BPT"},
+    {"block":546,"label":"Alice: ERC20 YES approve PositionRouter for redemption"},
+    {"block":547,"label":"Alice: ERC20 NO approve PositionRouter for redemption"},
+    {"block":548,"label":"Alice: PositionRouter redeem all owned YES and NO after TRUE settlement"},
+    {"block":550,"label":"Alice: permissionless RewardBudget close program 2 to its fixed voted remainder recipient"},
+    {"block":551,"label":"Alice: permissionless RewardBudget close program 0 to its fixed voted remainder recipient"},
+    {"block":552,"label":"Alice: permissionless RewardBudget close program 1 to its fixed voted remainder recipient"}
+  ],
+  "out": "evidence/monetary-policy/settlement-actions-528-552.json",
+  "snapshots": {
+    "before": "evidence/monetary-policy/earning-actions-508-527.after.json",
+    "after": "evidence/monetary-policy/settlement-actions-528-552.after.json"
+  }
+}

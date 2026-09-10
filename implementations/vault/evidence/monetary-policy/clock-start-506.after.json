@@ -1,0 +1,739 @@
+{
+  "format": "vault-v2-monetary-historical-snapshot-v1",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "protocolVersion": "2",
+  "block": {
+    "number": 507,
+    "hash": "0x8fc7dfd0554d4c1a455e80ac185f246d95b0285db189d79e25cbe906f1299604",
+    "timestamp": 1789050108
+  },
+  "identity": {
+    "genesis": {
+      "number": 0,
+      "hash": "0x6e57f2da1aa9d1fdf5092452ca1fcb015ab3319f4b659ef1b9d7e43bd967e14a",
+      "timestamp": 1788989165
+    },
+    "deploymentAnchor": {
+      "transactionHash": "0xb8ac2e18239a19b4163459d3e53ab27fe0944515d93473de1ef00d0eac9dc44d",
+      "blockNumber": 261,
+      "blockHash": "0x2563ddcb914681014ed2b282b30afae990f949058a762209a8e8d0cb905951a8",
+      "token": "0x276C216D241856199A83bf27b2286659e5b877D3"
+    },
+    "descriptorSha256": "0x519c8ee438a2ffe591ab5eded8e8c14849a6a7cc345af22d2e5f40efc47ac455",
+    "abiSha256": "0x7fabed561ab224ee4e88d9a1d320cc9ab43cc032deed0dd4863aa5a4e262676c",
+    "codeChecks": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": {
+        "sha3": "0x9108028490b177ca046ac3b3e7294141faa735aa48927e2c1efc9e40cebf3357",
+        "pinned": true
+      },
+      "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB": {
+        "sha3": "0x6319a9befa251f329b8cc4753e83e4c2f2c267eaf8341d32116318f87b26edc4",
+        "pinned": true
+      },
+      "0x38a024C0b412B9d1db8BC398140D00F5Af3093D4": {
+        "sha3": "0x7543c689ae93ca898d401a498ebb61af13745fd7f2ddefccde6ac72e477de072",
+        "pinned": true
+      },
+      "0x9d18d91254512963415DA3c530B0A367e8329a2b": {
+        "sha3": "0x7c49e2c1573206f2b1598d65b4ae629f0adb23c475bf506e88fc207c9a6e993c",
+        "pinned": true
+      },
+      "0x25a993b340C3Fd27635aEdC501b79Af25B57eb7B": {
+        "sha3": "0x07b4070ea2088de440683f64c42217fa877403787943316040be2af5fdc5329a",
+        "pinned": true
+      },
+      "0x7AB898A1237AAAf6af7f26CCc46D80dAC940D47F": {
+        "sha3": "0x00bc8252890ffb04539c9e8f0c8d35a5c4cc7ef5486f04fb27481b38963d4119",
+        "pinned": true
+      },
+      "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659": {
+        "sha3": "0x08430c115787eed8e141ff30250e22992fbebd11c564b35d15f2113eacb06bb1",
+        "pinned": true
+      },
+      "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb": {
+        "sha3": "0xc1fb90083d76e90c888a57ce20de5f5d127a0012e929b2926c836bb0ba946214",
+        "pinned": true
+      },
+      "0x525C7063E7C20997BaaE9bDa922159152D0e8417": {
+        "sha3": "0xe0bb11bec7a3d60677cdddfce0a4055e3e5249f054decea41099e19f790966a2",
+        "pinned": true
+      },
+      "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849": {
+        "sha3": "0xaa3c08a3889586b2c05007bef0d8247b66a5e5761fc58fa772b5629ff688100a",
+        "pinned": true
+      },
+      "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82": {
+        "sha3": "0x6b4548b2061e35cb9e6fa8d407a0b2849fe3e040694ab4f24acd3351fa783b65",
+        "pinned": true
+      },
+      "0xb9bEECD1A582768711dE1EE7B0A1d582D9d72a6C": {
+        "sha3": "0xc7779ab9112c36aca92b50733993f1d01185d351a28e73b407a136607d5a9cea",
+        "pinned": true
+      },
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+        "sha3": "0x0210923f3de61dcb815ffd5e1a0542b15e0d900fc2ebe215efe6f897fb9cebad",
+        "pinned": true
+      },
+      "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+        "sha3": "0x1d1ae4e8244c5f4bab8ebacb4c2c49ff61c0deb78967df00717362574a1a2b0f",
+        "pinned": true
+      },
+      "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512": {
+        "sha3": "0x933a20e2107f813614be7776ba2c1759cb8272a9db7c8cc83ceb6ec1cad8da09",
+        "pinned": true
+      },
+      "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": {
+        "sha3": "0xadf1ee4719c637975ba08765e3a1187f2fb865c9b17386005960a81ff29cfcc7",
+        "pinned": true
+      },
+      "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d": {
+        "sha3": "0xbda3d90c36e16af19ba6ebf244eb87c1c4759c88dbe2e7e59c65f6352bf54b0b",
+        "pinned": true
+      },
+      "0xE3011A37A904aB90C8881a99BD1F6E21401f1522": {
+        "sha3": "0x0cf5ca1395a55d20011c45f7675b05f489d5bc19a438160b8488f9e3440a492a",
+        "pinned": true
+      }
+    }
+  },
+  "addresses": {
+    "Membership": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "Timelock": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "Governor": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "ConditionalTokens": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    "Wrapped1155Factory": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+    "SplitsWarehouse": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+    "PullSplitFactory": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+    "Permit2": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+    "WETH": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+    "ResolvedWithinWindowOperator": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+    "TrueToken": "0x276C216D241856199A83bf27b2286659e5b877D3",
+    "StatementRegistry": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+    "PositionRouter": "0x3155755b79aA083bd953911C92705B7aA82a18F9",
+    "BootstrapAuthorizer": "0x5bf5b11053e734690269C6B9D438F8C9d48F528A",
+    "VaultFactory": "0xffa7CA1AEEEbBc30C874d32C7e22F052BbEa0429",
+    "Vault": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+    "ProtocolFeeController": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+    "VaultAdmin": "0x25a993b340C3Fd27635aEdC501b79Af25B57eb7B",
+    "VaultExtension": "0x7AB898A1237AAAf6af7f26CCc46D80dAC940D47F",
+    "WeightedPoolFactory": "0xE3011A37A904aB90C8881a99BD1F6E21401f1522",
+    "Router": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+    "AllocationController": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+    "RewardBudget": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+    "PoolCoordinator": "0x38a024C0b412B9d1db8BC398140D00F5Af3093D4",
+    "BptLockMeter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+    "Authorizer": "0xb9bEECD1A582768711dE1EE7B0A1d582D9d72a6C",
+    "LeanProofBridge": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F"
+  },
+  "participants": [
+    {
+      "label": "Account0",
+      "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    },
+    {
+      "label": "Account1",
+      "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+    },
+    {
+      "label": "Account2",
+      "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    },
+    {
+      "label": "Account3",
+      "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+    },
+    {
+      "label": "Timelock",
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    },
+    {
+      "label": "Governor",
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+    }
+  ],
+  "holders": [
+    {
+      "label": "Account0",
+      "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    },
+    {
+      "label": "Account1",
+      "address": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+    },
+    {
+      "label": "Account2",
+      "address": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    },
+    {
+      "label": "Account3",
+      "address": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+    },
+    {
+      "label": "Timelock",
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    },
+    {
+      "label": "Governor",
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+    },
+    {
+      "label": "ConditionalTokens",
+      "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+    },
+    {
+      "label": "RewardBudget",
+      "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417"
+    },
+    {
+      "label": "CurrentSplit",
+      "address": "0xcc6c65C45B141F2064D3f66f872f4744570f022C"
+    },
+    {
+      "label": "BptLockMeter",
+      "address": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849"
+    },
+    {
+      "label": "Vault",
+      "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b"
+    },
+    {
+      "label": "FeeController",
+      "address": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659"
+    },
+    {
+      "label": "AllocationController",
+      "address": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb"
+    },
+    {
+      "label": "SplitsWarehouse",
+      "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d"
+    },
+    {
+      "label": "YESWrapper",
+      "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44"
+    },
+    {
+      "label": "NOWrapper",
+      "address": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644"
+    }
+  ],
+  "assets": [
+    {
+      "label": "T",
+      "address": "0x276C216D241856199A83bf27b2286659e5b877D3",
+      "decimals": "18",
+      "totalSupply": "1006000000000000000000",
+      "balances": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "950000000000000000000",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0",
+        "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "30000000000000000000",
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "6000000000000000000",
+        "0xcc6c65C45B141F2064D3f66f872f4744570f022C": "0",
+        "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849": "0",
+        "0x9d18d91254512963415DA3c530B0A367e8329a2b": "20000000000000000000",
+        "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659": "0",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb": "0",
+        "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d": "0",
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+        "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+      }
+    },
+    {
+      "label": "YES",
+      "address": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "decimals": "18",
+      "totalSupply": "30000000000000000000",
+      "balances": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "10000000000000000000",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0",
+        "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0",
+        "0xcc6c65C45B141F2064D3f66f872f4744570f022C": "0",
+        "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849": "0",
+        "0x9d18d91254512963415DA3c530B0A367e8329a2b": "20000000000000000000",
+        "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659": "0",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb": "0",
+        "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d": "0",
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+        "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+      }
+    },
+    {
+      "label": "NO",
+      "address": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+      "decimals": "18",
+      "totalSupply": "30000000000000000000",
+      "balances": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "30000000000000000000",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0",
+        "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0",
+        "0xcc6c65C45B141F2064D3f66f872f4744570f022C": "0",
+        "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849": "0",
+        "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+        "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659": "0",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb": "0",
+        "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d": "0",
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+        "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+      }
+    },
+    {
+      "label": "BPT",
+      "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+      "decimals": "18",
+      "totalSupply": "19999999999999599879",
+      "balances": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "19999999999998599879",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+        "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": "0",
+        "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0",
+        "0xcc6c65C45B141F2064D3f66f872f4744570f022C": "0",
+        "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849": "0",
+        "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+        "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659": "0",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb": "0",
+        "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d": "0",
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+        "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+      }
+    }
+  ],
+  "warehouseCredits": {
+    "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": "0",
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+      "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+    },
+    "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": "0",
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+      "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+    },
+    "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": "0",
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+      "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+    },
+    "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": "0",
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+      "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+    },
+    "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": "0",
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+      "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+    },
+    "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+      "0x276C216D241856199A83bf27b2286659e5b877D3": "0",
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": "0",
+      "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": "0"
+    }
+  },
+  "membership": {
+    "totalSupply": "4000000000000000000",
+    "accounts": {
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+        "balance": "1000000000000000000",
+        "votes": "1000000000000000000"
+      },
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+        "balance": "1000000000000000000",
+        "votes": "1000000000000000000"
+      },
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+        "balance": "1000000000000000000",
+        "votes": "1000000000000000000"
+      },
+      "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+        "balance": "1000000000000000000",
+        "votes": "1000000000000000000"
+      },
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+        "balance": "0",
+        "votes": "0"
+      },
+      "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+        "balance": "0",
+        "votes": "0"
+      }
+    }
+  },
+  "statement": {
+    "id": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+    "goalHash": "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b",
+    "profileId": "0x93cf174539debc6ddce2691f3def1e36023cf77fe1d93f1692f330150bd37e10",
+    "conditionId": "0xd9bac8eacc827a99ff50428c7aa37c420e1b059ef545cf65f347e3f4853beb2f",
+    "author": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "yes": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+    "no": "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644",
+    "outcome": "0",
+    "resolvedAt": "0"
+  },
+  "pool": {
+    "address": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+    "runtimeHash": "0x328c6c9976e5ab4668c226e6dc36d71d186aa297759f2c72fec1de7e2bc97401",
+    "normalizedWeights": [
+      "500000000000000000",
+      "500000000000000000"
+    ],
+    "tokens": [
+      "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+      "0x276C216D241856199A83bf27b2286659e5b877D3"
+    ],
+    "tokenInfo": [
+      [
+        "0",
+        "0x0000000000000000000000000000000000000000",
+        false
+      ],
+      [
+        "0",
+        "0x0000000000000000000000000000000000000000",
+        false
+      ]
+    ],
+    "rawBalances": [
+      "20000000000000000000",
+      "20000000000000000000"
+    ],
+    "lastBalancesLiveScaled18": [
+      "20000000000000000000",
+      "20000000000000000000"
+    ],
+    "roles": [
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+      "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb"
+    ],
+    "config": [
+      [
+        true,
+        false,
+        false,
+        false
+      ],
+      "20000000000000000",
+      "325000000000000000",
+      "0",
+      "0",
+      "1820576020",
+      true,
+      true,
+      false,
+      false
+    ],
+    "bptZeroBalance": "1000000"
+  },
+  "hook": {
+    "address": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+    "runtimeHash": "0x41980e4fb9f74be747f233c96991c30700c8fea2d0f223c7d22d49f552cf3144",
+    "productionTemplateMatches": true,
+    "bindings": {
+      "registry": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+      "vault": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+      "factory": "0xE3011A37A904aB90C8881a99BD1F6E21401f1522",
+      "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+      "governance": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "feeSink": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+      "trustedRouter": "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+      "rewards": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+      "trustedRouterCodeHash": "0x6b4548b2061e35cb9e6fa8d407a0b2849fe3e040694ab4f24acd3351fa783b65"
+    },
+    "totalTVolume": "0",
+    "totalExactInTFees": "0",
+    "programSlots": [
+      "1",
+      "3",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  "rewards": {
+    "address": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+    "programCount": "3",
+    "programLimit": 20,
+    "reserved": "6000000000000000000",
+    "tokenBalance": "6000000000000000000",
+    "unreserved": "0",
+    "computedOutstandingBudget": "6000000000000000000",
+    "programs": [
+      {
+        "id": "0",
+        "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+        "start": "1789050027",
+        "end": "1789050927",
+        "claimDeadline": "1789051827",
+        "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "budget": "3000000000000000000",
+        "paid": "0",
+        "reclaimed": "0",
+        "totalWeight": "0",
+        "closed": false,
+        "accounts": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          }
+        },
+        "observedHookBinding": {
+          "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+          "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+          "metric": "0",
+          "configured": true
+        },
+        "lpMeterBinding": {
+          "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "pool": "0x0000000000000000000000000000000000000000"
+        },
+        "earningActive": true,
+        "claimWindowActive": false
+      },
+      {
+        "id": "1",
+        "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+        "start": "1789050027",
+        "end": "1789050927",
+        "claimDeadline": "1789051827",
+        "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "budget": "2000000000000000000",
+        "paid": "0",
+        "reclaimed": "0",
+        "totalWeight": "0",
+        "closed": false,
+        "accounts": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          }
+        },
+        "observedHookBinding": {
+          "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+          "pool": "0x0000000000000000000000000000000000000000",
+          "metric": "0",
+          "configured": false
+        },
+        "lpMeterBinding": {
+          "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7"
+        },
+        "earningActive": true,
+        "claimWindowActive": false
+      },
+      {
+        "id": "2",
+        "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+        "start": "1789050027",
+        "end": "1789050927",
+        "claimDeadline": "1789051827",
+        "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "budget": "1000000000000000000",
+        "paid": "0",
+        "reclaimed": "0",
+        "totalWeight": "0",
+        "closed": false,
+        "accounts": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          },
+          "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9": {
+            "weight": "0",
+            "claimed": false,
+            "claimable": "0",
+            "lpDeposit": "0"
+          }
+        },
+        "observedHookBinding": {
+          "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+          "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+          "metric": "1",
+          "configured": true
+        },
+        "lpMeterBinding": {
+          "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+          "pool": "0x0000000000000000000000000000000000000000"
+        },
+        "earningActive": true,
+        "claimWindowActive": false
+      }
+    ]
+  },
+  "fees": {
+    "staticSwapFee": "20000000000000000",
+    "globalProtocolSwapShare": "100000000000000000",
+    "globalProtocolYieldShare": "0",
+    "poolProtocolSwap": {
+      "fraction": "100000000000000000",
+      "isOverride": false
+    },
+    "poolProtocolYield": {
+      "fraction": "0",
+      "isOverride": false
+    },
+    "creatorSwap": "250000000000000000",
+    "creatorYield": "0",
+    "aggregateSwap": "325000000000000000",
+    "aggregateYield": "0",
+    "assets": [
+      {
+        "token": "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+        "aggregateSwap": "0",
+        "aggregateYield": "0",
+        "controllerCreator": "0",
+        "controllerProtocol": "0",
+        "pendingCreator": "0",
+        "pendingProtocol": "0"
+      },
+      {
+        "token": "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "aggregateSwap": "0",
+        "aggregateYield": "0",
+        "controllerCreator": "0",
+        "controllerProtocol": "0",
+        "pendingCreator": "0",
+        "pendingProtocol": "0"
+      }
+    ]
+  },
+  "allocation": {
+    "epoch": "1",
+    "split": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+    "recipients": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "weights": [
+      "4000",
+      "1500",
+      "4500"
+    ]
+  },
+  "capture": {
+    "mode": "Historical read-only RPC, no signer",
+    "contractStateBlock": 507,
+    "identityReads": "Genesis and original V2 deployment receipt are explicit identity anchors only",
+    "rpcCounts": {
+      "eth_getBlockByNumber": 3,
+      "eth_chainId": 71,
+      "eth_getTransactionReceipt": 1,
+      "eth_getCode": 20,
+      "eth_call": 239
+    },
+    "sourceSha256": "0x6f9f0eb4af32daa7a97f93976830e23e49bc7a03459e4f870199437a490b20c3",
+    "expectedResults": "None fabricated. Report contains observed state and contract bookkeeping/binding assertions, not a browser pass."
+  }
+}

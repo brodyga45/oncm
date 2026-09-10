@@ -1,0 +1,72 @@
+{
+  "format": "vault-v2-program-clock-plan-v1",
+  "mode": "test-clock setup; not browser financial action",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "rpcUrl": "http://127.0.0.1:9547",
+  "protocolVersion": "2",
+  "registry": "0x3347B4d90ebe72BeFb30444C9966B2B990aE9FcB",
+  "rewards": "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+  "phase": "claimDeadline",
+  "programIds": [
+    "0",
+    "1",
+    "2"
+  ],
+  "programs": [
+    {
+      "id": "0",
+      "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+      "start": "1789050027",
+      "end": "1789050927",
+      "claimDeadline": "1789051827",
+      "budget": "3000000000000000000",
+      "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    },
+    {
+      "id": "1",
+      "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+      "start": "1789050027",
+      "end": "1789050927",
+      "claimDeadline": "1789051827",
+      "budget": "2000000000000000000",
+      "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    },
+    {
+      "id": "2",
+      "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+      "start": "1789050027",
+      "end": "1789050927",
+      "claimDeadline": "1789051827",
+      "budget": "1000000000000000000",
+      "remainderRecipient": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    }
+  ],
+  "before": {
+    "number": 548,
+    "hash": "0x8116d1e4d14d28c3255391781ed28bbb5100d02e64154c5d3c054f23ac85b316",
+    "timestamp": 1789051290
+  },
+  "targetTimestamp": "1789051827",
+  "targetUTC": "2026-09-10T14:50:27.000Z",
+  "positiveDeltaSeconds": "537",
+  "beforeSnapshot": "evidence/monetary-policy/clock-close-548.before.json",
+  "beforeSnapshotSha256": "0xfcbf65c111b587ad22cdb970d12b20b9a09814fd50637ac8a363ece1219f07a6",
+  "descriptorSha256": "0x519c8ee438a2ffe591ab5eded8e8c14849a6a7cc345af22d2e5f40efc47ac455",
+  "collectorSha256": "0x6f9f0eb4af32daa7a97f93976830e23e49bc7a03459e4f870199437a490b20c3",
+  "utilitySha256": "0x252068d5f970db3aebf49aaeaf6094a1c6378ae28ec73abce1c05b56c4397a8b",
+  "clockCalls": [
+    {
+      "method": "evm_increaseTime",
+      "params": [
+        537
+      ]
+    },
+    {
+      "method": "evm_mine",
+      "params": []
+    }
+  ],
+  "exactTargetEqualityRequired": false,
+  "guard": "Execution requires unchanged head and pins. No votes, balances, impersonation, reset, financial call or blocked legacy action is performed."
+}
