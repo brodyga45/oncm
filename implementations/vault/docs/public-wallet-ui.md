@@ -18,6 +18,29 @@ and UI delivery, not completion of the MetaMask approval flow. The user must sel
 MetaMask and approve the account/network prompts in the extension. Chain history and
 deployment were not modified or restarted for this fix.
 
+### Pending connection follow-up
+
+The user then observed an indefinitely pending MetaMask connection. The previous
+flow awaited `/auth/logout` before requesting accounts, unnecessarily separating
+the wallet prompt from the click. Account requests now dispatch synchronously;
+session cleanup follows wallet verification and has a15-second HTTP timeout.
+Public mode no longer requests SIWE for the disabled private job tools. Profile
+and blog authorization remains the sender of each signed EAS transaction.
+
+The menu displays the current wallet RPC stage, with instructions to open the
+extension manually if its popup is absent. Connection RPCs time out after60seconds,
+and `-32002` explains an already pending wallet request. Timing out cannot cancel
+the extension's prompt: the user must dismiss it before retrying. A closed attempt
+rejects late results and subsequent requests, preventing delayed consent from
+silently continuing into network changes/login. Successfully connected signers
+forward later transactions normally, without applying the connection timeout.
+Snapshot refresh has a20-second HTTP timeout so it cannot indefinitely hold the
+global busy state at the end of connection.
+
+15 connection/discovery/transport tests passed; Vite build passed and updated the
+nginx-served static files. Browser reload was attempted, but the subsequent browser
+inspection timed out, so this follow-up does not claim successful MetaMask login.
+
 The explicit server projection uses `publicMode: true`, `publicOrigin`, `publicWriteEnabled`, `capabilities.walletTransactions`, and optional `publicOwnerAddress`. Browser RPC is always the validated HTTPS origin plus `/rpc`; API requests retain `/api` on the same origin. A local nginx preview receiving a public deployment descriptor shows a link to the configured public site instead of silently trusting another origin or exposing the internal RPC. Server-side SDKs retain their separate loopback configuration.
 
 The normal **Подключить кошелёк · Vault 31373** action shows the exact public RPC, chain 31373, test ETH for native gas, and the separate protocol T token. It requests a network switch through EIP-1193. Only an unknown-chain error (`4902`) prompts adding the configured network, followed by another switch and a chain-ID check. Rejection is propagated; no alternate request follows a user rejection. Adding a chain does not imply selection. The implementation reuses ethers BrowserProvider and follows [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085) and [EIP-3326](https://eips.ethereum.org/EIPS/eip-3326).

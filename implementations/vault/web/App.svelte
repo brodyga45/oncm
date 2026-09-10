@@ -21,6 +21,8 @@
   import { quotedSwapLimits } from '../sdk/swap-limits.mjs';
   import { onMount } from 'svelte';
   import { discoverWallets, watchWallet } from './wallet-discovery.mjs';
+  import { walletConnection } from './wallet-connection.mjs';
+  let walletProgress = '';
   let browserWallets = [], walletDiscovery, stopWalletEvents = () => {};
   function toggleWalletMenu() {
     walletOpen = !walletOpen;
@@ -193,7 +195,7 @@
   async function refresh() {
     if (!config) return;
     const owner = account;
-    const snapshot = await api('/snapshot' + (owner ? '?account=' + owner : ''));
+    const snapshot = await api('/snapshot' + (owner ? '?account=' + owner : ''), { signal: AbortSignal.timeout(20000) });
     if (owner !== account) return;
     data = snapshot;
     if (
@@ -314,16 +316,23 @@
     catch (e) { error = 'Не удалось завершить серверную сессию: ' + e.message; }
   }
   async function connect(local, selectedWallet) {
-    const ethereum = selectedWallet?.provider;
-    await task('Подключение кошелька', async () => {
+    if (busy) return;
+    const attempt = local ? null : walletConnection(selectedWallet.provider, step => { walletProgress = step; notice = step; });
+    const ethereum = attempt?.provider;
+    let connected = false;
+    try { await task('Подключение кошелька', async () => {
       if (account || latestJob || jobs.length) clearWalletState();
-      await api('/auth/logout', { method: 'POST' });
       const connectedSigner = local
         ? await localWallet(config, Number(devIndex))
         : await injectedWallet(ethereum, config);
       const connectedAccount = await connectedSigner.getAddress();
-      try { await login(connectedSigner, connectedAccount); }
-      catch { notice = 'Кошелёк подключается для ончейн действий. SIWE для приватных инструментов недоступен.'; }
+      walletProgress = 'Завершаем подключение адреса к Vault.';
+      await api('/auth/logout', { method: 'POST', signal: AbortSignal.timeout(15000) });
+      // Public social actions are signed EAS transactions; private job SIWE is unnecessary.
+      if (!config.publicMode) {
+        try { await login(connectedSigner, connectedAccount); }
+        catch { notice = 'SIWE для приватных инструментов недоступен. Ончейн действия доступны.'; }
+      }
       if (!local) {
         const currentAccounts = await ethereum.request({ method: 'eth_accounts' });
         const currentChain = await ethereum.request({ method: 'eth_chainId' });
@@ -332,16 +341,21 @@
           throw Error('Кошелёк изменился во время входа. Подключите его повторно.');
         }
       }
+      attempt?.finish();
+      connected = true;
       signer = connectedSigner;
       account = connectedAccount;
       walletKind = local ? 'local' : 'injected';
-      if (!local) stopWalletEvents = watchWallet(ethereum, () => {
+      if (!local) stopWalletEvents = watchWallet(selectedWallet.provider, () => {
         disconnectWallet('Адрес или сеть выбранного кошелька изменились. Подключите кошелёк заново.');
       });
       sdk = createSDK(config, abis, signer);
       if (page === 'lab' && !config.publicMode) jobs = await api('/jobs');
       walletOpen = false;
-    });
+    }); } finally {
+      if (!connected) attempt?.close();
+      walletProgress = '';
+    }
   }
   async function tx(label, fn) {
     return task(label, async () => {
@@ -886,7 +900,7 @@
     {#if walletOpen && config}<div class="wallet-panel">
         <h3>Ваш кошелёк</h3>
         {#if config.publicMode}<p>Нужен кошелёк с поддержкой пользовательских сетей (custom RPC), например MetaMask.</p>{/if}
-        <p>Профиль, блог и обсуждения записываются в блокчейн транзакциями кошелька. Подпись SIWE используется для личных инструментов.</p>
+        <p>Профиль, блог и обсуждения записываются в блокчейн транзакциями кошелька. Для публикации кошелёк отдельно запросит подпись транзакции и оплату газа.</p>
         <p>Выберите расширение. Для нашей тестовой сети используйте MetaMask.</p>
         {#each browserWallets as wallet (wallet.id)}
           <button class="primary full" onclick={() => connect(false, wallet)} disabled={busy}
@@ -895,6 +909,7 @@
           <p role="status">Кошельки не обнаружены. Включите MetaMask для этого сайта и обновите страницу.</p>
         {/each}
         <button class="text-button" onclick={() => walletDiscovery?.request()} disabled={busy}>Обновить список кошельков</button>
+        {#if walletProgress}<p role="status">{walletProgress}</p><p>Если окно не появилось, нажмите значок пазла в Chrome → выбранный кошелёк. Он может ждать разблокировки или подтверждения.</p>{/if}
         {#if error}<p role="alert">{error}</p>{/if}
         {#if config?.publicMode}<p>Сеть Vault 31373 · тестовый ETH нужен для газа, T — для торговли и ликвидности. Начальные тестовые средства распределяет владелец со своего кошелька.</p><code>{config.rpcUrl}</code><p>Кошелёк попросит подтвердить добавление или переключение сети, если это необходимо.</p>{#if config.publicOwnerAddress}<p>Адрес владельца: <code>{config.publicOwnerAddress}</code></p>{/if}{/if}
         {#if account}<button class="secondary full" disabled={busy} onclick={() => disconnectWallet()}>Отключить кошелёк и выйти</button>{/if}
