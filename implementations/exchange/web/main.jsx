@@ -23,6 +23,9 @@ import { externalInput, genericRegistrationDraft, EXTERNAL_BUNDLE_LIMITS,parseBo
 import { ExternalBundleReview } from "./external-bundle-review.jsx";
 import { preparePortablePackage,retainPackageMetadata } from "./portable-package.mjs";
 import { localEndpoints } from "../sdk/local-endpoints.mjs";
+import {derivedReview,reviewedDerivedArguments,parseLocalDeadline} from './derived-review.mjs';
+import {DerivedReviewCard} from './derived-review-card.mjs';
+import {DeadlineInput,PortablePackagePaste} from './review-inputs.mjs';
 import { createProofImportGuard } from "./proof-import-state.mjs";
 import { publishedChoices, loadPublishedCertificate, assertWebJobAction } from "./published-certificates.mjs";
 import { assertCertificateClaim, certificateClaimMatches } from "../sdk/proof-import.mjs";
@@ -1444,9 +1447,21 @@ function CreateMarket({
     [profiles, setProfiles] = useState([]),
     [importStatus, setImportStatus] = useState(""),
     [externalJSON, setExternalJSON] = useState(""),
+    [portableJSON,setPortableJSON] = useState(''),
     [genericReview,setGenericReview] = useState(null);
   const registrationGuard = useRef(createProofImportGuard());
-  registrationGuard.current.select(JSON.stringify([kind, profile, source, goal, fixture, target, address, externalJSON]), sdk);
+  registrationGuard.current.select(JSON.stringify([kind, profile, source, goal, fixture, target, address, externalJSON,portableJSON,dep,deadline,targetOutcome,operatorId,operatorArgs,deployment?.chainId,deployment?.contracts?.protocol]), sdk);
+  const derivedContext=useRef({sdk,address,chain:deployment?.chainId,registry:deployment?.contracts?.protocol});
+  const currentDerivedContext={sdk,address,chain:deployment?.chainId,registry:deployment?.contracts?.protocol};
+  const derivedContextChanged=Object.keys(currentDerivedContext).some(key=>currentDerivedContext[key]!==derivedContext.current[key]);
+  const reviewedDerived=derivedReview({kind,dependencyId:dep,deadlineInput:deadline,targetOutcome,markets:derivedContextChanged?[]:markets});
+  useEffect(()=>{
+    const next={sdk,address,chain:deployment?.chainId,registry:deployment?.contracts?.protocol},previous=derivedContext.current;
+    if(Object.keys(next).some(key=>next[key]!==previous[key])){
+      registrationGuard.current.invalidate();setDep('');setDeadline('');setTargetOutcome(1);setOperatorArgs('');
+    }
+    derivedContext.current=next;
+  },[sdk,address,deployment?.chainId,deployment?.contracts?.protocol]);
   useEffect(() => () => registrationGuard.current.invalidate(), []);
   async function refreshProfiles() {
     const catalog = await api("proof/catalog");
@@ -1545,7 +1560,7 @@ function CreateMarket({
             <span>MARKET TYPE</span>
             <select
               value={kind}
-              onChange={(e) => setKind(Number(e.target.value))}
+              onChange={(e) => {registrationGuard.current.invalidate();setKind(Number(e.target.value));setDep('');setDeadline('');setTargetOutcome(1);setOperatorArgs('');}}
             >
               <option value="0">Lean mathematical statement</option>
               <option value="1">Resolved by deadline</option>
@@ -1632,6 +1647,9 @@ function CreateMarket({
                 }
               />
             </label>
+            <PortablePackagePaste value={portableJSON} busy={busy} onValue={value=>{
+              registrationGuard.current.invalidate();setPortableJSON(value);setCertificate('');setGenericReview(null);setImportStatus('');
+            }} onLoad={value=>run('Load pasted package draft',async()=>adoptPackage(value))}/>
             <p className="note">A portable package restores an unverified draft. Its saved certificate must pass the explicit verification above before registration; source and file hashes establish byte identity only.</p>
             <textarea
               className="code-editor"
@@ -1743,17 +1761,18 @@ function CreateMarket({
                 <Button
                   secondary
                   onClick={() =>
-                    run("Encode operator arguments", async () =>
+                    run("Encode operator arguments", async () => {
+                      const parsed=parseLocalDeadline(deadline);if(!parsed.valid)throw Error(parsed.error);
                       setOperatorArgs(
                         AbiCoder.defaultAbiCoder().encode(
                           ["bytes32", "uint64"],
                           [
                             dep,
-                            Math.floor(new Date(deadline).getTime() / 1000),
+                            parsed.unix,
                           ],
                         ),
-                      ),
-                    )
+                      );
+                    })
                   }
                 >
                   Encode dependency & deadline
@@ -1763,6 +1782,7 @@ function CreateMarket({
             <label className="field">
               <span>EXISTING STATEMENT</span>
               <select value={dep} onChange={(e) => setDep(e.target.value)}>
+                <option value="" disabled>Select an existing statement</option>
                 {markets.map((m) => (
                   <option key={m.id} value={m.id}>
                     {m.metadata.title || short(m.id)}
@@ -1771,12 +1791,7 @@ function CreateMarket({
               </select>
             </label>
             {kind !== 2 && (
-              <Field
-                label="Deadline · local timezone (inclusive)"
-                type="datetime-local"
-                value={deadline}
-                onChange={setDeadline}
-              />
+              <DeadlineInput value={deadline} onValue={setDeadline}/>
             )}{" "}
             {(kind === 2 || kind === 3) && (
               <label className="field">
@@ -1790,6 +1805,7 @@ function CreateMarket({
                 </select>
               </label>
             )}
+            <DerivedReviewCard review={reviewedDerived}/>
           </>
         )}
         <div className="modal-footer">
@@ -1798,11 +1814,12 @@ function CreateMarket({
           </Button>
           <Button
             disabled={
-              busy || !sdk?.signer || !title || (kind === 0 && (!certificateClaimMatches(certificate, {goalHash: goal, profileId: profile, outcome: 0}) || !selectedProfile?.installed || !selectedProfile?.newEnabled))
+              busy || !sdk?.signer || !title || (reviewedDerived&&!reviewedDerived.valid) || (kind === 0 && (!certificateClaimMatches(certificate, {goalHash: goal, profileId: profile, outcome: 0}) || !selectedProfile?.installed || !selectedProfile?.newEnabled))
             }
             onClick={() =>
               run("Create market", async () => {
                 const ticket=registrationGuard.current.begin();
+                const derivedArguments=reviewedDerived?reviewedDerivedArguments(reviewedDerived):null;
                 if (kind === 0) assertCertificateClaim(certificate, {goalHash: goal, profileId: profile, outcome: 0});
                 let packageId;
                 if (kind===0&&(source||packageDraft?.canonicalGoalExport)) {
@@ -1836,12 +1853,7 @@ function CreateMarket({
                   await sdk.createOperator(operatorId, operatorArgs, metadata);
                 else
                   await sdk.createDerived(
-                    kind,
-                    dep,
-                    kind === 2
-                      ? 0
-                      : Math.floor(new Date(deadline).getTime() / 1000),
-                    kind === 1 ? 0 : targetOutcome,
+                    ...derivedArguments,
                     metadata,
                   );
                 if(registrationGuard.current.current(ticket))onClose();

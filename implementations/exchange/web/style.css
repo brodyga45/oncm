@@ -1493,3 +1493,8 @@ footer {
 .last-confirmation .link {
   font-size: 10px;
 }
+.derived-review { margin-top: 18px; border: 1px solid #536c43; }
+.derived-review dl { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 9px 14px; font-size: 12px; }
+.derived-review dt { color: #99a995; }
+.derived-review dd { margin: 0; overflow-wrap: anywhere; color: #e4eedc; }
+@media (max-width: 560px) { .derived-review dl { grid-template-columns: 1fr; } }
