@@ -1,0 +1,12 @@
+{
+  "beforeBlock": 397,
+  "afterBlock": 424,
+  "transactionBlocks": [398, 401, 402, 413, 424],
+  "target": "ProtocolFeeController",
+  "method": "setGlobalProtocolSwapFeePercentage",
+  "args": ["100000000000000000"],
+  "description": "Vault V2 local test: set global protocol swap share from 0% to 10%; route collected protocol income through the active beneficiary allocation and synchronize the existing official YES/T pool separately.",
+  "expectedBefore": {"staticSwapFee":"20000000000000000","creatorShare":"250000000000000000","globalProtocolShare":"0","cachedProtocolInfo":["0",false]},
+  "expectedAfter": {"staticSwapFee":"20000000000000000","creatorShare":"250000000000000000","globalProtocolShare":"100000000000000000","cachedProtocolInfo":["0",false]},
+  "output": "evidence/monetary-policy/fee-global-398-424.json"
+}

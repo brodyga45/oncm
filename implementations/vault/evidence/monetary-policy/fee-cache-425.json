@@ -1,0 +1,417 @@
+{
+  "format": "vault-v2-browser-protocol-fee-sync-v1",
+  "chainId": 31373,
+  "chainInstance": "554c825d-6813-43bf-9bf0-6ede06acff4d",
+  "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+  "beforeBlock": 424,
+  "finalBlock": 425,
+  "blocks": [
+    {
+      "number": 425,
+      "hash": "0xae6ded5b614226168550d956697e24c725f72dcd779ac844360bb6b44c09219f",
+      "timestamp": 1789042827,
+      "transactions": [
+        {
+          "hash": "0x26fb3e86d497db7a6772426fc6bd93d2d0905ddcb7568865eea8ddb93ec576e0",
+          "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "to": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+          "nonce": 154,
+          "status": 1,
+          "gasUsed": "110896",
+          "calldata": "0x71ecc8fb00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+          "decoded": {
+            "method": "updateProtocolSwapFeePercentage",
+            "args": {
+              "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7"
+            }
+          },
+          "events": [
+            {
+              "address": "0x9d18d91254512963415DA3c530B0A367e8329a2b",
+              "index": 0,
+              "topics": [
+                "0xe4d371097beea42453a37406e2aef4c04f3c548f84ac50e72578662c0dcd7354",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000482a1c730008000",
+              "decoded": {
+                "name": "AggregateSwapFeePercentageChanged",
+                "args": {
+                  "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                  "aggregateSwapFeePercentage": "325000000000000000"
+                }
+              }
+            },
+            {
+              "address": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+              "index": 1,
+              "topics": [
+                "0x97cff4b6e6d80e307faab8b730d9f69264e860f2e0e10cfb8cdaf8a2f44e839e",
+                "0x00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000016345785d8a0000",
+              "decoded": {
+                "name": "ProtocolSwapFeePercentageChanged",
+                "args": {
+                  "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+                  "swapFeePercentage": "100000000000000000"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "proposal": null,
+  "action": {
+    "target": "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+    "method": "updateProtocolSwapFeePercentage",
+    "calldata": "0x71ecc8fb00000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7",
+    "actor": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+  },
+  "fees": {
+    "before": {
+      "staticSwapFee": "20000000000000000",
+      "creatorShare": "250000000000000000",
+      "globalProtocolShare": "100000000000000000",
+      "cachedProtocolInfo": [
+        "0",
+        false
+      ],
+      "poolConfig": [
+        [
+          true,
+          false,
+          false,
+          false
+        ],
+        "20000000000000000",
+        "250000000000000000",
+        "0",
+        "0",
+        "1820576020",
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    "after": {
+      "staticSwapFee": "20000000000000000",
+      "creatorShare": "250000000000000000",
+      "globalProtocolShare": "100000000000000000",
+      "cachedProtocolInfo": [
+        "100000000000000000",
+        false
+      ],
+      "poolConfig": [
+        [
+          true,
+          false,
+          false,
+          false
+        ],
+        "20000000000000000",
+        "325000000000000000",
+        "0",
+        "0",
+        "1820576020",
+        true,
+        true,
+        false,
+        false
+      ]
+    }
+  },
+  "protectedState": {
+    "before": {
+      "assets": {
+        "0x276C216D241856199A83bf27b2286659e5b877D3": {
+          "totalSupply": "1000000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "950000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "30000000000000000000",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "20000000000000000000",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": {
+          "totalSupply": "30000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "10000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "20000000000000000000",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": {
+          "totalSupply": "30000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "30000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7": {
+          "totalSupply": "19999999999999599879",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "19999999999998599879",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x5FbDB2315678afecb367f032d93F642f64180aa3": {
+          "totalSupply": "4000000000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "999995373717461117683591",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000004611282538876618488",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "1000000000000000000000000",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "1000000000000000000000000",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "799999999999999",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "11000000003534566",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x873b5750e54339F2429C9581959874EDF887280f": {
+          "totalSupply": "1000000001296963",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "199999999999999",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512": {
+          "totalSupply": "4000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000000000000000000",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "1000000000000000000",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "1000000000000000000",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        }
+      },
+      "poolTokenInfo": [
+        [
+          "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+          "0x276C216D241856199A83bf27b2286659e5b877D3"
+        ],
+        [
+          [
+            "0",
+            "0x0000000000000000000000000000000000000000",
+            false
+          ],
+          [
+            "0",
+            "0x0000000000000000000000000000000000000000",
+            false
+          ]
+        ],
+        [
+          "20000000000000000000",
+          "20000000000000000000"
+        ],
+        [
+          "20000000000000000000",
+          "20000000000000000000"
+        ]
+      ],
+      "roles": [
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb"
+      ],
+      "programs": "0",
+      "reserved": "0",
+      "outcome": "0",
+      "allocation": {
+        "epoch": "1",
+        "split": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+        "recipients": [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "weights": [
+          "4000",
+          "1500",
+          "4500"
+        ]
+      }
+    },
+    "after": {
+      "assets": {
+        "0x276C216D241856199A83bf27b2286659e5b877D3": {
+          "totalSupply": "1000000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "950000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "30000000000000000000",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "20000000000000000000",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44": {
+          "totalSupply": "30000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "10000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "20000000000000000000",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0xD9b3Cab695bE1aBe8160bf0c1F945184A3eE7644": {
+          "totalSupply": "30000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "30000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7": {
+          "totalSupply": "19999999999999599879",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "19999999999998599879",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x5FbDB2315678afecb367f032d93F642f64180aa3": {
+          "totalSupply": "4000000000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "999995373717461117683591",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000004611282538876618488",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "1000000000000000000000000",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "1000000000000000000000000",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "799999999999999",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "11000000003534566",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0x873b5750e54339F2429C9581959874EDF887280f": {
+          "totalSupply": "1000000001296963",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "0",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "0",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "0",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "0",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "199999999999999",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        },
+        "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512": {
+          "totalSupply": "4000000000000000000",
+          "holders": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000",
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": "1000000000000000000",
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": "1000000000000000000",
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": "1000000000000000000",
+            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0": "0",
+            "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6": "0",
+            "0x9d18d91254512963415DA3c530B0A367e8329a2b": "0",
+            "0x525C7063E7C20997BaaE9bDa922159152D0e8417": "0"
+          }
+        }
+      },
+      "poolTokenInfo": [
+        [
+          "0x00ea9551eA331d2c11e3274CbecDCC47C8B35e44",
+          "0x276C216D241856199A83bf27b2286659e5b877D3"
+        ],
+        [
+          [
+            "0",
+            "0x0000000000000000000000000000000000000000",
+            false
+          ],
+          [
+            "0",
+            "0x0000000000000000000000000000000000000000",
+            false
+          ]
+        ],
+        [
+          "20000000000000000000",
+          "20000000000000000000"
+        ],
+        [
+          "20000000000000000000",
+          "20000000000000000000"
+        ]
+      ],
+      "roles": [
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb",
+        "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb"
+      ],
+      "programs": "0",
+      "reserved": "0",
+      "outcome": "0",
+      "allocation": {
+        "epoch": "1",
+        "split": "0xcc6c65C45B141F2064D3f66f872f4744570f022C",
+        "recipients": [
+          "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "weights": [
+          "4000",
+          "1500",
+          "4500"
+        ]
+      }
+    },
+    "unchanged": true
+  },
+  "scope": "Actual explicit browser permissionless original-controller sync after separate Governor global-rate execution; no withdrawal recipient. Historical eth_call only, no collector transaction."
+}

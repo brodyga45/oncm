@@ -40,11 +40,13 @@
 
 ## Что уже проверено изолированно
 
+При заключительном проходе можно после окончания начислений применить к этому же V2-рынку настоящий CI4 proof и разрешить его TRUE **до возврата заблокированного BPT**. Это проверит, что запрет новых swaps не мешает возврату principal после окончания программы. Выплаты наград, возврат BPT, обычный выход из пула и погашение выигравших позиций остаются отдельными действиями. До завершения торговых проверок рынок не разрешать. Реальное разрешение здесь ещё не заявлено выполненным; прежние остановленные deadline/source/payment-действия этот маршрут не повторяет.
+
 [13 meter tests](evidence/monetary-policy/meters-contract-tests.json), [ресурсы](evidence/monetary-policy/meters-test-resources-03.json): оригинальные Balancer Vault/Router/WeightedPool/fee controller и Splits; forgeduserData, arbitrary querysender и unknownrouter; оба fee потока; запрет directDAOwithdraw/authorizer/controller replacement; officialpool/program binding; неизменяемость веса; losingEOAconsent; BPT lock/unlock и ordinary exit послеresolution. Registry/executor здесь явно test fixtures; это не Lean/Governor/browser evidence.
 
 Core RewardBudget отдельно прошёл9 in-process tests с настоящими original Governor/Membership/Timelock: zero genesis, actual votedmint+budget, CAS rollback, reserved balance, earning/claim boundaries, own claims, dust и zero-weight remainder. См. `scripts/test-monetary.mjs` и [публичный отчёт](../evidence/monetary-v2/governor-budget-tests.json); это изолированное, не браузерное evidence.
 
-Для публичной ручной приёмки сохранить выбранный V2 descriptor/version, номера/хеши блоков и TX, decoded events, before/after supply/MEMBER/weights/deposits/credits/reserved, точные assets и epoch. Каждому шагу ставить отдельно **browser passed**, **read-only observed**, **isolated passed** или **pending**. Здесь browser passed подтверждён только для начальной эмиссии307.
+Для публичной ручной приёмки сохранить выбранный V2 descriptor/version, номера/хеши блоков и TX, decoded events, before/after supply/MEMBER/weights/deposits/credits/reserved, точные assets и epoch. Каждому шагу ставить отдельно **browser passed**, **read-only observed**, **isolated passed** или **pending**. Начальная эмиссия307, рынок335/LP343 и fee-политики370/397/424 с cache sync425 уже имеют отдельное браузерное evidence; следующие reward-шаги не объявляются пройденными заранее.
 
 ## Компактный маршрут послеExecute307
 
@@ -61,7 +63,7 @@ Core RewardBudget отдельно прошёл9 in-process tests с насто�
 
 Governor считает **блоки**, программы и Timelock — **Unix seconds**. Для proposal вB приdelay1 snapshot=B+1; в самом snapshot блоке он ещё Pending. Нажать`+1 local block`, перечитать state и при необходимости ещё`+1`, пока именноActive. Затем два действительных MEMBER голоса (проверить фактический quorum), только после них`+10`, Queue; дождаться показанногоETA5s и получить новый блок/refresh передExecute. Не использовать`+10` до голосов и не считать прошедшие5 wallclock секунд новым блоком.
 
-Все fee решения выполнить **до** выбора program windows. Ускоренный локальный fixture: взять timestamp последнего блока`t0`; всем трём программам задать общийstart=`t0+1час`, end=`start+15мин`, claimDeadline=`end+15мин`. Ввести эти значения через обычные localdate поля и проверить показанныеUTC/Unix. Часовой запас позволяет последовательно пройти настоящие три governance lifecycle, не рискуя преждевременно активировать первый бюджет. Перед каждымExecute всё равно проверить`start > latestBlock.timestamp`: SDK не обещает исполнение доstart.
+Все fee решения выполнить **до** выбора program windows. Ускоренный локальный fixture: взять timestamp последнего блока`t0`; всем трём программам задать общийstart=`t0+2часа`, end=`start+15мин`, claimDeadline=`end+15мин`. Ввести эти значения через обычные localdate поля и проверить показанныеUTC/Unix. Двухчасовой запас позволяет последовательно пройти настоящие три governance lifecycle, не рискуя преждевременно активировать первый бюджет. Перед каждымExecute всё равно проверить`start > latestBlock.timestamp`: SDK не обещает исполнение доstart.
 
 После всех трёхExecute тестовый оператор может отдельно вызвать на **том же локальном узле31373** `evm_increaseTime` на положительную разницу дообщегоstart, затем mine одного блока. Это **управление часами тестового fixture**, не browser pass и не способ отправить финансовое действие. Сохранитьbefore/after block hash/number/timestamp, фактический прирост секунд и описание RPC; сравнить supply, token/BPT balances, budget/weights до/после (они не меняются). Перечитать программы в UI и только затем вручнуюstake/buy/sell. Когда эта активная часть и распределение комиссий закончены, таким же записанным переходом получить блок на/послеend; вручную вернутьBPT иполучить две награды. Послеclaims перейти на/послеclaimDeadline и вручнуюзакрыть оставшуюся программу.
 
@@ -81,3 +83,17 @@ Governor считает **блоки**, программы и Timelock — **Uni
 В браузере остаются необходимыми все новые положительные поверхности: ordered funding/discovery, обе торговые формулы, LP stake/unlock, reward claim, fixed-recipient positive close, три fee setters, cache sync существующего пула, оба fee потока в allocation. Можно повторно использовать уже созданный подходящий рынок/пул; нельзя подменить эти действия только isolated evidence.
 
 Forged userData, неизвестный router, arbitrary querysender, прямой governance withdrawal/замена authorizer/controller, подмена official pool, изменение configured binding, CAS rollback, досрочный принудительныйwithdraw, EXACT_OUT exclusion, нулевой бюджетный вес и арифметическийdust уже покрыты13 meter и9 core tests. Создавать для них дополнительные рынки, hostile routers или заведомо отклоняемые browser transactions не нужно. Завершение Lean-рынка и обычный LPexit послеresolution имеют отдельную приёмку; если этот рынок ещё понадобится для торговли, не разрешать его только ради повтора уже проверенной блокировки.
+
+## Исторический сборщик US023
+
+Из standalone папки `implementations/vault`:
+
+```sh
+node --max-old-space-size=128 scripts/capture-monetary-snapshot.mjs --block 370 --out evidence/monetary-policy/snapshot-370.json
+```
+
+Для следующих stake/trade/claim/close выбрать фактический номер блока и новое имя файла. Существующий отчёт не перезаписывается. Сборщик фиксирует наблюдаемый V2 pool `0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7` и statement `0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08`; их контрактная связь проверяется перед чтением. Все `eth_call`/`eth_getCode` ограничены одним явным blockTag; genesis и receipt исходного V2 deploy — отдельные проверки цепи. Latest-only SDK snapshot не используется, переиспользуются установленный ABI и SDK арифметика оригинальных округлений комиссий. RPC allowlist запрещает все методы записи; signer отсутствует.
+
+Отчёт содержит все существующие программы (лимит20, превышение отклоняется), Budget reserved/balance, исходные неизменяемые budgets/windows, реальные weights/claimed/claimable, LP deposits, hook bindings/slots/meters, balances T/YES/NO/BPT для Account0–3/Timelock/Governor и протокольных держателей, Warehouse credits, pool raw reserves и фактические cached/global/creator fees. Единицы и адреса активов не смешиваются. Код и immutable bindings проверяются для выбранного V2; UUID сверяется с локальным chain-instance, genesis timestamp и достоверным deploy receipt. Повторное чтение hash запрошенного блока проверяет стабильность снимка.
+
+[Снимок370](../evidence/monetary-policy/snapshot-370.json) реально собран: supply1000T, программ0/reserved0, raw reserves20YES+20T, swap fee2%, creator20%, global/cached protocol0, все fee accumulators0. Это историческое чтение; оно не утверждает отсутствие последующих транзакций. [Resource report](../evidence/monetary-policy/snapshot-370-resources.json):1.098s, peak116222488B, Node heap128MiB, внешний watchdog256MiB/60s, cleanupErrors[]. Сборщик не исполняет действия в браузере и не выдумывает будущий вес/доход; ветка программ будет фактически прочитана на следующих наблюдаемых блоках после их создания.

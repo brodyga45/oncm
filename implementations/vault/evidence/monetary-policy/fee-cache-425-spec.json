@@ -1,0 +1,12 @@
+{
+  "kind": "sync",
+  "beforeBlock": 424,
+  "afterBlock": 425,
+  "transactionBlocks": [425],
+  "target": "ProtocolFeeController",
+  "method": "updateProtocolSwapFeePercentage",
+  "args": ["0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7"],
+  "expectedBefore": {"staticSwapFee":"20000000000000000","creatorShare":"250000000000000000","globalProtocolShare":"100000000000000000","cachedProtocolInfo":["0",false]},
+  "expectedAfter": {"staticSwapFee":"20000000000000000","creatorShare":"250000000000000000","globalProtocolShare":"100000000000000000","cachedProtocolInfo":["100000000000000000",false]},
+  "output": "evidence/monetary-policy/fee-cache-425.json"
+}

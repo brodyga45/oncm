@@ -1,6 +1,6 @@
 # Governed issuance and finite reward programs — additive V2
 
-Status at block 343: V2 is deployed, the first governed issuance of 1000 T executed at 307, perf05 admission executed at 334, and a genuine registration certificate created the first market at 335. Its first YES/T pool holds 20 T + 20 YES with 50/50 weights and a 1% swap fee. The market is open; reward programs are still zero. Legacy remains independently available with its balances and rights preserved. Later fee changes, reward programs and resolution require their own evidence.
+Status at block 425: V2 has 1000 T issued through governance, an admitted perf05 profile and one market registered with a genuine external certificate. Its first YES/T pool holds 20 T + 20 YES with 50/50 weights. Three separate Governor decisions set the total swap fee to 2%, creator share to 25% and global protocol share to 10%; explicit synchronization applied that global share to the existing pool. The market is open and reward programs are still zero at this checkpoint. Legacy remains independently available with its balances and rights preserved. Trades, reward earning and resolution require their own evidence.
 
 ## Version and ownership
 
@@ -25,6 +25,24 @@ Root then used normal browser controls to approve/split 30 T at 336/337, create 
 At 343, T supply is still 1000, CTF collateral is 30 T, and Alice holds 950 T / 10 YES / 30 NO. The hook `0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0` matches the compiled runtime template and actual registry/coordinator/router/reward/fee-sink bindings. Its volume and eight program slots are zero. No trading, reward earning or resolution is inferred from initialization. [Eight receipts, historical balances and actual pool/hook/fee checks](evidence/monetary-policy/initial-liquidity-336-343.json).
 
 After the catalog API correction, a separate read-only browser check at displayed block 347 showed the admitted perf05 bridge and the selected V2 registry with “Профиль включён”; the wallet was disconnected and no certificate was re-imported. [Exact UI observation](evidence/monetary-policy/catalog-browser-347.json).
+
+## Governed fee policy and explicit existing-pool synchronization
+
+Each policy used the typed monetary panel, actual Timelock `eth_call` review, an ordinary Governor proposal, two separate member votes, queue and execution. No authority impersonation or direct owner call was used.
+
+| Policy | Proposal / votes / queue / execution | Actual result |
+| --- | --- | --- |
+| Pool total swap fee | 344 / 347,348 / 359 / 370 | 1% → 2% through `AllocationControllerV2.setPoolSwapFee` |
+| Creator share | 371 / 374,375 / 386 / 397 | 20% → 25% through `AllocationControllerV2.setCreatorFee` |
+| Global protocol swap share | 398 / 401,402 / 413 / 424 | 0% → 10% through original `ProtocolFeeController.setGlobalProtocolSwapFeePercentage` |
+
+All three proposals reached the original historical quorum of 2 MEMBER with 2 For. Their snapshot/deadline pairs were 345/353, 372/380 and 399/407. Fee income still routes through the existing allocation sink; changing a rate does not transfer beneficiary funds to governance.
+
+The global change at 424 deliberately left this existing pool's cached protocol share at 0%. The UI showed that exact 0% → 10% difference, the original controller address and its permissionless update call before submission. Alice explicitly synchronized it at 425 with transaction `0x26fb3e86d497db7a6772426fc6bd93d2d0905ddcb7568865eea8ddb93ec576e0`. The controller first collects pending fees under previous rates, then updates a non-overridden pool. This initial pool had no trades or pending fee income, and the historical token balances remained equal before/after.
+
+At 425 the original controller reports global 10%, pool cache 10%, override false and creator share 25%; the original Vault reports a 2% total swap fee and aggregate fee share `325000000000000000` (32.5% of swap fees). The creator share applies after the protocol share: 10% + 25% × 90% = 32.5%. This is a measured policy configuration, not evidence of actual earned fee amounts. Pool reserves/BPT, V2 T/YES/NO supplies and tested holders, legacy T/NO holders, MEMBER balances, allocation, roles, program count and market outcome compare unchanged across every step. Native-gas balances are not part of that claim.
+
+The four independent read-only journals contain exact calldata, original events, numbered blocks and state comparisons: [total fee](evidence/monetary-policy/fee-total-344-370.json), [creator share](evidence/monetary-policy/fee-creator-371-397.json), [global share](evidence/monetary-policy/fee-global-398-424.json), [pool cache](evidence/monetary-policy/fee-cache-425.json). [Browser review and action record](evidence/monetary-policy/fee-policy-browser-371-425.json). No program, new issuance, trade or resolution occurred in these cycles.
 
 ## RewardBudget contract
 

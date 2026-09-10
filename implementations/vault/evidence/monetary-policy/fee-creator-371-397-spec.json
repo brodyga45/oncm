@@ -1,0 +1,12 @@
+{
+  "beforeBlock": 370,
+  "afterBlock": 397,
+  "transactionBlocks": [371, 374, 375, 386, 397],
+  "target": "AllocationController",
+  "method": "setCreatorFee",
+  "args": ["0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7", "250000000000000000"],
+  "description": "Vault V2 local test: set official YES/T pool 0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7 creator share from 20% to 25%; preserve beneficiary routing and the 2% total swap fee.",
+  "expectedBefore": {"staticSwapFee":"20000000000000000","creatorShare":"200000000000000000","globalProtocolShare":"0","cachedProtocolInfo":["0",false]},
+  "expectedAfter": {"staticSwapFee":"20000000000000000","creatorShare":"250000000000000000","globalProtocolShare":"0","cachedProtocolInfo":["0",false]},
+  "output": "evidence/monetary-policy/fee-creator-371-397.json"
+}

@@ -1,0 +1,134 @@
+{
+  "mode": "Actual browser prepare-only with independently decoded browser-rendered calldata; no proposal or TX",
+  "tabId": "102825427",
+  "url": "http://127.0.0.1:5173/",
+  "actor": "Account 0 · LP / member",
+  "baseTime": {
+    "block": 370,
+    "timestamp": 1789042048,
+    "startLocal": "2026-09-10 18:07:28",
+    "endLocal": "2026-09-10 18:22:28",
+    "deadlineLocal": "2026-09-10 18:37:28",
+    "timezone": "Asia/Yerevan",
+    "startLeadSeconds": 7200
+  },
+  "pool": "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+  "discovered": {
+    "hook": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+    "statementId": "0x390403d03c5e8c37534c14ee5b1a56b9004da93d40a171ee9ba7ae8d62bbfd08",
+    "observedRuntimeHash": "0x41980e4fb9f74be747f233c96991c30700c8fea2d0f223c7d22d49f552cf3144",
+    "label": "Pinned coordinator creation path and exact immutable links; observed hook hash is not a static fixture pin"
+  },
+  "drafts": [
+    {
+      "kind": "trade",
+      "budgetT": "3",
+      "meter": "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+      "block": 372,
+      "blockHash": "0xd5195d78247f328fa0f51e27b0c3bfd219100af2c45883a4cda128f68e16dd66",
+      "calldatas": [
+        "0x40c10f19000000000000000000000000525c7063e7c20997baae9bda922159152d0e841700000000000000000000000000000000000000000000000029a2241af62c0000",
+        "0x58da1560000000000000000000000000000000000000000000000000000000000000000000000000000000000000000032e0cbe412b5bf260a6337395cbb9ac7a1a3cca0000000000000000000000000000000000000000000000000000000006aa2b9a0000000000000000000000000000000000000000000000000000000006aa2bd24000000000000000000000000000000000000000000000000000000006aa2c0a800000000000000000000000000000000000000000000000029a2241af62c00000000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+        "0x71eb2bf1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f70000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "expectedId": "0",
+      "targets": [
+        "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+        "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0"
+      ],
+      "values": [
+        "0",
+        "0",
+        "0"
+      ],
+      "decoded": [
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+        "3000000000000000000"
+      ],
+      "program": [
+        "0",
+        "0x32e0cbE412b5bF260A6337395CBB9AC7a1a3ccA0",
+        "1789049248",
+        "1789050148",
+        "1789051048",
+        "3000000000000000000",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+      ],
+      "configure": [
+        "0",
+        "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7",
+        "0"
+      ],
+      "calldataHashes": [
+        "0x76ea5fdc43a554ac0d100aecc2c080e918280caacdc3372bd5d3f53b296fd618",
+        "0x30da1ce0c027326606a61400732eb752605b2d7c7ee3dfca0be4673b14e05432",
+        "0x0a1faf957ca6c315e6d0eb352491b41cae1e79f4667cbb481d8ae309aea3ef18"
+      ],
+      "totalSupplyBefore": "1000000000000000000000",
+      "hypotheticalTotalSupplyAfter": "1003000000000000000000"
+    },
+    {
+      "kind": "lp",
+      "budgetT": "2",
+      "meter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+      "block": 373,
+      "blockHash": "0x3e5c7c6d32e7da8ec372f547424e0dd26c80fc2a8fd9526b31cb794ca54c4186",
+      "calldatas": [
+        "0x40c10f19000000000000000000000000525c7063e7c20997baae9bda922159152d0e84170000000000000000000000000000000000000000000000001bc16d674ec80000",
+        "0x58da156000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a810409872afc346f9b5b26571fd6ec42ea4849000000000000000000000000000000000000000000000000000000006aa2b9a0000000000000000000000000000000000000000000000000000000006aa2bd24000000000000000000000000000000000000000000000000000000006aa2c0a80000000000000000000000000000000000000000000000001bc16d674ec800000000000000000000000000009fe46736679d2d9a65f0992f2272de9f3c7fa6e0",
+        "0xc93c737c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000075ba1e7c0ac567f3451d2646f1db5eabc99d07f7"
+      ],
+      "expectedId": "0",
+      "targets": [
+        "0x276C216D241856199A83bf27b2286659e5b877D3",
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+        "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849"
+      ],
+      "values": [
+        "0",
+        "0",
+        "0"
+      ],
+      "decoded": [
+        "0x525C7063E7C20997BaaE9bDa922159152D0e8417",
+        "2000000000000000000"
+      ],
+      "program": [
+        "0",
+        "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849",
+        "1789049248",
+        "1789050148",
+        "1789051048",
+        "2000000000000000000",
+        "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+      ],
+      "configure": [
+        "0",
+        "0x75ba1e7c0AC567f3451D2646f1db5eAbc99d07f7"
+      ],
+      "calldataHashes": [
+        "0xd959424b368f42720e3ebbcb10e5ee3cd38489adf0a9a642f1b5c68be0b6aa06",
+        "0x8ad356b782068db5899a0631bac46df2d3390c17972afcc883fcd03505f7bcc4",
+        "0x18c9cb1c81fa22bd1321662aca54bad224680f484887d003751826fce60f4026"
+      ],
+      "totalSupplyBefore": "1000000000000000000000",
+      "hypotheticalTotalSupplyAfter": "1002000000000000000000"
+    }
+  ],
+  "limitations": [
+    "Both independent alternatives target expectedId0; they are not an executable combined pair. Reprepare the second after creating the first.",
+    "Preparation verifies binding/state and constructs calls; it does not prove complete ordered-batch execution.",
+    "Another agent held the sole mutation slot for fee governance while block numbers advanced."
+  ],
+  "cleanup": {
+    "normalRootLinkReload": true,
+    "walletDisconnected": true,
+    "noPreparedPlan": true,
+    "proposalDisabled": true,
+    "block": 374,
+    "programCount": 0,
+    "rewardsBalance": "0",
+    "reserved": "0"
+  }
+}
