@@ -1,0 +1,148 @@
+{
+  "head": 242,
+  "oldRows": 24,
+  "newRows": 18,
+  "distinctIdentities": 18,
+  "unchangedFingerprints": 65,
+  "jobs": {
+    "Failed": 4,
+    "checked": 2
+  },
+  "policyProving": false,
+  "firstSeenDisplayPreserved": true,
+  "exactBalancesPreserved": true,
+  "activity": {
+    "hash": "0xada7d7a20a0bd3040f6de66ba327e28289b7a1ba0b2623137a14f121ce6201da",
+    "from": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "to": "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
+    "block": 242,
+    "balances": [
+      {
+        "asset": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "actor": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "before": "99999498191344062535437",
+        "after": "100001646594005970693910",
+        "delta": "2148402661908158473"
+      },
+      {
+        "asset": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "actor": "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "actor": "0x51a1ceb83b83f1985a81c295d1ff28afef186e02",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "actor": "0x04c89607413713ec9775e14b954286519d836fef",
+        "before": "40006031921284320265",
+        "after": "50006031921284320265",
+        "delta": "10000000000000000000"
+      },
+      {
+        "asset": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "actor": "0x953e3a35cf894359778e8ab7160ed7d061f23899",
+        "before": "30000000000000000000",
+        "after": "21841991574633766682",
+        "delta": "-8158008425366233318"
+      },
+      {
+        "asset": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+        "actor": "0x0d90773e4e9dd71942d48250694654a94156a1d9",
+        "before": "20000000000000000000",
+        "after": "16009605763458074845",
+        "delta": "-3990394236541925155"
+      },
+      {
+        "asset": "0xB38864ee9Cf4ea5eacCC605B3F01D30535198F00",
+        "actor": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0xB38864ee9Cf4ea5eacCC605B3F01D30535198F00",
+        "actor": "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0xB38864ee9Cf4ea5eacCC605B3F01D30535198F00",
+        "actor": "0x51a1ceb83b83f1985a81c295d1ff28afef186e02",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0xB38864ee9Cf4ea5eacCC605B3F01D30535198F00",
+        "actor": "0x04c89607413713ec9775e14b954286519d836fef",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0xB38864ee9Cf4ea5eacCC605B3F01D30535198F00",
+        "actor": "0x953e3a35cf894359778e8ab7160ed7d061f23899",
+        "before": "26693360026693360027",
+        "after": "36693360026693360027",
+        "delta": "10000000000000000000"
+      },
+      {
+        "asset": "0xB38864ee9Cf4ea5eacCC605B3F01D30535198F00",
+        "actor": "0x0d90773e4e9dd71942d48250694654a94156a1d9",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x9bC82852D10b2D817EA91C9D555141aeDa0C3025",
+        "actor": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x9bC82852D10b2D817EA91C9D555141aeDa0C3025",
+        "actor": "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x9bC82852D10b2D817EA91C9D555141aeDa0C3025",
+        "actor": "0x51a1ceb83b83f1985a81c295d1ff28afef186e02",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x9bC82852D10b2D817EA91C9D555141aeDa0C3025",
+        "actor": "0x04c89607413713ec9775e14b954286519d836fef",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x9bC82852D10b2D817EA91C9D555141aeDa0C3025",
+        "actor": "0x953e3a35cf894359778e8ab7160ed7d061f23899",
+        "before": "0",
+        "after": "0",
+        "delta": "0"
+      },
+      {
+        "asset": "0x9bC82852D10b2D817EA91C9D555141aeDa0C3025",
+        "actor": "0x0d90773e4e9dd71942d48250694654a94156a1d9",
+        "before": "40000000000000000000",
+        "after": "50000000000000000000",
+        "delta": "10000000000000000000"
+      }
+    ]
+  }
+}

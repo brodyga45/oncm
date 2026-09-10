@@ -7,6 +7,7 @@ import {createProofJobs,registerProofRoutes} from "./proof-jobs.mjs";
 import {createProofWorker} from "./proof-worker.mjs";
 import {readProofCatalog, catalogWithChain} from "./proof-catalog.mjs";
 import {validatePublishedPackage} from './package-validation.mjs';
+import {activityBalanceRows} from './activity-balances.mjs';
 import {localEndpoints} from '../sdk/local-endpoints.mjs';
 import {
   JsonRpcProvider,
@@ -536,50 +537,11 @@ app.get("/api/activity/:hash", async (req, res) => {
     tx = await provider.getTransaction(req.params.hash),
     receipt = await provider.getTransactionReceipt(req.params.hash);
   if (!tx || !receipt) return res.sendStatus(404);
-  const actorSet = new Set([tx.from, tx.to].filter(Boolean));
-  for (const l of receipt.logs) {
-    if (
-      l.topics[0] ===
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef" &&
-      l.topics.length === 3
-    ) {
-      for (const topic of l.topics.slice(1))
-        if (!/^0x0+$/.test(topic)) actorSet.add("0x" + topic.slice(-40));
-    }
-  }
-  const actors = [...actorSet];
-  const assets = new Set([deployment.contracts.token]);
-  for (const l of receipt.logs)
-    if (
-      l.topics[0] ===
-      "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
-    )
-      assets.add(l.address);
-  const balances = [];
-  for (const asset of assets)
-    for (const actor of actors) {
-      try {
-        const c = new Contract(asset, abis.TrueToken, provider);
-        balances.push({
-          asset,
-          actor,
-          before:
-            (await provider.getCode(
-              asset,
-              Math.max(0, receipt.blockNumber - 1),
-            )) === "0x"
-              ? "0"
-              : String(
-                  await c.balanceOf(actor, {
-                    blockTag: Math.max(0, receipt.blockNumber - 1),
-                  }),
-                ),
-          after: String(
-            await c.balanceOf(actor, { blockTag: receipt.blockNumber }),
-          ),
-        });
-      } catch {}
-    }
+  const balances = await activityBalanceRows({
+    transaction:tx,receipt,collateral:deployment.contracts.token,
+    hasCode:async(asset,block)=>(await provider.getCode(asset,block))!=='0x',
+    readBalance:(asset,actor,block)=>new Contract(asset,abis.TrueToken,provider).balanceOf(actor,{blockTag:block}),
+  });
   res.json({
     hash: tx.hash,
     from: tx.from,
