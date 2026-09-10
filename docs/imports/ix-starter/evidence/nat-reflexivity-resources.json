@@ -1,0 +1,10 @@
+{
+  "wallSeconds": 2.415,
+  "peakTreeFootprintBytes": 39750200,
+  "memoryLimitBytes": 2147483648,
+  "reason": "guard-error",
+  "exitCode": 126,
+  "accounting": "darwin-phys-footprint",
+  "sampleIntervalSeconds": 0.1,
+  "kernelHardLimit": false
+}

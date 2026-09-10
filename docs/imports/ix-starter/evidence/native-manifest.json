@@ -1,0 +1,32 @@
+{
+  "format": "oncm-lean-kernel-profile-v1",
+  "lean": "4.33.1",
+  "exporterCommit": "15f6055e299ad5b89345e533cc2192f4cc00f659",
+  "checkerCommit": "4c544ed4099c8227f07d5de77ad1e69fb0740a27",
+  "risc0": "3.0.6",
+  "risc0EthereumCommit": "32aa0b6f23ddd02dd93fc71717667606e5c7db86",
+  "imageId": "0x3ba46e4e43724929a3b160c49e75ea89d1ea529f357d8ba07cf55054cb3f2deb",
+  "profileId": "0x190eddca14d88c2af77ea74b7ba257dcb7f9236c1cf7c8002890a992332c485e",
+  "foundationSha256": "7338abad487aca7db9ebd2b30955a777214926d51b61d1dde4369600a147ac87",
+  "binarySha256": "20e864ef80dca02a8ffa3c6eb4f4e2f295c917ed5480289e5c08b7811af9ff3b",
+  "goalDeclaration": "Oncm.goal",
+  "solutionDeclaration": "Oncm.solution",
+  "foundationConstants": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound",
+    "False",
+    "Nat",
+    "Nat.add"
+  ],
+  "maxExportBytes": 16777216,
+  "commitment": "SHA256 of exact goal-export prefix; source is reproducible metadata, not the onchain semantic commitment",
+  "journal": "ABI words: SHA256(ONCM_LEAN_CLAIM_V1), goalHash, profileId, kind (0 registration / 1 proof / 2 refutation)",
+  "adapterVersion": 3,
+  "nativeShortcuts": [
+    "Nat.succ",
+    "Nat.add"
+  ],
+  "nativePolicy": "All other named native Nat operations and eagerReduce shortcuts disabled; checked Lean definitions remain usable.",
+  "axiomPolicy": "Exactly the three axiom declarations embedded in the immutable foundation; no additional axioms. Canonical structural Lean names for target declarations."
+}

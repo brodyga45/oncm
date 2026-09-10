@@ -1,0 +1,13 @@
+{
+  "source": "tools/lean-zk/resource-guard.py",
+  "sha256": "e5b832f5f86f151e986385dfbe3a0dac07621c2c332a5bd2f844b996ec0cb9f3",
+  "previousSha256": "ca3d039a2c0846c82580051cddf227210860cf59319fa5dfa077db4d5f2e62ac",
+  "sourceBytes": 16939,
+  "review": "independent review approved; coordinated with markets_research",
+  "validation": "resource-guard-lifecycle-validation.json",
+  "validationSha256": "05d5a2589df0cf80877172eac8644c892adce757cb6297affe57fb82169d6a50",
+  "existingSyntheticTestsPassed": 12,
+  "copyValidation": "exact-byte equality and Python AST parse",
+  "rerun": false,
+  "notes": "No runtime cross-app import; no native or prover rerun. Policy untouched."
+}

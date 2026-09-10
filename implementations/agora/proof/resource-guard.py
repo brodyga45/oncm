@@ -26,10 +26,75 @@ class DarwinUsage(ctypes.Structure):
             'wired', 'resident', 'footprint', 'started', 'exited')]
 
 
+class DarwinProcess(ctypes.Structure):
+    # proc_bsdshortinfo (public Apple SDK sys/proc_info.h). Unlike full BSDINFO,
+    # SHORTBSDINFO does not require the target process to have our effective UID.
+    _fields_ = [(name, ctypes.c_uint32) for name in ('pid', 'ppid', 'pgid', 'status')] + [
+        ('name', ctypes.c_char * 16)] + [(name, ctypes.c_uint32) for name in (
+            'flags', 'uid', 'gid', 'ruid', 'rgid', 'svuid', 'svgid', 'reserved')]
+
+
+class DarwinIdentity(ctypes.Structure):
+    # Public SDK proc_bsdinfo: 136 bytes. Start time is independent of footprint
+    # accounting, allowing cleanup after a same-user proc_pid_rusage failure.
+    _fields_ = [(name, ctypes.c_uint32) for name in (
+        'flags', 'status', 'exit_status', 'pid', 'ppid', 'uid', 'gid', 'ruid',
+        'rgid', 'svuid', 'svgid', 'reserved')] + [
+        ('comm', ctypes.c_char * 16), ('name', ctypes.c_char * 32)] + [
+        (name, ctypes.c_uint32) for name in ('nfiles', 'pgid', 'jobc', 'tdev', 'tpgid')] + [
+        ('nice', ctypes.c_int32), ('start_seconds', ctypes.c_uint64),
+        ('start_microseconds', ctypes.c_uint64)]
+
+
+class AccountingError(OSError):
+    def __init__(self, code, pid, metadata=None):
+        self.diagnostic = {'operation': 'proc_pid_rusage', 'errno': code, 'pid': pid,
+                           **(metadata or {})}
+        super().__init__(code, 'Cannot account for worker: ' + json.dumps(self.diagnostic))
+
+
 if sys.platform == 'darwin':
     libproc = ctypes.CDLL('/usr/lib/libproc.dylib', use_errno=True)
     libproc.proc_pid_rusage.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p]
     libproc.proc_pid_rusage.restype = ctypes.c_int
+    libproc.proc_listallpids.argtypes = [ctypes.c_void_p, ctypes.c_int]
+    libproc.proc_listallpids.restype = ctypes.c_int
+    libproc.proc_pidinfo.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_uint64,
+                                   ctypes.c_void_p, ctypes.c_int]
+    libproc.proc_pidinfo.restype = ctypes.c_int
+
+
+def process_info(pid):
+    result = DarwinProcess()
+    ctypes.set_errno(0)
+    # arg=1 includes zombies, so callers explicitly distinguish exited workers.
+    size = libproc.proc_pidinfo(pid, 13, 1, ctypes.byref(result), ctypes.sizeof(result))
+    if size != ctypes.sizeof(result):
+        code = ctypes.get_errno()
+        if code == errno.ESRCH:
+            return None
+        raise OSError(code or errno.EIO, f'Cannot inspect process PID {pid}: received {size} bytes')
+    if result.pid != pid:
+        raise RuntimeError(f'Process inventory PID mismatch: {pid}/{result.pid}')
+    return {'pid': pid, 'ppid': result.ppid, 'pgid': result.pgid, 'status': result.status,
+            'uid': result.uid, 'ruid': result.ruid,
+            'name': bytes(result.name).decode('utf-8', 'replace')}
+
+
+def process_identity(pid):
+    result = DarwinIdentity()
+    ctypes.set_errno(0)
+    size = libproc.proc_pidinfo(pid, 3, 1, ctypes.byref(result), ctypes.sizeof(result))
+    if size != ctypes.sizeof(result):
+        code = ctypes.get_errno()
+        if code == errno.ESRCH:
+            return None
+        raise OSError(code or errno.EIO, f'Cannot identify worker PID {pid}: received {size} bytes')
+    if result.pid != pid:
+        raise RuntimeError(f'Worker identity PID mismatch: {pid}/{result.pid}')
+    if result.status == 5:
+        return None
+    return result.start_seconds, result.start_microseconds
 
 
 def usage(pid):
@@ -43,21 +108,51 @@ def usage(pid):
         # macOS can also return EPERM while a process is exiting. Only ignore
         # failed accounting after a fresh inventory confirms it is gone (or a
         # zombie). A live process with unavailable accounting still fails closed.
-        if pid not in processes():
+        metadata = process_info(pid)
+        if metadata is None or metadata['status'] == 5:  # SZOMB
             return None
-        raise OSError(code, f'Cannot account for worker PID {pid}')
+        raise AccountingError(code, pid, metadata)
     return result.footprint, result.started
 
 
 def processes():
-    result = subprocess.run(['/bin/ps', '-axo', 'pid=,ppid=,pgid=,stat='],
-                            check=True, capture_output=True, text=True, timeout=2)
+    # Do not spawn ps: on macOS it is setuid root and an enclosing guard can
+    # legitimately refuse its footprint. In-process inventory avoids that child.
+    ctypes.set_errno(0)
+    count = libproc.proc_listallpids(None, 0)
+    if count <= 0:
+        raise OSError(ctypes.get_errno() or errno.EIO, 'Cannot size process inventory')
+    capacity = max(count + 256, count * 2)
+    for attempt in range(4):
+        if capacity > 1048576:
+            raise RuntimeError('Process inventory exceeds bounded capacity')
+        buffer = (ctypes.c_int * capacity)()
+        ctypes.set_errno(0)
+        count = libproc.proc_listallpids(buffer, ctypes.sizeof(buffer))
+        if count <= 0:
+            raise OSError(ctypes.get_errno() or errno.EIO, 'Cannot list processes')
+        if count < capacity:
+            break
+        capacity *= 2
+    else:
+        raise RuntimeError('Process inventory repeatedly truncated')
     table = {}
-    for row in result.stdout.splitlines():
-        pid, parent, group, state = row.split()
-        if not state.startswith('Z'):  # A zombie has exited; it cannot compute.
-            table[int(pid)] = (int(parent), int(group))
+    for pid in buffer[:count]:
+        if pid <= 0:
+            continue
+        metadata = process_info(pid)
+        if metadata is not None and metadata['status'] != 5:
+            table[pid] = (metadata['ppid'], metadata['pgid'])
     return table
+
+
+def descendants(seeds, table):
+    selected = set(seeds)
+    while True:
+        expanded = selected | {pid for pid, (ppid, _) in table.items() if ppid in selected}
+        if expanded == selected:
+            return selected
+        selected = expanded
 
 
 def main():
@@ -85,53 +180,106 @@ def main():
     held_lock = None
     interrupted = []
     leader_finished_at = None
+    failure = None
+    cleanup_errors = []
     for sig in (signal.SIGTERM, signal.SIGINT):
         signal.signal(sig, lambda signum, frame: interrupted.append(signum))
 
     def stop_tree():
         if child is None:
             return
+        def remember(error, operation, pid=None):
+            if len(cleanup_errors) < 32:
+                cleanup_errors.append({'operation': operation, 'pid': pid,
+                    'errno': getattr(error, 'errno', None), 'message': str(error)[:1024]})
         for sig in (signal.SIGTERM, signal.SIGKILL):
-            child.poll()  # Reap the leader before signalling a departed group.
-            table = processes()
-            group_alive = any(group == child.pid for _, group in table.values())
-            targets = []
+            # Do not reap before collecting the original group: even a zombie
+            # leader pins its PID until wait/poll, anchoring fast-spawned children.
+            leader_unreaped = child.returncode is None
+            try:
+                table = processes()
+            except Exception as error:
+                remember(error, 'cleanup-inventory')
+                table = {}
+            # A live, unreaped leader cannot have its PID reused. Even if memory
+            # accounting/inventory fails, still attempt to stop its own group.
+            groups = {child.pid} if leader_unreaped else set()
+            targets = {}
             for pid, started in list(known.items()):
-                if pid in table:
-                    current = usage(pid)
-                    if current and current[1] == started:
-                        targets.append(pid)
-            if not group_alive and not targets:
+                try:
+                    if process_identity(pid) == started:
+                        targets[pid] = started
+                except Exception as error:
+                    remember(error, 'cleanup-identity', pid)
+            # Include separately grouped descendants while their ancestry is
+            # still established, even when one of them cannot be accounted for.
+            seeds = set(targets) | ({child.pid} if leader_unreaped else set())
+            if leader_unreaped:
+                seeds.update(pid for pid, (_, pgid) in table.items() if pgid == child.pid)
+            selected = descendants(seeds, table)
+            for pid in selected.intersection(table) - set(targets):
+                try:
+                    identity = process_identity(pid)
+                    # Never replace an already known PID's identity after reuse.
+                    if identity and (pid not in known or known[pid] == identity):
+                        targets[pid] = known[pid] = identity
+                except Exception as error:
+                    remember(error, 'cleanup-identity', pid)
+            groups.update(table[pid][1] for pid in targets if pid in table)
+            if not groups and not targets:
                 return
-            if group_alive:
+            for group in groups:
                 try:
-                    os.killpg(child.pid, sig)
+                    # After reap, a numeric PGID alone is not ownership. Require
+                    # an independently identified live member in that same group.
+                    owned = group == child.pid and child.returncode is None
+                    if not owned:
+                        for pid, identity in targets.items():
+                            metadata = process_info(pid)
+                            if metadata and metadata['pgid'] == group and process_identity(pid) == identity:
+                                owned = True
+                                break
+                    if owned:
+                        os.killpg(group, sig)
                 except ProcessLookupError:
                     pass
-                except PermissionError:
-                    # Like proc_pid_rusage, killpg may report EPERM when the
-                    # last members have just exited. Never suppress denial for
-                    # a group which still contains a live process.
-                    if any(group == child.pid for _, group in processes().values()):
-                        raise
-            for pid in targets:
+                except PermissionError as error:
+                    try:
+                        if any(pgid == group for _, pgid in processes().values()):
+                            remember(error, 'killpg', group)
+                    except Exception as inspection_error:
+                        remember(error, 'killpg', group)
+                        remember(inspection_error, 'cleanup-inventory')
+                except OSError as error:
+                    # Continue the other cleanup attempts; never let a failed
+                    # diagnostic or individual signal abort the kill pass.
+                    remember(error, 'killpg', group)
+            for pid, identity in targets.items():
                 try:
-                    os.kill(pid, sig)
+                    if process_identity(pid) == identity:
+                        os.kill(pid, sig)
                 except ProcessLookupError:
                     pass
-                except PermissionError:
-                    if pid in processes():
-                        raise
+                except PermissionError as error:
+                    try:
+                        if process_identity(pid) == identity:
+                            remember(error, 'kill', pid)
+                    except Exception as inspection_error:
+                        remember(error, 'kill', pid)
+                        remember(inspection_error, 'cleanup-identity', pid)
+                except OSError as error:
+                    remember(error, 'kill', pid)
             if sig == signal.SIGTERM:
                 time.sleep(0.2)
         try:
             child.wait(timeout=2)
-        except subprocess.TimeoutExpired:
-            pass
+        except subprocess.TimeoutExpired as error:
+            remember(error, 'cleanup-wait', child.pid)
 
     try:
         # Verify both accounting and process inventory before starting work.
         usage(os.getpid())
+        process_identity(os.getpid())
         processes()
         if args.lock_file:
             lock_path = Path(args.lock_file)
@@ -147,25 +295,26 @@ def main():
         child = subprocess.Popen(command, env=env, start_new_session=True)
         while True:
             table = processes()
-            selected = {child.pid}
-            selected.update(pid for pid, (_, pgid) in table.items() if pgid == child.pid)
-            # Include descendants even when a worker creates a separate group.
-            while True:
-                expanded = selected | {pid for pid, (ppid, _) in table.items() if ppid in selected}
-                if expanded == selected:
-                    break
-                selected = expanded
+            leader_unreaped = child.returncode is None
+            selected = {child.pid} if leader_unreaped else set()
             for pid, started in list(known.items()):
-                if pid in table:
-                    current = usage(pid)
-                    if current and current[1] == started:
-                        selected.add(pid)
+                if pid in table and process_identity(pid) == started:
+                    selected.add(pid)
+            # A group is included only while an owned live identity anchors it.
+            groups = {table[pid][1] for pid in selected if pid in table}
+            if leader_unreaped:
+                groups.add(child.pid)
+            selected.update(pid for pid, (_, pgid) in table.items() if pgid in groups)
+            selected = descendants(selected, table)
             current_bytes = usage(os.getpid())[0]
             for pid in selected:
+                identity = process_identity(pid)
+                if identity is None or (pid in known and known[pid] != identity):
+                    continue
+                known[pid] = identity
                 current = usage(pid)
                 if current:
                     current_bytes += current[0]
-                    known[pid] = current[1]
             peak = max(peak, current_bytes)
             if current_bytes > args.memory_mib * 1024 * 1024:
                 reason, code = 'memory-limit', 125
@@ -196,15 +345,22 @@ def main():
             time.sleep(0.1)
     except Exception as error:
         reason, code = 'guard-error', 126
+        failure = getattr(error, 'diagnostic', {'operation': 'guard',
+            'errno': getattr(error, 'errno', None), 'message': str(error)[:1024]})
         print(f'Resource guard failed: {error}', file=sys.stderr)
     finally:
         try:
             stop_tree()
         finally:
+            if cleanup_errors and code == 0:
+                reason, code = 'cleanup-error', 126
             report = {'wallSeconds': round(time.monotonic() - began, 3),
                       'peakTreeFootprintBytes': peak, 'memoryLimitBytes': args.memory_mib * 1024 * 1024,
                       'reason': reason, 'exitCode': code, 'accounting': 'darwin-phys-footprint',
-                      'sampleIntervalSeconds': 0.1, 'kernelHardLimit': False}
+                      'sampleIntervalSeconds': 0.1, 'kernelHardLimit': False,
+                      'inventory': 'darwin-libproc-in-process', 'failure': failure,
+                      'identity': 'darwin-bsd-start-time',
+                      'cleanupErrors': cleanup_errors}
             report_path.write_text(json.dumps(report, indent=2) + '\n')
             if held_lock:
                 held_lock.close()
