@@ -313,7 +313,8 @@
     if (p) poolAddress = p.address;
     await go('detail');
   }
-  async function job(action) {
+  async function checkLean() {
+    const action = 'check';
     const capturedEpoch = proofEpoch, owner = account;
     const submitted = await tx('Lean / ' + action, async () => {
       const j = await api('/jobs', {
@@ -321,9 +322,7 @@
         body: JSON.stringify({
           action,
           source,
-          statementId: action === 'prove' ? sid || undefined : undefined,
-          goalHash: action === 'prove' ? statement?.goalHash : undefined,
-          profileId: action === 'prove' ? statement?.profileId : config.proof.profileId,
+          profileId: config.proof.profileId,
           outcome: Number(outcome),
           fixtureId: fixtureId || undefined,
           targetDeclaration: declaration || undefined,
@@ -947,8 +946,8 @@
             <span>∴</span>
             <h3>Первое утверждение — начало рынка</h3>
             <p>
-              Импортируйте опубликованный Lean challenge, получите сертификат регистрации и создайте
-              настоящий рынок.
+              Импортируйте Lean challenge и подготовленный вне сайта сертификат регистрации,
+              проверьте его и создайте рынок.
             </p>
             <button class="secondary" onclick={() => go('lab')}>Начать в Lean Lab ↗</button>
           </div>{:else}<div class="research-grid">
@@ -1207,7 +1206,8 @@
             >
           </div>
           <p>Комментарии находятся вне блокчейна и не меняют критерий разрешения.</p>
-          {#each comments as c}<div class="comment" class:reply={c.parentId}>
+          {#each comments as c (c.id)}<div class="comment" class:reply={(c.depth ?? 0) > 0}
+              style={`--comment-depth: ${Math.min(c.depth ?? 0, 6)}`}>
               <div>
                 <button class="profile-link" onclick={() => openProfile(c.author)}
                   >{c.profile?.displayName || short(c.author)}</button
@@ -1222,7 +1222,10 @@
                   >{/if}
               </div>
               <p>
-                {#if c.parentId}<span class="reply-label">↳ Ответ: {short(c.parentId, 8)}</span
+                {#if c.parentId}<span class="reply-label">↳ Ответ: {short(c.parentId, 8)}
+                    {#if c.threadFallback === 'missing-parent'} · исходный комментарий недоступен
+                    {:else if c.threadFallback === 'cycle'} · цикл старой ветки; показано с начала
+                    {/if}</span
                   >{/if}{c.text}
               </p>
               <div class="comment-actions">
@@ -1536,7 +1539,7 @@
               >Сертификат регистрации<textarea
                 class="code-input"
                 bind:value={registrationCertificate}
-                placeholder="Получите его в Lean Lab"
+                placeholder="Вставьте готовый сертификат или загрузите verified.json в Lean Lab"
               ></textarea></label
             ><button
               class="primary full"
@@ -1563,8 +1566,8 @@
               <li>
                 <b>02</b>
                 <div>
-                  <strong>Проверить и получить сертификат</strong><span
-                    >Реальный runner, без admin resolve.</span
+                  <strong>Проверить внешний сертификат</strong><span
+                    >Подготовьте его вне сайта и загрузите в Lean Lab.</span
                   >
                 </div>
               </li>
@@ -1578,7 +1581,7 @@
               </li>
             </ol>
             <button class="secondary full" onclick={() => go('lab')}
-              >Подготовить в Lean Lab ↗</button
+              >Импортировать сертификат в Lean Lab ↗</button
             >{#if statement}<div class="divider"></div>
               <button class="text-button" onclick={() => select(statement)}
                 >Перейти к созданному утверждению ↗</button
@@ -1590,9 +1593,9 @@
           <div>
             <div class="eyebrow">REPRODUCIBLE MATHEMATICS</div>
             <h1>Lean Lab</h1>
-            <p>Источник → проверка окружения → сертификат → разрешение ончейн.</p>
+            <p>Проверка Lean и импорт готовых сертификатов для действий ончейн.</p>
           </div>
-          <span class="pill">{config?.proof?.status || 'runner loading'}</span>
+          <span class="pill">Native Lean check · внешний сертификат</span>
         </section>
         <ExternalCertificate {sdk} onuse={useExternalCertificate} onproposal={proposeExternalProfile} />
         <div class="two-columns lab-layout">
@@ -1621,22 +1624,22 @@
               /></label
             >
             <div class="button-row">
-              <button class="secondary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={() => job('check')}
+              <button class="secondary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={checkLean}
                 >Проверить Lean</button
-              ><button class="primary" disabled={busy || proofBusy || profileId !== config.proof.profileId} onclick={() => job('register')}
-                >Сертификат регистрации</button
               >
             </div>
             {#if profileId !== config.proof.profileId}<p class="footnote">Выбран отдельный профиль {profileId}.
               Локальный runner настроен на v3; используйте импорт соответствующего внешнего сертификата выше.</p>{/if}
             <p class="footnote">
-              Задача выполняется в фоне. Источник и результаты очереди видны только вашему кошельку;
+              Проверка Lean выполняется в фоне и не создаёт ZK-сертификат. Источник и результаты очереди видны только вашему кошельку;
               опубликованный on-chain сертификат публичен. Профиль проверяет цель Oncm.goal и
               доказательство Oncm.solution. Декларацию импортированного пакета нужно связать с ними
               в Lean source.
             </p>
-            <p class="footnote">Одна задача за раз; до 4 задач на кошелёк и 16 всего, включая выполняемую.
-              Лимиты: проверка 5 с, регистрация 30 с, доказательство 120 с; память 2 GiB.</p>
+            <p class="footnote">Сертификаты регистрации и исхода подготовьте вне сайта, затем загрузите и проверьте выше.
+              Сайт не запускает и не заказывает их вычисление.</p>
+            <p class="footnote">Проверка Lean: до 5 с и 2 GiB. Одна задача за раз;
+              до 4 задач на кошелёк и 16 всего, включая выполняемую.</p>
             <button class="text-button" onclick={() => go('create')}
               >Продолжить регистрацию ↗</button
             >{#if latestJob}<div class="job-result">
@@ -1655,7 +1658,7 @@
           </article>
           <div>
             <article class="panel">
-              <h2>Доказательство исхода</h2>
+              <h2>Применить готовый сертификат исхода</h2>
               <label
                 >Утверждение<select
                   value={sid} disabled={busy}
@@ -1673,14 +1676,10 @@
                     >{/each}</select
                 ></label
               ><label
-                >Доказать<select value={outcome} disabled={busy}
+                >Подтверждённый исход<select value={outcome} disabled={busy}
                   onchange={event => { clearProofCertificate(); outcome = event.currentTarget.value; }}
                   ><option value="1">P → True</option><option value="2">¬P → False</option></select
                 ></label
-              ><button
-                class="primary full"
-                disabled={busy || proofBusy || !sid || statement?.profileId !== config.proof.profileId}
-                onclick={() => job('prove')}>Запустить Lean + zk proof</button
               ><label
                 >Сертификат исхода<textarea
                   class="code-input"
@@ -1691,7 +1690,7 @@
               ><button
                 class="secondary full"
                 disabled={busy || !proofReady}
-                onclick={submitOutcomeProof}>Отправить proof ончейн ↗</button
+                onclick={submitOutcomeProof}>Разрешить по сертификату ончейн ↗</button
               >
               {#if certificate && !proofReady}<p class="footnote">Journal сертификата должен точно совпадать с открытым утверждением, профилем и исходом. Проверка кодировки не заменяет криптографическую проверку EVM.</p>{/if}
             </article>
@@ -1736,7 +1735,7 @@
         </div>
         <article class="panel">
           <h2>История задач</h2>
-          {#if !jobs.length}<p>Задачи появятся после первого запуска.</p>{/if}{#each jobs
+          {#if !jobs.length}<p>Здесь появятся проверки Lean. Ранее сохранённые задачи остаются в истории.</p>{/if}{#each jobs
             .slice()
             .reverse() as j}<button
               class="job-row"

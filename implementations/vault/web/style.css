@@ -1594,7 +1594,7 @@ dd {
   font-size: 11px;
 }
 .comment.reply {
-  margin-left: 24px;
+  margin-left: calc(24px * var(--comment-depth, 1));
   border-left: 2px solid #dce9e7;
   padding-left: 18px;
 }

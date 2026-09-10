@@ -39,7 +39,7 @@ export function community(db, save = () => {}) {
     return profile(actor);
   }
   function list(statementId, sort = 'top') {
-    return db.comments
+    const ordered = db.comments
       .filter((c) => !statementId || c.statementId === statementId)
       .map(decorate)
       .sort(
@@ -48,6 +48,50 @@ export function community(db, save = () => {}) {
           b.createdAt.localeCompare(a.createdAt) ||
           a.id.localeCompare(b.id),
       );
+    // Public cross-statement activity keeps its existing flat ordering.
+    if (!statementId) return ordered;
+    const byId = new Map(ordered.map((c) => [c.id, c]));
+    const parents = new Map(), fallback = new Map();
+    for (const c of ordered) {
+      const validParent = c.parentId && byId.has(c.parentId);
+      parents.set(c.id, validParent ? c.parentId : null);
+      if (c.parentId && !validParent) fallback.set(c.id, 'missing-parent');
+    }
+    // Historical data can contain cycles. Break one deterministic edge per
+    // cycle in the view only; retain every original parentId and stored row.
+    const finished = new Set();
+    for (const c of ordered) {
+      const trail = [], positions = new Map();
+      let id = c.id;
+      while (id !== null && !finished.has(id) && !positions.has(id)) {
+        positions.set(id, trail.length);trail.push(id);id = parents.get(id);
+      }
+      if (positions.has(id)) {
+        const root = trail.slice(positions.get(id)).sort()[0];
+        parents.set(root, null);fallback.set(root, 'cycle');
+      }
+      for (const visited of trail) finished.add(visited);
+    }
+    const children = new Map(), roots = [];
+    for (const c of ordered) {
+      const parent = parents.get(c.id);
+      if (parent === null) roots.push(c);
+      else {
+        if (!children.has(parent)) children.set(parent, []);
+        children.get(parent).push(c);
+      }
+    }
+    // Root order already reflects Top/New. Reply votes cannot move a branch.
+    for (const replies of children.values()) replies.sort((a, b) =>
+      a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id));
+    const result = [], stack = roots.slice().reverse().map((c) => ({ c, depth: 0, root: c.id }));
+    while (stack.length) {
+      const { c, depth, root } = stack.pop();
+      result.push({ ...c, depth, threadRootId: root, threadParentId: parents.get(c.id), threadFallback: fallback.get(c.id) ?? null });
+      const replies = children.get(c.id) ?? [];
+      for (let i = replies.length - 1; i >= 0; i--) stack.push({ c: replies[i], depth: depth + 1, root });
+    }
+    return result;
   }
   function create(actor, input) {
     address(actor);

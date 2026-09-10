@@ -24,6 +24,8 @@ Choose an injected EIP-1193 wallet or **Devnet · Alice/Bob/Carol**. Devnet keys
 
 Connect is sufficient for onchain actions. Opening your address profile and choosing **Sign in** signs a SIWE message for profile/discussion writes; this does not approve spending. Profiles always display the underlying Ethereum address.
 
+Injected account/network/disconnect events clear private forms and sign-in and require an explicit reconnect. **Log out of SIWE** revokes the server session and clears private drafts while retaining the connected wallet. Late sign-in, proof-import and SDK continuations cannot restore an earlier wallet session. Already submitted transactions remain onchain; logout does not cancel them.
+
 ## Core workflow
 
 1. **Create market:** upload Lean source/portable JSON or load the published `Nat.add_comm` package. Inspect the exact goal/profile. Run registration and wait for a genuine GoalWellFormed certificate. Sign the registry transaction; CTF, both canonical wrappers and two V2 pairs are created atomically.
@@ -40,6 +42,8 @@ An unresolved proposition is never automatically false. Built-in derived stateme
 Delegate liquid T first. T already escrowed in CTF or pools does not give the original owner direct voting power. Governor uses one-block voting delay, 12-block voting period, 4% quorum and a 10-second Timelock. These short parameters are for local demonstration. The page provides explicit local block/time advancement controls.
 
 Governance proposals expose exact targets/calldata. Register a new proof profile or statement operator; retire new registration or disable resolution separately. Existing verifier/adapter addresses cannot be overwritten. Migration uses new IDs and explicit new markets. Governance never directly writes a mathematical payout.
+
+The page now reads a single-block original Governor snapshot with exact ordered call values, ETA, quorum, historical wallet weight and `hasVoted`. Buttons show stage/permission/preflight refusals and recheck before requesting a transaction. Current delegated T differs from historical voting power. Use **Mine 1 block** to enter Active; a14-block jump can skip the entire voting window. SDK `governanceSnapshot(address)` exposes the same review. These new UI controls have targeted tests and a bounded successful build; their browser retest is recorded separately in `VALIDATION.md`.
 
 When `proof/deployment.json` supplies a new immutable profile, `node scripts/install-profile.mjs` performs a local governance installation: deploy bridge, delegate local T, propose, vote, queue, advance the local Timelock, and execute. It preserves existing contract addresses and historical records, retires registration under the previous default profile, and records real receipts in `data/profile-installation.json`. It is restricted to RPC 9546 / chain 31372 and cannot install an already registered ID.
 

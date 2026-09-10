@@ -16,6 +16,9 @@ import {
 import { SiweMessage } from "siwe";
 import { ExchangeSDK, fixtureForCertificate } from "../sdk/index.mjs";
 import { createProofImportGuard } from "./proof-import-state.mjs";
+import { publishedChoices, loadPublishedCertificate, assertWebJobAction } from "./published-certificates.mjs";
+import { assertCertificateClaim, certificateClaimMatches } from "../sdk/proof-import.mjs";
+import { createWalletLifecycle, authenticateWallet } from "./wallet-lifecycle.mjs";
 import abis from "./generated/abis.json";
 import "./style.css";
 const API = "http://127.0.0.1:4172",
@@ -94,6 +97,10 @@ function Field({
   );
 }
 function App() {
+  const lifecycle = useRef(createWalletLifecycle()).current;
+  const sessionRef = useRef(null), connectionRef = useRef(null);
+  const [walletEpoch, setWalletEpoch] = useState(0);
+  const renderTicket = lifecycle.ticket();
   const [deployment, setDeployment] = useState(null),
     [provider, setProvider] = useState(() => new JsonRpcProvider(RPC)),
     [signer, setSigner] = useState(null),
@@ -113,21 +120,23 @@ function App() {
     [draft, setDraft] = useState(null),
     [profileAddress, setProfileAddress] = useState(""),
     [inspectHash, setInspectHash] = useState("");
-  const sdk = useMemo(
-    () =>
-      deployment
-        ? new ExchangeSDK(provider, signer, deployment, abis, (t) => {
-            setTransactions((x) => [t, ...x].slice(0, 40));
-            setToast(t.label + " · " + t.status + " · " + short(t.hash));
-          })
-        : null,
-    [provider, signer, deployment],
-  );
+  sessionRef.current = session;
+  const sdk = useMemo(() => {
+    if (!deployment) return null;
+    const ticket = lifecycle.ticket();
+    const client = new ExchangeSDK(provider, signer, deployment, abis, (t) => {
+      if (!lifecycle.current(ticket)) return;
+      setTransactions((x) => [t, ...x].slice(0, 40));
+      setToast(t.label + " · " + t.status + " · " + short(t.hash));
+    });
+    client.assertCurrent = () => lifecycle.assert(ticket);
+    return client;
+  }, [provider, signer, deployment, walletEpoch]);
   const selectedMarket = markets.find((m) => m.id === selected) || markets[0];
   async function refresh() {
     try {
       const d = await api("deployment");
-      setDeployment(d);
+      setDeployment(previous => JSON.stringify(previous) === JSON.stringify(d) ? previous : d);
       const r = await api("markets");
       setMarkets(r.markets);
       setBlock(r.observedBlock);
@@ -140,99 +149,107 @@ function App() {
     const id = setInterval(refresh, 8000);
     return () => clearInterval(id);
   }, []);
+  const revokeSession = token => api("auth/logout", {}, token);
+  function clearIdentity({ keepWallet = false, reason = "" } = {}) {
+    const oldSession = sessionRef.current, connection = connectionRef.current;
+    const ticket = lifecycle.invalidate();
+    sessionRef.current = null;
+    setWalletEpoch(ticket);
+    setSession(null); setDraft(null); setModal(false); setProfileAddress("");
+    setTransactions([]); setBusy(""); setToast(""); setError(reason);
+    if (keepWallet && connection) lifecycle.activate(ticket, connection.choice);
+    else {
+      connectionRef.current = null;
+      setAccount(""); setSigner(null); setAddress(""); setProvider(new JsonRpcProvider(RPC));
+    }
+    if (oldSession?.token) revokeSession(oldSession.token).catch(() => {
+      if (lifecycle.current(ticket)) setError("Local session cleared; server logout could not be confirmed. Retry sign-in when the API is available.");
+    });
+    return ticket;
+  }
+  useEffect(() => lifecycle.listen(window.ethereum, event => {
+    clearIdentity({ reason: `Browser wallet ${event}. Private forms and sign-in were cleared; reconnect explicitly.` });
+  }), []);
   async function run(label, fn, successMessage) {
-    setBusy(label);
-    setError("");
-    setToast("");
+    const ticket = renderTicket;
+    if (!lifecycle.current(ticket)) return null;
+    setBusy(label); setError(""); setToast("");
     try {
       const r = await fn();
+      if (!lifecycle.current(ticket)) return null;
       setToast(successMessage || label + " complete");
       await refresh();
       return r;
     } catch (e) {
-      if (e.status === 401) setSession(null);
-      setError(e.shortMessage || e.reason || e.message || String(e));
+      if (!lifecycle.current(ticket)) return null;
+      if (e.status === 401) clearIdentity({ keepWallet: true, reason: "Session expired. Sign in again." });
+      else setError(e.shortMessage || e.reason || e.message || String(e));
       return null;
     } finally {
-      setBusy("");
+      if (lifecycle.current(ticket)) setBusy("");
     }
   }
   async function connect(choice) {
-    setSession(null);
-    setTransactions([]);
-    if (choice === "") {
-      setAccount("");
-      setSigner(null);
-      setAddress("");
-      setProvider(new JsonRpcProvider(RPC));
-      return;
-    }
-    if (choice === "injected") {
-      if (!window.ethereum) throw Error("No EIP-1193 wallet installed");
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      try {
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x7a8c" }],
-        });
-      } catch (e) {
-        if (e.code !== 4902) throw e;
-        await window.ethereum.request({
-          method: "wallet_addEthereumChain",
-          params: [
-            {
-              chainId: "0x7a8c",
-              chainName: "Exchange Local",
-              rpcUrls: [RPC],
-              nativeCurrency: { name: "Test ETH", symbol: "ETH", decimals: 18 },
-            },
-          ],
-        });
+    const ticket = clearIdentity();
+    if (!choice) return;
+    setBusy("Connect wallet");
+    try {
+      let p, s, connectedAddress;
+      if (choice === "injected") {
+        if (!window.ethereum) throw Error("No EIP-1193 wallet installed");
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        lifecycle.assert(ticket);
+        try {
+          await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x7a8c" }] });
+        } catch (e) {
+          if (e.code !== 4902) throw e;
+          await window.ethereum.request({ method: "wallet_addEthereumChain", params: [{
+            chainId: "0x7a8c", chainName: "Exchange Local", rpcUrls: [RPC],
+            nativeCurrency: { name: "Test ETH", symbol: "ETH", decimals: 18 },
+          }] });
+        }
+        lifecycle.assert(ticket);
+        p = new BrowserProvider(window.ethereum);
+        if (Number((await p.getNetwork()).chainId) !== 31372) throw Error("Wrong network");
+        s = await p.getSigner(); connectedAddress = await s.getAddress();
+        const [chain, accounts] = await Promise.all([
+          window.ethereum.request({ method: "eth_chainId" }), window.ethereum.request({ method: "eth_accounts" }),
+        ]);
+        if (Number(BigInt(chain)) !== 31372 || accounts[0]?.toLowerCase() !== connectedAddress.toLowerCase())
+          throw Error("Wallet changed during connection; reconnect explicitly");
+      } else {
+        if (!["localhost", "127.0.0.1"].includes(location.hostname) || !["0", "1", "2"].includes(choice))
+          throw Error("Devnet wallets only work on localhost with an explicit test account");
+        p = new JsonRpcProvider(RPC);
+        if (Number((await p.getNetwork()).chainId) !== 31372) throw Error("Wrong local chain");
+        lifecycle.assert(ticket);
+        s = HDNodeWallet.fromPhrase(MNEMONIC, undefined, `m/44'/60'/0'/0/${Number(choice)}`).connect(p);
+        connectedAddress = s.address;
       }
-      const p = new BrowserProvider(window.ethereum);
-      if (Number((await p.getNetwork()).chainId) !== 31372)
-        throw Error("Wrong network");
-      const s = await p.getSigner();
-      setProvider(p);
-      setSigner(s);
-      setAddress(await s.getAddress());
-    } else {
-      if (!["localhost", "127.0.0.1"].includes(location.hostname))
-        throw Error("Devnet wallets only work on localhost");
-      const p = new JsonRpcProvider(RPC);
-      if (Number((await p.getNetwork()).chainId) !== 31372)
-        throw Error("Wrong local chain");
-      const s = HDNodeWallet.fromPhrase(
-        MNEMONIC,
-        undefined,
-        `m/44'/60'/0'/0/${Number(choice)}`,
-      ).connect(p);
-      setProvider(p);
-      setSigner(s);
-      setAddress(s.address);
+      lifecycle.assert(ticket);
+      connectionRef.current = { choice, signer: s, address: connectedAddress };
+      lifecycle.activate(ticket, choice);
+      setProvider(p); setSigner(s); setAddress(connectedAddress); setAccount(choice);
+    } catch (e) {
+      if (lifecycle.current(ticket)) setError(e.shortMessage || e.message);
+    } finally {
+      if (lifecycle.current(ticket)) setBusy("");
     }
-    setAccount(choice);
   }
   async function signIn() {
     if (!signer) throw Error("Connect a wallet");
-    const c = await api("auth/nonce", {}),
-      message = new SiweMessage({
-        domain: c.domain,
-        address,
-        statement:
-          "Sign in to Exchange comments and private proof jobs. This does not authorize token spending.",
-        uri: c.uri,
-        version: "1",
-        chainId: 31372,
-        nonce: c.nonce,
-      });
-    const signature = await signer.signMessage(message.prepareMessage()),
-      s = await api("auth/verify", {
-        message: message.prepareMessage(),
-        signature,
-      });
-    setSession(s);
-    return s;
+    const signed = await authenticateWallet({
+      lifecycle, ticket: renderTicket, signer, address,
+      nonce: () => api("auth/nonce", {}),
+      verify: (message, signature) => api("auth/verify", { message, signature }),
+      revoke: revokeSession,
+      makeMessage: c => new SiweMessage({ domain: c.domain, address,
+        statement: "Sign in to Exchange comments and private proof jobs. This does not authorize token spending.",
+        uri: c.uri, version: "1", chainId: 31372, nonce: c.nonce }).prepareMessage(),
+    });
+    lifecycle.assert(renderTicket);
+    sessionRef.current = signed; setSession(signed);
+    return signed;
   }
   const props = {
     sdk,
@@ -264,9 +281,7 @@ function App() {
           <select
             aria-label="Connect wallet"
             value={account}
-            onChange={(e) =>
-              run("Connect wallet", () => connect(e.target.value))
-            }
+            onChange={(e) => connect(e.target.value)}
           >
             <option value="">
               {address ? "Disconnect" : "Connect wallet"}
@@ -276,6 +291,7 @@ function App() {
             <option value="1">Devnet · Bob</option>
             <option value="2">Devnet · Carol</option>
           </select>
+          {session && <Button secondary onClick={() => clearIdentity({ keepWallet: true })}>Log out of SIWE</Button>}
           {address && (
             <button
               className="profile-chip"
@@ -326,7 +342,7 @@ function App() {
             </small>
           </div>
         </aside>
-        <main>
+        <main key={walletEpoch}>
           <div className="environment">
             <span>LOCAL TEST NETWORK</span>Public devnet keys hold test funds
             only.
@@ -503,6 +519,7 @@ function App() {
             <Research
               {...props}
               onImport={(p) => {
+                if (!lifecycle.current(renderTicket)) return;
                 setDraft(p || null);
                 setModal(true);
               }}
@@ -530,6 +547,7 @@ function App() {
       )}
       {modal && (
         <CreateMarket
+          key={walletEpoch}
           {...props}
           initialDraft={draft}
           onClose={() => {
@@ -540,6 +558,7 @@ function App() {
       )}
       {profileAddress && (
         <ProfileModal
+          key={walletEpoch}
           address={profileAddress}
           currentAddress={address}
           error={error}
@@ -1112,13 +1131,17 @@ function useProofJob({ session, signIn, address }) {
     return () => { generation.current++; clearTimeout(timer.current); };
   }, [address]);
   async function start(input) {
+    assertWebJobAction(input.action);
     const current = ++generation.current;
     clearTimeout(timer.current);
     let signed = session && session.address.toLowerCase() === address?.toLowerCase() ? session : await signIn(), j;
+    if (generation.current !== current) throw Error("Proof form changed before job submission");
     try { j = await api("proof/jobs", input, signed.token); }
     catch (e) {
       if (e.status !== 401) throw e;
-      signed = await signIn(); j = await api("proof/jobs", input, signed.token);
+      signed = await signIn();
+      if (generation.current !== current) throw Error("Proof form changed before job retry");
+      j = await api("proof/jobs", input, signed.token);
     }
     if (generation.current !== current) return j;
     jobToken.current = signed.token;
@@ -1203,22 +1226,24 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
   return (
     <div className="panel proof-panel">
       <div className="section-head">
-        <h3>Lean → zk → onchain</h3>
+        <h3>External certificate → onchain</h3>
         <span className="tag">{short(m.profile)}</span>
       </div>
       <p className="note">
-        Compilation, certificate generation and final settlement are separate
-        steps. An accepted Lean check alone cannot settle this market.
+        Prepare your certificate externally, then load and verify it here before
+        submitting the settlement transaction. The website does not generate or
+        order certificates. An optional Lean check cannot settle this market.
       </p>
-      <p className="note">{selectedProfile?.label || short(m.profile)} · {selectedProfile?.localRunner ? "Local Lean runner available; external CI certificates also accepted." : "External certificate profile. Local proving is unavailable for this image."}</p>
-      {selectedProfile?.id === "perf05" && m.goal.toLowerCase() === "0x2baf8be8fc5ecd150cd5b5086b52c4f2591d407093d4f6b77f767afc1c113f4b" && <Button secondary disabled={busy || outcome !== 1} onClick={() => run("Load published YES certificate", async () => {
-        const artifact = await api("proof/certificates/perf05/true-proof");
-        setCertificate(""); setImportStatus("");
-        setExternalJSON(JSON.stringify(artifact, null, 2));
-      })}>Load published YES certificate · CI4</Button>}
+      <p className="note">{selectedProfile?.label || short(m.profile)} · {selectedProfile?.localRunner ? "Optional local Lean checking is available. Certificates are prepared externally." : "External certificate profile; this local checker does not support its image."}</p>
+      <div className="button-row">{publishedChoices({ profileId: m.profile, goalHash: m.goal, outcome }).map(choice =>
+        <Button key={choice.id} secondary disabled={!!busy} onClick={() => {
+          importGuard.current.invalidate(); setCertificate(""); setImportStatus("");
+          setExternalJSON(JSON.stringify(loadPublishedCertificate(choice.id, { profileId: m.profile, goalHash: m.goal, outcome }), null, 2));
+        }}>Load published {choice.label}</Button>)}</div>
+      <p className="note">Loading only fills the JSON field. Verify it below, then submit separately.</p>
       <div className="input-row">
         <label className="field">
-          <span>PROVE WHICH OUTCOME</span>
+          <span>CERTIFICATE OUTCOME</span>
           <select
             value={outcome}
             onChange={(e) => {
@@ -1277,6 +1302,7 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
               const ticket = importGuard.current.begin();
               setCertificate(""); setImportStatus("");
               const text = await file.text();
+              if (!importGuard.current.current(ticket)) throw Error("Proof form changed while reading the file; import again");
               if (file.name.endsWith(".json")) {
                 await verifyImportedProof(JSON.parse(text), ticket);
               } else {
@@ -1290,7 +1316,7 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
       </label>
       <label className="field">
         <span>OR PASTE EXTERNAL CI PROOF JSON</span>
-        <textarea value={externalJSON} onChange={e => setExternalJSON(e.target.value)} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
+        <textarea value={externalJSON} onChange={e => { importGuard.current.invalidate(); setExternalJSON(e.target.value); setCertificate(""); setImportStatus(""); }} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
       </label>
       <Button secondary disabled={busy || !externalJSON || externalJSON.length > 128 * 1024} onClick={() => run("Verify pasted external proof certificate", () => verifyImportedProof(JSON.parse(externalJSON)))}>Verify pasted proof certificate</Button>
       <textarea
@@ -1303,32 +1329,10 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
         placeholder="Paste the Lean solution for this exact goal…"
       />
       <div className="button-row">
-        {[
-          ["check", "1 · Check Lean"],
-          ["prove", "2 · Generate certificate"],
-        ].map(([action, label]) => (
-          <Button
-            secondary
-            key={action}
-            disabled={busy || job?.status === "Running" || !selectedProfile?.localRunner}
-            onClick={() =>
-              run(label, () =>
-                start({
-                  action,
-                  source,
-                  statementId: m.id,
-                  goalHash: m.goal,
-                  profileId: m.profile,
-                  outcome,
-                  fixtureId: fixture,
-                  targetDeclaration: target,
-                }),
-              )
-            }
-          >
-            {label}
-          </Button>
-        ))}
+        <Button secondary disabled={!!busy || !source || job?.status === "Running" || !selectedProfile?.localRunner}
+          onClick={() => run("Check Lean only", () => start({ action: "check", source,
+            statementId: m.id, goalHash: m.goal, profileId: m.profile, outcome,
+            fixtureId: fixture, targetDeclaration: target }))}>Check Lean only</Button>
       </div>
       {job && (
         <div className="job">
@@ -1372,12 +1376,15 @@ function ProofLab({ m, sdk, run, busy, session, signIn, address }) {
       />
       {importStatus && <p className="note" role="status">{importStatus}</p>}
       <Button
-        disabled={busy || !certificate || m.outcome > 0}
+        disabled={busy || !certificateClaimMatches(certificate, {goalHash: m.goal, profileId: m.profile, outcome}) || m.outcome > 0}
         onClick={() =>
-          run("Submit certificate", () => sdk.resolve(m, outcome, certificate))
+          run("Submit external certificate", () => {
+            assertCertificateClaim(certificate, {goalHash: m.goal, profileId: m.profile, outcome});
+            return sdk.resolve(m, outcome, certificate);
+          })
         }
       >
-        3 · Submit proof onchain
+        Submit external proof onchain
       </Button>
     </div>
   );
@@ -1417,6 +1424,9 @@ function CreateMarket({
     [profiles, setProfiles] = useState([]),
     [importStatus, setImportStatus] = useState(""),
     [externalJSON, setExternalJSON] = useState("");
+  const registrationGuard = useRef(createProofImportGuard());
+  registrationGuard.current.select(JSON.stringify([kind, profile, source, goal, fixture, target, address, externalJSON]), sdk);
+  useEffect(() => () => registrationGuard.current.invalidate(), []);
   async function refreshProfiles() {
     const catalog = await api("proof/catalog");
     setProfiles(catalog.profiles);
@@ -1459,10 +1469,13 @@ function CreateMarket({
   async function upload(file) {
     if (!file) return;
     if (file.size > 1024 * 1024) throw Error("Package exceeds 1 MB");
+    const ticket = registrationGuard.current.begin();
+    setCertificate(""); setImportStatus("");
     const text = await file.text();
+    if (!registrationGuard.current.current(ticket)) throw Error("Registration form changed while reading the package; import again");
     if (file.name.endsWith(".json")) {
       const p = JSON.parse(text);
-      if (p.format === "oncm-real-groth16-ci-v1") return importCertificate(p);
+      if (p.format === "oncm-real-groth16-ci-v1") return importCertificate(p, ticket);
       setPackageDraft(p);
       setFixture(p.fixtureId || "");
       setSource(p.source || p.leanSource || "");
@@ -1481,12 +1494,14 @@ function CreateMarket({
       if (!title) setTitle(file.name.replace(".lean", ""));
     }
   }
-  async function importCertificate(artifact) {
+  async function importCertificate(artifact, ticket = registrationGuard.current.begin()) {
+    if (!registrationGuard.current.current(ticket)) throw Error("Registration form changed; import again");
     setCertificate(""); setImportStatus("");
     const catalog = await refreshProfiles();
     const candidate = catalog.profiles.find(p => p.profileId.toLowerCase() === artifact.profileId?.toLowerCase());
     const result = await sdk.verifyExternalCertificate(artifact, candidate, { outcome: 0 });
     const f = fixtureForCertificate(catalog.fixtures, result);
+    if (!registrationGuard.current.current(ticket)) throw Error("Registration form or wallet changed during verification; import again");
     setKind(0); setSource(f.source); setTitle(f.title); setDescription(f.description);
     setGoal(f.goalHash); setProfile(f.profileId); setFixture(f.id); setTarget(f.targetDeclaration);
     setPackageDraft({ ...f, fixtureId: f.id, externalCertificate: artifact });
@@ -1541,12 +1556,14 @@ function CreateMarket({
                 {profiles.map(p => <option key={p.profileId} value={p.profileId}>{p.label} · {p.installed && p.newEnabled ? "enabled" : "awaiting governance"}</option>)}
               </select>
             </label>
-            <p className="note">{selectedProfile?.localRunner ? "This image supports the local Lean runner and external certificates." : "This separate logic profile accepts external CI certificates. It does not replace v3."}</p>
+            <p className="note">{selectedProfile?.localRunner ? "Optional Lean checking is available. Bring an externally prepared registration certificate; this website does not generate one." : "Bring an external registration certificate for this separate logic profile. It does not replace v3."}</p>
             <Button secondary disabled={busy} onClick={() => run("Refresh proof profile availability", refreshProfiles)}>Refresh onchain availability</Button>
-            {selectedProfile?.id === "perf05" && <Button secondary disabled={busy} onClick={() => run("Download successful CI registration certificate", async () => {
-              const artifact = await api("proof/certificates/perf05/true-registration");
-              download(new Blob([JSON.stringify(artifact, null, 2)], {type: "application/json"}), "perf05-true-registration.json");
-            })}>Download real CI registration certificate</Button>}
+            <div className="button-row">{publishedChoices({ profileId: profile, registration: true }).map(choice =>
+              <Button key={choice.id} secondary disabled={!!busy} onClick={() => {
+                registrationGuard.current.invalidate(); setCertificate(""); setImportStatus("");
+                setExternalJSON(JSON.stringify(loadPublishedCertificate(choice.id, { profileId: profile, registration: true }), null, 2));
+              }}>Load published {choice.label}</Button>)}</div>
+            <p className="note">Loading fills JSON only. Verify below to load its exact goal package, then register through your wallet.</p>
             {fixtures.filter(f => f.profileId.toLowerCase() === profile.toLowerCase()).map((f) => (
               <button
                 className="fixture-card"
@@ -1576,13 +1593,15 @@ function CreateMarket({
                 e.target.value = "";
                 if (file) run("Verify external registration certificate", async () => {
                   if (file.size > 128 * 1024) throw Error("Certificate exceeds 128 KB");
-                  await importCertificate(JSON.parse(await file.text()));
+                  const ticket = registrationGuard.current.begin();
+                  setCertificate(""); setImportStatus("");
+                  await importCertificate(JSON.parse(await file.text()), ticket);
                 });
               }} />
             </label>
             <label className="field">
               <span>OR PASTE EXTERNAL CI REGISTRATION JSON</span>
-              <textarea value={externalJSON} onChange={e => setExternalJSON(e.target.value)} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
+              <textarea value={externalJSON} onChange={e => { registrationGuard.current.invalidate(); setExternalJSON(e.target.value); setCertificate(""); setImportStatus(""); }} placeholder='{"format":"oncm-real-groth16-ci-v1",…}' />
             </label>
             <Button secondary disabled={busy || !externalJSON || externalJSON.length > 128 * 1024} onClick={() => run("Verify pasted registration certificate", () => importCertificate(JSON.parse(externalJSON)))}>Verify pasted registration certificate</Button>
             {importStatus && <p className="note" role="status">{importStatus}</p>}
@@ -1642,26 +1661,6 @@ function CreateMarket({
               }
             >
               Check Lean only
-            </Button>
-            <Button
-              secondary
-              disabled={busy || job?.status === "Running" || !selectedProfile?.localRunner}
-              onClick={() =>
-                run("Submit registration job", () =>
-                  start({
-                    action: "register",
-                    source,
-                    packageId: packageDraft?.id,
-                    goalHash: goal || undefined,
-                    profileId: profile,
-                    fixtureId: fixture,
-                    targetDeclaration: target,
-                  }),
-                  "Registration job submitted; no certificate has been generated yet",
-                )
-              }
-            >
-              Verify goal & generate registration certificate
             </Button>
             {job && (
               <div className="job">
@@ -1781,10 +1780,11 @@ function CreateMarket({
           </Button>
           <Button
             disabled={
-              busy || !sdk?.signer || !title || (kind === 0 && (!certificate || !selectedProfile?.installed || !selectedProfile?.newEnabled))
+              busy || !sdk?.signer || !title || (kind === 0 && (!certificateClaimMatches(certificate, {goalHash: goal, profileId: profile, outcome: 0}) || !selectedProfile?.installed || !selectedProfile?.newEnabled))
             }
             onClick={() =>
               run("Create market", async () => {
+                if (kind === 0) assertCertificateClaim(certificate, {goalHash: goal, profileId: profile, outcome: 0});
                 let packageId;
                 if (source) {
                   const p = await api("packages", {
@@ -2410,255 +2410,136 @@ function Heading({ eyebrow, title, text, children }) {
   );
 }
 function Governance({ sdk, address, run, busy, deployment }) {
-  const [items, setItems] = useState([]),
-    [votes, setVotes] = useState("0"),
+  const [snapshot, setSnapshot] = useState(null), [viewError, setViewError] = useState(""),
     [description, setDescription] = useState(""),
     [target, setTarget] = useState(deployment?.contracts.protocol || ""),
-    [calldata, setCalldata] = useState(""),
-    [profileId, setProfileId] = useState(""),
-    [verifier, setVerifier] = useState(""),
-    [manifest, setManifest] = useState(""),
+    [calldata, setCalldata] = useState(""), [profileId, setProfileId] = useState(""),
+    [verifier, setVerifier] = useState(""), [manifest, setManifest] = useState(""),
     [proposalKind, setProposalKind] = useState("profile");
+  const request = useRef(0);
   async function refresh() {
-    setItems(await api("governance"));
-    if (address && sdk)
-      setVotes(String(await sdk.contract("token").getVotes(address)));
+    const ticket = ++request.current;
+    if (!sdk) return;
+    try {
+      const next = await sdk.governanceSnapshot(address);
+      sdk.assertCurrent?.();
+      if (request.current === ticket) { setSnapshot(next); setViewError(""); }
+    } catch (e) {
+      if (request.current === ticket) { setSnapshot(null); setViewError(e.shortMessage || e.message); }
+    }
   }
   useEffect(() => {
-    refresh();
-    const i = setInterval(refresh, 6000);
-    return () => clearInterval(i);
+    setSnapshot(null); refresh();
+    const interval = setInterval(refresh, 6000);
+    return () => { request.current++; clearInterval(interval); };
   }, [sdk, address]);
+  const items = snapshot?.proposals || [];
+  async function proposalAction(p, action, support) {
+    const fresh = await sdk.governanceSnapshot(address);
+    const current = fresh.proposals.find(x => x.id === p.id);
+    if (!current?.actions[action]?.available) throw Error(current?.actions[action]?.reason || "Proposal is no longer actionable");
+    sdk.assertCurrent?.();
+    if (action === "vote") await sdk.vote(p.id, support);
+    else if (action === "cancel") await sdk.cancelProposal(current);
+    else await sdk[action](current);
+    await refresh();
+  }
+  async function advance(blocks, seconds = 0) {
+    if (![1, 14].includes(blocks) || !Number.isSafeInteger(seconds) || seconds < 0 || seconds > 86400)
+      throw Error("Invalid bounded local clock step");
+    if (!sdk || Number((await sdk.provider.getNetwork()).chainId) !== 31372)
+      throw Error("Clock controls require actual local chain 31372");
+    sdk.assertCurrent?.();
+    await api("devnet/advance", { blocks, seconds });
+    await refresh();
+  }
   return (
     <>
-      <Heading
-        eyebrow="OPENZEPPELIN GOVERNOR + TIMELOCK"
-        title="Governance"
-        text="Propose exact calls. Vote with delegated T. Execute after the timelock."
-      />
+      <Heading eyebrow="OPENZEPPELIN GOVERNOR + TIMELOCK" title="Governance"
+        text="Review exact calls, historical T voting power and the current Timelock state." />
+      {viewError && <div className="alert">Governance snapshot unavailable: {viewError}</div>}
       <div className="panel">
-        <div className="section-head">
-          <div>
-            <h3>Your voting power · {fmt(votes)} T</h3>
-            <p className="note">
-              Only delegated liquid T votes. T deposited into CTF or an AMM
-              belongs to those contracts.
-            </p>
-          </div>
-          <Button
-            secondary
-            disabled={!address || busy}
-            onClick={() =>
-              run("Delegate votes", async () => {
-                await sdk.delegate();
-                refresh();
-              })
-            }
-          >
-            Delegate to myself
-          </Button>
-        </div>
+        <div className="section-head"><div>
+          <h3>Your current delegated power · {snapshot ? fmt(snapshot.currentVotes) : "…"} T</h3>
+          <p className="note">Escrowed T in CTF or pools does not vote for its original holder. Proposal eligibility uses the previous checkpoint, and voting uses each proposal's historical snapshot.</p>
+          {snapshot && <p className="note">Observed block #{snapshot.blockNumber} · {new Date(snapshot.blockTimestamp * 1000).toISOString()}<br />
+            Clock: {snapshot.clockMode} · voting delay {snapshot.votingDelay} / period {snapshot.votingPeriod}<br />
+            Quorum {snapshot.quorumNumerator}/{snapshot.quorumDenominator} · proposer threshold {fmt(snapshot.proposalThreshold)} T · your proposer checkpoint {fmt(snapshot.proposerVotes)} T<br />
+            Timelock <code>{snapshot.timelock}</code> · delay {snapshot.timelockDelay}s · balance {fmt(snapshot.timelockBalance)} ETH</p>}
+        </div><Button secondary disabled={!address || !!busy || !snapshot}
+          onClick={() => run("Delegate votes", async () => { await sdk.delegate(); await refresh(); })}>Delegate to myself</Button></div>
       </div>
       <div className="two-columns">
-        <div className="panel">
-          <h3>Register an immutable version</h3>
-          <label className="field">
-            <span>VERSIONED COMPONENT</span>
-            <select
-              value={proposalKind}
-              onChange={(e) => {
-                setProposalKind(e.target.value);
-                if (e.target.value === "operator") {
-                  setProfileId(keccak256(toUtf8Bytes("UNRESOLVED_BY_V1")));
-                  setVerifier(deployment.contracts.operatorSample);
-                  setManifest(
-                    "UnresolvedByV1: ABI(bytes32 dependency,uint64 inclusiveDeadline)",
-                  );
-                }
-              }}
-            >
-              <option value="profile">Lean proof profile</option>
-              <option value="operator">Statement operator</option>
-            </select>
-          </label>
-          <Field
-            label="New immutable profile / operator ID"
-            value={profileId}
-            onChange={setProfileId}
-          />
-          <Field
-            label="Verifier / operator adapter address"
-            value={verifier}
-            onChange={setVerifier}
-          />
-          <Field
-            label="Manifest URI / commitment description"
-            value={manifest}
-            onChange={setManifest}
-          />
-          <Button
-            secondary
-            onClick={() =>
-              run("Encode profile proposal", async () => {
-                setTarget(deployment.contracts.protocol);
-                setCalldata(
-                  sdk
-                    .contract("protocol")
-                    .interface.encodeFunctionData(
-                      proposalKind === "operator"
-                        ? "addOperator"
-                        : "addProfile",
-                      [profileId, verifier, manifest],
-                    ),
-                );
-                setDescription("Register " + proposalKind + " " + profileId);
-              })
+        <div className="panel"><h3>Register an immutable version</h3>
+          <label className="field"><span>VERSIONED COMPONENT</span><select value={proposalKind} onChange={e => {
+            setProposalKind(e.target.value);
+            if (e.target.value === "operator") {
+              setProfileId(keccak256(toUtf8Bytes("UNRESOLVED_BY_V1")));
+              setVerifier(deployment.contracts.operatorSample);
+              setManifest("UnresolvedByV1: ABI(bytes32 dependency,uint64 inclusiveDeadline)");
             }
-          >
-            Encode exact registration call
-          </Button>
+          }}><option value="profile">Lean proof profile</option><option value="operator">Statement operator</option></select></label>
+          <Field label="New immutable profile / operator ID" value={profileId} onChange={setProfileId} />
+          <Field label="Verifier / operator adapter address" value={verifier} onChange={setVerifier} />
+          <Field label="Manifest URI / commitment description" value={manifest} onChange={setManifest} />
+          <Button secondary disabled={!sdk || !!busy} onClick={() => run("Encode profile proposal", async () => {
+            setTarget(deployment.contracts.protocol);
+            setCalldata(sdk.contract("protocol").interface.encodeFunctionData(proposalKind === "operator" ? "addOperator" : "addProfile", [profileId, verifier, manifest]));
+            setDescription("Register " + proposalKind + " " + profileId);
+          })}>Encode exact registration call</Button>
         </div>
-        <div className="panel">
-          <h3>Submit an exact transaction</h3>
+        <div className="panel"><h3>Submit an exact transaction</h3>
           <Field label="Target contract" value={target} onChange={setTarget} />
           <Field label="Calldata" value={calldata} onChange={setCalldata} />
-          <Field
-            label="Proposal description"
-            value={description}
-            onChange={setDescription}
-          />
-          <Button
-            disabled={!address || busy || !calldata || !description}
-            onClick={() =>
-              run("Propose governance action", async () => {
-                await sdk.propose([target], [0], [calldata], description);
-                refresh();
-              })
-            }
-          >
-            Create proposal
-          </Button>
+          <Field label="Proposal description" value={description} onChange={setDescription} />
+          <p className="note">This composer submits one call with value 0 wei. SDK-created batches are reviewed below with all ordered values; execution sends 0 additional ETH.</p>
+          <Button disabled={!!busy || !snapshot?.canPropose || !calldata || !description} onClick={() => run("Propose governance action", async () => {
+            const current = await sdk.governanceSnapshot(address);
+            if (!current.canPropose) throw Error("Current historical proposer weight is below the threshold");
+            await sdk.propose([target], [0], [calldata], description); await refresh();
+          })}>Create proposal</Button>
         </div>
       </div>
-      <div className="panel">
-        <h3>Local chain clock</h3>
-        <p className="note">
-          This local chain produces blocks on transactions. Advance blocks to
-          reach the voting deadline and seconds for the timelock. These explicit
-          controls are for chain 31372 test funds.
-        </p>
+      <div className="panel"><h3>Local chain clock</h3>
+        <p className="note">Chain 31372 produces blocks on transactions. Use one block to enter Active before voting. A 14-block jump can pass the entire voting period.</p>
         <div className="button-row">
-          <Button
-            secondary
-            onClick={() =>
-              run("Mine voting blocks", async () => {
-                await api("devnet/advance", { blocks: 14 });
-                refresh();
-              })
-            }
-          >
-            Mine 14 blocks
-          </Button>
-          <Button
-            secondary
-            onClick={() =>
-              run("Advance local timelock", async () => {
-                await api("devnet/advance", { blocks: 1, seconds: 11 });
-                refresh();
-              })
-            }
-          >
-            Advance 11 seconds
-          </Button>
+          <Button secondary disabled={!!busy || !snapshot} onClick={() => run("Mine one local block", () => advance(1))}>Mine 1 block</Button>
+          <Button secondary disabled={!!busy || !snapshot} onClick={() => run("Mine voting blocks", () => advance(14))}>Mine 14 blocks</Button>
+          <Button secondary disabled={!!busy || !snapshot} onClick={() => run("Advance local timelock", () => advance(1, Number(snapshot.timelockDelay) + 1))}>Advance timelock delay + 1s</Button>
         </div>
       </div>
-      <div className="section-label">ONCHAIN PROPOSALS</div>
-      {items.map((p) => (
-        <div key={p.id} className="panel proposal">
-          <div className="section-head">
-            <h3>{p.description}</h3>
-            <span className="tag">{govStates[p.state]}</span>
-          </div>
-          <div className="proposal-details">
-            <span>
-              Snapshot #{p.snapshot} → deadline #{p.deadline}
-            </span>
-            <span>
-              For {fmt(p.votes[1])} · Against {fmt(p.votes[0])} · Abstain{" "}
-              {fmt(p.votes[2])}
-            </span>
-          </div>
-          <details>
-            <summary>Inspect exact targets & calldata</summary>
-            <pre>
-              {JSON.stringify(
-                {
-                  id: p.id,
-                  targets: p.targets,
-                  values: p.values,
-                  calldatas: p.calldatas,
-                },
-                null,
-                2,
-              )}
-            </pre>
-          </details>
-          <div className="button-row">
-            {p.state === 1 &&
-              [
-                ["For", 1],
-                ["Against", 0],
-                ["Abstain", 2],
-              ].map(([l, v]) => (
-                <Button
-                  key={l}
-                  secondary
-                  disabled={busy}
-                  onClick={() =>
-                    run("Cast vote", async () => {
-                      await sdk.vote(p.id, v);
-                      refresh();
-                    })
-                  }
-                >
-                  {l}
-                </Button>
-              ))}
-            {p.state === 4 && (
-              <Button
-                onClick={() =>
-                  run("Queue timelock", async () => {
-                    await sdk.queue(p);
-                    refresh();
-                  })
-                }
-              >
-                Queue proposal
-              </Button>
-            )}
-            {p.state === 5 && (
-              <Button
-                onClick={() =>
-                  run("Execute timelock", async () => {
-                    await sdk.execute(p);
-                    refresh();
-                  })
-                }
-              >
-                Execute after delay
-              </Button>
-            )}
-          </div>
+      <div className="section-label">ONCHAIN PROPOSALS · {snapshot ? `BLOCK ${snapshot.blockNumber}` : "LOADING"}</div>
+      {items.map(p => <div key={p.id} className="panel proposal">
+        <div className="section-head"><h3>{p.description}</h3><span className="tag">{p.stateName}</span></div>
+        <div className="proposal-details">
+          <span>Snapshot #{p.snapshot} → deadline #{p.deadline}</span>
+          <span>For {fmt(p.votes[1])} · Against {fmt(p.votes[0])} · Abstain {fmt(p.votes[2])}</span>
+          <span>Quorum: {p.quorum === null ? "not available before historical snapshot" : `${fmt(p.quorumVotes)} / ${fmt(p.quorum)} T · ${p.quorumReached ? "reached" : "not reached"}`} (For + Abstain)</span>
+          <span>Your historical power: {p.snapshotVotes === null ? "not yet available" : fmt(p.snapshotVotes) + " T"} · {p.hasVoted ? "Already voted" : "Not voted"}</span>
+          <span>ETA: {p.eta === "0" ? "not queued" : new Date(Number(p.eta) * 1000).toISOString()} · observed chain time {new Date(snapshot.blockTimestamp * 1000).toISOString()}</span>
         </div>
-      ))}
-      {!items.length && (
-        <div className="empty">
-          No proposals yet. All decisions are recorded onchain.
+        <details><summary>Inspect exact targets, values & calldata</summary><pre>{JSON.stringify({ id: p.id, proposer: p.proposer, descriptionHash: p.descriptionHash,
+          targets: p.targets, values: p.values, calldatas: p.calldatas, calls: p.calls }, null, 2)}</pre></details>
+        <p className="note">Total call value {p.totalValue} wei. Full action preflight uses your address and the same observation block; the chain rechecks it at execution.</p>
+        <div className="button-row">
+          {p.state === 1 && [["For", 1], ["Against", 0], ["Abstain", 2]].map(([label, support]) => <Button key={label} secondary
+            disabled={!!busy || !p.actions.vote.available} title={p.actions.vote.reason}
+            onClick={() => run("Cast vote", () => proposalAction(p, "vote", support))}>{label}</Button>)}
+          {p.state === 4 && <Button disabled={!!busy || !p.actions.queue.available} title={p.actions.queue.reason}
+            onClick={() => run("Queue timelock", () => proposalAction(p, "queue"))}>Queue proposal</Button>}
+          {p.state === 5 && <Button disabled={!!busy || !p.actions.execute.available} title={p.actions.execute.reason}
+            onClick={() => run("Execute timelock", () => proposalAction(p, "execute"))}>Execute after delay</Button>}
+          {p.state === 0 && <Button secondary disabled={!!busy || !p.actions.cancel.available} title={p.actions.cancel.reason}
+            onClick={() => run("Cancel pending proposal", () => proposalAction(p, "cancel"))}>Cancel pending proposal</Button>}
         </div>
-      )}
+        {[[1, "vote"], [4, "queue"], [5, "execute"], [0, "cancel"]].filter(([state]) => state === p.state).map(([, action]) =>
+          !p.actions[action].available && <p className="note" key={action}>{p.actions[action].reason}</p>)}
+      </div>)}
+      {snapshot && !items.length && <div className="empty">No proposals yet. All decisions are recorded onchain.</div>}
     </>
   );
 }
+
 function Fees({ sdk, address, markets, run, busy, deployment }) {
   const [epochs, setEpochs] = useState([]),
     [proposals, setProposals] = useState([]),

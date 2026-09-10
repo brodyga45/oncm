@@ -22,8 +22,9 @@
 
 <article class="panel">
   <div class="eyebrow">EXTERNAL REAL PROOF · NO LOCAL PROVING</div>
-  <h2>Импорт сертификата и отдельный профиль</h2>
-  <p>verified.json проверяется заново через исходный RISC Zero verifier на текущей цепи.
+  <h2>Готовые внешние сертификаты</h2>
+  <p>Подготовьте сертификат вне сайта или выберите опубликованный пример ниже.
+    verified.json проверяется заново через исходный RISC Zero verifier на текущей цепи.
     Импорт не включает профиль и не отправляет транзакцию.</p>
   <label>Ожидаемый профиль<select value={selected} onchange={event => importer.setProfile(event.currentTarget.value)}>
     {#each catalog as item}<option value={item.descriptor.tag}>{item.descriptor.label}</option>{/each}

@@ -8,6 +8,7 @@ import {
   toUtf8Bytes,
 } from "ethers";
 import { verifyExternalCertificate } from "./proof-import.mjs";
+import { readGovernance } from "./governance.mjs";
 export { decodeExternalCertificate, fixtureForCertificate } from "./proof-import.mjs";
 export { parseEther, formatEther };
 export class ExchangeSDK {
@@ -45,8 +46,10 @@ export class ExchangeSDK {
     );
   }
   async guard() {
+    this.assertCurrent?.();
     if (Number((await this.provider.getNetwork()).chainId) !== 31372)
       throw Error("Wrong network: Exchange requires local chain 31372");
+    this.assertCurrent?.();
     if (!this.signer) throw Error("Connect a wallet");
   }
   async tx(label, promise) {
@@ -416,6 +419,18 @@ export class ExchangeSDK {
     return this.tx("Delegate T voting power", async () =>
       this.contract("token").delegate(await this.signer.getAddress()),
     );
+  }
+  governanceSnapshot(account = "") {
+    return readGovernance({ provider: this.provider, config: this.deployment, abis: this.abis,
+      governor: this.contract("governor").connect(this.provider),
+      token: this.contract("token").connect(this.provider),
+      timelockAt: address => new Contract(address, this.abis.TimelockController, this.provider),
+    }, account);
+  }
+  async cancelProposal(p) {
+    return this.tx("Cancel pending proposal", () => this.contract("governor").cancel(
+      p.targets, p.values, p.calldatas, keccak256(toUtf8Bytes(p.description)),
+    ));
   }
   async propose(targets, values, calldatas, description) {
     return this.tx("Create governance proposal", async () =>

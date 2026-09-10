@@ -3,6 +3,19 @@ import { AbiCoder, Contract, ZeroAddress, ZeroHash, concat, isHexString, sha256,
 const abi = AbiCoder.defaultAbiCoder();
 export const PROOF_DOMAIN = sha256(toUtf8Bytes("ONCM_LEAN_CLAIM_V1"));
 export const PROOF_SELECTOR = "0x73c457ba";
+// Claim-shape validation for manually supplied bytes. No cryptographic acceptance
+// is implied; Registry/bridge still verifies the actual certificate on submission.
+export function assertCertificateClaim(certificate, { goalHash, profileId, outcome }) {
+  const [seal, journal] = abi.decode(['bytes', 'bytes'], certificate);
+  requireThat(abi.encode(['bytes', 'bytes'], [seal, journal]).toLowerCase() === certificate.toLowerCase(), 'Noncanonical certificate ABI');
+  requireThat(isHexString(seal, 260) && seal.toLowerCase().startsWith(PROOF_SELECTOR), 'Wrong original seal type');
+  const expected = abi.encode(['bytes32', 'bytes32', 'bytes32', 'uint256'], [PROOF_DOMAIN, goalHash, profileId, outcome]);
+  requireThat(journal.toLowerCase() === expected.toLowerCase(), 'Certificate does not bind this goal, profile and outcome');
+  return true;
+}
+export function certificateClaimMatches(certificate, binding) {
+  try { return !!certificate && assertCertificateClaim(certificate, binding); } catch { return false; }
+}
 export const BRIDGE_ABI = [
   "function imageId() view returns(bytes32)",
   "function profileId() view returns(bytes32)",

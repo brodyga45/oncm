@@ -7,6 +7,10 @@ Svelte-интерфейс управления капиталом: просто�
 Проверить конкретные Vault/factory/controller версии/права; нельзя заменить Balancer собственной constant-product формулой с таким названием. Остальные детали разрешено выбирать самостоятельно и фиксировать здесь. Реальный proof adapter отделён от mock harness; mock не завершает Lean/zk сценарий.
 
 
+## Текущая граница веба
+
+Веб выполняет native-проверку Lean и работает с сертификатами, подготовленными пользователем вне сайта: загрузка, original EVM verification, применение, регистрация и resolution. Вызовы создания/заказа ZK-сертификатов из интерфейса убраны; это будущая функция. CLI/API, исходные proof assets и история задач сохранены. Ни комментарии, ни экономические/управляющие контракты этим решением не меняются.
+
 ## Реализованная сборка
 
 - Собственный canonical Balancer V3 deployment с ProtocolFeeController global protocol share 0 и creator share 20% от swap fee. Vault/Extension/Admin/Factory/Router/WeightedPool — npm upstream 1.0.0 без исходных изменений. `viaIR`, solc 0.8.28, optimizer runs=1; EIP-170 limit включён.

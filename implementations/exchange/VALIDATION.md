@@ -112,3 +112,30 @@ JSON field. The user separately clicks **Verify pasted proof certificate** and
 **3 · Submit proof onchain**. Actual Governor installation, browser market
 creation, LP/trading and final settlement are separate root-owned browser QA;
 these read-only checks do not claim those scenarios have completed.
+# Governance and injected-wallet lifecycle correction — 2026-09-10
+
+This entry is code/targeted-test evidence. No browser action, RPC read or write, transaction, mining, API/chain restart, profile/deployment change or prover was performed for this correction. Coordinator-owned earlier market/governance receipts remain unchanged. Browser retesting of these new controls is still required.
+
+- `sdk/governance.mjs` reads original Governor/Timelock/token at one explicit block tag, including actual ETA, quorum, historical snapshot weight, current delegated weight, `hasVoted`, proposer threshold/checkpoint and settings. Future/current historical checkpoints remain unknown instead of being queried or displayed as zero. Quorum uses For + Abstain. `ProposalCreated` ordered targets/values/calldatas are checked against `hashProposal`, with ABI decoding only for known targets.
+- `web/main.jsx Governance` displays this SDK snapshot directly; the older API list is unchanged and is no longer the source of this page. Vote/queue/execute/pending-proposer-cancel availability includes a full original Governor `eth_call` from the selected wallet. Execute before ETA, a duplicate vote or missing snapshot weight has an explicit reason and disabled button. Action submission obtains another current snapshot. These views are UI preflight; actual contracts remain authoritative. Existing SDK batches are reviewed exactly; this composer and Execute send zero additional native ETH.
+- The existing devnet helper now has **Mine 1 block** alongside Mine 14. The UI explains that 14 may skip Active. Timelock advancement uses its actual configured delay + 1 second. The helper checks the actual provider chain is31372 and bounded integer steps before calling the unchanged local endpoint. No helper was invoked during this change.
+- `web/wallet-lifecycle.mjs` gives signer/SIWE/private forms/SDK continuations a generation. Injected `accountsChanged`, `chainChanged`, `disconnect`, explicit disconnection or SIWE logout revoke the old bearer token and clear private drafts/modal state, proof forms/tickets, transaction notifications and loading/errors. Logout retains the connected signer with a new generation. Injected changes require an explicit reconnect and never auto-sign. Intentionally switching chains while connecting is followed by exact final chain/account validation.
+- Late nonce/signature/verification replies cannot authenticate the old identity. A server session returned after logout is revoked, not installed. Old SDK calls fail before/after an awaited network check, preventing the next transaction leg after wallet change; an already broadcast transaction is not reversed. Remounting the private component subtree disposes existing proof-import/job generations, while local job history remains server-side. A late sign-in cannot start an old unmounted proof form's job. Normal unchanged deployment refresh now preserves SDK identity.
+
+Executed from this independent folder:
+
+```sh
+node --test tests/governance-review.test.mjs tests/wallet-lifecycle.test.mjs tests/proof-import-state.test.mjs
+```
+
+**19/19 PASS, 171.887ms.** Tests cover actual generated ABI method availability; same-block orchestration; unknown checkpoints; value/ordered payload binding; quorum/ETA/vote eligibility and rejected execution simulation; wrong-network refusal; wallet event cleanup; A→B→A/logout; delayed nonce/signature/SIWE response; mismatched principal revocation; and no SDK broadcast after identity changes during network lookup. Simulated views and signatures in these unit tests are explicitly not browser or onchain success claims.
+
+First bounded production build was stopped cleanly by the512MiB outer guard at567,018,456B after2.339s. Its report is `data/governance-wallet-build-resources.json`, reason `memory-limit`, exit125, no cleanup errors. This was a Vite build, not proof generation. One failure-driven retry bounded the V8 heap to256MiB with768MiB outer limit/30s:
+
+```sh
+python3 proof/resource-guard.py --memory-mib 768 --timeout 30 --report data/governance-wallet-build-retry-resources.json -- node --max-old-space-size=256 node_modules/vite/bin/vite.js build
+```
+
+**PASS:** Vite2.04s; measured tree499,047,232B (475.93MiB), guard2.340s, exit0, no cleanup errors. Existing SIWE chunk-size warning remains. Reports preserve both attempts. Expensive proving remains disabled; no local cryptographic workload was started.
+
+Next manual verification: reopen the real proposal and inspect historical votes/ETA/quorum; confirm Mine1 can enter Active, already-voted/too-early actions are unavailable; connect injected wallet, change account/network, reject or delay SIWE, log out/reconnect and check private forms remain cleared. Only the coordinator should perform any desired new governance transactions.
